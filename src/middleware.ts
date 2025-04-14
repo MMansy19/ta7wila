@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { i18nConfig } from './i18n-config'
 
 let locales = ['en', 'ar']
-let defaultLocale = 'ar'
+let defaultLocale = i18nConfig.defaultLocale
 
 export async function middleware(request: NextRequest) {
   console.log("middleware is running")
   const { pathname } = request.nextUrl
   const token = request.cookies.get("token")?.value
+  const userLocale = request.cookies.get("NEXT_LOCALE")?.value || defaultLocale
 
   // Skip middleware for static files and API routes
   if (
@@ -24,7 +25,7 @@ export async function middleware(request: NextRequest) {
   console.log(pathname)
   if (pathname.includes("/dashboard")) {
     if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url))
+      return NextResponse.redirect(new URL(`/${userLocale}/login`, request.url))
     }
 
     // Validate token by making a request to fetch user profile
@@ -40,29 +41,28 @@ export async function middleware(request: NextRequest) {
       // If the response is not ok, the token is invalid
       if (!response.ok) {
         // Clear cookies and redirect to login
-        const response = NextResponse.redirect(new URL("/login", request.url))
+        const response = NextResponse.redirect(new URL(`/${userLocale}/login`, request.url))
         response.cookies.delete("token")
         return response
       }
     } catch (error) {
       // If there's an error, clear cookies and redirect to login
-      const response = NextResponse.redirect(new URL("/login", request.url))
+      const response = NextResponse.redirect(new URL(`/${userLocale}/login`, request.url))
       response.cookies.delete("token")
       return response
     }
   }
 
-  // Always apply the default language 'ar' to all routes
   // Check if the path already has a locale
   const pathLocale = i18nConfig.locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
-  // If no locale in path, redirect to the default locale 'ar'
+  // If no locale in path, redirect to the user's preferred locale
   if (!pathLocale) {
-    // Set the default locale cookie to 'ar'
-    const response = NextResponse.redirect(new URL(`/ar${pathname}`, request.url))
-    response.cookies.set('NEXT_LOCALE', 'ar')
+    // Use the user's preferred locale from cookie or default to 'ar'
+    const response = NextResponse.redirect(new URL(`/${userLocale}${pathname}`, request.url))
+    response.cookies.set('NEXT_LOCALE', userLocale)
     return response
   }
 
@@ -71,9 +71,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next, api, static files)
     '/((?!_next/static|_next/image|favicon.ico|api|static).*)',
-    // Include dashboard paths
     '/dashboard/:path*'
   ]
 }

@@ -130,24 +130,24 @@ const AuthForm: React.FC = () => {
                           <div className="relative mb-2 mt-3 ">
                             <label htmlFor="name" className="block text-sm  mb-2">{translations.auth.name}</label>
                             <Field type="text" name="name" placeholder={translations.auth.name} className="w-full h-[44px] bg-[#444444] text-white  px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500" />
-                            <ErrorMessage name="name" component="div" className="text-[#7E7E7E] text-sm my-2" />
+                            <ErrorMessage name="name" component="div" className="text-[#F58C7B] text-sm my-2" />
                           </div>
                           <div className="relative mb-2 mt-3 ">
                             <label htmlFor="mobile" className="block text-sm  mb-2">{translations.auth.mobile}</label>
                             <Field type="text" name="mobile" placeholder={translations.auth.mobile} className="w-full h-[44px] bg-[#444444] text-white   px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500" />
-                            <ErrorMessage name="mobile" component="div" className="text-[#7E7E7E] text-sm my-2" />
+                            <ErrorMessage name="mobile" component="div" className="text-[#F58C7B] text-sm my-2" />
                           </div>
                         </div>
                       )}
                       <div className="relative mb-2 mt-3 ">
                         <label htmlFor="email" className="block text-sm  mb-2">{translations.auth.email}</label>
                         <Field type="email" name="email" placeholder={translations.auth.email} className="w-full h-[44px] bg-[#444444] text-white   px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500" />
-                        <ErrorMessage name="email" component="div" className="text-[#7E7E7E] text-sm my-2" />
+                        <ErrorMessage name="email" component="div" className="text-[#F58C7B] text-sm my-2" />
                       </div>
                       <div className="relative mb-4 mt-3  ">
                         <label htmlFor="password" className="block text-sm  mb-2">{translations.auth.password}</label>
                         <Field type="password" name="password" placeholder={translations.auth.password} className="w-full h-[44px] bg-[#444444] text-white   px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500" />
-                        <ErrorMessage name="password" component="div" className="text-[#7E7E7E] text-sm my-2" />
+                        <ErrorMessage name="password" component="div" className="text-[#F58C7B] text-sm my-2" />
                       </div>
                       {!isRegister && (
                         <div className="flex justify-end gap-2 mt-6 mb-1 px-2">
