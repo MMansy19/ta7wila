@@ -1,11 +1,11 @@
 "use client";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import Plans from "../plans/page";
 import getAuthHeaders from "../Shared/getAuth";
 import { Plan } from "./types";
-import Link from "next/link";
-import Plans from "../plans/page";
 
 export default function PriceUser() {
   const translations = useTranslation();
@@ -27,7 +27,12 @@ export default function PriceUser() {
           setCurrentPlan(subscriptionResponse.data.result);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        if (axios.isAxiosError(error) && error.response?.status === 422 && 
+            error.response?.data?.errorMessage === "Subscription not found") {
+          setCurrentPlan(null);
+        } else {
+          console.error("Error fetching subscription data:", error);
+        }
       } finally {
         setIsLoading(false);
       }
