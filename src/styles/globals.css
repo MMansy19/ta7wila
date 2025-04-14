@@ -1,0 +1,301 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --font-arabic: 'Almarai', sans-serif;
+  --font-english: 'Inter', sans-serif;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.rtl {
+  direction: rtl;
+  font-family: var(--font-arabic);
+}
+
+.ltr {
+  direction: ltr;
+  font-family: var(--font-english);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+} */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+ 
+}
+
+:root {
+  --bs-blue: #009ef6;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #ffc107;
+  --bs-green: #198754;
+  --bs-teal: #20c997;
+  --bs-cyan: #0dcaf0;
+  --bs-gray: #7E8299;
+  --bs-gray-dark: #3F4254;
+  --bs-gray-100: #F5F8FA;
+  --bs-gray-200: #EFF2F5;
+  --bs-gray-300: #E4E6EF;
+  --bs-gray-400: #B5B5C3;
+  --bs-gray-500: #A1A5B7;
+  --bs-gray-600: #7E8299;
+  --bs-gray-700: #5E6278;
+  --bs-gray-800: #3F4254;
+  --bs-gray-900: #181C32;
+  --bs-white: #ffffff;
+  --bs-light: #F5F8FA;
+  --bs-primary: #7239EA;
+  --bs-secondary: #E4E6EF;
+  --bs-success: #50CD89;
+  --bs-info: #009EF7;
+  --bs-warning: #FFC700;
+  --bs-danger: #F1416C;
+  --bs-dark: #181C32;
+  --bs-white-rgb: 255, 255, 255;
+  --bs-light-rgb: 245, 248, 250;
+  --bs-primary-rgb: 114, 57, 234;
+  --bs-secondary-rgb: 228, 230, 239;
+  --bs-success-rgb: 80, 205, 137;
+  --bs-info-rgb: 0, 158, 247;
+  --bs-warning-rgb: 255, 199, 0;
+  --bs-danger-rgb: 241, 65, 108;
+  --bs-dark-rgb: 24, 28, 50;
+  --bs-white-rgb: 255, 255, 255;
+  --bs-black-rgb: 0, 0, 0;
+  --bs-body-color-rgb: 24, 28, 50;
+  --bs-body-bg-rgb: 255, 255, 255;
+  --bs-font-sans-serif: Poppins, Helvetica, "sans-serif";
+  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-size: 1rem;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.5;
+  --bs-body-color: #181C32;
+  --bs-body-bg: black;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-variation-settings:"slnt" 0;
+  text-align: var(--bs-body-text-align);
+  background-color: var(--bs-body-bg);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+
+.toggle-switch {
+  appearance: none;
+  background-color: #4b5563;
+  border-radius: 9999px;
+  height: 24px;
+  width: 48px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch:checked {
+  background-color: #10b981; 
+}
+
+.toggle-switch:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.3s ease;
+}
+
+.toggle-switch:checked:before {
+  left: 26px;
+}
+
+.bg-imgg{
+  background-image: url("/Desktop - 3.jpg");
+  background-size: cover;
+}
+.bg-img2{
+  background-image: url("/Frame 1984078134.png");
+  background-size: cover;
+}
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+table{
+  white-space: nowrap;
+  
+}
+
+.loader {
+  right: 0.875rem;
+  top: 50%;
+   
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid rgba(#fff, 0.35);
+}
+
+.animation-spin {
+  animation-name: spin;
+  animation-duration: 0.75s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(54, 53, 53, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 10s linear infinite;
+}
+
+.doc{
+  color: white !important;
+}
+
+
+table{
+  @apply w-full h-full;
+}
+table th,
+table td {
+  @apply !py-3 !px-4;
+}
+
+table th {
+  @apply  bg-gray-700 first:rounded-s-lg
+  last:rounded-e-lg;
+}
+
+.min-h {
+  min-height: 100% !important;
+}
