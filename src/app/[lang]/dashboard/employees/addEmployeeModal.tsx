@@ -127,7 +127,7 @@ const AddEmployeeModal = ({
               />
             </div>
             
-            <div className="flex justify-end space-x-4 mt-6 gap-4">
+            <div className="flex justify-end  mt-6 gap-3">
               <button
                 type="submit"
                 disabled={isSubmitting}

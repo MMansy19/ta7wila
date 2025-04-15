@@ -204,6 +204,10 @@ export type TranslationKeys = {
   transactions: {
     lastTransactions: string;
     noTransactions: string;
+    currency: string;
+    search: {
+      placeholder: string;
+    };
     table: {
       id: string;
       store: string;

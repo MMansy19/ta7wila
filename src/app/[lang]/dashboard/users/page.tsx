@@ -91,7 +91,7 @@ export default function Users() {
         updatedAt: new Date(item.updated_at).toLocaleDateString(),
       }));
 
-      setUsers(transformedUsers);
+      setUsers(transformedUsers.reverse());
       setTotalPages(response.data.result.totalPages);
       setTotalVendors(response.data.result.total)
     } catch (err: any) {
@@ -135,13 +135,13 @@ export default function Users() {
   return (
  
     <div className="text-white grid">
-      <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
+      <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-lg max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <Toaster position="top-right" reverseOrder={false} />
 
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-semibold">{translations.users.title}</h1>
           <div className="space-x-2">
-            <button className="bg-[#53B4AB] hover:bg-[#459a91] text-black px-4 py-2 rounded-[16px] text-sm">
+            <button className="bg-[#53B4AB] hover:bg-[#459a91] text-black px-4 py-2 rounded-lg text-sm">
               {translations.users.total}: {totalVendors}
             </button>
           </div>
@@ -150,9 +150,9 @@ export default function Users() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="text-center">
+              <tr className="text-start">
                 <th className="p-2">{translations.users.table.id}</th>
-                <th className="p-2">{translations.users.table.image}</th>
+               
                 <th className="p-2">{translations.users.table.name}</th>
                 <th className="p-2">{translations.users.table.email}</th>
                 <th className="p-2">{translations.users.table.mobile}</th>
@@ -164,17 +164,9 @@ export default function Users() {
             <tbody>
               {users.length > 0 ? (
                 users.map((user) => (
-                  <tr key={user.id} className="text-center">
+                  <tr key={user.id} className="text-start border-b border-white/10">
                     <td className="p-2">{user.id}</td>
-                    <td className="p-2">
-                      <Image
-                        src={user.image || "/no-dp_16.webp"}
-                        className="rounded-full"
-                        alt={`${user.name}'s Avatar`}
-                        width={40}
-                        height={40}
-                      />
-                    </td>
+                    
                     <td className="p-2">{user.name}</td>
                     <td className="p-2">{user.email}</td>
                     <td className="p-2">{user.mobile}</td>

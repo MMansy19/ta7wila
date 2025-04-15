@@ -3,6 +3,8 @@ import Pagination from "@/components/[lang]/pagination";
 import { useTranslation } from "@/context/translation-context";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Search } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
@@ -15,7 +17,17 @@ export default function Transaction() {
   const [showModal, setShowModal] = useState(false);
   const [selectedTransactionId, setSelectedTransactionId] = useState<number | null>(null);
   const [filterState, setFilterState] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const translations = useTranslation();
+  
+  const defaultPaymentOptions = [
+    { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
+    { name: "Et- CASH", key: "ecash", img: "/ecash.svg" },
+    { name: "WE- CASH", key: "wecash", img: "/wecash.svg" },
+    { name: "OR- CASH", key: "ocash", img: "/ocash.svg" },
+    { name: "INSTAPAY", key: "instapay", img: "/instapay.svg" },
+  ];
+  
 
   const fetchTransactions = async (): Promise<Transactions[]> => {
     const response = await axios.get(`${apiUrl}/transactions?page=${currentPage}`, {
@@ -45,10 +57,16 @@ export default function Transaction() {
     queryFn: fetchTransactions,
   });
 
-  const filteredTransactions =
-    filterState === "All"
-      ? transactions
-      : transactions.filter((t: Transactions) => t.state === filterState);
+  const filteredTransactions = transactions
+    .filter((t: Transactions) => filterState === "All" || t.state === filterState)
+    .filter((t: Transactions) => 
+      searchQuery === "" ||
+      t.id.toString().includes(searchQuery) ||
+      t.from.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      t.amount.toString().includes(searchQuery)
+    );
 
   const itemsPerPage = 15;
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
@@ -83,14 +101,24 @@ export default function Transaction() {
   return (
     <div className="grid">
       <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">{translations.transactions.title}</h2>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder={translations.transactions.search.placeholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-4 py-2 bg-neutral-800 rounded-lg text-sm text-white placeholder:text-white/50 !outline-none focus:outline-none focus:ring-0 border-0 focus:border-0 w-[300px]"
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
+          </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-separate border-spacing-y-2">
+          <table className="w-full text-left border-collapse">
             <thead className="text-white">
-              <tr>
+              <tr className="text-start">
                 <th className="p-2">{translations.transactions.table.id}</th>
                 <th className="p-2">{translations.transactions.table.from}</th>
                 <th className="p-2">{translations.transactions.table.provider}</th>
@@ -104,11 +132,23 @@ export default function Transaction() {
             <tbody>
               {displayedTransactions.length > 0 ? (
                 displayedTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="transition rounded-lg border-b border-white/10">
+                  <tr key={transaction.id} className="transition  border-b border-white/10">
                     <td className="p-2">{transaction.id}</td>
-                    <td className="p-2 text-[#F58C7B]">{transaction.from}</td>
-                    <td className="p-2">{transaction.provider}</td>
-                    <td className="p-2 font-bold text-[#53B4AB]">{transaction.amount}</td>
+                    <td className="p-2 ">{transaction.from}</td>
+                    <td className="p-2">
+                      {defaultPaymentOptions.find(option => option.key === transaction.provider)?.img ? (
+                        <Image 
+                          width={24} 
+                          height={24} 
+                          src={defaultPaymentOptions.find(option => option.key === transaction.provider)?.img || ''} 
+                          alt={transaction.provider} 
+                          className="w-8 h-8" 
+                        />
+                      ) : (
+                        <span className="text-sm">{transaction.provider}</span>
+                      )}
+                    </td>
+                    <td className="p-2 font-bold text-white/70">{transaction.amount} <span className="text-xs text-white/70">{translations.dashboard.cards.currency}</span></td>
                     <td className="p-2">
                       {transaction.state === "pending" ? (
                         <span className="text-[#F58C7B]">{translations.transactions.status.pending}</span>
@@ -120,10 +160,10 @@ export default function Transaction() {
                     <td className="p-2">{transaction.date}</td>
                     <td className="p-2">
                       <span
-                        className={`px-3 py-1 min-h-[30px] rounded-[12px] w-[62px] text-sm 
+                        className={`px-3 py-1  rounded-full text-xs
                           ${transaction.state === "pending"
-                            ? "text-[#F58C7B] bg-[#F58C7B] bg-opacity-50 cursor-pointer"
-                            : "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-30 cursor-not-allowed"}`}
+                            ? "text-[#c25443] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
+                            : "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed"}`}
                         onClick={() => {
                           if (transaction.state === "pending") {
                             setSelectedTransactionId(transaction.id);

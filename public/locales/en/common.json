@@ -207,6 +207,9 @@
   "transactions": {
     "lastTransactions": "Last Transactions",
     "noTransactions": "No transactions found",
+    "search": {
+      "placeholder": "Search transactions..."
+    },
     "title": "Transactions",
     "confirmModal": {
       "title": "Are you sure?",

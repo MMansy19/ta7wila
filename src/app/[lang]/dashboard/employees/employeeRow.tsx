@@ -21,7 +21,7 @@ const EmployeeRow = ({
   const translations = useTranslation();
   
   return (
-    <tr>
+    <tr className="text-start border-b border-white/10 px-2 py-4">
       <td className="p-2">{user.id}</td>
       <td className="p-2">{user.name}</td>
       <td className="p-2">{user.email}</td>

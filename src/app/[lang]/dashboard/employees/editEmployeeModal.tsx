@@ -79,7 +79,7 @@ const EditEmployeeModal = ({
                 className="w-full px-3 py-2.5 bg-[#444444] text-white rounded-[18px]"
               />
             </div>
-            <div className="flex justify-end space-x-2">
+            <div className="flex justify-end gap-3">
               <button
                 type="button"
                 className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-[18px]"

@@ -206,7 +206,7 @@ export default function Employees() {
 
   return (
     <div className="text-white grid">
-      <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
+      <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-lg max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <Toaster position="top-right" reverseOrder={false} />
 
         <Header

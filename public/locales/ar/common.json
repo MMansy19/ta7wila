@@ -207,6 +207,9 @@
   "transactions": {
     "lastTransactions": "آخر المعاملات",
     "noTransactions": "لا توجد معاملات",
+    "search": {
+      "placeholder": "ابحث عن معاملة..."
+    },
     "title": "المعاملات",
     "confirmModal": {
       "title": "هل أنت متأكد؟",

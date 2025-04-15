@@ -116,20 +116,20 @@ export default function StoresTable() {
 
   return (
     <div className="grid">
-      <div className="flex overflow-hidden flex-col  px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
+      <div className="flex overflow-hidden flex-col  px-8 py-6 w-full bg-neutral-900 rounded-lg max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <Toaster position="top-right" reverseOrder={false} />
 
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-semibold">{translations.stores.title}</h1>
-          <button className="bg-[#53B4AB] hover:bg-[#4cb0a6] text-black px-4 py-2 rounded-[16px] text-sm">
+          <h2 className="text-2xl font-semibold">{translations.stores.title}</h2>
+          <button className="bg-[#53B4AB] hover:bg-[#4cb0a6] text-black px-4 py-2 rounded-lg text-sm">
             <Link href="/dashboard/addstore">{translations.stores.addStore}</Link>
           </button>
         </div>
 
         <div className="overflow-x-auto ">
-          <table className="table-auto w-full text-left">
+          <table className="table-auto w-full text-start">
             <thead>
-              <tr className="">
+              <tr className="text-start">
                 <th className="p-2">{translations.stores.table.id}</th>
                 <th className="p-2">{translations.stores.table.name}</th>
                 <th className="p-2">{translations.stores.table.mobile}</th>
@@ -142,7 +142,7 @@ export default function StoresTable() {
             <tbody>
               {displayedStores.length > 0 ? (
                 displayedStores.map((store) => (
-                  <tr key={store.id} className="transition rounded-lg border-b border-white/10">
+                  <tr key={store.id} className="transition rounded-lg border-b border-white/10 text-start">
                     <td className="p-2">{store.id}</td>
                     <td className="p-2">{store.name}</td>
                     <td className="p-2">{store.mobile}</td>
@@ -174,47 +174,44 @@ export default function StoresTable() {
                             <span className="sr-only">View notifications</span>
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="rtl:text-right ltr:text-left">
+                        <DropdownMenuContent align="end" className="text-start">
                           <DropdownMenuLabel>{translations.stores.actions.title}</DropdownMenuLabel>
                           <DropdownMenuSeparator />
 
-                          <DropdownMenuItem  className="rtl:text-right ltr:text-left">
-                            <Link href={`/dashboard/storeupdate/${store.id}`}>
+                          <DropdownMenuItem className="text-start">
+                            <Link href={`/dashboard/storeupdate/${store.id}`} className="block w-full text-start">
                               <button
-                                className="block w-full"
+                                className="block w-full text-start"
                                 onClick={() => setSelectedStore(store)}
                               >
                                 {translations.stores.actions.update}
                               </button>
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Link href={`/dashboard/storepayment/${store.id}`}>
-                              <button className="block w-full ">
+                          <DropdownMenuItem className="text-start">
+                            <Link href={`/dashboard/storepayment/${store.id}`} className="block w-full text-start">
+                              <button className="block w-full text-start">
                                 {translations.stores.actions.payment}
                               </button>
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            {" "}
-                            <Link href={`/dashboard/logs/${store.id}`}>
-                              <button className="block w-full ">
+                          <DropdownMenuItem className="text-start">
+                            <Link href={`/dashboard/logs/${store.id}`} className="block w-full text-start">
+                              <button className="block w-full text-start">
                                 {translations.stores.actions.logs}
                               </button>
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            {" "}
-                            <Link href={`/dashboard/storeDetails/${store.id}`}>
-                              <button className="block w-full ">
+                          <DropdownMenuItem className="text-start">
+                            <Link href={`/dashboard/storeDetails/${store.id}`} className="block w-full text-start">
+                              <button className="block w-full text-start">
                                 {translations.stores.actions.details}
                               </button>
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            {" "}
-                            <Link href={`/dashboard/check-transaction/${store.id}`}>
-                              <button className="block w-full ">
+                          <DropdownMenuItem className="text-start">
+                            <Link href={`/dashboard/check-transaction/${store.id}`} className="block w-full text-start">
+                              <button className="block w-full text-start">
                                 {translations.stores.actions.manualCheck}
                               </button>
                             </Link>
