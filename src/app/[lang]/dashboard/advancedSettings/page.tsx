@@ -5,6 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+import FormField from "../Shared/FormField";
 
 interface Setting {
     id: number;
@@ -74,6 +75,7 @@ export default function AdvancedSettings() {
                             <div className="grid md:grid-cols-2 gap-4">
                                 {settings.map((setting) => (
                                     <div key={setting.id} className="col-span-1">
+                                   
                                         <label className="block text-sm font-medium mb-2">
                                             {setting.label}
                                         </label>
@@ -81,7 +83,7 @@ export default function AdvancedSettings() {
                                             <Field
                                                 as="select"
                                                 name={setting.key}
-                                                className="w-full bg-[#444] border border-gray-600 rounded-lg p-2 focus:ring-2 focus:ring-[#53B4AB]"
+                                                className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                                             >
                                                 <option value="true">{translations.settings.enabled}</option>
                                                 <option value="false">{translations.settings.disabled}</option>

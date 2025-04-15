@@ -129,7 +129,7 @@ export default function StoresTable() {
         <div className="overflow-x-auto ">
           <table className="table-auto w-full text-left">
             <thead>
-              <tr className="text-center">
+              <tr className="">
                 <th className="p-2">{translations.stores.table.id}</th>
                 <th className="p-2">{translations.stores.table.name}</th>
                 <th className="p-2">{translations.stores.table.mobile}</th>
@@ -142,7 +142,7 @@ export default function StoresTable() {
             <tbody>
               {displayedStores.length > 0 ? (
                 displayedStores.map((store) => (
-                  <tr key={store.id} className="text-center">
+                  <tr key={store.id} className="transition rounded-lg border-b border-white/10">
                     <td className="p-2">{store.id}</td>
                     <td className="p-2">{store.name}</td>
                     <td className="p-2">{store.mobile}</td>

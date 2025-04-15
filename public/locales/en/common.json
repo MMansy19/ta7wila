@@ -109,6 +109,7 @@
       "passwordRequired": "Password is required",
       "nameRequired": "Name is required",
       "nameMinLength": "Name must be at least 3 characters",
+      "nameInvalid": "Name can only contain letters",
       "mobileInvalid": "Mobile number is not valid",
       "mobileRequired": "Mobile number is required"
     },
@@ -300,6 +301,17 @@
       "mobile": "Mobile",
       "createdAt": "Created At",
       "actions": "Actions"
+    },
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "mobile": "Mobile",
+      "password": "Password",
+      "buttons": {
+        "cancel": "Cancel",
+        "add": "Add",
+        "adding": "Adding..."
+      }
     }
   },
   "paymentVerification": {

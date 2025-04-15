@@ -9,6 +9,7 @@ import { useTranslation } from "@/context/translation-context";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { FormData } from "./types";
 import createValidationSchema from "./validation";
+import FormField from "../Shared/FormField";
 
 const StoreSettings: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,7 +19,10 @@ const StoreSettings: React.FC = () => {
   // Get validation schema with translations
   const validationSchema = createValidationSchema(translations);
 
-  const handleSubmit = async (values: FormData, { resetForm }: { resetForm: () => void }) => {
+  const handleSubmit = async (
+    values: FormData,
+    { resetForm }: { resetForm: () => void }
+  ) => {
     setLoading(true);
     const dataToSend = {
       name: values.name,
@@ -78,67 +82,55 @@ const StoreSettings: React.FC = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <h2 className="block text-xl font-semibold mb-2">{translations.stores.addStore}</h2>
+            <h2 className="block text-xl font-semibold mb-2">
+              {translations.stores.addStore}
+            </h2>
 
-            <div className="flex overflow-hidden flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full mb-4">
-              <label className="block text-lg font-semibold mb-2">
-                {translations.storeUpdate.form.storeName.label}
-              </label>
-              <Field
+            <div className="flex overflow-hidden flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-xl max-md:max-w-full mb-4">
+              <FormField
                 name="name"
                 type="text"
-                placeholder={translations.storeUpdate.form.storeName.placeholder}
-                className="w-full bg-[#444444] text-white p-2 px-4 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500"
+                label={translations.storeUpdate.form.storeName.label}
+                placeholder={
+                  translations.storeUpdate.form.storeName.placeholder
+                }
               />
-              <ErrorMessage name="name" component="div" className="text-[#7E7E7E]" />
             </div>
 
             <div className="flex overflow-hidden flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full">
-              <label className="block text-lg font-semibold mb-2">
-                API Options <span className="text-[#7E7E7E]">*</span>
-              </label>
+              <FormField
+                name="website"
+                type="text"
+                label={translations.storeUpdate.form.website.label}
+                placeholder={translations.storeUpdate.form.website.placeholder}
+              />
 
-              <div className="mb-4">
-                <label className="block mb-1">{translations.storeUpdate.form.website.label}</label>
-                <Field
-                  name="website"
-                  type="text"
-                  placeholder={translations.storeUpdate.form.website.placeholder}
-                  className="w-full p-2 rounded-[16px] bg-[#444444] text-white px-4"
-                />
-                <ErrorMessage name="website" component="div" className="text-[#7E7E7E]" />
-              </div>
+              <FormField
+                name="email"
+                type="text"
+                label={translations.storeUpdate.form.email.label}
+                placeholder={translations.storeUpdate.form.email.placeholder}
+              />
 
-              <div className="mb-4">
-                <label className="block mb-1">{translations.storeUpdate.form.email.label}</label>
-                <Field
-                  name="email"
-                  type="text"
-                  placeholder={translations.storeUpdate.form.email.placeholder}
-                  className="w-full p-2 rounded-[16px] bg-[#444444] text-white px-4"
-                />
-                <ErrorMessage name="email" component="div" className="text-[#7E7E7E]" />
-              </div>
-
-              <div className="mb-4">
-                <label className="block mb-1">{translations.storeUpdate.form.mobileWallet.label}</label>
-                <Field
-                  name="mobileWallet"
-                  type="text"
-                  placeholder={translations.storeUpdate.form.mobileWallet.placeholder}
-                  className="w-full p-2 rounded-[16px] bg-[#444444] text-white px-4"
-                />
-                <ErrorMessage name="mobileWallet" component="div" className="text-[#7E7E7E]" />
-              </div>
+              <FormField
+                name="mobileWallet"
+                type="text"
+                label={translations.storeUpdate.form.mobileWallet.label}
+                placeholder={
+                  translations.storeUpdate.form.mobileWallet.placeholder
+                }
+              />
             </div>
 
             <div className="flex justify-end mt-6">
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#53B4AB] text-sm text-black rounded-[16px]"
+                className="px-4 py-3 bg-[#53B4AB] text-sm text-black font-semibold rounded-lg"
                 disabled={isSubmitting || loading}
               >
-                {loading ? translations.storeUpdate.form.buttons.saving : translations.storeUpdate.form.buttons.saveSettings}
+                {loading
+                  ? translations.storeUpdate.form.buttons.saving
+                  : translations.storeUpdate.form.buttons.saveSettings}
               </button>
             </div>
           </Form>
@@ -149,4 +141,3 @@ const StoreSettings: React.FC = () => {
 };
 
 export default StoreSettings;
-

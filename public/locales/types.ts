@@ -105,6 +105,7 @@ export type TranslationKeys = {
         passwordRequired:  string;
         nameRequired:  string;
         nameMinLength:  string;
+        nameInvalid:  string;
         mobileInvalid:  string;
         mobileRequired:  string;
       },

@@ -109,6 +109,7 @@
       "passwordRequired": "كلمة المرور مطلوبة",
       "nameRequired": "الاسم مطلوب",
       "nameMinLength": "الاسم يجب أن يكون 3 أحرف على الأقل",
+      "nameInvalid": "يمكن أن يحتوي الاسم على أحرف فقط",
       "mobileInvalid": "رقم الجوال غير صحيح",
       "mobileRequired": "رقم الجوال مطلوب"
     },
@@ -226,7 +227,7 @@
       "id": "المعرف",
       "store": "المتجر",
       "from": "من",
-      "provider": "مزود الخدمة",
+      "provider": "نوع الدفع",
       "amount": "المبلغ",
       "state": "الحالة",
       "userName": "اسم المستخدم",
@@ -300,6 +301,17 @@
       "mobile": "الجوال",
       "createdAt": "تاريخ الإنشاء",
       "actions": "الإجراءات"
+    },
+    "form": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "mobile": "الجوال",
+      "password": "كلمة المرور",
+      "buttons": {
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "adding": "جاري الإضافة..."
+      }
     }
   },
   "paymentVerification": {

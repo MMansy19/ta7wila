@@ -67,12 +67,12 @@ const Checkout: React.FC = () => {
   return (
     <div className="grid">
       <Toaster position="top-right" reverseOrder={false} />
-      <div className="flex flex-col overflow-hidden px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
-        <h1 className="text-2xl font-semibold mb-4">{translations.sidebar.checkout}</h1>
+      <div className="flex flex-col overflow-hidden px-8 py-6 w-full bg-neutral-900 rounded-lg max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
+        <h2 className="text-2xl font-semibold mb-4">{translations.sidebar.checkout}</h2>
         <div className="overflow-x-auto">
           <table className="table-auto w-full text-left" aria-label="Checkout Details">
             <thead>
-              <tr className="text-white text-center">
+              <tr className="text-white text-start">
                 <th className="p-2">{translations.table.id}</th>
                 <th className="p-2">{translations.paymentVerification.modal.transactionDetails.transactionId}</th>
                 <th className="p-2">{translations.transactions.table.amount}</th>
@@ -84,7 +84,7 @@ const Checkout: React.FC = () => {
             <tbody>
               {checkouts.length > 0 ? (
                 checkouts.map((checkout) => (
-                  <tr key={checkout.id} className="text-center">
+                  <tr key={checkout.id} className="text-start">
                     <td className="p-2">{checkout.id}</td>
                     <td className="p-2">{checkout.ref_id}</td>
                     <td className="p-2">{checkout.amount}</td>

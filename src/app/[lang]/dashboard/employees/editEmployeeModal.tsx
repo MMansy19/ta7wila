@@ -1,6 +1,7 @@
 import { useTranslation } from "@/context/translation-context";
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import FormField from '../Shared/FormField';
 import { User } from './types';
 
 interface EditEmployeeModalProps {
@@ -25,6 +26,7 @@ const EditEmployeeModal = ({
   selectedUser
 }: EditEmployeeModalProps) => {
   const translations = useTranslation();
+  const required = true;
   
   return (
     <ModalWrapper>
@@ -37,58 +39,44 @@ const EditEmployeeModal = ({
         {({ isSubmitting }) => (
           <Form className="space-y-4">
             <div>
-              <Field
+              <FormField
                 name="application_id"
+                label={translations.stores.title}
+                required={required}
                 className="w-full px-3 py-2.5 bg-[#444444] text-white rounded-[18px]"
               />
             </div>
             <div>
-              <Field
+              <FormField
                 name="name"
                 placeholder={translations.employees.form.name}
+                required={required}
                 className="w-full px-3 py-2.5 bg-[#444444] text-white rounded-[18px]"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-500"
               />
             </div>
             <div>
-              <Field
+              <FormField
                 name="email"
                 placeholder={translations.employees.form.email}
+                required={required}
                 className="w-full px-3 py-2.5 bg-[#444444] text-white rounded-[18px]"
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className="text-red-500"
               />
             </div>
             <div>
-              <Field
+              <FormField
                 name="mobile"
                 placeholder={translations.employees.form.mobile}
+                required={required}
                 className="w-full px-3 py-2.5 bg-[#444444] text-white rounded-[18px]"
-              />
-              <ErrorMessage
-                name="mobile"
-                component="div"
-                className="text-red-500"
               />
             </div>
             <div>
-              <Field
+              <FormField
                 name="password"
                 type="password"
                 placeholder={translations.employees.form.password}
+                required={required}
                 className="w-full px-3 py-2.5 bg-[#444444] text-white rounded-[18px]"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="text-red-500"
               />
             </div>
             <div className="flex justify-end space-x-2">

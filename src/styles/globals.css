@@ -294,6 +294,12 @@ table td {
 table th {
   @apply  bg-gray-700 first:rounded-s-lg
   last:rounded-e-lg;
+  text-align: start;
+}
+
+table tr {
+  @apply text-start;
+  transition: rounded-lg border-b border-white/10;
 }
 
 .min-h {

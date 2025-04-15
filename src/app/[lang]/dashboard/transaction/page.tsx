@@ -23,7 +23,7 @@ export default function Transaction() {
     });
   
     if (response.data.success && response.data.result && response.data.result.data) {
-      return response.data.result.data.map((item: any) => ({
+      return response.data.result.data.reverse().map((item: any) => ({
         id: item.id,
         store: item.transaction_id || "-",
         from: item.mobile || "-",
@@ -67,6 +67,7 @@ export default function Transaction() {
           {},
           { headers: getAuthHeaders() }
         );
+        
         toast.success("Transaction marked as completed!");
       } catch (error) {
         toast.success("Already marked as completed.");
@@ -83,12 +84,12 @@ export default function Transaction() {
     <div className="grid">
       <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-semibold">{translations.transactions.title}</h1>
+          <h2 className="text-2xl font-semibold">{translations.transactions.title}</h2>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-separate border-spacing-y-2">
-            <thead className="text-white text-center">
+            <thead className="text-white">
               <tr>
                 <th className="p-2">{translations.transactions.table.id}</th>
                 <th className="p-2">{translations.transactions.table.from}</th>
@@ -103,7 +104,7 @@ export default function Transaction() {
             <tbody>
               {displayedTransactions.length > 0 ? (
                 displayedTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="transition text-white text-center">
+                  <tr key={transaction.id} className="transition rounded-lg border-b border-white/10">
                     <td className="p-2">{transaction.id}</td>
                     <td className="p-2 text-[#F58C7B]">{transaction.from}</td>
                     <td className="p-2">{transaction.provider}</td>
@@ -159,18 +160,18 @@ export default function Transaction() {
         {/* Modal */}
         {showModal && (
           <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-            <div className="bg-neutral-800 p-4 rounded-[2rem] text-white">
+            <div className="bg-neutral-800 p-4 rounded-lg text-white">
               <h2 className="text-lg font-semibold">{translations.transactions.confirmModal.title}</h2>
               <p className="mt-2">{translations.transactions.confirmModal.message}</p>
               <div className="mt-4 flex justify-end space-x-2">
                 <button 
-                  className="px-4 py-2 bg-gray-500 text-white rounded-[2rem]" 
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg text-sm" 
                   onClick={() => setShowModal(false)}
                 >
                   {translations.transactions.confirmModal.cancel}
                 </button>
                 <button 
-                  className="px-4 py-2 bg-[#53B4AB] text-black rounded-[2rem]" 
+                  className="px-4 py-2 bg-[#53B4AB] text-black rounded-lg text-sm" 
                   onClick={handleMarkAsCompleted}
                 >
                   {translations.transactions.confirmModal.confirm}

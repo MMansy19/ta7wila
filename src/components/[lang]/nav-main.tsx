@@ -1,6 +1,4 @@
-import React from 'react';
-import { ChevronRight, LucideIcon } from 'lucide-react'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/[lang]/ui/collapsible"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/[lang]/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -10,10 +8,11 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/[lang]/ui/sidebar"
-import Link from 'next/link'
-import Head from 'next/head';
-import { usePathname } from 'next/navigation';  
+} from "@/components/[lang]/ui/sidebar";
+import { ChevronRight, LucideIcon } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 
 interface NavItem {
   title: string
@@ -63,7 +62,7 @@ export function NavMain({
                       <SidebarMenuButton 
                         tooltip={item.title}
                         isActive={isActive(item.url)}
-                        className="data-[active=true]:border-l-4 data-[active=true]:border-[#53B4AB] data-[active=true]:text-[#53B4AB]"
+                        className="data-[active=true]:text-[#53B4AB]"
                       >
                         {item.icon && React.isValidElement(item.icon) && <>{item.icon}</>}
                         <span>{item.title}</span>
@@ -76,7 +75,7 @@ export function NavMain({
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton 
                               asChild
-                              className="data-[active=true]:border-l-4 data-[active=true]:border-[#53B4AB] data-[active=true]:text-[#53B4AB]"
+                              className="data-[active=true]:text-[#53B4AB]"
                               isActive={isActive(subItem.url)}
                             >
                               <Link href={subItem.url}>
@@ -99,7 +98,7 @@ export function NavMain({
                   asChild 
                   tooltip={item.title}
                   isActive={isActive(item.url)}
-                  className="data-[active=true]:border-l-4 data-[active=true]:border-[#53B4AB] data-[active=true]:text-[#53B4AB]"
+                  className="data-[active=true]:text-[#53B4AB]"
                 >
                   <Link href={item.url}>
                     {item.icon && React.isValidElement(item.icon) && <>{item.icon}</>} 
