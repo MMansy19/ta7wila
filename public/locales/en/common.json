@@ -526,9 +526,9 @@
     }
   },
   "storepayment": {
-    "title": "Payment Services",
-    "addPayment": "+ Payment",
-    "noData": "No payments found.",
+    "title": "Store Payment",
+    "addPayment": "Add Payment",
+    "noData": "No payment methods found",
     "table": {
       "id": "ID",
       "value": "Value",
@@ -540,56 +540,42 @@
       "update": "Update"
     },
     "modal": {
-      "add": {
-        "title": "Add Payment",
-        "paymentOption": "Choose Payment Method",
-        "value": "Value",
-        "valueLabel": "Value",
-        "valuePlaceholder": "01********* || name@instapay",
-        "referenceLabel": "Reference Number",
-        "refId": "Reference ID",
-        "referencePlaceholder": "Enter Reference Number",
-        "visibilityLabel": "Visibility",
-        "visibility": "Visibility",
-        "visibilityPublic": "Public (visible to others)",
-        "visibilityPrivate": "Private (visible to you only)",
-        "public": "Public",
-        "private": "Private",
-        "cancel": "Cancel",
-        "submit": "Submit",
-        "submitting": "Submitting...",
-        "add": "Add",
-        "noCommission": "No commission on recharge",
-        "vodafoneCashNumber": "Our Vodafone Cash Number",
-        "customerServiceNumber": "Customer Service Number",
-        "transferInstructions": "After transfer, confirm the transfer by writing the phone number you transferred from in the phone number box and writing the amount you transferred in Egyptian pounds in the amount box",
-        "waitingInstructions": "Please wait 5 minutes in case of confirmation problems and try again",
-        "instapayId": "Instapay ID",
-        "instapayPlaceholder": "Enter Instapay ID (e.g. user@example.com)",
-        "mobilePlaceholder": "Enter mobile number (e.g. 01012345678)",
-        "amount": "Amount"
-      },
       "update": {
-        "title": "Update Payment",
+        "title": "Update Payment Method",
         "choosePayment": "Choose Payment Method",
-        "valueLabel": "Value",
         "value": "Value",
-        "refIdLabel": "Reference ID",
         "refId": "Reference ID",
-        "publicLabel": "Public",
-        "public": "Public",
+        "publicLabel": "Visibility",
         "yes": "Yes",
         "no": "No",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "add": {
+        "title": "Add Payment Method",
+        "paymentOption": "Choose Payment Method",
+        "value": "Value",
+        "valuePlaceholder": "01********* || name@instapay",
+        "referenceLabel": "Reference ID",
+        "refId": "Reference ID",
+        "referencePlaceholder": "Enter reference ID",
+        "visibility": "Visibility",
+        "public": "Public",
+        "private": "Private",
+        "cancel": "Cancel",
+        "add": "Add",
+        "adding": "Adding..."
       }
     },
     "toast": {
-      "addSuccess": "Payment added successfully!",
-      "updateSuccess": "Payment updated successfully!",
-      "error": "An error occurred",
-      "networkError": "No response received from server.",
-      "unknownError": "An unexpected error occurred"
+      "addSuccess": "Payment method added successfully!",
+      "updateSuccess": "Payment method updated successfully!"
+    },
+    "validation": {
+      "valueRequired": "Value is required",
+      "refIdRequired": "Reference ID is required",
+      "paymentOptionRequired": "Payment option is required"
     }
   },
   "stores": {

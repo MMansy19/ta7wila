@@ -505,56 +505,42 @@ export type TranslationKeys = {
       update: string;
     };
     modal: {
+      update: {
+        title: string;
+        choosePayment: string;
+        value: string;
+        refId: string;
+        publicLabel: string;
+        yes: string;
+        no: string;
+        cancel: string;
+        save: string;
+        saving: string;
+      };
       add: {
         title: string;
         paymentOption: string;
-        valueLabel: string;
         value: string;
         valuePlaceholder: string;
         referenceLabel: string;
         refId: string;
         referencePlaceholder: string;
-        visibilityLabel: string;
         visibility: string;
-        visibilityPublic: string;
-        visibilityPrivate: string;
         public: string;
         private: string;
         cancel: string;
-        submit: string;
-        submitting: string;
         add: string;
-        noCommission: string;
-        vodafoneCashNumber: string;
-        customerServiceNumber: string;
-        transferInstructions: string;
-        waitingInstructions: string;
-        instapayId: string;
-        instapayPlaceholder: string;
-        mobilePlaceholder: string;
-        amount: string;
-      };
-      update: {
-        title: string;
-        choosePayment: string;
-        valueLabel: string;
-        value: string;
-        refIdLabel: string;
-        refId: string;
-        publicLabel: string;
-        public: string;
-        yes: string;
-        no: string;
-        cancel: string;
-        save: string;
+        adding: string;
       };
     };
     toast: {
       addSuccess: string;
       updateSuccess: string;
-      error: string;
-      networkError: string;
-      unknownError: string;
+    };
+    validation: {
+      valueRequired: string;
+      refIdRequired: string;
+      paymentOptionRequired: string;
     };
   };
   stores: {

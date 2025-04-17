@@ -526,70 +526,56 @@
     }
   },
   "storepayment": {
-    "title": "خدمات الدفع",
-    "addPayment": "+ دفع",
-    "noData": "لم يتم العثور على مدفوعات.",
+    "title": "دفع المتجر",
+    "addPayment": "إضافة طريقة دفع",
+    "noData": "لم يتم العثور على طرق دفع",
     "table": {
       "id": "المعرف",
       "value": "القيمة",
       "public": "عام",
-      "paymentOption": "خيار الدفع",
+      "paymentOption": "طريقة الدفع",
       "createdAt": "تاريخ الإنشاء",
       "updatedAt": "تاريخ التحديث",
       "actions": "الإجراءات",
       "update": "تحديث"
     },
     "modal": {
-      "add": {
-        "title": "إضافة دفع",
-        "paymentOption": "اختر طريقة الدفع",
-        "value": "القيمة",
-        "valueLabel": "القيمة",
-        "valuePlaceholder": "01********* || name@instapay",
-        "referenceLabel": "الرقم المرجعي",
-        "refId": "الرقم المرجعي",
-        "referencePlaceholder": "أدخل الرقم المرجعي",
-        "visibilityLabel": "الظهور",
-        "visibility": "الظهور",
-        "visibilityPublic": "عام (مرئي للآخرين)",
-        "visibilityPrivate": "خاص (مرئي لك فقط)",
-        "public": "عام",
-        "private": "خاص",
-        "cancel": "إلغاء",
-        "submit": "إرسال",
-        "submitting": "جارٍ الإرسال...",
-        "add": "إضافة",
-        "noCommission": "لا توجد عمولة على الشحن",
-        "vodafoneCashNumber": "رقم فودافون كاش الخاص بنا",
-        "customerServiceNumber": "رقم خدمة العملاء",
-        "transferInstructions": "بعد التحويل، قم بتأكيد التحويل بكتابة رقم الهاتف الذي قمت بالتحويل منه في مربع رقم الهاتف وكتابة المبلغ الذي قمت بتحويله بالجنيه المصري في مربع المبلغ",
-        "waitingInstructions": "يرجى الانتظار 5 دقائق في حالة وجود مشاكل في التأكيد والمحاولة مرة أخرى",
-        "instapayId": "معرف Instapay",
-        "instapayPlaceholder": "أدخل معرف Instapay (مثال: user@example.com)",
-        "mobilePlaceholder": "أدخل رقم الهاتف المحمول (مثال: 01012345678)",
-        "amount": "المبلغ"
-      },
       "update": {
-        "title": "تحديث الدفع",
+        "title": "تحديث طريقة الدفع",
         "choosePayment": "اختر طريقة الدفع",
-        "valueLabel": "القيمة",
         "value": "القيمة",
-        "refIdLabel": "الرقم المرجعي",
-        "refId": "الرقم المرجعي", 
-        "publicLabel": "عام",
-        "public": "عام",
+        "refId": "معرف المرجع",
+        "publicLabel": "الرؤية",
         "yes": "نعم",
         "no": "لا",
         "cancel": "إلغاء",
-        "save": "حفظ"
+        "save": "حفظ",
+        "saving": "جاري الحفظ..."
+      },
+      "add": {
+        "title": "إضافة طريقة دفع",
+        "paymentOption": "اختر طريقة الدفع",
+        "value": "القيمة",
+        "valuePlaceholder": "01********* || name@instapay",
+        "referenceLabel": "معرف المرجع",
+        "refId": "معرف المرجع",
+        "referencePlaceholder": "أدخل معرف المرجع",
+        "visibility": "الرؤية",
+        "public": "عام",
+        "private": "خاص",
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "adding": "جاري الإضافة..."
       }
     },
     "toast": {
-      "addSuccess": "تمت إضافة الدفع بنجاح!",
-      "updateSuccess": "تم تحديث الدفع بنجاح!",
-      "error": "حدث خطأ",
-      "networkError": "لم يتم تلقي رد من الخادم.",
-      "unknownError": "حدث خطأ غير متوقع"
+      "addSuccess": "تمت إضافة طريقة الدفع بنجاح!",
+      "updateSuccess": "تم تحديث طريقة الدفع بنجاح!"
+    },
+    "validation": {
+      "valueRequired": "القيمة مطلوبة",
+      "refIdRequired": "معرف المرجع مطلوب",
+      "paymentOptionRequired": "طريقة الدفع مطلوبة"
     }
   },
   "stores": {
