@@ -1,4 +1,5 @@
 export type TranslationKeys = {
+  dir: 'rtl' | 'ltr';
   title: string;
   welcome:string;
   navigation: {
@@ -412,23 +413,34 @@ export type TranslationKeys = {
         saving: string;
         updateSubdomain: string;
         updating: string;
-        updateWebhook: string;
-        checkWebhook: string;
+        update: string;
+        check: string;
         checking: string;
       };
     };
-    toast: {
+    validation: {
+      nameRequired: string;
+      nameMinLength: string;
+      emailRequired: string;
       invalidEmail: string;
+      mobileRequired: string;
       invalidPhone: string;
+      subdomainRequired: string;
       invalidSubdomain: string;
-      settingsSuccess: string;
-      settingsError: string;
-      subdomainSuccess: string;
+      webhookRequired: string;
+      invalidWebhook: string;
+      updateWebhookFirst: string;
+    };
+    toast: {
+      subdomainUpdated: string;
       subdomainError: string;
-      webhookSuccess: string;
-      webhookError: string;
-      webhookUpdateFirst: string;
-      webhookCheckSuccess: string;
+      settingsUpdated: string;
+      settingsError: string;
+      webhookValid: string;
+      webhookCheckFailed: string;
+      webhookUpdated: string;
+      webhookUpdateError: string;
+      unknownError: string;
     };
   };
   storeDetails: {

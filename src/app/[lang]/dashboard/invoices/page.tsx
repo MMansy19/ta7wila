@@ -51,12 +51,12 @@ export default function Invoices() {
   return (
     <div className="grid">
       <Toaster position="top-right" reverseOrder={false} />
-      <div className="flex flex-col overflow-hidden px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
+      <div className="flex flex-col overflow-hidden px-8 py-6 w-full bg-neutral-900 rounded-lg max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <h1 className="text-2xl font-semibold mb-4">{translations.sidebar.invoices}</h1>
         <div className="overflow-x-auto">
           <table className="table-auto w-full text-left">
             <thead>
-              <tr className="bg-gray-800 text-gray-200 text-center">
+              <tr className="bg-gray-800 text-gray-200 text-start">
                 <th className="p-2">{translations.table.id}</th>
                 <th className="p-2">{translations.invoice.totalAmount}</th>
                 <th className="p-2">{translations.invoice.totalFees}</th>
@@ -69,12 +69,12 @@ export default function Invoices() {
             <tbody>
               {invoices.length > 0 ? (
                 invoices.map((invoice) => (
-                  <tr key={invoice.id} className="text-center">
+                  <tr key={invoice.id} className="text-start border-b border-white/10 px-2 py-4">
                     <td className="p-2">{invoice.id}</td>
-                    <td className="p-2">{invoice.total_amount}</td>
-                    <td className="p-2">{invoice.total_fees}</td>
-                    <td className="p-2">{invoice.late_fees || "-"}</td>
-                    <td className="p-2">{invoice.developer_fees}</td>
+                    <td className="p-2">{invoice.total_amount} {translations.dashboard.cards.currency}</td>
+                    <td className="p-2">{invoice.total_fees} {translations.dashboard.cards.currency}</td>
+                    <td className="p-2">{invoice.late_fees || "-"} {translations.dashboard.cards.currency}</td>
+                    <td className="p-2">{invoice.developer_fees} {translations.dashboard.cards.currency}</td>
                     <td className="p-2">{new Date(invoice.paid_at).toLocaleDateString()}</td>
                     <td className="p-2">
                       <Link href={`/dashboard/invoicesDetails/${invoice.id}`}>
@@ -105,9 +105,16 @@ export default function Invoices() {
               currentPage === 1 ? "bg-[#53B4AB] cursor-not-allowed" : "bg-gray-700 hover:bg-gray-600"
             }`}
           >
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg 
+              width="24" 
+              height="25" 
+              viewBox="0 0 24 25" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ transform: translations.dir === 'rtl' ? 'rotate(180deg)' : 'none' }}
+            >
               <path
-                d= "M10 17.772L15 12.772L10 7.77197"
+                d="M14 17.772L9 12.772L14 7.77197"
                 stroke="black"
                 strokeWidth="1.5"
                 strokeLinecap="round"
@@ -123,9 +130,16 @@ export default function Invoices() {
               currentPage === totalPages ? "bg-[#53B4AB] cursor-not-allowed" : "bg-gray-700 hover:bg-gray-600"
             }`}
           >
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg 
+              width="24" 
+              height="25" 
+              viewBox="0 0 24 25" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ transform: translations.dir === 'rtl' ? 'rotate(180deg)' : 'none' }}
+            >
               <path
-                d="M14 17.772L9 12.772L14 7.77197" 
+                d="M10 17.772L15 12.772L10 7.77197"
                 stroke="black"
                 strokeWidth="1.5"
                 strokeLinecap="round"

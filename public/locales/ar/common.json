@@ -1,4 +1,5 @@
 {
+  "dir": "rtl",
   "title": "تحويلة",
   "welcome": "مرحباً",
   "navigation": {
@@ -172,7 +173,8 @@
     "settings": "الإعدادات",
     "documentation": "الوثائق",
     "logout": "تسجيل خروج",
-    "downloadApp": "تحميل التطبيق"
+    "downloadApp": "تحميل التطبيق",
+    "logs": "السجلات"
   },
   "dashboard": {
     "welcome": "مرحباً",
@@ -207,6 +209,7 @@
   "transactions": {
     "lastTransactions": "آخر المعاملات",
     "noTransactions": "لا توجد معاملات",
+    "currency": "جنيه",
     "search": {
       "placeholder": "ابحث عن معاملة..."
     },
@@ -313,8 +316,17 @@
       "buttons": {
         "cancel": "إلغاء",
         "add": "إضافة",
-        "adding": "جاري الإضافة..."
+        "adding": "جاري الإضافة...",
+        "update": "تحديث",
+        "updating": "جاري التحديث..."
       }
+    },
+    "errors": {
+      "noUserSelected": "لم يتم اختيار مستخدم",
+      "updateFailed": "فشل التحديث"
+    },
+    "toast": {
+      "statusUpdated": "تم تحديث الحالة بنجاح"
     }
   },
   "paymentVerification": {
@@ -349,7 +361,11 @@
         "verificationStatus": "حالة طلب التحقق",
         "approved": "موافق",
         "rejected": "مرفوض",
-        "updateStatus": "تحديث حالة التحقق"
+        "updateStatus": "تحديث حالة التحقق",
+        "instapayIdRequired": "معرف Instapay مطلوب",
+        "instapayIdTooShort": "معرف Instapay قصير جدًا",
+        "amountRequired": "المبلغ مطلوب",
+        "invalidAmount": "يجب أن يكون المبلغ رقمًا موجبًا"
       }
     },
     "status": {
@@ -394,14 +410,14 @@
   "storeUpdate": {
     "title": "تحديث المتجر",
     "logoUpload": {
-      "acceptedFormats": "يتم قبول ملفات *.png و *.jpg و *.jpeg فقط.",
+      "acceptedFormats": "الصيغ المقبولة: JPG، PNG",
       "updateLogo": "تحديث الشعار",
       "uploading": "جاري الرفع...",
       "toast": {
-        "selectLogo": "الرجاء اختيار شعار للرفع.",
-        "noFile": "لم يتم اختيار ملف للرفع.",
-        "success": "تم رفع الشعار بنجاح!",
-        "error": "فشل في رفع الشعار."
+        "selectLogo": "الرجاء اختيار شعار",
+        "noFile": "لم يتم اختيار ملف",
+        "success": "تم تحديث الشعار بنجاح!",
+        "error": "فشل في تحديث الشعار"
       }
     },
     "form": {
@@ -414,43 +430,50 @@
         "placeholder": "أدخل البريد الإلكتروني"
       },
       "mobileWallet": {
-        "label": "المحفظة الإلكترونية *",
+        "label": "المحفظة *",
         "placeholder": "+201000000000"
-      },
-      "website": {
-        "label": "الموقع الإلكتروني *",
-        "placeholder": "https://vendor.com/"
       },
       "subdomain": {
         "label": "النطاق الفرعي *",
         "placeholder": "أضف النطاق الفرعي"
       },
       "webhook": {
-        "label": "فحص Webhook *",
-        "placeholder": "تحقق من webhook الخاص بك"
+        "label": "فحص الويب هوك *",
+        "placeholder": "تحقق من الويب هوك"
       },
       "buttons": {
         "saveSettings": "حفظ الإعدادات",
         "saving": "جاري الحفظ...",
         "updateSubdomain": "تحديث النطاق الفرعي",
         "updating": "جاري التحديث...",
-        "updateWebhook": "تحديث",
-        "checkWebhook": "تحقق",
+        "update": "تحديث",
+        "check": "تحقق",
         "checking": "جاري التحقق..."
       }
     },
+    "validation": {
+      "nameRequired": "اسم المتجر مطلوب",
+      "nameMinLength": "يجب أن يكون اسم المتجر 3 أحرف على الأقل",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",
+      "mobileRequired": "رقم الهاتف مطلوب",
+      "invalidPhone": "رقم الهاتف غير صحيح. يجب أن يبدأ بـ +20 ويحتوي على 10 أرقام",
+      "subdomainRequired": "النطاق الفرعي مطلوب",
+      "invalidSubdomain": "صيغة النطاق الفرعي غير صحيحة",
+      "webhookRequired": "رابط الويب هوك مطلوب",
+      "invalidWebhook": "الرجاء إدخال رابط الويب هوك صحيح",
+      "updateWebhookFirst": "الرجاء تحديث الويب هوك أولاً"
+    },
     "toast": {
-      "invalidEmail": "تنسيق البريد الإلكتروني غير صالح.",
-      "invalidPhone": "رقم الهاتف غير صالح. يجب أن يبدأ بـ +20 ويحتوي على 10 أرقام.",
-      "invalidSubdomain": "تنسيق النطاق الفرعي غير صالح.",
-      "settingsSuccess": "تم تحديث الإعدادات بنجاح!",
-      "settingsError": "فشل في تحديث الإعدادات",
-      "subdomainSuccess": "تم تحديث النطاق الفرعي بنجاح!",
+      "subdomainUpdated": "تم تحديث النطاق الفرعي بنجاح!",
       "subdomainError": "فشل في تحديث النطاق الفرعي",
-      "webhookSuccess": "تم تحديث عنوان Webhook بنجاح!",
-      "webhookError": "فشل في تحديث عنوان Webhook",
-      "webhookUpdateFirst": "الرجاء تحديث Webhook أولاً",
-      "webhookCheckSuccess": "Webhook صالح!"
+      "settingsUpdated": "تم تحديث الإعدادات بنجاح!",
+      "settingsError": "فشل في تحديث الإعدادات",
+      "webhookValid": "الويب هوك صالح!",
+      "webhookCheckFailed": "فشل فحص الويب هوك",
+      "webhookUpdated": "تم تحديث رابط الويب هوك بنجاح!",
+      "webhookUpdateError": "فشل في تحديث رابط الويب هوك",
+      "unknownError": "حدث خطأ غير معروف"
     }
   },
   "storeDetails": {
@@ -478,7 +501,9 @@
         "buttons": {
           "cancel": "إلغاء",
           "add": "إضافة",
-          "adding": "جارٍ الإضافة..."
+          "adding": "جارٍ الإضافة...",
+          "update": "تحديث",
+          "updating": "جاري التحديث..."
         }
       },
       "toast": {
@@ -533,7 +558,16 @@
         "cancel": "إلغاء",
         "submit": "إرسال",
         "submitting": "جارٍ الإرسال...",
-        "add": "إضافة"
+        "add": "إضافة",
+        "noCommission": "لا توجد عمولة على الشحن",
+        "vodafoneCashNumber": "رقم فودافون كاش الخاص بنا",
+        "customerServiceNumber": "رقم خدمة العملاء",
+        "transferInstructions": "بعد التحويل، قم بتأكيد التحويل بكتابة رقم الهاتف الذي قمت بالتحويل منه في مربع رقم الهاتف وكتابة المبلغ الذي قمت بتحويله بالجنيه المصري في مربع المبلغ",
+        "waitingInstructions": "يرجى الانتظار 5 دقائق في حالة وجود مشاكل في التأكيد والمحاولة مرة أخرى",
+        "instapayId": "معرف Instapay",
+        "instapayPlaceholder": "أدخل معرف Instapay (مثال: user@example.com)",
+        "mobilePlaceholder": "أدخل رقم الهاتف المحمول (مثال: 01012345678)",
+        "amount": "المبلغ"
       },
       "update": {
         "title": "تحديث الدفع",
@@ -541,7 +575,7 @@
         "valueLabel": "القيمة",
         "value": "القيمة",
         "refIdLabel": "الرقم المرجعي",
-        "refId": "الرقم المرجعي",
+        "refId": "الرقم المرجعي", 
         "publicLabel": "عام",
         "public": "عام",
         "yes": "نعم",
@@ -584,8 +618,45 @@
       "update": "تحديث",
       "payment": "الدفع",
       "logs": "السجلات",
-      "details": "التفاصيل",
+      "details": "التفاصيل", 
       "manualCheck": "التحقق اليدوي من المعاملات"
+    }
+  },
+  "plans": {
+    "title": "اختر خطتك",
+    "perMonth": "/ شهريًا",
+    "getStarted": "ابدأ الآن",
+    "processing": "جارٍ المعالجة...",
+    "applications": "التطبيقات"
+  },
+  "transactionModal": {
+    "application": {
+      "label": "التطبيق",
+      "required": "مطلوب",
+      "select": "اختر التطبيق",
+      "noApplications": "لا توجد تطبيقات"
+    },
+    "paymentOption": {
+      "label": "طريقة الدفع",
+      "required": "مطلوب", 
+      "select": "اختر طريقة الدفع"
+    },
+    "form": {
+      "check": "تحقق من المعاملة",
+      "checkButton": "تحقق من المعاملة",
+      "close": "إغلاق"
+    },
+    "details": {
+      "title": "تفاصيل المعاملة",
+      "id": "رقم المعاملة",
+      "name": "اسم المرسل",
+      "amount": "المبلغ الإجمالي",
+      "date": "تاريخ المعاملة", 
+      "status": "الحالة الحالية",
+      "verificationStatus": "حالة طلب التحقق",
+      "approved": "موافق",
+      "rejected": "مرفوض",
+      "updateStatus": "تحديث حالة التحقق"
     }
   },
   "price": {
@@ -630,7 +701,8 @@
       "applications": "التطبيقات",
       "employees": "الموظفين",
       "vendors": "الموردين",
-      "action": "الإجراء"
+      "action": "الإجراء",
+      "noPlans": "لا توجد خطط"
     }
   },
   "logs": {
@@ -643,23 +715,13 @@
   "pagination": {
     "previous": "السابق",
     "next": "التالي",
-    "page": "الصفحة"
+    "page": "الصفحة",
+    "of": "من"
   },
   "table": {
     "id": "المعرف"
   },
   "invoice": {
-    "loading": "جاري تحميل الفواتير...",
-    "errorLoading": "خطأ في تحميل الفواتير",
-    "invalidFormat": "تنسيق بيانات الفاتورة غير صالح",
-    "unexpectedFormat": "تنسيق بيانات الفاتورة غير متوقع",
-    "totalAmount": "المبلغ الإجمالي",
-    "totalFees": "الرسوم الإجمالية",
-    "lateFees": "رسوم التأخير",
-    "developerFees": "رسوم المطور",
-    "paidAt": "تاريخ الدفع",
-    "preview": "معاينة",
-    "noInvoices": "لم يتم العثور على فواتير",
     "title": "فاتورة",
     "billTo": "فاتورة إلى",
     "number": "رقم الفاتورة",
@@ -667,23 +729,54 @@
     "period": "الفترة",
     "days": "أيام",
     "amountWithoutFees": "المبلغ بدون رسوم",
+    "lateFees": "رسوم التأخير",
+    "developerFees": "رسوم المطور",
+    "totalFees": "الرسوم الإجمالية",
     "subscriptionAmount": "مبلغ الاشتراك",
     "amountInclFees": "المبلغ شامل الرسوم",
     "total": "الإجمالي",
     "deletionDateNote": "تاريخ حذف الحساب في حالة عدم الدفع",
     "specifyingNumber": "فاتورة رقم",
     "thankYou": "شكراً لتعاملكم معنا!",
+    "errorLoading": "خطأ في تحميل الفواتير",
+    "invalidFormat": "تنسيق بيانات الفاتورة غير صالح",
+    "unexpectedFormat": "تنسيق بيانات الفاتورة غير متوقع",
+    "totalAmount": "المبلغ الإجمالي",
+    "paidAt": "تاريخ الدفع",
+    "preview": "معاينة",
+    "noInvoices": "لم يتم العثور على فواتير",
     "of": "من"
   },
   "checkout": {
     "details": {
       "storeInfo": "معلومات المتجر",
-      "personalInfo": "المعلومات الشخصية",
+      "personalInfo": "المعلومات الشخصية", 
       "labels": {
         "name": "الاسم:",
         "email": "البريد الإلكتروني:",
         "mobile": "الجوال:"
-      }
+      },
+      "status": {
+        "paid": "مدفوع",
+        "notPaid": "غير مدفوع"
+      },
+      "paymentDetails": {
+        "id": "المعرف",
+        "refId": "الرقم المرجعي",
+        "itemId": "معرف العنصر", 
+        "paidAt": "تاريخ الدفع",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث",
+        "amount": "المبلغ"
+      },
+      "invoice": {
+        "paid": "تم دفع الفاتورة",
+        "specifyNumber": "تحديد رقم الفاتورة",
+        "thankYou": "شكراً لك!",
+        "notPaid": "لم يتم دفع الفاتورة بعد. رابط مباشر للدفع:",
+        "payNow": "ادفع الآن"
+      },
+      "contact": "ta7wila@ta7wila.com ∖ www.ta7wila.com"
     }
   },
   "settings": {

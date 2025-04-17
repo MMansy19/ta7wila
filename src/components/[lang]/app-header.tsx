@@ -171,8 +171,8 @@ export default function Header({  lang }: {  lang: Locale; }) {
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <button onClick={logout}>
-              <DropdownMenuItem>{translations.header.logout}</DropdownMenuItem>
+            <button onClick={logout} className="w-full text-start">
+              <DropdownMenuItem> {translations.header.logout}</DropdownMenuItem>
             </button>
           </DropdownMenuContent>
         </DropdownMenu>

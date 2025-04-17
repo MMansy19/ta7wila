@@ -3,14 +3,18 @@
 import { createContext, useContext } from 'react'
 import { TranslationKeys } from '../../public/locales/types'
 
-const TranslationContext = createContext<TranslationKeys | null>(null)
+interface TranslationContextType extends TranslationKeys {
+  dir: 'rtl' | 'ltr';
+}
+
+const TranslationContext = createContext<TranslationContextType | null>(null)
 
 export function TranslationProvider({
   children,
   value,
 }: {
   children: React.ReactNode
-  value: TranslationKeys
+  value: TranslationKeys & { dir: 'rtl' | 'ltr' }
 }) {
   return (
     <TranslationContext.Provider value={value}>
