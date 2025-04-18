@@ -738,6 +738,7 @@ export type TranslationKeys = {
     title: string;
     total: string;
     addNew: string;
+    noData: string;
     form: {
       name: string;
       email: string;

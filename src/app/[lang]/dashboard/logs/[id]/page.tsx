@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-
 import Pagination from "@/components/Shared/Pagination";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
@@ -169,6 +168,7 @@ export default function Logs({ params }: { params: Promise<Params> }) {
           currentPage={page}
           totalPages={totalPages}
           onPageChange={setPage}
+          lang={resolvedParams?.lang}
         />
       </div>
     </div>

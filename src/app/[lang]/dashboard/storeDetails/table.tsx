@@ -1,5 +1,5 @@
 "use client";
-import Pagination from "@/components/[lang]/pagination";
+import Pagination from "@/components/Shared/Pagination";
 import { useTranslation } from "@/context/translation-context";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -80,7 +80,7 @@ export default function Table({ params }: { params: Params }) {
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-separate border-spacing-y-2">
-            <thead className="text-white">
+            <thead className="text-white text-sm">
               <tr>
                 <th className="p-2">{translations.storeDetails.table.id}</th>
                 <th className="p-2">{translations.storeDetails.table.from}</th>
@@ -94,16 +94,16 @@ export default function Table({ params }: { params: Params }) {
             <tbody>
               {displayedTransactions.length > 0 ? (
                 displayedTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="transition text-white">
+                  <tr key={transaction.id} className="transition text-start border-b border-white/10 py-2">
                     <td className="p-2">{transaction.id}</td>
                     <td className="p-2 text-[#F58C7B]">{transaction.from}</td>
                     <td className="p-2">{transaction.provider}</td>
-                    <td className="p-2 font-bold text-[#53B4AB]">{transaction.amount}</td>
+                    <td className="p-2 font-bold text-[#53B4AB]">{transaction.amount} {translations.dashboard.cards.currency}</td>
                     <td className="p-2">
                       {transaction.state === "pending" ? (
-                        <span className="text-[#F58C7B]">Pending</span>
+                        <span className="text-[#F58C7B]">{translations.transactions.status.pending}</span>
                       ) : (
-                        <span className="text-[#53B4AB]">Completed</span>
+                        <span className="text-[#53B4AB]">{translations.transactions.status.completed}</span>
                       )}
                     </td>
                     <td className="p-2">{transaction.userName}</td>
@@ -113,7 +113,7 @@ export default function Table({ params }: { params: Params }) {
               ) : (
                 <tr>
                   <td className="p-4 text-center" colSpan={8}>
-                    No transactions available.
+                    {translations.transactions.noTransactions}
                   </td>
                 </tr>
               )}
@@ -121,11 +121,12 @@ export default function Table({ params }: { params: Params }) {
           </table>
         </div>
         <div className="mt-auto flex">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChangeClient={handlePageChange}
-          />
+       <Pagination 
+       currentPage={currentPage}
+       totalPages={totalPages}
+       onPageChange={handlePageChange}  
+       lang={params.lang}
+       />
         </div>
       </div>
     </div>

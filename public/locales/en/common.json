@@ -297,9 +297,10 @@
     "noData": "No vendors found."
   },
   "employees": {
-    "title": "Employees",
+    "title": "POS Employees",
     "total": "Total Employees",
     "addNew": "Add New Employee",
+    "noData": "No employees found",
     "table": {
       "id": "ID",
       "name": "Name",

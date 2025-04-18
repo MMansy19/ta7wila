@@ -78,27 +78,33 @@ export default function Employees({ employees = [], params }: EmployeesProps) {
           {translations.storeDetails.employees.title}
         </h2>
         <button
-          className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-[16px] text-sm"
+          className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-lg text-sm"
           onClick={() => setShowAddModal(true)}
         >
           {translations.storeDetails.employees.addNew}
         </button>
       </div>
-      {employees.map((employee) => (
-        <div
-          key={employee.id}
-          className="mb-2 p-3 bg-[#1F1F1F] rounded-lg shadow-sm text-white flex items-center gap-3"
-        >
-          <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 text-white text-lg font-bold">
-            {employee.name.charAt(0).toUpperCase()}
-          </div>
-          <div>
-            <p className="font-medium">{employee.name}</p>
-            <p className="text-sm">Email : {employee.email}</p>
-            <p className="text-sm">Mobile : {employee.mobile}</p>
-          </div>
+      {employees.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-8 text-gray-400">
+          <p className="text-lg">{translations.employees.noData}</p>
         </div>
-      ))}
+      ) : (
+        employees.map((employee) => (
+          <div
+            key={employee.id}
+            className="mb-2 p-3 bg-[#1F1F1F] rounded-lg shadow-sm text-white flex items-center gap-3"
+          >
+            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 text-white text-lg font-bold">
+              {employee.name.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <div className="font-medium">{employee.name}</div>
+              <div className="text-sm">Email : {employee.email}</div>
+              <div className="text-sm">Mobile : {employee.mobile}</div>
+            </div>
+          </div>
+        ))
+      )}
 
       {showAddModal && (
         <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
@@ -126,7 +132,7 @@ export default function Employees({ employees = [], params }: EmployeesProps) {
                       placeholder={
                         translations.storeDetails.employees.form.name
                       }
-                      className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                      className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                     />
                     <ErrorMessage
                       name="name"
@@ -141,7 +147,7 @@ export default function Employees({ employees = [], params }: EmployeesProps) {
                       placeholder={
                         translations.storeDetails.employees.form.email
                       }
-                      className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                      className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                     />
                     <ErrorMessage
                       name="email"
@@ -156,7 +162,7 @@ export default function Employees({ employees = [], params }: EmployeesProps) {
                       placeholder={
                         translations.storeDetails.employees.form.mobile
                       }
-                      className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                      className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                     />
                     <ErrorMessage
                       name="mobile"
@@ -171,7 +177,7 @@ export default function Employees({ employees = [], params }: EmployeesProps) {
                       placeholder={
                         translations.storeDetails.employees.form.password
                       }
-                      className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                      className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                     />
                     <ErrorMessage
                       name="password"
@@ -183,14 +189,14 @@ export default function Employees({ employees = [], params }: EmployeesProps) {
                     <button
                       type="button"
                       onClick={() => setShowAddModal(false)}
-                      className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-[18px] mr-2"
+                      className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-lg text-sm mr-2 font-semibold"
                     >
                       {translations.storeDetails.employees.form.buttons.cancel}
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-[18px]"
+                      className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-lg text-sm font-semibold"
                     >
                       {isSubmitting
                         ? translations.storeDetails.employees.form.buttons
