@@ -316,6 +316,7 @@ export type TranslationKeys = {
       checkButton: string;
       transactionDetails: {
         title: string;
+        value: string;
         transactionId: string;
         senderName: string;
         totalAmount: string;
@@ -329,6 +330,7 @@ export type TranslationKeys = {
         instapayIdTooShort: string;
         amountRequired: string;
         invalidAmount: string;
+        pleaseSelectPaymentValue: string;
       }
     };
     status: {

@@ -354,6 +354,7 @@
       "checkButton": "Check Transaction",
       "transactionDetails": {
         "title": "Transaction Details",
+        "value": "Value",
         "transactionId": "Transaction ID",
         "senderName": "Sender Name",
         "totalAmount": "Total Amount",
@@ -366,7 +367,8 @@
         "instapayIdRequired": "Instapay ID is required",
         "instapayIdTooShort": "Instapay ID is too short",
         "amountRequired": "Amount is required",
-        "invalidAmount": "Amount must be a positive number"
+        "invalidAmount": "Amount must be a positive number",
+        "pleaseSelectPaymentValue": "Please select a payment value"
       }
     },
     "status": {

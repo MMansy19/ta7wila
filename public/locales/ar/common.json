@@ -354,6 +354,7 @@
       "checkButton": "تحقق من المعاملة",
       "transactionDetails": {
         "title": "تفاصيل المعاملة",
+        "value": "الرقم المرجعي",
         "transactionId": "رقم المعاملة",
         "senderName": "اسم المرسل",
         "totalAmount": "المبلغ الإجمالي",
@@ -366,7 +367,8 @@
         "instapayIdRequired": "معرف Instapay مطلوب",
         "instapayIdTooShort": "معرف Instapay قصير جدًا",
         "amountRequired": "المبلغ مطلوب",
-        "invalidAmount": "يجب أن يكون المبلغ رقمًا موجبًا"
+        "invalidAmount": "يجب أن يكون المبلغ رقمًا موجبًا",
+        "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع"
       }
     },
     "status": {
