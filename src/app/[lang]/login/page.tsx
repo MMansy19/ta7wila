@@ -377,7 +377,8 @@ const AuthForm: React.FC = () => {
               width={600}
               height={400}
               className="w-full"
-              priority
+              loading="lazy"
+           
             />
           </div>
         </div>

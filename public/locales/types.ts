@@ -298,6 +298,9 @@ export type TranslationKeys = {
   paymentVerification: {
     title: string;
     noData: string;
+    search: {
+      placeholder: string;
+    };
     table: {
       id: string;
       userName: string;
@@ -334,7 +337,7 @@ export type TranslationKeys = {
         amountRequired: string;
         invalidAmount: string;
         pleaseSelectPaymentValue: string;
-      }
+      };
     };
     status: {
       verified: string;

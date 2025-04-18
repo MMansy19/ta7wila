@@ -336,6 +336,9 @@
   "paymentVerification": {
     "title": "Payment Verification",
     "noData": "No payment verifications available.",
+    "search": {
+      "placeholder": "Search payment verifications..."
+    },
     "table": {
       "id": "ID",
       "userName": "Username",
@@ -586,7 +589,7 @@
   },
   "stores": {
     "title": "Stores",
-    "addStore": "+ Add New Store",
+    "addStore": "Add New Store +",
     "table": {
       "id": "ID",
       "image": "Image",

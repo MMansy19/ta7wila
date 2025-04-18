@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export interface TableColumn<T> {
   header: string;
-  accessor: keyof T | ((item: T) => ReactNode);
+  accessor: keyof T | ((item: T) => ReactNode | string | number);
   className?: string;
 }
 
@@ -16,7 +16,7 @@ interface TableProps<T> {
   rowClassName?: string;
   headerClassName?: string;
   cellClassName?: string;
-  keyExtractor?: (item: T) => string | number;
+  keyExtractorAction?: (item: T) => string | number;
 }
 
 export default function Table<T>({
@@ -28,7 +28,7 @@ export default function Table<T>({
   rowClassName = "transition rounded-lg border-b border-white/10",
   headerClassName = "text-white bg-[#161616]",
   cellClassName = "px-2 py-4",
-  keyExtractor = (item: any) => item.id || Math.random().toString(),
+  keyExtractorAction = (item: any) => item.id || Math.random().toString(),
 }: TableProps<T>) {
   return (
     <div className="grid">
@@ -48,12 +48,12 @@ export default function Table<T>({
             <tbody>
               {data.length > 0 ? (
                 data.map((item) => (
-                  <tr key={keyExtractor(item)} className={rowClassName}>
+                  <tr key={keyExtractorAction(item)} className={rowClassName}>
                     {columns.map((column, index) => (
                       <td key={index} className={`${cellClassName} ${column.className || ""}`}>
                         {typeof column.accessor === "function"
                           ? column.accessor(item)
-                          : item[column.accessor] || "-"}
+                          : String(item[column.accessor] || "-")}
                       </td>
                     ))}
                   </tr>

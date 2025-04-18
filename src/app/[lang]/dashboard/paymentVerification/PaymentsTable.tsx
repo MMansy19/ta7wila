@@ -17,7 +17,7 @@ export default function PaymentsTable({
     <div className="overflow-x-auto">
       <table className="table-auto w-full text-left">
         <thead>
-          <tr className="text-center">
+          <tr className="text-start">
             <th className="p-2">{translations.paymentVerification.table.id}</th>
             <th className="p-2">{translations.paymentVerification.table.userName}</th>
             <th className="p-2">{translations.paymentVerification.table.paymentValue}</th>
@@ -56,11 +56,11 @@ function PaymentRow({
   );
 
   return (
-    <tr className="text-center">
+    <tr className="text-start border-b !border-white/10 py-2">
       <td className="p-2">{paymentData.id}</td>
       <td className="p-2">{paymentData.user.name}</td>
       <td className="p-2">{paymentData.value}</td>
-      <td className="p-2 items-center flex justify-center">
+      <td className="p-2 items-start px-4 flex ">
         {paymentOption ? (
           <Image
             width="34"
@@ -68,7 +68,7 @@ function PaymentRow({
             loading="lazy"
             src={paymentOption.img}
             alt={paymentOption.name}
-            className="object-contain self-center aspect-square w-[34px]"
+            className="object-contain self-center aspect-square w-[34px] "
           />
         ) : (
           "N/A"
@@ -78,16 +78,21 @@ function PaymentRow({
       <td className="p-2">
         <StatusBadge status={paymentData.status} />
       </td>
-      <td className="p-2 text-center">
-        {paymentData.status !== "verified" && (
+      <td className="p-2 text-start">
+        {paymentData.status !== "verified" ? (
           <ActionButton onClick={() => onAction(paymentData)} />
-        )}
+        ):
+        (
+          <span className="text-sm text-white/50 px-5">----</span>
+        )
+        }
       </td>
     </tr>
   );
 }
 
 function StatusBadge({ status }: { status: string }) {
+  const translations = useTranslation();
   const statusStyles = {
     verified: "bg-[#53B4AB] bg-opacity-25 text-[#0FDBC8]",
     pending: "bg-[#F58C7B] bg-opacity-25 text-[#F58C7B]",
@@ -96,7 +101,7 @@ function StatusBadge({ status }: { status: string }) {
 
   return (
     <span className={`px-2 rounded-[12px] text-sm ${statusStyles[status as keyof typeof statusStyles] || statusStyles.default}`}>
-      {status}
+      {translations.paymentVerification.status[status as keyof typeof translations.paymentVerification.status] || status}
     </span>
   );
 }

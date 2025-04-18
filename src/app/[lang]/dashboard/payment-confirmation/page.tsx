@@ -251,7 +251,7 @@ export default function PaymentConfirmation() {
                 className="w-full p-3 bg-[#53B4AB] hover:bg-[#347871] text-black rounded-lg mt-3"
                 disabled={submitting}
               >
-                {submitting ? translations.storepayment.modal.add.submitting : `${translations.transactionModal.form.check} ${amount}`}
+                {submitting ? translations.auth.submitting : `${translations.transactionModal.form.check} ${amount}`}
               </button>
             </form>
           </div>

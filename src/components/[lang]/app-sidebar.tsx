@@ -325,7 +325,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
             {
               title: translations.sidebar.paymentsVerifications,
-              url: "/dashboard/userpermisions",
+              url: "/dashboard/paymentVerification",
               icon: (
                 <svg
                   width="24"

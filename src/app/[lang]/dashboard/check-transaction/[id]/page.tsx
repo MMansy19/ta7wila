@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../../Shared/getAuth";
-import { PaymentOption } from "../../userpermisions/types";
+import { PaymentOption } from "../../paymentVerification/types";
 
 interface Store {
   id: string;
