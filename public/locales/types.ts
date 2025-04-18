@@ -240,6 +240,9 @@ export type TranslationKeys = {
   users: {
     title: string;
     total: string;
+    search: {
+      placeholder: string;
+    };
     table: {
       id: string;
       image: string;
@@ -735,6 +738,10 @@ export type TranslationKeys = {
   settings: {
     enabled: string;
     disabled: string;
+  };
+  errors: {
+    developerMode: string;
+    statusUpdated: string;
   };
   employees: {
     title: string;

@@ -1,7 +1,10 @@
 "use client";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
-import Image from "next/image";
+
+import Pagination from "@/components/Shared/Pagination";
+import { Search } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
@@ -21,16 +24,20 @@ interface User {
 
 export default function Users() {
   const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalVendors, setTotalVendors] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const translations = useTranslation();
+  const params = useParams();
+  const lang = params.lang as string;
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
  
@@ -55,7 +62,7 @@ export default function Users() {
           },
         }
       );
-      toast.success("Status updated successfully!");
+      toast.success(translations.errors.statusUpdated);
 
       setUsers((prevUsers) =>
         prevUsers.map((u) =>
@@ -64,7 +71,8 @@ export default function Users() {
       );
     } catch (err: any) {
       const message =
-        err.response?.data?.message || "An error occurred while updating the status.";
+        err.response?.data?.message ||
+        translations.errors.developerMode;
       toast.error(message);
     } finally {
       setIsSubmitting(false);
@@ -92,19 +100,34 @@ export default function Users() {
       }));
 
       setUsers(transformedUsers.reverse());
+      setFilteredUsers(transformedUsers.reverse());
       setTotalPages(response.data.result.totalPages);
       setTotalVendors(response.data.result.total)
     } catch (err: any) {
       setError(
         err.response?.data?.message ||
-        "You aren't developer to do this action, upgrade your account from normal user to developer to be able to do this action then try again"
+        translations.errors.developerMode
       );
     } finally {
       setLoading(false);
     }
   }
 
-
+  // Filter users based on search query
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredUsers(users);
+    } else {
+      const query = searchQuery.toLowerCase();
+      const filtered = users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(query) ||
+          user.email.toLowerCase().includes(query) ||
+          user.mobile.includes(query)
+      );
+      setFilteredUsers(filtered);
+    }
+  }, [searchQuery, users]);
 
 
   useEffect(() => {
@@ -117,6 +140,9 @@ export default function Users() {
     }
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
 
   const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -139,20 +165,33 @@ export default function Users() {
         <Toaster position="top-right" reverseOrder={false} />
 
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-semibold">{translations.users.title}</h1>
-          <div className="space-x-2">
+          <h2 className="text-2xl font-semibold">{translations.users.title}</h2>
+          <div className="flex items-center gap-2">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder={translations.users.search.placeholder}
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="pl-10 pr-4 py-2 bg-neutral-800 rounded-lg text-sm text-white placeholder:text-white/50 !outline-none focus:outline-none focus:ring-0 border-0 focus:border-0 w-[300px]"
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
+          </div>
+     
+   
             <button className="bg-[#53B4AB] hover:bg-[#459a91] text-black px-4 py-2 rounded-lg text-sm">
               {translations.users.total}: {totalVendors}
             </button>
           </div>
         </div>
 
+    
+
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
               <tr className="text-start">
                 <th className="p-2">{translations.users.table.id}</th>
-               
                 <th className="p-2">{translations.users.table.name}</th>
                 <th className="p-2">{translations.users.table.email}</th>
                 <th className="p-2">{translations.users.table.mobile}</th>
@@ -162,8 +201,8 @@ export default function Users() {
               </tr>
             </thead>
             <tbody>
-              {users.length > 0 ? (
-                users.map((user) => (
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user) => (
                   <tr key={user.id} className="text-start border-b border-white/10">
                     <td className="p-2">{user.id}</td>
                     
@@ -172,7 +211,7 @@ export default function Users() {
                     <td className="p-2">{user.mobile}</td>
                     <td className="p-2">
                       <span
-                        className={`px-2 py-.5 rounded-[12px] ${user.status === "active" ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-30 cursor-not-allowed" : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-50 cursor-pointer"
+                        className={`px-2 py-.5 rounded-full text-sm ${user.status === "active" ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed" : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
                           }`}
                       >
                         {user.status}
@@ -182,7 +221,7 @@ export default function Users() {
                     <td className="p-2">
                       <button
                         onClick={(e) => handleSubmit(e, user, user.status === "active" ? "inactive" : "active")}
-                        className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-[12px]"
+                        className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-full text-sm"
                       >
                         {user.status === "active" ? translations.users.actions.deactivate : translations.users.actions.activate}
                       </button>
@@ -199,45 +238,13 @@ export default function Users() {
         </div>
 
         {/* Pagination Controls */}
-        <div className="flex justify-end mt-auto">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            aria-label="Previous page"
-            className={`mx-1 rounded-full w-11 h-11 flex justify-center items-center ${currentPage === 1 ? "bg-[#53B4AB] cursor-not-allowed" : "bg-gray-700 hover:bg-gray-600"
-              }`}
-          >
-            <svg
-              width="24"
-              height="25"
-              viewBox="0 0 24 25"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14 17.772L9 12.772L14 7.77197"
-                stroke="black"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-
-          <span className="px-2 py-3">{`Page ${currentPage} of ${totalPages}`}</span>
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className={` mx-1 rounded-full w-11 h-11 flex justify-center items-center ${currentPage === totalPages ? "bg-[#53B4AB] cursor-not-allowed" : "bg-gray-700 hover:bg-gray-600"
-              }`}
-          >
-            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 17.772L15 12.772L10 7.77197" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-
-          </button>
-        </div>
-
+      
+       <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          lang={lang}
+        />
       </div>
     </div>
 

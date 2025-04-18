@@ -244,6 +244,9 @@
   "users": {
     "title": "Users",
     "total": "Total Users",
+    "search": {
+      "placeholder": "Search users..."
+    },
     "table": {
       "id": "ID",
       "image": "Image",
@@ -771,5 +774,9 @@
   "settings": {
     "enabled": "Enabled",
     "disabled": "Disabled"
+  },
+  "errors": {
+    "developerMode": "You aren't developer to do this action, upgrade your account from normal user to developer to be able to do this action then try again",
+    "statusUpdated": "Status updated successfully!"
   }
 }
