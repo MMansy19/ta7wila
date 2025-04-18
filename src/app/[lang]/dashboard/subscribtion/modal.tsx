@@ -9,7 +9,7 @@ const SubscriptionModal = ({
 
   return (
     <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-      <div className="bg-neutral-900 rounded-[18px] p-6 shadow-lg mx-4 w-full max-w-2xl overflow-y-auto max-h-[90vh]">
+      <div className="bg-neutral-900 rounded-xl p-6 shadow-lg mx-4 w-full max-w-2xl overflow-y-auto max-h-[90vh]">
         <div className="flex justify-between text-xl font-bold mb-4">
           <h2>{translations.subscription.modal.title}</h2>
           <button type="button" onClick={onClose} className="text-white">
@@ -32,7 +32,7 @@ const SubscriptionModal = ({
         </div>
 
         <div className="grid gap-4">
-          <div className="bg-[#444444] p-6 rounded-xl space-y-6">
+          <div className="bg-[#444444] p-6 rounded-lg space-y-6">
             <div className="flex flex-col items-center gap-3 text-center">
               <div className=" flex items-center justify-center">
                 <svg
@@ -109,7 +109,7 @@ const SubscriptionModal = ({
             </div>
           </div>
 
-          <div className="bg-[#444444] p-4 rounded-xl">
+          <div className="bg-[#444444] p-4 rounded-lg">
             <div className="flex gap-6">
               <div>
                 <div className="flex items-center justify-center w-11 h-11 rounded-full bg-gray-500 text-white font-bold uppercase">
@@ -127,7 +127,7 @@ const SubscriptionModal = ({
             </div>
           </div>
 
-          <div className="bg-[#444444] p-4 rounded-xl ">
+          <div className="bg-[#444444] p-4 rounded-lg ">
             {[
               {
                 label: translations.subscription.modal.counts.applications,
@@ -149,7 +149,7 @@ const SubscriptionModal = ({
             ))}
           </div>
 
-          <div className="bg-[#444444] p-4 rounded-xl">
+          <div className="bg-[#444444] p-4 rounded-lg">
             <div className="text-[#d5d5d5] text-sm uppercase">
               {translations.subscription.modal.subscriptionType}
             </div>

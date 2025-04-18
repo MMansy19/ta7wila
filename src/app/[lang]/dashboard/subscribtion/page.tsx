@@ -89,7 +89,7 @@ export default function Subscriptions() {
   return (
     <div>
       <div className="grid mt-2">
-        <div className="flex flex-col overflow-hidden bg-neutral-900 rounded-[18px] p-6 text-white min-h-[calc(100vh-76px)]">
+        <div className="flex flex-col overflow-hidden bg-neutral-900 rounded-xl p-6 text-white min-h-[calc(100vh-76px)]">
           <Toaster position="top-right" />
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold">{translations.subscription.title}</h2>
@@ -112,11 +112,18 @@ export default function Subscriptions() {
               <tbody>
                 {subscriptions.length > 0 ? (
                   subscriptions.map((subscription) => (
-                    <tr key={subscription.id}>
+                    <tr key={subscription.id} className="transition py-2 border-b border-white/10">
                       <td className="p-2">{subscription.title}</td>
-                      <td className="p-2">${subscription.amount}</td>
+                      <td className="p-2">{subscription.amount} {translations.dashboard.cards.currency}</td>
                       <td className="p-2">{subscription.subscription_type}</td>
-                      <td className="p-2">{subscription.status}</td>
+                      <td className="p-2">
+                  
+                        <span className={`px-2 py-1 rounded-full text-sm ${subscription.status === "active" ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed" : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
+                          }`}
+                        >
+                          {subscription.status}
+                        </span>
+                        </td>
                       <td className="p-2">
                         {subscription.applications_count}/
                         {subscription.max_applications_count}
@@ -135,7 +142,7 @@ export default function Subscriptions() {
                       <td className="p-2">
                         <button
                           onClick={() => openModal(subscription)}
-                          className="bg-[#53B4AB] hover:bg-[#347871] px-3 py-1 rounded-[12px] text-black text-sm"
+                          className="bg-[#53B4AB] hover:bg-[#347871] px-3 py-1 rounded-lg text-black text-sm"
                         >
                           {translations.subscription.table.view}
                         </button>
