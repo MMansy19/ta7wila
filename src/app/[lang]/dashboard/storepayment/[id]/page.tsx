@@ -1,4 +1,5 @@
 "use client";
+import Pagination from "@/components/Shared/Pagination";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -341,63 +342,12 @@ export default function PaymentService({
           </div>
 
           {/* Pagination Controls */}
-          <div className="flex justify-end mt-auto">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              aria-label="Previous page"
-              className={`mx-1 rounded-full w-9 h-9 flex justify-center items-center ${
-                currentPage === 1
-                  ? "bg-[#53B4AB] cursor-not-allowed"
-                  : "bg-gray-700 hover:bg-gray-600"
-              }`}
-            >
-              <svg
-                width="24"
-                height="25"
-                viewBox="0 0 24 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={`transform ${resolvedParams?.lang === 'ar' ? 'rotate-180' : ''}`}
-              >
-                <path
-                  d="M14 17.772L9 12.772L14 7.77197"
-                  stroke="black"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-
-            <span className="  p-2  text-sm">{`Page ${currentPage} of ${totalPages}`}</span>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={` mx-1 rounded-full w-9 h-9 flex justify-center items-center ${
-                currentPage === totalPages
-                  ? "bg-[#53B4AB] cursor-not-allowed"
-                  : "bg-gray-700 hover:bg-gray-600"
-              }`}
-            >
-              <svg
-                width="24"
-                height="25"
-                viewBox="0 0 24 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={`transform ${resolvedParams?.lang === 'ar' ? 'rotate-180' : ''}`}
-              >
-                <path
-                  d="M10 17.772L15 12.772L10 7.77197"
-                  stroke="black"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
+          <Pagination 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            lang={resolvedParams?.lang}
+          />
 
           {isModalOpen && selectedStore && (
             <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
