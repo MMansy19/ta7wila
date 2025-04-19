@@ -624,7 +624,9 @@
     "perMonth": "/ شهريًا",
     "getStarted": "ابدأ الآن",
     "processing": "جارٍ المعالجة...",
-    "applications": "التطبيقات"
+    "applications": "التطبيقات",
+    "Employees": "الموظفين",
+    "Vendors": "الموردين"
   },
   "transactionModal": {
     "application": {

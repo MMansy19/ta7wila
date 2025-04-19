@@ -624,7 +624,9 @@
     "perMonth": "/month",
     "getStarted": "Get Started",
     "processing": "Processing...",
-    "applications": "Applications"
+    "applications": "Applications",
+    "Employees": "Employees",
+    "Vendors": "Vendors"
   },
   "transactionModal": {
     "application": {
@@ -663,8 +665,8 @@
     "yourSubscription": "Your Subscription",
     "subscriptionCosts": "Subscription Costs",
     "perMonth": "/month",
-    "paymentWarning": "Your payment is due in",
-    "suspensionWarning": "Your account will be suspended in",
+    "paymentWarning": "You must pay before the end of the month to complete your plan and benefit from our services. If you fail to pay",
+    "suspensionWarning": "Your account will be suspended until you pay the dues.",
     "payNow": "Pay Now",
     "yourPlan": "Your Plan",
     "applications": "Applications",

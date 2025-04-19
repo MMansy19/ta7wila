@@ -61,48 +61,59 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
 
   return (
     <section className="py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#1F1F1F] rounded-[33px] py-8">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h4 className="text-2xl font-extrabold text-white sm:text-3xl">
+          <h4 className="text-3xl font-extrabold text-white sm:text-4xl mb-4">
             {translations.price.yourSubscription}
           </h4>
         </div>
-        <div className="grid grid-cols-3 grid-rows-1 gap-4 mb-6">
-          <div className="col-span-2">
-            <div className="bg-[#444444] rounded-[33px] shadow-4xl p-8  text-white mb-8">
-              <h3 className="text-2xl font-bold mb-4">
-                {translations.price.subscriptionCosts}
-              </h3>
-              <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-4xl font-bold">
-                  ${currentPlan.amount}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <div className="bg-[#1F1F1F] rounded-xl shadow-4xl p-8 text-white">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold">
+                  {translations.price.subscriptionCosts}
+                </h3>
+                <span className="px-4 py-2 bg-[#53B4AB] bg-opacity-20 text-[#53B4AB] rounded-full text-sm font-semibold">
+                  Active
                 </span>
-                <span className="text-lg opacity-80">
+              </div>
+              <div className="flex items-baseline gap-2 mb-6">
+                <span className="text-5xl font-bold">
+                  {currentPlan.amount} {translations.dashboard.cards.currency}
+                </span>
+                <span className="text-lg text-gray-400">
                   {translations.price.perMonth}
                 </span>
               </div>
-              <p className="text-lg text-[#D9D9D9] font-bold px-5 py-4 mb-6">
-                {translations.price.paymentWarning}
-              </p>
-              <p className="text-[#F58C7B] text-lg font-bold px-5 py-2 mb-6">
-                {translations.price.suspensionWarning}
-              </p>
-              <button className="w-full py-3 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition">
+              <div className="space-y-4">
+                <div className="bg-[#2A2A2A] rounded-lg p-4">
+                  <p className="text-[#D9D9D9] font-medium">
+                    {translations.price.paymentWarning}
+                  </p>
+                </div>
+                <div className="bg-[#2A2A2A] rounded-lg p-4 border-l-4 border-[#F58C7B]">
+                  <p className="text-[#F58C7B] font-medium">
+                    {translations.price.suspensionWarning}
+                  </p>
+                </div>
+              </div>
+              <button className="w-full mt-6 py-4 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]">
                 {translations.price.payNow}
               </button>
             </div>
           </div>
 
-          <div className="col-start-3">
-            <div className="bg-[#53B4AB] rounded-[33px] shadow-4xl p-8 text-black min-h-[400px]">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-4">
-                  {translations.price.yourPlan}
-                </h3>
-                <ul className="space-y-6 text-black mb-8 min-h-[200px] flex flex-col justify-center ">
-                  <li className="flex items-center text-xl">
+          <div className="lg:col-span-1">
+            <div className="bg-[#53B4AB] rounded-xl shadow-4xl p-8 text-black h-full">
+              <h3 className="text-2xl font-bold mb-6">
+                {translations.price.yourPlan}
+              </h3>
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
                     <svg
-                      className="h-6 w-6 text-white mr-2"
+                      className="h-5 w-5 text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -115,16 +126,18 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span className="font-bold">
-                      {currentPlan.applications_count} /{" "}
-                      {currentPlan.max_applications_count}{" "}
-                      {translations.price.applications}
-                    </span>
-                   
-                  </li>
-                  <li className="flex items-center text-xl">
+                  </div>
+                  <div>
+                    <p className="font-semibold">
+                      {currentPlan.applications_count} / {currentPlan.max_applications_count}
+                    </p>
+                    <p className="text-sm opacity-80">{translations.price.applications}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
                     <svg
-                      className="h-6 w-6 text-white mr-2"
+                      className="h-5 w-5 text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -137,15 +150,18 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span className="font-bold">
-                      {currentPlan.employees_count} /{" "}
-                      {currentPlan.max_employees_count}{" "}
-                      {translations.price.employees}
-                    </span>
-                  </li>
-                  <li className="flex items-center text-xl">
+                  </div>
+                  <div>
+                    <p className="font-semibold">
+                      {currentPlan.employees_count} / {currentPlan.max_employees_count}
+                    </p>
+                    <p className="text-sm opacity-80">{translations.price.employees}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-black bg-opacity-20 flex items-center justify-center">
                     <svg
-                      className="h-6 w-6 text-white mr-2"
+                      className="h-5 w-5 text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -158,18 +174,17 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-
-                    <span className="font-bold">
-                      {currentPlan.vendors_count} /{" "}
-                      {currentPlan.max_vendors_count}{" "}
-                      {translations.price.vendors}
-                    </span>
-                  </li>
-                </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold">
+                      {currentPlan.vendors_count} / {currentPlan.max_vendors_count}
+                    </p>
+                    <p className="text-sm opacity-80">{translations.price.vendors}</p>
+                  </div>
+                </div>
               </div>
-
-              <Link href={"/dashboard/plans"}>
-                <button className="w-full py-3 bg-white text-[#398c84] rounded-xl font-bold hover:bg-opacity-90 transition">
+              <Link href={"/dashboard/plans"} className="block mt-12">
+                <button className="w-full py-3 bg-white text-[#398c84] rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]">
                   {translations.price.change}
                 </button>
               </Link>

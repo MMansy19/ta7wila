@@ -589,6 +589,8 @@ export type TranslationKeys = {
     getStarted: string;
     processing: string;
     applications: string;
+    Employees: string;
+    Vendors: string;
   };
   transactionModal: {
     application: {

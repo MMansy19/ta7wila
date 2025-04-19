@@ -73,7 +73,7 @@ export default function Plans() {
   };
   return (
     <section className="py-8">
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 bg-[#1F1F1F] rounded-[33px] py-8  ">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 bg-[#1F1F1F] rounded-xl py-8  ">
         <Toaster position="top-right" reverseOrder={false} />
 
         <div className="text-center mb-12">
@@ -85,7 +85,7 @@ export default function Plans() {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className="bg-[#444444] rounded-[33px] shadow-4xl p-8  text-white"
+              className="bg-[#444444] rounded-xl shadow-4xl p-8  text-white"
             >
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
@@ -115,7 +115,7 @@ export default function Plans() {
                         />
                       </svg>
                       <span className="font-bold">
-                        {translations.plans.applications}
+                      {plan.applications_count} {translations.plans.applications}
                       </span>
                     </li>
                     <li className="flex items-center">
@@ -134,7 +134,7 @@ export default function Plans() {
                         />
                       </svg>
                       <span className="font-bold">
-                        {plan.employees_count} Employees
+                        {plan.employees_count} {translations.plans.Employees}
                       </span>
                     </li>
                     <li className="flex items-center">
@@ -153,7 +153,7 @@ export default function Plans() {
                         />
                       </svg>
                       <span className="font-bold">
-                        {plan.vendors_count} Vendors
+                        {plan.vendors_count} {translations.plans.Vendors}
                       </span>
                     </li>
                   </ul>
@@ -161,7 +161,7 @@ export default function Plans() {
               </div>
 
               <button
-                className={`w-full py-3 px-6 text-center rounded-[18px] font-bold
+                className={`w-full py-3 px-6 text-center rounded-lg font-bold
                  
                      bg-[#53B4AB] text-black
                       hover:opacity-90 transition-opacity`}
