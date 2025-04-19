@@ -11,6 +11,7 @@ export interface Plan {
   updated_at: string;
   user_id: number;
   applications_count: number;
+  employee_count: number;
   employees_count: number;
   vendors_count: number;
   subscription_type?: string;  

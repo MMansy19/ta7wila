@@ -55,7 +55,7 @@ export default function Settings() {
   const copyToClipboard = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(token);
-    toast.success("Token copied to clipboard!");
+    toast.success(translations.settings.tokenCopied);
   };
 
 
@@ -95,7 +95,7 @@ export default function Settings() {
           if (!prevUser) return updatedUser;
           return { ...prevUser, ...updatedUser };
         });
-        toast.success("Profile updated successfully");
+        toast.success(translations.settings.profileUpdated);
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
@@ -124,7 +124,7 @@ export default function Settings() {
         { headers: getAuthHeaders() }
       )
       .then(() => {
-        toast.success("Password changed successfully");
+        toast.success(translations.settings.passwordChanged);
         resetForm();
       })
       .catch((error) => {
@@ -157,90 +157,91 @@ export default function Settings() {
       >
         {({ isSubmitting }) => (
           <Form className=" ">
-            <div className="flex overflow-x flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-[18px] mb-4 max-md:max-w-full">
-              <h2 className="text-xl font-bold mb-4">{translations.header.profile}</h2>
+            <div className="flex overflow-x flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-xl mb-4 max-md:max-w-full">
+              <h2 className="text-2xl font-bold mb-4">{translations.header.profile}</h2>
               {/* Username */}
               <div className="mb-2">
                 <Field type="hidden" name="id" />
-                <label htmlFor="username" className="block text-sm font-medium">
-                  {translations.auth.name}
+                <label htmlFor="username" className="block text-sm font-medium mb-2">
+                  {translations.auth.userName}
                 </label>
                 <Field
                   type="text"
                   id="username"
                   name="username"
-                  className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                  className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                 />
-                <ErrorMessage name="username" component="p" className="text-sm text-red-700 mt-1" />
+                <ErrorMessage name="username" component="p" className=" text-red-500 text-sm mt-1" />
               </div>
               {/* Name */}
               <div className="mb-2">
-                <label htmlFor="name" className="block text-sm font-medium">
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
                   {translations.auth.name}
                 </label>
                 <Field
                   type="text"
                   id="name"
                   name="name"
-                  className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                  className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                 />
-                <ErrorMessage name="name" component="p" className="text-sm text-red-700 mt-1" />
+                <ErrorMessage name="name" component="p" className=" text-red-500 text-sm mt-1" />
               </div>
               {/* Mobile */}
               <div className="mb-2">
-                <label htmlFor="mobile" className="block text-sm font-medium">
+                <label htmlFor="mobile" className="block text-sm font-medium mb-2">
                   {translations.auth.mobile}
                 </label>
                 <Field
                   type="text"
                   id="mobile"
                   name="mobile"
-                  className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                  className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                 />
-                <ErrorMessage name="mobile" component="p" className="text-sm text-red-700 mt-1" />
+                <ErrorMessage name="mobile" component="p" className=" text-red-500 text-sm mt-1" />
               </div>
               {/* Email */}
               <div className="mb-2">
-                <label htmlFor="email" className="block text-sm font-medium">
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
                   {translations.auth.email}
                 </label>
                 <Field
                   type="email"
                   id="email"
                   name="email"
-                  className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                  className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                 />
-                <ErrorMessage name="email" component="p" className="text-sm text-red-700 mt-1" />
+                <ErrorMessage name="email" component="p" className=" text-red-500 text-sm mt-1" />
               </div>
               <div className="flex justify-end mt-4">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-3 bg-[#53B4AB] text-sm text-black rounded-[16px]"
+                  className="px-4 py-2 font-semibold text-sm bg-[#53B4AB]  text-black rounded-lg"
 
                 >
-                  {isSubmitting ? translations.auth.submitting : translations.header.profile}
+                  {isSubmitting ? translations.auth.submitting : translations.header.updateProfile}
                 </button>
               </div>
             </div>
           </Form>)}
       </Formik>
-      <div className="flex overflow-x flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full mb-4">
+      <div className="flex overflow-x flex-col justify-center px-8 py-6 w-full bg-neutral-900 rounded-xl max-md:max-w-full mb-4">
         <form className="space-y-4">
-          <h2 className="text-xl font-bold my-2">Your App Token</h2>
+          <h2 className="text-2xl font-bold my-2">{translations.settings.appToken}</h2>
           {/* App Token */}
           <div>
-            <label htmlFor="app-token" className="block text-sm font-medium mb-2">
-              App Token
+            <label htmlFor="app-token" className="block text-sm font-medium  mb-2">
+            {translations.settings.Token}
             </label>
             <div className="flex gap-3">
               <input
                 type="text"
                 id="app-token"
                 value={token}
-                className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
-                readOnly />
-              <button onClick={copyToClipboard} className="mt-1  bg-[#444444] border border-gray-600 rounded-[16px] p-2 ">
+                className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
+                readOnly
+                 />
+              <button onClick={copyToClipboard} className="mt-1  bg-[#444444] border border-gray-600 rounded-lg p-2 ">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17 6L17 14C17 16.2091 15.2091 18 13 18H7M17 6C17 3.79086 15.2091 2 13 2L10.6569 2C9.59599 2 8.57857 2.42143 7.82843 3.17157L4.17157 6.82843C3.42143 7.57857 3 8.59599 3 9.65685L3 14C3 16.2091 4.79086 18 7 18M17 6C19.2091 6 21 7.79086 21 10V18C21 20.2091 19.2091 22 17 22H11C8.79086 22 7 20.2091 7 18M9 2L9 4C9 6.20914 7.20914 8 5 8L3 8" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
                 </svg>
@@ -259,11 +260,11 @@ export default function Settings() {
         onSubmit={handlePasswordChange}
       >
         {({ isSubmitting }) => (
-          <Form className="flex overflow-x flex-col justify-center px-8 py-6 w-full space-y-4 bg-neutral-900 rounded-[18px] max-md:max-w-full">
-            <h2 className="text-xl font-bold my-2">{translations.auth.forgetPassword.resetTitle}</h2>
+          <Form className="flex overflow-x flex-col justify-center px-8 py-6 w-full space-y-4 bg-neutral-900 rounded-xl max-md:max-w-full">
+            <h2 className="text-2xl font-bold my-2">{translations.auth.forgetPassword.resetTitle}</h2>
             {/* Current Password */}
             <div className="mb-2">
-              <label htmlFor="current-password" className="block text-sm font-medium">
+              <label htmlFor="current-password" className="block text-sm font-medium mb-2">
                 {translations.auth.password}
               </label>
               <Field
@@ -271,18 +272,20 @@ export default function Settings() {
                 type="password"
                 id="current-password"
                 placeholder={translations.auth.password}
-                className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                autoComplete = 'off'
+                autoCorrect = 'off'
+                className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
               />
               <ErrorMessage
                 name="currentPassword"
                 component="p"
-                className="text-red-700"
+                className="text-red-500 text-sm "
                 aria-live="assertive"
               />
             </div>
             {/* New Password */}
             <div className="mb-2">
-              <label htmlFor="new-password" className="block text-sm font-medium">
+              <label htmlFor="new-password" className="block text-sm font-medium mb-2">
                 {translations.auth.forgetPassword.newPassword}
               </label>
               <Field
@@ -290,19 +293,19 @@ export default function Settings() {
                 type="password"
                 id="new-password"
                 placeholder={translations.auth.forgetPassword.newPassword}
-                className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
               />
               <ErrorMessage
                 name="newPassword"
                 component="p"
-                className="text-red-700"
+                className="text-red-500 text-sm"
                 aria-live="assertive"
               />
             </div>
 
             {/* Confirm Password */}
             <div className="mb-2">
-              <label htmlFor="confirm-password" className="block text-sm font-medium">
+              <label htmlFor="confirm-password" className="block text-sm font-medium mb-2">
                 {translations.auth.forgetPassword.confirmPassword}
               </label>
               <Field
@@ -310,12 +313,12 @@ export default function Settings() {
                 type="password"
                 id="confirm-password"
                 placeholder={translations.auth.forgetPassword.confirmPassword}
-                className="mt-1 px-4 block w-full bg-[#444444] border border-gray-600 rounded-[16px] p-2 outline-none"
+                className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
               />
               <ErrorMessage
                 name="confirmPassword"
                 component="p"
-                className="text-red-700"
+                className="text-red-500 text-sm"
                 aria-live="assertive"
               />
             </div>
@@ -323,7 +326,7 @@ export default function Settings() {
             <div className="flex justify-end mt-4">
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#53B4AB] text-sm text-black rounded-[16px]"
+                className="px-6 py-3 bg-[#53B4AB] text-sm text-black rounded-lg"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? translations.auth.forgetPassword.resetting : translations.auth.forgetPassword.resetPassword}

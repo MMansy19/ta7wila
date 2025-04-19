@@ -97,6 +97,7 @@
     "email": "Email",
     "password": "Password",
     "name": "Name",
+    "userName":"Username",
     "mobile": "Mobile",
     "forgotPassword": "Forgot Password?",
     "clickHere": "Click Here",
@@ -201,6 +202,7 @@
     "profile": "Profile",
     "settings": "Settings",
     "logout": "Logout",
+    "updateProfile":"update Profile",
     "devMode": {
       "switchTo": "Switch to Developer Mode",
       "backTo": "Back to User Mode"
@@ -659,16 +661,29 @@
     "addNewPlan": "Add New Plan",
     "loading": "Loading...",
     "yourSubscription": "Your Subscription",
-    "subscriptionCosts": "Your Subscription Costs",
-    "perMonth": "/ this month",
-    "paymentWarning": "You must pay before the end of the month to complete your plan and benefit from our services. In case of non-payment.",
-    "suspensionWarning": "Your account will be suspended until you pay the dues.",
+    "subscriptionCosts": "Subscription Costs",
+    "perMonth": "/month",
+    "paymentWarning": "Your payment is due in",
+    "suspensionWarning": "Your account will be suspended in",
     "payNow": "Pay Now",
     "yourPlan": "Your Plan",
     "applications": "Applications",
     "employees": "Employees",
     "vendors": "Vendors",
     "change": "Change",
+    "validation": {
+      "titleRequired": "Title is required",
+      "titleMinLength": "Title must be at least 3 characters",
+      "subtitleRequired": "Subtitle is required",
+      "amountRequired": "Amount is required",
+      "amountMin": "Amount must be greater than 0",
+      "applicationsRequired": "Applications count is required",
+      "applicationsMin": "Applications count must be greater than 0",
+      "employeesRequired": "Employees count is required",
+      "employeesMin": "Employees count must be greater than 0",
+      "vendorsRequired": "Vendors count is required",
+      "vendorsMin": "Vendors count must be greater than 0"
+    },
     "modal": {
       "addTitle": "Add New Plan",
       "editTitle": "Edit Plan",
@@ -776,7 +791,12 @@
   },
   "settings": {
     "enabled": "Enabled",
-    "disabled": "Disabled"
+    "disabled": "Disabled",
+    "tokenCopied": "Token copied to clipboard!",
+    "profileUpdated": "Profile updated successfully!",
+    "passwordChanged": "Password changed successfully!",
+    "appToken": "Your App Token",
+    "Token":"App Token"
   },
   "errors": {
     "developerMode": "You aren't developer to do this action, upgrade your account from normal user to developer to be able to do this action then try again",

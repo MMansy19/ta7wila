@@ -1,26 +1,42 @@
 "use client";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
+import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
+import * as Yup from "yup";
+import FormField from "../Shared/FormField";
 import getAuthHeaders from "../Shared/getAuth";
 import { Plan } from "./types";
 
 export default function AdminPlans() {
   const translations = useTranslation();
   const [plans, setPlans] = useState<Plan[]>([]);
-  const [newPlan, setNewPlan] = useState({
-    title: "",
-    amount: 0,
-    subtitle: "",
-    applications_count: "",
-    employees_count: "",
-    vendors_count: ""
-  });
   const [editingPlan, setEditingPlan] = useState<Plan | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [deletingPlan, setDeletingPlan] = useState<Plan | null>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  // Validation schema
+  const validationSchema = Yup.object().shape({
+    title: Yup.string()
+      .required(translations.price?.validation?.titleRequired || "Title is required")
+      .min(3, translations.price?.validation?.titleMinLength || "Title must be at least 3 characters"),
+    subtitle: Yup.string()
+      .required(translations.price?.validation?.subtitleRequired || "Subtitle is required"),
+    amount: Yup.number()
+      .required(translations.price?.validation?.amountRequired || "Amount is required")
+      .min(0, translations.price?.validation?.amountMin || "Amount must be greater than 0"),
+    applications_count: Yup.number()
+      .required(translations.price?.validation?.applicationsRequired || "Applications count is required")
+      .min(0, translations.price?.validation?.applicationsMin || "Applications count must be greater than 0"),
+    employee_count: Yup.number()
+      .required(translations.price?.validation?.employeesRequired || "Employees count is required")
+      .min(0, translations.price?.validation?.employeesMin || "Employees count must be greater than 0"),
+    vendors_count: Yup.number()
+      .required(translations.price?.validation?.vendorsRequired || "Vendors count is required")
+      .min(0, translations.price?.validation?.vendorsMin || "Vendors count must be greater than 0"),
+  });
 
   useEffect(() => {
     fetchPlans();
@@ -41,13 +57,16 @@ export default function AdminPlans() {
     }
   };
 
-  const handleAddPlan = async () => {
+  const handleAddPlan = async (values: any) => {
     try {
-      await axios.post(`${apiUrl}/plans/add`, newPlan, {
+      const planToAdd = {
+        ...values,
+        employee_count: Number(values.employee_count)
+      };
+      await axios.post(`${apiUrl}/plans/add`, planToAdd, {
         headers: getAuthHeaders(),
       });
       fetchPlans();
-      setNewPlan({ title: "", amount: 0, subtitle: "", applications_count: "", employees_count: "", vendors_count: "" });
       setShowAddModal(false);
     } catch (error) {
       console.error("Error adding plan:", error);
@@ -58,10 +77,13 @@ export default function AdminPlans() {
     setEditingPlan(plan);
   };
 
-  const handleUpdatePlan = async () => {
-    if (!editingPlan) return;
+  const handleUpdatePlan = async (values: any) => {
     try {
-      await axios.post(`${apiUrl}/plans/update`, editingPlan, {
+      const planToUpdate = {
+        ...values,
+        employee_count: Number(values.employee_count)
+      };
+      await axios.post(`${apiUrl}/plans/update`, planToUpdate, {
         headers: getAuthHeaders(),
       });
       fetchPlans();
@@ -122,108 +144,82 @@ export default function AdminPlans() {
                 </button>
               </div>
 
-              <div className="space-y-5">
-                <div>
-                  <label htmlFor="title" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {translations.price.modal.title} *
-                  </label>
-                  <input
-                    id="title"
-                    type="text"
-                    placeholder={translations.price.modal.titlePlaceholder}
-                    value={newPlan.title}
-                    onChange={(e) => setNewPlan({ ...newPlan, title: e.target.value })}
-                    className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white placeholder:text-neutral-400 focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="subtitle" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {translations.price.modal.subtitle} *
-                  </label>
-                  <input
-                    id="subtitle"
-                    type="text"
-                    placeholder={translations.price.modal.subtitlePlaceholder}
-                    value={newPlan.subtitle}
-                    onChange={(e) => setNewPlan({ ...newPlan, subtitle: e.target.value })}
-                    className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white placeholder:text-neutral-400 focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="amount" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {translations.price.modal.amount} (USD) *
-                  </label>
-                  <input
-                    id="amount"
-                    type="number"
-                    placeholder="0.00"
-                    value={newPlan.amount || ""}
-                    onChange={(e) => setNewPlan({ ...newPlan, amount: Number(e.target.value) })}
-                    className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white placeholder:text-neutral-400 focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
-                    required
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label htmlFor="applications" className="block text-sm font-medium text-neutral-300 mb-2">
-                      {translations.price.modal.applicationsCount} *
-                    </label>
-                    <input
-                      id="applications"
-                      type="number"
-                      placeholder="0"
-                      value={newPlan.applications_count}
-                      onChange={(e) => setNewPlan({ ...newPlan, applications_count: e.target.value })}
-                      className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white placeholder:text-neutral-400 focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
+              <Formik
+                initialValues={{
+                  title: "",
+                  amount: 0,
+                  subtitle: "",
+                  applications_count: "",
+                  employee_count: "",
+                  vendors_count: ""
+                }}
+                validationSchema={validationSchema}
+                onSubmit={handleAddPlan}
+              >
+                {({ isSubmitting }) => (
+                  <Form className="space-y-5">
+                    <FormField
+                      name="title"
+                      type="text"
+                      label={translations.price.modal.title}
+                      placeholder={translations.price.modal.titlePlaceholder}
                       required
                     />
-                  </div>
 
-                  <div>
-                    <label htmlFor="employees" className="block text-sm font-medium text-neutral-300 mb-2">
-                      {translations.price.modal.employeesCount} *
-                    </label>
-                    <input
-                      id="employees"
-                      type="number"
-                      placeholder="0"
-                      value={newPlan.employees_count}
-                      onChange={(e) => setNewPlan({ ...newPlan, employees_count: e.target.value })}
-                      className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white placeholder:text-neutral-400 focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
+                    <FormField
+                      name="subtitle"
+                      type="text"
+                      label={translations.price.modal.subtitle}
+                      placeholder={translations.price.modal.subtitlePlaceholder}
                       required
                     />
-                  </div>
 
-                  <div>
-                    <label htmlFor="vendors" className="block text-sm font-medium text-neutral-300 mb-2">
-                      {translations.price.modal.vendorsCount} *
-                    </label>
-                    <input
-                      id="vendors"
+                    <FormField
+                      name="amount"
                       type="number"
-                      placeholder="0"
-                      value={newPlan.vendors_count}
-                      onChange={(e) => setNewPlan({ ...newPlan, vendors_count: e.target.value })}
-                      className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white placeholder:text-neutral-400 focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
+                      label={`${translations.price.modal.amount}`}
+                      placeholder="0.00"
                       required
                     />
-                  </div>
-                </div>
-              </div>
 
-              <div className="mt-8 flex justify-end gap-3">
-                <button
-                  onClick={handleAddPlan}
-                  className="px-4 py-2 rounded-xl font-medium bg-[#53B4AB] hover:bg-[#479d94] text-neutral-900 transition-colors"
-                >
-                  {translations.price.modal.createPlan}
-                </button>
-              </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <FormField
+                        name="applications_count"
+                        type="number"
+                        label={translations.price.modal.applicationsCount}
+                        placeholder="0"
+                        required
+                      />
+
+                      <FormField
+                        name="employee_count"
+                        type="number"
+                        label={translations.price.modal.employeesCount}
+                        placeholder="0"
+                        required
+                      />
+
+                      <FormField
+                        name="vendors_count"
+                        type="number"
+                        label={translations.price.modal.vendorsCount}
+                        placeholder="0"
+                        required
+                      />
+                    </div>
+
+                    <div className="mt-8 flex justify-end gap-3">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="px-4 py-2 rounded-xl font-medium bg-[#53B4AB] hover:bg-[#479d94] text-neutral-900 transition-colors"
+                      >
+                        {translations.price.modal.createPlan}
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
         )}
@@ -253,103 +249,71 @@ export default function AdminPlans() {
                 </button>
               </div>
 
-              <input
-                type="number"
-                value={editingPlan.id}
-                disabled
-                className="hidden"
-              />
+              <Formik
+                initialValues={editingPlan}
+                validationSchema={validationSchema}
+                onSubmit={handleUpdatePlan}
+              >
+                {({ isSubmitting }) => (
+                  <Form className="space-y-5">
+                    <Field type="hidden" name="id" />
 
-              <div className="space-y-5">
-                <div>
-                  <label htmlFor="edit-title" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {translations.price.modal.title} *
-                  </label>
-                  <input
-                    id="edit-title"
-                    type="text"
-                    value={editingPlan.title}
-                    onChange={(e) => setEditingPlan({ ...editingPlan, title: e.target.value })}
-                    className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="edit-subtitle" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {translations.price.modal.subtitle} *
-                  </label>
-                  <input
-                    id="edit-subtitle"
-                    type="text"
-                    value={editingPlan.subtitle}
-                    onChange={(e) => setEditingPlan({ ...editingPlan, subtitle: e.target.value })}
-                    className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="edit-amount" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {translations.price.modal.amount} (USD) *
-                  </label>
-                  <input
-                    id="edit-amount"
-                    type="number"
-                    value={editingPlan.amount}
-                    onChange={(e) => setEditingPlan({ ...editingPlan, amount: Number(e.target.value) })}
-                    className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label htmlFor="edit-applications" className="block text-sm font-medium text-neutral-300 mb-2">
-                      {translations.price.modal.applicationsCount} *
-                    </label>
-                    <input
-                      id="edit-applications"
-                      type="number"
-                      value={editingPlan.applications_count}
-                      onChange={(e) => setEditingPlan({ ...editingPlan, applications_count: Number(e.target.value) })}
-                      className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
+                    <FormField
+                      name="title"
+                      type="text"
+                      label={translations.price.modal.title}
+                      required
                     />
-                  </div>
 
-                  <div>
-                    <label htmlFor="edit-employees" className="block text-sm font-medium text-neutral-300 mb-2">
-                      {translations.price.modal.employeesCount} *
-                    </label>
-                    <input
-                      id="edit-employees"
-                      type="number"
-                      value={editingPlan.employees_count}
-                      onChange={(e) => setEditingPlan({ ...editingPlan, employees_count: Number(e.target.value) })}
-                      className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
+                    <FormField
+                      name="subtitle"
+                      type="text"
+                      label={translations.price.modal.subtitle}
+                      required
                     />
-                  </div>
 
-                  <div>
-                    <label htmlFor="edit-vendors" className="block text-sm font-medium text-neutral-300 mb-2">
-                      {translations.price.modal.vendorsCount} *
-                    </label>
-                    <input
-                      id="edit-vendors"
+                    <FormField
+                      name="amount"
                       type="number"
-                      value={editingPlan.vendors_count}
-                      onChange={(e) => setEditingPlan({ ...editingPlan, vendors_count: Number(e.target.value) })}
-                      className="w-full p-2 bg-neutral-800 border border-neutral-600 rounded-lg text-white focus:outline-none focus:border-[#53B4AB] focus:ring-2 focus:ring-[#53B4AB]/50"
+                      label={`${translations.price.modal.amount}`}
+                      required
                     />
-                  </div>
-                </div>
-              </div>
 
-              <div className="mt-8 flex justify-end gap-3">
-                <button
-                  onClick={handleUpdatePlan}
-                  className="px-5 py-2 rounded-xl font-medium bg-[#53B4AB] hover:bg-[#479d94] text-neutral-900 transition-colors"
-                >
-                  {translations.price.modal.saveChanges}
-                </button>
-              </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <FormField
+                        name="applications_count"
+                        type="number"
+                        label={translations.price.modal.applicationsCount}
+                        required
+                      />
+
+                      <FormField
+                        name="employee_count"
+                        type="number"
+                        label={translations.price.modal.employeesCount}
+                        required
+                      />
+
+                      <FormField
+                        name="vendors_count"
+                        type="number"
+                        label={translations.price.modal.vendorsCount}
+                        required
+                      />
+                    </div>
+
+                    <div className="mt-8 flex justify-end gap-3">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="px-5 py-2 rounded-xl font-medium bg-[#53B4AB] hover:bg-[#479d94] text-neutral-900 transition-colors"
+                      >
+                        {translations.price.modal.saveChanges}
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             </div>
           </div>
         )}
@@ -357,13 +321,13 @@ export default function AdminPlans() {
         {/* Delete Confirmation Modal */}
         {deletingPlan && (
           <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-            <div className="bg-neutral-900 rounded-[18px] p-6 shadow-lg  mx-6">
+            <div className="bg-neutral-900 rounded-lg p-6 shadow-lg mx-6">
               <h3 className="text-xl font-bold mb-4">{translations.price.modal.deleteTitle}</h3>
               <p className="mb-4">{translations.price.modal.deleteConfirm}</p>
               <div className="flex justify-end gap-2">
                 <button
                   onClick={() => setDeletingPlan(null)}
-                  className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-[18px]"
+                  className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-lg"
                 >
                   {translations.price.modal.cancel}
                 </button>
@@ -372,7 +336,7 @@ export default function AdminPlans() {
                     handleDeletePlan(deletingPlan.id);
                     setDeletingPlan(null);
                   }}
-                  className=" bg-red-500 hover:bg-red-600   text-black px-4 py-2 rounded-[18px]"
+                  className="bg-red-500 bg-opacity-40 hover:bg-red-900 text-white px-4 py-2 rounded-lg"
                 >
                   {translations.price.modal.delete}
                 </button>
@@ -410,10 +374,10 @@ export default function AdminPlans() {
                     <td className="p-2">{plan.employees_count}</td>
                     <td className="p-2">{plan.vendors_count}</td>
                     <td className="p-2">
-                      <div>
+                      <div className="gap-2 flex">
                         <button
                           onClick={() => handleEditPlan(plan)}
-                          className="bg-[#1F1F1F] text-white p-3 mr-2 rounded-lg "
+                          className="bg-[#1F1F1F] text-white p-3 mr-2 rounded-lg"
                         >
                           <svg
                             width="24"

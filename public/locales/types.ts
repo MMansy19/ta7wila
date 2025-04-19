@@ -93,6 +93,7 @@ export type TranslationKeys = {
     email: string;
     password: string;
     name: string;
+    userName: string;
     mobile: string;
     forgotPassword: string;
     clickHere: string;
@@ -197,6 +198,7 @@ export type TranslationKeys = {
     profile: string;
     settings: string;
     logout: string;
+    updateProfile : string;
     devMode: {
       switchTo: string;
       backTo: string;
@@ -633,6 +635,19 @@ export type TranslationKeys = {
     employees: string;
     vendors: string;
     change: string;
+    validation?: {
+      titleRequired: string;
+      titleMinLength: string;
+      subtitleRequired: string;
+      amountRequired: string;
+      amountMin: string;
+      applicationsRequired: string;
+      applicationsMin: string;
+      employeesRequired: string;
+      employeesMin: string;
+      vendorsRequired: string;
+      vendorsMin: string;
+    };
     modal: {
       addTitle: string;
       editTitle: string;
@@ -741,6 +756,11 @@ export type TranslationKeys = {
   settings: {
     enabled: string;
     disabled: string;
+    tokenCopied: string;
+    profileUpdated: string;
+    passwordChanged: string;
+    appToken: string;
+    Token:string;
   };
   errors: {
     developerMode: string;

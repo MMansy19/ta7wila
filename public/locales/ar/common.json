@@ -97,6 +97,7 @@
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
     "name": "الاسم",
+    "userName":"اسم المستخدم",
     "mobile": "رقم الجوال",
     "forgotPassword": "نسيت كلمة المرور؟",
     "clickHere": "اضغط هنا",
@@ -185,7 +186,7 @@
       "totalTransactions": "إجمالي المعاملات",
       "activeStores": "المتاجر النشطة",
       "totalCashback": "إجمالي الكاش باك",
-      "currency": "جنيه",
+      "currency": "ج.م.",
       "time": "مرة",
       "store": "متجر",
       "devMode": {
@@ -201,6 +202,7 @@
     "profile": "الملف الشخصي",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
+    "updateProfile":"تحديث الملف الشخصي",
     "devMode": {
       "switchTo": "التبديل إلى وضع المطور",
       "backTo": "العودة إلى وضع المستخدم"
@@ -209,7 +211,7 @@
   "transactions": {
     "lastTransactions": "آخر المعاملات",
     "noTransactions": "لا توجد معاملات",
-    "currency": "جنيه",
+    "currency": "ج.م.",
     "search": {
       "placeholder": "ابحث عن معاملة..."
     },
@@ -657,18 +659,31 @@
   "price": {
     "manageTitle": "إدارة الخطط",
     "addNewPlan": "إضافة خطة جديدة",
-    "loading": "جار التحميل...",
+    "loading": "جاري التحميل...",
     "yourSubscription": "اشتراكك",
-    "subscriptionCosts": "تكاليف اشتراكك",
-    "perMonth": "/ هذا الشهر",
+    "subscriptionCosts": "تكاليف الاشتراك",
+    "perMonth": "/شهر",
     "paymentWarning": "يجب عليك الدفع قبل نهاية الشهر لإكمال خطتك والاستفادة من خدماتنا. في حالة عدم الدفع.",
-    "suspensionWarning": "سيتم تعليق حسابك حتى تدفع المستحقات.",
+    "suspensionWarning": "سيتم تعليق حسابك حتى تقوم بدفع المستحقات.",
     "payNow": "ادفع الآن",
     "yourPlan": "خطتك",
     "applications": "التطبيقات",
     "employees": "الموظفين",
-    "vendors": "الموردين",
+    "vendors": "البائعين",
     "change": "تغيير",
+    "validation": {
+      "titleRequired": "العنوان مطلوب",
+      "titleMinLength": "يجب أن يكون العنوان 3 أحرف على الأقل",
+      "subtitleRequired": "العنوان الفرعي مطلوب",
+      "amountRequired": "المبلغ مطلوب",
+      "amountMin": "يجب أن يكون المبلغ أكبر من 0",
+      "applicationsRequired": "عدد التطبيقات مطلوب",
+      "applicationsMin": "يجب أن يكون عدد التطبيقات أكبر من 0",
+      "employeesRequired": "عدد الموظفين مطلوب",
+      "employeesMin": "يجب أن يكون عدد الموظفين أكبر من 0",
+      "vendorsRequired": "عدد البائعين مطلوب",
+      "vendorsMin": "يجب أن يكون عدد البائعين أكبر من 0"
+    },
     "modal": {
       "addTitle": "إضافة خطة جديدة",
       "editTitle": "تعديل الخطة",
@@ -676,7 +691,7 @@
       "titlePlaceholder": "عنوان الخطة",
       "subtitle": "العنوان الفرعي",
       "subtitlePlaceholder": "وصف قصير",
-      "amount": "المبلغ (دولار)",
+      "amount": "المبلغ",
       "amountPlaceholder": "0.00",
       "applicationsCount": "التطبيقات",
       "employeesCount": "الموظفين",
@@ -776,7 +791,12 @@
   },
   "settings": {
     "enabled": "مفعل",
-    "disabled": "معطل"
+    "disabled": "معطل",
+    "tokenCopied": "تم نسخ الرمز إلى الحافظة!",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+    "passwordChanged": "تم تغيير كلمة المرور بنجاح!",
+    "appToken": "رمز التطبيق الخاص بك",
+    "Token":"رمز التطبيق"
   },
   "errors": {
     "developerMode": "أنت لست مطورًا للقيام بهذا الإجراء، قم بترقية حسابك من مستخدم عادي إلى مطور لتتمكن من القيام بهذا الإجراء ثم حاول مرة أخرى",
