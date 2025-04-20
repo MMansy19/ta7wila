@@ -30,7 +30,7 @@ export default function AdminPlans() {
     applications_count: Yup.number()
       .required(translations.price?.validation?.applicationsRequired || "Applications count is required")
       .min(0, translations.price?.validation?.applicationsMin || "Applications count must be greater than 0"),
-    employee_count: Yup.number()
+    employees_count: Yup.number()
       .required(translations.price?.validation?.employeesRequired || "Employees count is required")
       .min(0, translations.price?.validation?.employeesMin || "Employees count must be greater than 0"),
     vendors_count: Yup.number()
@@ -61,7 +61,7 @@ export default function AdminPlans() {
     try {
       const planToAdd = {
         ...values,
-        employee_count: Number(values.employee_count)
+        employees_count: Number(values.employees_count)
       };
       await axios.post(`${apiUrl}/plans/add`, planToAdd, {
         headers: getAuthHeaders(),
@@ -81,7 +81,7 @@ export default function AdminPlans() {
     try {
       const planToUpdate = {
         ...values,
-        employee_count: Number(values.employee_count)
+        employees_count: Number(values.employees_count)
       };
       await axios.post(`${apiUrl}/plans/update`, planToUpdate, {
         headers: getAuthHeaders(),
@@ -150,7 +150,7 @@ export default function AdminPlans() {
                   amount: 0,
                   subtitle: "",
                   applications_count: "",
-                  employee_count: "",
+                  employees_count: "",
                   vendors_count: ""
                 }}
                 validationSchema={validationSchema}
@@ -179,6 +179,7 @@ export default function AdminPlans() {
                       type="number"
                       label={`${translations.price.modal.amount}`}
                       placeholder="0.00"
+                      min={0}  
                       required
                     />
 
@@ -192,10 +193,11 @@ export default function AdminPlans() {
                       />
 
                       <FormField
-                        name="employee_count"
+                        name="employees_count"
                         type="number"
                         label={translations.price.modal.employeesCount}
                         placeholder="0"
+                        min={0}
                         required
                       />
 
@@ -204,6 +206,7 @@ export default function AdminPlans() {
                         type="number"
                         label={translations.price.modal.vendorsCount}
                         placeholder="0"
+                        min={0}
                         required
                       />
                     </div>
@@ -276,6 +279,7 @@ export default function AdminPlans() {
                       name="amount"
                       type="number"
                       label={`${translations.price.modal.amount}`}
+                      min={0}
                       required
                     />
 
@@ -285,13 +289,15 @@ export default function AdminPlans() {
                         type="number"
                         label={translations.price.modal.applicationsCount}
                         required
+                        min={0}
                       />
 
                       <FormField
-                        name="employee_count"
+                        name="employees_count"
                         type="number"
                         label={translations.price.modal.employeesCount}
                         required
+                        min={0}
                       />
 
                       <FormField
@@ -299,6 +305,7 @@ export default function AdminPlans() {
                         type="number"
                         label={translations.price.modal.vendorsCount}
                         required
+                        min={0}
                       />
                     </div>
 

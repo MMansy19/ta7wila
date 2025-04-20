@@ -12,6 +12,7 @@ interface FormFieldProps {
   required?: boolean;
   autoComplete?: string;
   autoCorrect?: string;
+  min?: number;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -23,6 +24,8 @@ const FormField: React.FC<FormFieldProps> = ({
   required = false,
   autoComplete = 'off',
   autoCorrect = 'off',
+  min = 0,
+  
 }) => {
   return (
     <div className=" mb-4">
@@ -38,6 +41,8 @@ const FormField: React.FC<FormFieldProps> = ({
         className={className}
         autoComplete={autoComplete}
         autoCorrect={autoCorrect}
+        min={min}
+    
       />
       <ErrorMessage name={name} component="div" className="text-red-500 !text-sm mt-1" />
     </div>
