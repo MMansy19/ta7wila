@@ -232,7 +232,7 @@
     },
     "noData": "No transactions available.",
     "table": {
-      "id": "ID",
+      "id": "#",
       "store": "Store",
       "from": "From",
       "provider": "Payment Type",
@@ -250,7 +250,7 @@
       "placeholder": "Search users..."
     },
     "table": {
-      "id": "ID",
+      "id": "#",
       "image": "Image",
       "name": "Name",
       "email": "Email",
@@ -286,7 +286,7 @@
       "mobile": "Invalid mobile number"
     },
     "table": {
-      "id": "ID",
+      "id": "#",
       "image": "Image",
       "name": "Name",
       "email": "Email",
@@ -307,7 +307,7 @@
     "addNew": "Add New Employee",
     "noData": "No employees found",
     "table": {
-      "id": "ID",
+      "id": "#",
       "name": "Name",
       "email": "Email",
       "mobile": "Mobile",
@@ -342,7 +342,7 @@
       "placeholder": "Search payment verifications..."
     },
     "table": {
-      "id": "ID",
+      "id": "#",
       "userName": "Username",
       "paymentValue": "Payment Value",
       "paymentOption": "Payment Option",
@@ -523,7 +523,7 @@
       }
     },
     "table": {
-      "id": "ID",
+      "id": "#",
       "from": "From",
       "provider": "Provider",
       "amount": "Amount",
@@ -541,7 +541,7 @@
     "addPayment": "Add Payment",
     "noData": "No payment methods found",
     "table": {
-      "id": "ID",
+      "id": "#",
       "value": "Value",
       "public": "Public",
       "paymentOption": "Payment Option",
@@ -593,7 +593,7 @@
     "title": "Stores",
     "addStore": "Add New Store +",
     "table": {
-      "id": "ID",
+      "id": "#",
       "image": "Image",
       "name": "Name",
       "email": "Email",
@@ -706,7 +706,7 @@
       "delete": "Delete"
     },
     "table": {
-      "id": "ID",
+      "id": "#",
       "title": "Title",
       "subtitle": "Subtitle",
       "amount": "Amount",
@@ -773,7 +773,7 @@
         "notPaid": "Not Paid"
       },
       "paymentDetails": {
-        "id": "ID",
+        "id": "#",
         "refId": "Reference ID",
         "itemId": "Item ID",
         "paidAt": "Paid At",

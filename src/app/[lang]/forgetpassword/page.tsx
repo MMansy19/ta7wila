@@ -30,7 +30,10 @@ const ForgetPassword: React.FC = () => {
       setStep("otp");
       toast.success(translations.auth.forgetPassword.toast.otpSent);
     } catch (err: any) {
-      toast.error(err.response?.data?.errorMessage || translations.auth.forgetPassword.toast.otpError);
+      toast.error(
+        err.response?.data?.errorMessage ||
+          translations.auth.forgetPassword.toast.otpError
+      );
     } finally {
       setSubmitting(false);
     }
@@ -49,7 +52,10 @@ const ForgetPassword: React.FC = () => {
       setStep("reset");
       toast.success(translations.auth.forgetPassword.toast.otpVerified);
     } catch (err: any) {
-      toast.error(err.response?.data?.errorMessage || translations.auth.forgetPassword.validation.otpInvalid);
+      toast.error(
+        err.response?.data?.errorMessage ||
+          translations.auth.forgetPassword.validation.otpInvalid
+      );
     } finally {
       setSubmitting(false);
     }
@@ -69,7 +75,8 @@ const ForgetPassword: React.FC = () => {
       router.push("/login");
     } catch (err: any) {
       toast.error(
-        err.response?.data?.errorMessage || translations.auth.forgetPassword.toast.resetError
+        err.response?.data?.errorMessage ||
+          translations.auth.forgetPassword.toast.resetError
       );
     } finally {
       setSubmitting(false);
@@ -77,7 +84,7 @@ const ForgetPassword: React.FC = () => {
   };
 
   return (
-    <div className="flex overflow-y-auto max-h-screen flex-wrap pl-8 bg-imgg min-h-screen max-md:px-5" dir="rtl">
+    <div className="flex overflow-y-auto max-h-screen flex-wrap pl-8 bg-imgg min-h-screen max-md:px-5">
       <Toaster position="top-left" reverseOrder={false} />
       <div className="flex flex-col self-start mt-6 max-md:mt-6 px-2">
         <Image
@@ -91,7 +98,7 @@ const ForgetPassword: React.FC = () => {
       </div>
       <div className="w-full ">
         <div className="flex   w-full justify-center items-center">
-          <div className="w-full max-w-3xl bg-[#1F1F1F] p-[22px] text-white rounded-[48px] ">
+          <div className="w-full max-w-3xl bg-[#1F1F1F] p-[22px] text-white rounded-xl ">
             <div className="md:mx-4 md:p-2 ">
               {step === "email" && (
                 <Formik
@@ -122,21 +129,23 @@ const ForgetPassword: React.FC = () => {
                           type="email"
                           name="email"
                           placeholder="examble@gmail.com"
-                          className="w-full h-[44px] bg-[#444444] text-white px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500"
+                          className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                         />
                         <ErrorMessage
                           name="email"
                           component="div"
-                          className="text-[#7E7E7E] text-sm my-2"
+                          className="text-red-500 text-sm my-2"
                         />
                       </div>
                       <div className="mb-2 pt-2  text-center">
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className=" inline-block w-full rounded-[16px] p-3 px-4 text-sm font-bold leading-normal text-black bg-[#53B4AB]"
+                          className=" inline-block w-full rounded-lg p-3 px-4 text-sm font-bold leading-normal text-black bg-[#53B4AB]"
                         >
-                          {isSubmitting ? translations.auth.forgetPassword.sending : translations.auth.forgetPassword.sendOtp}
+                          {isSubmitting
+                            ? translations.auth.forgetPassword.sending
+                            : translations.auth.forgetPassword.sendOtp}
                         </button>
                       </div>
                     </Form>
@@ -149,14 +158,19 @@ const ForgetPassword: React.FC = () => {
                   initialValues={{ otp: "" }}
                   validationSchema={Yup.object({
                     otp: Yup.string()
-                      .required(translations.auth.forgetPassword.validation.otpRequired)
-                      .length(6, translations.auth.forgetPassword.validation.otpLength),
+                      .required(
+                        translations.auth.forgetPassword.validation.otpRequired
+                      )
+                      .length(
+                        6,
+                        translations.auth.forgetPassword.validation.otpLength
+                      ),
                   })}
                   onSubmit={handleOtpVerification}
                 >
                   {({ isSubmitting }) => (
                     <Form>
-                      <div className="text-center">
+                      <div className="text-center space-y-2">
                         <h3 className="pb-1 lg:text-3xl text-2xl font-semibold">
                           {translations.auth.forgetPassword.otpTitle}
                         </h3>
@@ -168,13 +182,15 @@ const ForgetPassword: React.FC = () => {
                         <Field
                           type="text"
                           name="otp"
-                          placeholder={translations.auth.forgetPassword.otpPlaceholder}
-                          className="w-full h-[44px] bg-[#444444] text-white px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder={
+                            translations.auth.forgetPassword.otpPlaceholder
+                          }
+                          className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                         />
                         <ErrorMessage
                           name="otp"
                           component="div"
-                          className="text-[#7E7E7E] text-sm my-2"
+                          className="text-red-500 text-sm my-2"
                         />
                       </div>
 
@@ -182,9 +198,11 @@ const ForgetPassword: React.FC = () => {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="inline-block w-full rounded-[16px] p-3 px-4 text-sm font-bold leading-normal text-black bg-[#53B4AB]"
+                          className="inline-block w-full rounded-lg p-3 px-4 text-sm font-bold leading-normal text-black bg-[#53B4AB]"
                         >
-                          {isSubmitting ? translations.auth.forgetPassword.verifying : translations.auth.forgetPassword.verifyOtp}
+                          {isSubmitting
+                            ? translations.auth.forgetPassword.verifying
+                            : translations.auth.forgetPassword.verifyOtp}
                         </button>
                       </div>
                     </Form>
@@ -196,11 +214,25 @@ const ForgetPassword: React.FC = () => {
                   initialValues={{ password: "", confirmPassword: "" }}
                   validationSchema={Yup.object({
                     password: Yup.string()
-                      .min(8, translations.auth.forgetPassword.validation.passwordMinLength)
-                      .required(translations.auth.forgetPassword.validation.passwordRequired),
+                      .min(
+                        8,
+                        translations.auth.forgetPassword.validation
+                          .passwordMinLength
+                      )
+                      .required(
+                        translations.auth.forgetPassword.validation
+                          .passwordRequired
+                      ),
                     confirmPassword: Yup.string()
-                      .oneOf([Yup.ref("password")], translations.auth.forgetPassword.validation.confirmPasswordMatch)
-                      .required(translations.auth.forgetPassword.validation.confirmPasswordRequired),
+                      .oneOf(
+                        [Yup.ref("password")],
+                        translations.auth.forgetPassword.validation
+                          .confirmPasswordMatch
+                      )
+                      .required(
+                        translations.auth.forgetPassword.validation
+                          .confirmPasswordRequired
+                      ),
                   })}
                   onSubmit={handlePasswordReset}
                 >
@@ -215,44 +247,56 @@ const ForgetPassword: React.FC = () => {
                         </p>
                       </div>
                       <div className="relative mb-2 mt-3 ">
-                        <label htmlFor="password" className="block text-sm mb-2">
+                        <label
+                          htmlFor="password"
+                          className="block text-sm mb-2"
+                        >
                           {translations.auth.forgetPassword.newPassword}
                         </label>
                         <Field
                           type="password"
                           name="password"
-                          placeholder={translations.auth.forgetPassword.newPassword}
-                          className="w-full h-[44px] bg-[#444444] text-white px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder={
+                            translations.auth.forgetPassword.newPassword
+                          }
+                          className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                         />
                         <ErrorMessage
                           name="password"
                           component="div"
-                          className="text-[#7E7E7E] text-sm my-2"
+                          className="text-red-500 text-sm my-2"
                         />
                       </div>
                       <div className="relative mb-2 mt-3 ">
-                        <label htmlFor="confirmPassword" className="block text-sm mb-2">
+                        <label
+                          htmlFor="confirmPassword"
+                          className="block text-sm mb-2"
+                        >
                           {translations.auth.forgetPassword.confirmPassword}
                         </label>
                         <Field
                           type="password"
                           name="confirmPassword"
-                          placeholder={translations.auth.forgetPassword.confirmPassword}
-                          className="w-full h-[44px] bg-[#444444] text-white px-3 rounded-[16px] outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder={
+                            translations.auth.forgetPassword.confirmPassword
+                          }
+                          className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                         />
                         <ErrorMessage
                           name="confirmPassword"
                           component="div"
-                          className="text-[#7E7E7E] text-sm my-2"
+                          className="text-red-500 text-sm my-2"
                         />
                       </div>
                       <div className="mb-2 pt-2 text-center">
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="inline-block w-full rounded-[16px] p-3 px-4 text-sm font-bold leading-normal text-black bg-[#53B4AB]"
+                          className="inline-block w-full rounded-lg p-3 px-4 text-sm font-bold leading-normal text-black bg-[#53B4AB]"
                         >
-                          {isSubmitting ? translations.auth.forgetPassword.resetting : translations.auth.forgetPassword.resetPassword}
+                          {isSubmitting
+                            ? translations.auth.forgetPassword.resetting
+                            : translations.auth.forgetPassword.resetPassword}
                         </button>
                       </div>
                     </Form>
