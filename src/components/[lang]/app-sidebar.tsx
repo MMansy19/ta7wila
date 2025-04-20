@@ -26,8 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const isCollapsed = state === "collapsed";
   const { isDeveloper, setIsDeveloper } = useDeveloper();
   const [user, setUser] = React.useState<User | null>(null);
-   const translations = useTranslation();
-  
+  const translations = useTranslation();
 
   React.useEffect(() => {
     const isDev = localStorage.getItem("isDeveloper") === "true";
@@ -183,7 +182,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </svg>
         ),
       },
-     
+
       {
         title: translations.sidebar.employees,
         url: "/dashboard/employees",
@@ -311,16 +310,58 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               title: translations.sidebar.subscriptions,
               url: "/dashboard/subscribtion",
               icon: (
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.1137 15.2814C20.2691 14.8975 20.0838 14.4602 19.6999 14.3048C19.3159 14.1494 18.8787 14.3346 18.7233 14.7186L20.1137 15.2814ZM3.88631 8.71859C3.73089 9.10254 3.91616 9.53978 4.30011 9.6952C4.68406 9.85062 5.1213 9.66536 5.27672 9.28141L3.88631 8.71859ZM20.75 12C20.75 7.16751 16.8325 3.25 12 3.25V4.75C16.0041 4.75 19.25 7.99594 19.25 12H20.75ZM3.25 12C3.25 16.8325 7.16751 20.75 12 20.75V19.25C7.99594 19.25 4.75 16.0041 4.75 12H3.25ZM12 20.75C15.6733 20.75 18.8162 18.4867 20.1137 15.2814L18.7233 14.7186C17.6472 17.3769 15.0414 19.25 12 19.25V20.75ZM12 3.25C8.32669 3.25 5.18379 5.51328 3.88631 8.71859L5.27672 9.28141C6.35279 6.62306 8.95856 4.75 12 4.75V3.25Z" fill="currentColor" />
-                <path d="M14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M12 12C13.1046 12 14 12.8954 14 14C14 15.1046 13.1046 16 12 16C10.8954 16 10 15.1046 10 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M12 6.5V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 16V17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M18 11L18.8944 11.4472C19.572 11.786 20.3828 11.7129 20.9889 11.2584L22 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 13L2.89443 12.5528C3.572 12.214 4.38282 12.2871 4.98885 12.7416L6 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20.1137 15.2814C20.2691 14.8975 20.0838 14.4602 19.6999 14.3048C19.3159 14.1494 18.8787 14.3346 18.7233 14.7186L20.1137 15.2814ZM3.88631 8.71859C3.73089 9.10254 3.91616 9.53978 4.30011 9.6952C4.68406 9.85062 5.1213 9.66536 5.27672 9.28141L3.88631 8.71859ZM20.75 12C20.75 7.16751 16.8325 3.25 12 3.25V4.75C16.0041 4.75 19.25 7.99594 19.25 12H20.75ZM3.25 12C3.25 16.8325 7.16751 20.75 12 20.75V19.25C7.99594 19.25 4.75 16.0041 4.75 12H3.25ZM12 20.75C15.6733 20.75 18.8162 18.4867 20.1137 15.2814L18.7233 14.7186C17.6472 17.3769 15.0414 19.25 12 19.25V20.75ZM12 3.25C8.32669 3.25 5.18379 5.51328 3.88631 8.71859L5.27672 9.28141C6.35279 6.62306 8.95856 4.75 12 4.75V3.25Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M12 12C13.1046 12 14 12.8954 14 14C14 15.1046 13.1046 16 12 16C10.8954 16 10 15.1046 10 14"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M12 6.5V8"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12 16V17.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M18 11L18.8944 11.4472C19.572 11.786 20.3828 11.7129 20.9889 11.2584L22 10.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 13L2.89443 12.5528C3.572 12.214 4.38282 12.2871 4.98885 12.7416L6 13.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
-                
               ),
             },
             {
@@ -503,7 +544,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar collapsible="icon" {...props} >
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="items-center py-6">
         {state === "expanded" ? (
           <Image
@@ -523,8 +564,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
 
       <SidebarContent>
-        <NavMain items={data.navMain || []} label="MANAGE" />
-        <NavMain items={data.preferences || []} label="PREFERENCES" />
+        <NavMain
+          items={data.navMain || []}
+          label={translations.sidebar.manage}
+        />
+        <NavMain
+          items={data.preferences || []}
+          label={translations.sidebar.preferences}
+        />
       </SidebarContent>
       <SidebarFooter className="my-2 np">
         <div className="space-y-2">
@@ -555,11 +602,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   />
                 </svg>
 
-                <span className={isCollapsed ? "sr-only " : ""}>{translations.sidebar.logout}</span>
+                <span className={isCollapsed ? "sr-only " : ""}>
+                  {translations.sidebar.logout}
+                </span>
               </Button>
             </TooltipTrigger>
             {isCollapsed && (
-              <TooltipContent side="right">{translations.sidebar.logout}</TooltipContent>
+              <TooltipContent side="right">
+                {translations.sidebar.logout}
+              </TooltipContent>
             )}
           </Tooltip>
           <Tooltip>
@@ -590,7 +641,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </Button>
             </TooltipTrigger>
             {isCollapsed && (
-              <TooltipContent side="right">{translations.sidebar.downloadApp}</TooltipContent>
+              <TooltipContent side="right">
+                {translations.sidebar.downloadApp}
+              </TooltipContent>
             )}
           </Tooltip>
         </div>
