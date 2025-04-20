@@ -39,13 +39,19 @@ export default function LastTranaction() {
     return data.result.data;
   }
 
-  const { data: transactions = [], isError, error } = useQuery({
+  const {
+    data: transactions = [],
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["transaction"],
     queryFn: getTransaction,
   });
 
   if (isError) {
-    return <div className="text-red-500 text-center">Error: {error?.message}</div>;
+    return (
+      <div className="text-red-500 text-center">Error: {error?.message}</div>
+    );
   }
 
   const displayedTransactions = transactions.slice(
@@ -55,48 +61,58 @@ export default function LastTranaction() {
 
   const columns: TableColumn<Transactions>[] = [
     { header: translations.transactions.table.id, accessor: "id" },
-    { header: translations.transactions.table.store, accessor: "transaction_id" },
-    { 
-      header: translations.transactions.table.from, 
-      accessor: "mobile",
-      className: "text-[#F58C7B]"
+    {
+      header: translations.transactions.table.store,
+      accessor: "transaction_id",
     },
-    { 
+    {
+      header: translations.transactions.table.from,
+      accessor: "mobile",
+      className: "text-[#F58C7B]",
+    },
+    {
       header: translations.transactions.table.provider,
       accessor: (item: Transactions) => {
-        const option = paymentOptions.find(opt => opt.key === item.payment_option);
+        const option = paymentOptions.find(
+          (opt) => opt.key === item.payment_option
+        );
         return option ? (
           <div className="flex items-center gap-2">
             <Image
-            width={20}
-            height={20}
-              src={option.img} 
-              alt={option.name} 
+              width={20}
+              height={20}
+              src={option.img}
+              alt={option.name}
               className="w-8 h-8 object-contain"
             />
             <span>{option.name}</span>
           </div>
-        ) : item.payment_option;
-      }
+        ) : (
+          item.payment_option
+        );
+      },
     },
-    { 
-      header: translations.transactions.table.amount, 
-      accessor: (item: Transactions) => ` ${item.amount} ${translations.dashboard.cards.currency}`,
-      className: "font-bold"
+    {
+      header: translations.transactions.table.amount,
+      accessor: (item: Transactions) =>
+        ` ${item.amount} ${translations.dashboard.cards.currency}`,
+      className: "font-bold",
     },
-    { 
-      header: translations.transactions.table.state, 
+    {
+      header: translations.transactions.table.state,
       accessor: (item: Transactions) => (
-        <span
-          className={`px-3 py-1.5 rounded-full text-xs ${
-            item.status === "pending"
-              ? "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20"
-              : "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20"
-          }`}
-        >
-          {item.status}
+        <span className="p-2">
+          {item.status === "pending" ? (
+            <span className="text-[#F58C7B]">
+              {translations.transactions.status.pending}
+            </span>
+          ) : (
+            <span className="text-[#53B4AB]">
+              {translations.transactions.status.completed}
+            </span>
+          )}
         </span>
-      )
+      ),
     },
   ];
 

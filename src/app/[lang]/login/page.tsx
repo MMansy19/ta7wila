@@ -54,11 +54,11 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
 
       const data = response.data;
       if (response.status !== 200) {
-        throw new Error(data.errorMessage || "Something went wrong");
+        throw new Error(data.errorMessage || translations.auth.toast.unexpectedError);
       }
 
       setCookie("token", data?.result?.token);
-      toast.success("Login successful!");
+      toast.success(translations.auth.toast.loginSuccess);
 
       const pathSegments = window.location.pathname.split('/');
       const locale = pathSegments[1] || 'en';
@@ -68,7 +68,7 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
       
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "An unexpected error occurred."
+        err instanceof Error ? err.message : translations.auth.toast.unexpectedError
       );
     }
   };
@@ -251,7 +251,7 @@ const RegisterForm: React.FC<{ onSwitchToLogin: () => void }> = ({
       toast.success(translations.auth.toast.registerSuccess);
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "An unexpected error occurred."
+        err instanceof Error ? err.message : translations.auth.toast.unexpectedError
       );
     }
   };

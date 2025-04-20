@@ -171,7 +171,7 @@ export default function Header({  lang }: {  lang: Locale; }) {
               </div>
             </Link>
             <DropdownMenuSeparator />
-            <button onClick={logout} className="w-full text-start">
+            <button onClick={logout} >
               <div className="p-1 hover:bg-slate-600/10 border-lg"> {translations.header.logout}</div>
             </button>
           </DropdownMenuContent>
