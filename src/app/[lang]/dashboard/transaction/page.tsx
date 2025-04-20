@@ -207,15 +207,15 @@ export default function Transaction() {
             <div className="bg-neutral-800 p-4 rounded-lg text-white">
               <h2 className="text-lg font-semibold">{translations.transactions.confirmModal.title}</h2>
               <p className="mt-2">{translations.transactions.confirmModal.message}</p>
-              <div className="mt-4 flex justify-end space-x-2">
+              <div className="mt-4 flex justify-end space-x-2 gap-2">
                 <button 
-                  className="px-4 py-2 bg-gray-500 text-white rounded-lg text-sm" 
+                  className="px-4 py-2 bg-gray-500 text-white  rounded-lg text-xs" 
                   onClick={() => setShowModal(false)}
                 >
                   {translations.transactions.confirmModal.cancel}
                 </button>
                 <button 
-                  className="px-4 py-2 bg-[#53B4AB] text-black rounded-lg text-sm" 
+                  className="px-4 py-2 bg-[#53B4AB] text-black rounded-lg text-xs" 
                   onClick={handleMarkAsCompleted}
                 >
                   {translations.transactions.confirmModal.confirm}
