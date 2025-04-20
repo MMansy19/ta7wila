@@ -96,6 +96,7 @@
     "signUp": "Sign Up",
     "email": "Email",
     "password": "Password",
+    "confirmPassword":"Confirm Password",
     "name": "Name",
     "userName":"Username",
     "mobile": "Mobile",

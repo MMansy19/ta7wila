@@ -96,6 +96,7 @@ export type TranslationKeys = {
     userName: string;
     mobile: string;
     forgotPassword: string;
+    confirmPassword:string;
     clickHere: string;
     alreadyHaveAccount: string;
     dontHaveAccount: string;
@@ -778,6 +779,7 @@ export type TranslationKeys = {
       email: string;
       mobile: string;
       password: string;
+      
       buttons: {
         cancel: string;
         add: string;
