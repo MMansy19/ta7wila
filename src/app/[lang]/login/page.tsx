@@ -60,7 +60,12 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
       setCookie("token", data?.result?.token);
       toast.success("Login successful!");
 
-      router.push(`dashboard`);
+      const pathSegments = window.location.pathname.split('/');
+      const locale = pathSegments[1] || 'en';
+  
+      // Redirect with locale
+      router.push(`/${locale}/dashboard`);
+      
     } catch (err) {
       toast.error(
         err instanceof Error ? err.message : "An unexpected error occurred."

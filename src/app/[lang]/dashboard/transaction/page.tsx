@@ -1,5 +1,5 @@
 "use client";
-import Pagination from "@/components/[lang]/pagination";
+import Pagination from "@/components/Shared/Pagination";
 import { useTranslation } from "@/context/translation-context";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -9,10 +9,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import { Transactions } from "./types";
+import { useParams } from "next/navigation";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function Transaction() {
+  const params = useParams();
+  const lang = params.lang as string;
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [selectedTransactionId, setSelectedTransactionId] = useState<number | null>(null);
@@ -68,7 +71,7 @@ export default function Transaction() {
       t.amount.toString().includes(searchQuery)
     );
 
-  const itemsPerPage = 15;
+  const itemsPerPage = 10;
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
   const displayedTransactions = filteredTransactions.slice(
     (currentPage - 1) * itemsPerPage,
@@ -189,12 +192,13 @@ export default function Transaction() {
           </table>
         </div>
 
-        <div className="mt-auto flex">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChangeClient={handlePageChange}
-          />
+        <div className="mt-4">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          lang={lang}
+        />
         </div>
 
         {/* Modal */}

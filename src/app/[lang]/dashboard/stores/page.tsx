@@ -1,6 +1,5 @@
 "use client";
-
-import Pagination from "@/components/[lang]/pagination";
+import Pagination from "@/components/Shared/Pagination";
 import { Button } from "@/components/[lang]/ui/button";
 import {
   DropdownMenu,
@@ -17,6 +16,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+import { useParams } from "next/navigation";
 
 interface Store {
   id: number;
@@ -32,6 +32,8 @@ interface Store {
 }
 
 export default function StoresTable() {
+  const params = useParams();
+  const lang = params.lang as string;
   const translations = useTranslation();
   const [stores, setStores] = useState<Store[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,13 +42,6 @@ export default function StoresTable() {
   const [error, setError] = useState<string | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState<number | null>(null);
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
-  const paymentOptions = [
-    { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
-    { name: "Et- CASH", key: "ecash", img: "/ecash.svg" },
-    { name: "WE- CASH", key: "wecash", img: "/wecash.svg" },
-    { name: "OR- CASH", key: "ocash", img: "/ocash.svg" },
-    { name: "INSTAPAY", key: "instapay", img: "/instapay.svg" },
-  ];
 
   const itemsPerPage = 15;
   const displayedStores = stores.slice(
@@ -100,7 +95,7 @@ export default function StoresTable() {
         }));
 
         setStores(transformedStores);
-        setTotalPages(response.data.result.totalPages);
+        setTotalPages(response.data.result.totalPages || 1);
       } catch (err: any) {
         setError(err.response?.data?.message || "Failed to fetch stores");
         toast.error("Failed to fetch stores");
@@ -120,9 +115,13 @@ export default function StoresTable() {
         <Toaster position="top-right" reverseOrder={false} />
 
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold">{translations.stores.title}</h2>
+          <h2 className="text-2xl font-semibold">
+            {translations.stores.title}
+          </h2>
           <button className="bg-[#53B4AB] hover:bg-[#4cb0a6] text-black px-4 py-2 rounded-lg text-sm">
-            <Link href="/dashboard/addstore">{translations.stores.addStore}</Link>
+            <Link href="/dashboard/addstore">
+              {translations.stores.addStore}
+            </Link>
           </button>
         </div>
 
@@ -136,32 +135,35 @@ export default function StoresTable() {
                 <th className="p-2">{translations.stores.table.status}</th>
                 <th className="p-2">{translations.stores.table.createdAt}</th>
                 <th className="p-2">{translations.stores.table.updatedAt}</th>
-                <th className="p-2">Actions</th>
+                <th className="p-2">{translations.stores.table.actions}</th>
               </tr>
             </thead>
             <tbody>
               {displayedStores.length > 0 ? (
                 displayedStores.map((store) => (
-                  <tr key={store.id} className="transition rounded-lg border-b border-white/10 text-start">
+                  <tr
+                    key={store.id}
+                    className="transition rounded-lg border-b border-white/10 text-start"
+                  >
                     <td className="p-2">{store.id}</td>
                     <td className="p-2">{store.name}</td>
-                    <td className="p-2">{store.mobile}</td>
+                    <td className="p-2" >{store.mobile}</td>
                     <td className="p-2">
                       <span
-                        className={`px-3 py-.5 min-h-[30px] rounded-[12px] w-[62px]   ${
+                        className={`px-3 py-1 rounded-full text-sm   ${
                           store.status === "active"
-                            ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-30 cursor-not-allowed"
-                            : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-50 cursor-pointer"
+                            ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed"
+                            : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
                         }`}
                       >
-                        {store.status === "active" 
-                          ? translations.stores.status.active 
+                        {store.status === "active"
+                          ? translations.stores.status.active
                           : translations.stores.status.inactive}
                       </span>
                     </td>
                     <td className="p-2">{store.createdAt}</td>
                     <td className="p-2">{store.updatedAt}</td>
-                    <td className="p-2">
+                    <td className="p-2 ">
                       {" "}
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -171,51 +173,51 @@ export default function StoresTable() {
                             className="relative h-8 w-8 rounded-full bg-neutral-900 "
                           >
                             <Ellipsis className="h-4 w-4" />
-                            <span className="sr-only">View notifications</span>
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="text-start">
-                          <DropdownMenuLabel>{translations.stores.actions.title}</DropdownMenuLabel>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel>
+                            {translations.stores.actions.title}
+                          </DropdownMenuLabel>
                           <DropdownMenuSeparator />
 
-                          <DropdownMenuItem className="text-start">
-                            <Link href={`/dashboard/storeupdate/${store.id}`} className="block w-full text-start">
-                              <button
-                                className="block w-full text-start"
-                                onClick={() => setSelectedStore(store)}
-                              >
+                          <div className="p-2 hover:bg-slate-600/10 border-lg ">
+                            <Link href={`/dashboard/storeupdate/${store.id}`}>
+                              <button onClick={() => setSelectedStore(store)}>
                                 {translations.stores.actions.update}
                               </button>
                             </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-start">
-                            <Link href={`/dashboard/storepayment/${store.id}`} className="block w-full text-start">
-                              <button className="block w-full text-start">
+                          </div>
+                          <div className="p-2 hover:bg-slate-600/10 border-lg">
+                            <Link href={`/dashboard/storepayment/${store.id}`}>
+                              <button>
                                 {translations.stores.actions.payment}
                               </button>
                             </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-start">
-                            <Link href={`/dashboard/logs/${store.id}`} className="block w-full text-start">
-                              <button className="block w-full text-start">
+                          </div>
+                          <div className="p-2 hover:bg-slate-600/10 border-lg">
+                            <Link href={`/dashboard/logs/${store.id}`}>
+                              <button>
                                 {translations.stores.actions.logs}
                               </button>
                             </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-start">
-                            <Link href={`/dashboard/storeDetails/${store.id}`} className="block w-full text-start">
-                              <button className="block w-full text-start">
+                          </div>
+                          <div className="p-2 hover:bg-slate-600/10 border-lg">
+                            <Link href={`/dashboard/storeDetails/${store.id}`}>
+                              <button>
                                 {translations.stores.actions.details}
                               </button>
                             </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-start">
-                            <Link href={`/dashboard/check-transaction/${store.id}`} className="block w-full text-start">
-                              <button className="block w-full text-start">
+                          </div>
+                          <div className="p-2 hover:bg-slate-600/10 border-lg">
+                            <Link
+                              href={`/dashboard/check-transaction/${store.id}`}
+                            >
+                              <button>
                                 {translations.stores.actions.manualCheck}
                               </button>
                             </Link>
-                          </DropdownMenuItem>
+                          </div>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </td>
@@ -234,7 +236,8 @@ export default function StoresTable() {
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChangeClient={handlePageChange}
+          onPageChange={handlePageChange}
+          lang={lang}
         />
       </div>
     </div>

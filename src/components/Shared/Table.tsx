@@ -30,6 +30,7 @@ export default function Table<T>({
   cellClassName = "px-2 py-4",
   keyExtractorAction = (item: any) => item.id || Math.random().toString(),
 }: TableProps<T>) {
+
   return (
     <div className="grid">
       <div className={`flex overflow-hidden flex-col px-4 py-3 w-full bg-[#1F1F1F] rounded-lg max-md:max-w-full min-h-80 ${className}`}>

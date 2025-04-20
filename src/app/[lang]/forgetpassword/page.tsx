@@ -122,8 +122,8 @@ const ForgetPassword: React.FC = () => {
                       </div>
 
                       <div className="relative mb-2 mt-3 ">
-                        <label htmlFor="email" className="block text-sm  mb-2">
-                          {translations.auth.email}
+                        <label htmlFor="email" className="block text-sm  mb-3">
+                          {translations.auth.email} <span className="text-red-700">*</span>
                         </label>
                         <Field
                           type="email"
@@ -251,7 +251,7 @@ const ForgetPassword: React.FC = () => {
                           htmlFor="password"
                           className="block text-sm mb-2"
                         >
-                          {translations.auth.forgetPassword.newPassword}
+                          {translations.auth.forgetPassword.newPassword} <span className="text-red-700">*</span>
                         </label>
                         <Field
                           type="password"
@@ -272,7 +272,7 @@ const ForgetPassword: React.FC = () => {
                           htmlFor="confirmPassword"
                           className="block text-sm mb-2"
                         >
-                          {translations.auth.forgetPassword.confirmPassword}
+                          {translations.auth.forgetPassword.confirmPassword} <span className="text-red-700">*</span>
                         </label>
                         <Field
                           type="password"

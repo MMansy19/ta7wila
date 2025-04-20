@@ -163,16 +163,16 @@ export default function Header({  lang }: {  lang: Locale; }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link href="/dashboard/settings">
-              <DropdownMenuItem>{translations.header.profile}</DropdownMenuItem>
+              <div className="p-1 hover:bg-slate-600/10 border-lg">{translations.header.profile}</div>
             </Link>
             <Link href="/dashboard/settings">
-              <DropdownMenuItem>
+              <div className="p-1 hover:bg-slate-600/10 border-lg">
                 {translations.header.settings}
-              </DropdownMenuItem>
+              </div>
             </Link>
             <DropdownMenuSeparator />
             <button onClick={logout} className="w-full text-start">
-              <DropdownMenuItem> {translations.header.logout}</DropdownMenuItem>
+              <div className="p-1 hover:bg-slate-600/10 border-lg"> {translations.header.logout}</div>
             </button>
           </DropdownMenuContent>
         </DropdownMenu>
