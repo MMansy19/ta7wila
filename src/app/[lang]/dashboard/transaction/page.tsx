@@ -137,7 +137,7 @@ export default function Transaction() {
                 displayedTransactions.map((transaction) => (
                   <tr key={transaction.id} className="transition  border-b border-white/10">
                     <td className="p-2">{transaction.id}</td>
-                    <td className="p-2 ">{transaction.from}</td>
+                    <td className="p-2" >{transaction.from}</td>
                     <td className="p-2">
                       {defaultPaymentOptions.find(option => option.key === transaction.provider)?.img ? (
                         <Image 
@@ -148,15 +148,15 @@ export default function Transaction() {
                           className="w-8 h-8" 
                         />
                       ) : (
-                        <span className="text-sm">{transaction.provider}</span>
+                        <span className="text-sm" >{transaction.provider}</span>
                       )}
                     </td>
                     <td className="p-2 font-bold text-white/70">{transaction.amount} <span className="text-xs text-white/70">{translations.dashboard.cards.currency}</span></td>
-                    <td className="p-2">
+                    <td className="p-2 text-xs">
                       {transaction.state === "pending" ? (
-                        <span className="text-[#F58C7B]">{translations.transactions.status.pending}</span>
+                        <span className="text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 px-3 py-1 rounded-full">{translations.transactions.status.pending}</span>
                       ) : (
-                        <span className="text-[#53B4AB]">{translations.transactions.status.completed}</span>
+                        <span className="text-[#53B4AB] bg-[#53B4AB] bg-opacity-20 px-3 py-1 rounded-full">{translations.transactions.status.completed}</span>
                       )}
                     </td>
                     <td className="p-2">{transaction.userName}</td>
@@ -166,7 +166,7 @@ export default function Transaction() {
                         className={`px-3 py-1  rounded-full text-xs
                           ${transaction.state === "pending"
                             ? "text-[#c25443] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
-                            : "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed"}`}
+                            : ""}`}
                         onClick={() => {
                           if (transaction.state === "pending") {
                             setSelectedTransactionId(transaction.id);
@@ -176,7 +176,7 @@ export default function Transaction() {
                       >
                         {transaction.state === "pending" 
                           ? translations.transactions.action.markAsCompleted 
-                          : translations.transactions.action.completed}
+                          : '-'}
                       </span>
                     </td>
                   </tr>

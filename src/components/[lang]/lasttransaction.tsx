@@ -101,16 +101,16 @@ export default function LastTranaction() {
     {
       header: translations.transactions.table.state,
       accessor: (item: Transactions) => (
-        <span className="p-2">
+        <span className="text-xs">
           {item.status === "pending" ? (
-            <span className="text-[#F58C7B]">
+            <span className="text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 px-3 py-1 rounded-full">
               {translations.transactions.status.pending}
             </span>
           ) : (
-            <span className="text-[#53B4AB]">
+            <span className="text-[#53B4AB] bg-[#53B4AB] bg-opacity-20 px-3 py-1 rounded-full">
               {translations.transactions.status.completed}
             </span>
-          )}
+          )} 
         </span>
       ),
     },
