@@ -21,6 +21,7 @@ import { checkDeveloperMode, getUserProfile, User } from "../../api/profile";
 import { usePathname, useRouter } from "next/navigation";
 import { Locale } from "@/i18n-config";
 import DasboardLangSwitcher from "@/app/lang-switcher/dasboardLangSwitcher";
+import LocaleSwitcher from "../../app/lang-switcher/LangSwitcher";
 
 export default function Header({  lang }: {  lang: Locale; }) {
   const translations = useTranslation();
@@ -111,6 +112,8 @@ export default function Header({  lang }: {  lang: Locale; }) {
         >
           <Wifi className="h-4 w-4" />
         </Button>
+
+        <LocaleSwitcher currentLang={lang} />
 
        {/* <DasboardLangSwitcher currentLang={lang} /> */}
         <DropdownMenu>

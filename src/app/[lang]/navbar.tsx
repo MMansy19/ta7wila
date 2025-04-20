@@ -78,12 +78,13 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
                 )}
               </svg>
             </button>
-            <div className="text-white">
-            <LocaleSwitcher currentLang={lang} />
-            </div>
+            
             <Link href="/login">
-              <ActionButton text={translations.navigation.tryFree} />
+              <ActionButton text={translations.navigation.tryFree}  />
             </Link>
+            <div className="text-[#53B4AB]">
+            <LocaleSwitcher currentLang={lang}  />
+            </div>
           </div>
 
           <div className="hidden md:flex  gap-4 items-center">

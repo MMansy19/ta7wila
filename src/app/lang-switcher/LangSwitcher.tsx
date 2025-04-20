@@ -2,8 +2,15 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Globe } from "lucide-react"
 
-export default function LocaleSwitcher({ currentLang }: { currentLang: any }) {
+export default function LocaleSwitcher({ 
+  currentLang,
+  className 
+}: { 
+  currentLang: any;
+  className?: string;  // Add className prop
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -16,18 +23,17 @@ export default function LocaleSwitcher({ currentLang }: { currentLang: any }) {
   };
 
   return (
-    <div className="relative">
+    // Apply className to the root div
+    <div className={`relative ${className || ''}`}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-12 h-12 bg-neutral-900 rounded-full hover:bg-neutral-800 transition-colors"
+        className="flex items-center justify-center w-9 h-9 bg-neutral-900 rounded-full hover:bg-neutral-800 transition-colors"
       >
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 11C21 16.5228 16.5228 21 11 21M21 11C21 5.47715 16.5228 1 11 1M21 11C21 9.34315 16.5228 8 11 8C5.47715 8 1 9.34315 1 11M21 11C21 12.6569 16.5228 14 11 14C5.47715 14 1 12.6569 1 11M11 21C5.47715 21 1 16.5228 1 11M11 21C13.2091 21 15 16.5228 15 11C15 5.47715 13.2091 1 11 1M11 21C8.79086 21 7 16.5228 7 11C7 5.47715 8.79086 1 11 1M1 11C1 5.47715 5.47715 1 11 1" stroke="#53B4AB" strokeWidth="1.5" />
-        </svg>
+        <Globe className="h-4 w-4" />
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 bg-neutral-900 rounded-lg overflow-hidden shadow-lg">
+        <div className="absolute top-full mt-2 right-0 bg-neutral-900 rounded-lg overflow-hidden shadow-lg z-50">
           <button 
             onClick={() => switchLocale('en')}
             disabled={currentLang === 'en'}
