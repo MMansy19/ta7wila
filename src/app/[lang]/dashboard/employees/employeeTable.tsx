@@ -53,7 +53,7 @@ const EmployeeTable = ({
           ) : (
             <tr>
               <td colSpan={7} className="text-center">
-                No Employees found.
+                {translations.employees.noData}.
               </td>
             </tr>
           )}

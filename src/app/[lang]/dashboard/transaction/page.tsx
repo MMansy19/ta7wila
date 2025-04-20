@@ -18,11 +18,13 @@ export default function Transaction() {
   const lang = params.lang as string;
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
-  const [selectedTransactionId, setSelectedTransactionId] = useState<number | null>(null);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<
+    number | null
+  >(null);
   const [filterState, setFilterState] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const translations = useTranslation();
-  
+
   const defaultPaymentOptions = [
     { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
     { name: "Et- CASH", key: "ecash", img: "/ecash.svg" },
@@ -30,14 +32,20 @@ export default function Transaction() {
     { name: "OR- CASH", key: "ocash", img: "/ocash.svg" },
     { name: "INSTAPAY", key: "instapay", img: "/instapay.svg" },
   ];
-  
 
   const fetchTransactions = async (): Promise<Transactions[]> => {
-    const response = await axios.get(`${apiUrl}/transactions?page=${currentPage}`, {
-      headers: getAuthHeaders(),
-    });
-  
-    if (response.data.success && response.data.result && response.data.result.data) {
+    const response = await axios.get(
+      `${apiUrl}/transactions?page=${currentPage}`,
+      {
+        headers: getAuthHeaders(),
+      }
+    );
+
+    if (
+      response.data.success &&
+      response.data.result &&
+      response.data.result.data
+    ) {
       return response.data.result.data.reverse().map((item: any) => ({
         id: item.id,
         store: item.transaction_id || "-",
@@ -51,24 +59,31 @@ export default function Transaction() {
         date: new Date(item.transaction_date).toLocaleDateString(),
       }));
     }
-  
+
     throw new Error("Error fetching transactions");
   };
 
-  const { data: transactions = [], isLoading, error } = useQuery<Transactions[]>({
+  const {
+    data: transactions = [],
+    isLoading,
+    error,
+  } = useQuery<Transactions[]>({
     queryKey: ["transactions"],
     queryFn: fetchTransactions,
   });
 
   const filteredTransactions = transactions
-    .filter((t: Transactions) => filterState === "All" || t.state === filterState)
-    .filter((t: Transactions) => 
-      searchQuery === "" ||
-      t.id.toString().includes(searchQuery) ||
-      t.from.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      t.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      t.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      t.amount.toString().includes(searchQuery)
+    .filter(
+      (t: Transactions) => filterState === "All" || t.state === filterState
+    )
+    .filter(
+      (t: Transactions) =>
+        searchQuery === "" ||
+        t.id.toString().includes(searchQuery) ||
+        t.from.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        t.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        t.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        t.amount.toString().includes(searchQuery)
     );
 
   const itemsPerPage = 10;
@@ -88,7 +103,7 @@ export default function Transaction() {
           {},
           { headers: getAuthHeaders() }
         );
-        
+
         toast.success("Transaction marked as completed!");
       } catch (error) {
         toast.success("Already marked as completed.");
@@ -105,7 +120,9 @@ export default function Transaction() {
     <div className="grid">
       <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold">{translations.transactions.title}</h2>
+          <h2 className="text-2xl font-semibold">
+            {translations.transactions.title}
+          </h2>
           <div className="relative">
             <input
               type="text"
@@ -124,39 +141,76 @@ export default function Transaction() {
               <tr className="text-start">
                 <th className="p-2">{translations.transactions.table.id}</th>
                 <th className="p-2">{translations.transactions.table.from}</th>
-                <th className="p-2">{translations.transactions.table.provider}</th>
-                <th className="p-2">{translations.transactions.table.amount}</th>
+                <th className="p-2">
+                  {translations.transactions.table.provider}
+                </th>
+                <th className="p-2">
+                  {translations.transactions.table.amount}
+                </th>
                 <th className="p-2">{translations.transactions.table.state}</th>
-                <th className="p-2">{translations.transactions.table.userName}</th>
+                <th className="p-2">
+                  {translations.transactions.table.userName}
+                </th>
                 <th className="p-2">{translations.transactions.table.date}</th>
-                <th className="p-2">{translations.transactions.table.action}</th>
+                <th className="p-2">
+                  {translations.transactions.table.action}
+                </th>
               </tr>
             </thead>
             <tbody>
               {displayedTransactions.length > 0 ? (
                 displayedTransactions.map((transaction) => (
-                  <tr key={transaction.id} className="transition  border-b border-white/10">
+                  <tr
+                    key={transaction.id}
+                    className="transition  border-b border-white/10"
+                  >
                     <td className="p-2">{transaction.id}</td>
-                    <td className="p-2" >{transaction.from}</td>
                     <td className="p-2">
-                      {defaultPaymentOptions.find(option => option.key === transaction.provider)?.img ? (
-                        <Image 
-                          width={24} 
-                          height={24} 
-                          src={defaultPaymentOptions.find(option => option.key === transaction.provider)?.img || ''} 
-                          alt={transaction.provider} 
-                          className="w-8 h-8" 
+                      <span
+                        style={{
+                          direction: "ltr",
+                          textAlign: "left",
+                          display: "inline-block",
+                        }}
+                      >
+                        {transaction.from}
+                      </span>
+                    </td>
+                    {/* <td className="p-2" >{transaction.from}</td> */}
+                    <td className="p-2">
+                      {defaultPaymentOptions.find(
+                        (option) => option.key === transaction.provider
+                      )?.img ? (
+                        <Image
+                          width={24}
+                          height={24}
+                          src={
+                            defaultPaymentOptions.find(
+                              (option) => option.key === transaction.provider
+                            )?.img || ""
+                          }
+                          alt={transaction.provider}
+                          className="w-8 h-8"
                         />
                       ) : (
-                        <span className="text-sm" >{transaction.provider}</span>
+                        <span className="text-sm">{transaction.provider}</span>
                       )}
                     </td>
-                    <td className="p-2 font-bold text-white/70">{transaction.amount} <span className="text-xs text-white/70">{translations.dashboard.cards.currency}</span></td>
+                    <td className="p-2 font-bold text-white/70">
+                      {transaction.amount}{" "}
+                      <span className="text-xs text-white/70">
+                        {translations.dashboard.cards.currency}
+                      </span>
+                    </td>
                     <td className="p-2 text-xs">
                       {transaction.state === "pending" ? (
-                        <span className="text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 px-3 py-1 rounded-full">{translations.transactions.status.pending}</span>
+                        <span className="text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 px-3 py-1 rounded-full">
+                          {translations.transactions.status.pending}
+                        </span>
                       ) : (
-                        <span className="text-[#53B4AB] bg-[#53B4AB] bg-opacity-20 px-3 py-1 rounded-full">{translations.transactions.status.completed}</span>
+                        <span className="text-[#53B4AB] bg-[#53B4AB] bg-opacity-20 px-3 py-1 rounded-full">
+                          {translations.transactions.status.completed}
+                        </span>
                       )}
                     </td>
                     <td className="p-2">{transaction.userName}</td>
@@ -164,9 +218,11 @@ export default function Transaction() {
                     <td className="p-2">
                       <span
                         className={`px-3 py-1  rounded-full text-xs
-                          ${transaction.state === "pending"
-                            ? "text-[#c25443] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
-                            : ""}`}
+                          ${
+                            transaction.state === "pending"
+                              ? "text-[#c25443] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
+                              : ""
+                          }`}
                         onClick={() => {
                           if (transaction.state === "pending") {
                             setSelectedTransactionId(transaction.id);
@@ -174,9 +230,9 @@ export default function Transaction() {
                           }
                         }}
                       >
-                        {transaction.state === "pending" 
-                          ? translations.transactions.action.markAsCompleted 
-                          : '-'}
+                        {transaction.state === "pending"
+                          ? translations.transactions.action.markAsCompleted
+                          : "-"}
                       </span>
                     </td>
                   </tr>
@@ -193,29 +249,33 @@ export default function Transaction() {
         </div>
 
         <div className="mt-4">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-          lang={lang}
-        />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            lang={lang}
+          />
         </div>
 
         {/* Modal */}
         {showModal && (
           <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
             <div className="bg-neutral-800 p-4 rounded-lg text-white">
-              <h2 className="text-lg font-semibold">{translations.transactions.confirmModal.title}</h2>
-              <p className="mt-2">{translations.transactions.confirmModal.message}</p>
+              <h2 className="text-lg font-semibold">
+                {translations.transactions.confirmModal.title}
+              </h2>
+              <p className="mt-2">
+                {translations.transactions.confirmModal.message}
+              </p>
               <div className="mt-4 flex justify-end space-x-2 gap-2">
-                <button 
-                  className="px-4 py-2 bg-gray-500 text-white  rounded-lg text-xs" 
+                <button
+                  className="px-4 py-2 bg-gray-500 text-white  rounded-lg text-xs"
                   onClick={() => setShowModal(false)}
                 >
                   {translations.transactions.confirmModal.cancel}
                 </button>
-                <button 
-                  className="px-4 py-2 bg-[#53B4AB] text-black rounded-lg text-xs" 
+                <button
+                  className="px-4 py-2 bg-[#53B4AB] text-black rounded-lg text-xs"
                   onClick={handleMarkAsCompleted}
                 >
                   {translations.transactions.confirmModal.confirm}

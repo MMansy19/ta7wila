@@ -18,7 +18,6 @@ interface User {
   status: string;
   createdAt: string;
   updatedAt: string;
-
 }
 
 export default function Users() {
@@ -39,9 +38,12 @@ export default function Users() {
   const lang = params.lang as string;
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
- 
 
-  const handleSubmit = async (e: React.FormEvent, user: User, newStatus: string) => {
+  const handleSubmit = async (
+    e: React.FormEvent,
+    user: User,
+    newStatus: string
+  ) => {
     e.preventDefault();
 
     if (!user) {
@@ -70,21 +72,18 @@ export default function Users() {
       );
     } catch (err: any) {
       const message =
-        err.response?.data?.message ||
-        translations.errors.developerMode;
+        err.response?.data?.message || translations.errors.developerMode;
       toast.error(message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-
   const fetchUsers = async (page: number) => {
     try {
-      const response = await axios.get(
-        `${apiUrl}/users?page=${page}`,
-       { headers: getAuthHeaders() }
-      );
+      const response = await axios.get(`${apiUrl}/users?page=${page}`, {
+        headers: getAuthHeaders(),
+      });
       const data = response.data.result.data;
 
       const transformedUsers: User[] = data.map((item: any) => ({
@@ -101,16 +100,15 @@ export default function Users() {
       setUsers(transformedUsers.reverse());
       setFilteredUsers(transformedUsers.reverse());
       setTotalPages(response.data.result.totalPages);
-      setTotalVendors(response.data.result.total)
+      setTotalVendors(response.data.result.total);
     } catch (err: any) {
       setError(
-        err.response?.data?.message ||
-        translations.errors.developerMode
+        err.response?.data?.message || translations.errors.developerMode
       );
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   // Filter users based on search query
   useEffect(() => {
@@ -128,7 +126,6 @@ export default function Users() {
     }
   }, [searchQuery, users]);
 
-
   useEffect(() => {
     fetchUsers(currentPage);
   }, [currentPage]);
@@ -145,7 +142,9 @@ export default function Users() {
 
   const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const mobileNumber = value.startsWith("+20") ? value : "+20" + value.replace(/^0+/, "");
+    const mobileNumber = value.startsWith("+20")
+      ? value
+      : "+20" + value.replace(/^0+/, "");
     setSelectedUser((prev) => {
       if (prev) {
         return { ...prev, mobile: mobileNumber };
@@ -158,7 +157,6 @@ export default function Users() {
   if (error) return <div className="text-red-500">Error: {error}</div>;
 
   return (
- 
     <div className="text-white grid">
       <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-lg max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <Toaster position="top-right" reverseOrder={false} />
@@ -166,25 +164,22 @@ export default function Users() {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold">{translations.users.title}</h2>
           <div className="flex items-center gap-2">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder={translations.users.search.placeholder}
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="pl-10 pr-4 py-2 bg-neutral-800 rounded-lg text-sm text-white placeholder:text-white/50 !outline-none focus:outline-none focus:ring-0 border-0 focus:border-0 w-[300px]"
-            />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
-          </div>
-     
-   
+            <div className="relative">
+              <input
+                type="text"
+                placeholder={translations.users.search.placeholder}
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="pl-10 pr-4 py-2 bg-neutral-800 rounded-lg text-sm text-white placeholder:text-white/50 !outline-none focus:outline-none focus:ring-0 border-0 focus:border-0 w-[300px]"
+              />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
+            </div>
+
             <button className="bg-[#53B4AB] hover:bg-[#459a91] text-black px-4 py-2 rounded-lg text-sm">
               {translations.users.total}: {totalVendors}
             </button>
           </div>
         </div>
-
-    
 
         <div className="overflow-x-auto">
           <table className="w-full text-left">
@@ -202,16 +197,34 @@ export default function Users() {
             <tbody>
               {filteredUsers.length > 0 ? (
                 filteredUsers.map((user) => (
-                  <tr key={user.id} className="text-start border-b border-white/10">
+                  <tr
+                    key={user.id}
+                    className="text-start border-b border-white/10"
+                  >
                     <td className="p-2">{user.id}</td>
-                    
+
                     <td className="p-2">{user.name}</td>
                     <td className="p-2">{user.email}</td>
-                    <td className="p-2">{user.mobile}</td>
                     <td className="p-2">
                       <span
-                        className={`px-2 py-.5 rounded-full text-sm ${user.status === "active" ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed" : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
-                          }`}
+                        style={{
+                          direction: "ltr",
+                          textAlign: "left",
+                          display: "inline-block",
+                        }}
+                      >
+                        {user.mobile}
+                      </span>
+                    </td>
+
+                    {/* <td className="p-2">{user.mobile}</td> */}
+                    <td className="p-2">
+                      <span
+                        className={`px-2 py-.5 rounded-full text-sm ${
+                          user.status === "active"
+                            ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20 cursor-not-allowed"
+                            : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20 cursor-pointer"
+                        }`}
                       >
                         {user.status}
                       </span>
@@ -219,17 +232,27 @@ export default function Users() {
                     <td className="p-2">{user.createdAt}</td>
                     <td className="p-2">
                       <button
-                        onClick={(e) => handleSubmit(e, user, user.status === "active" ? "inactive" : "active")}
+                        onClick={(e) =>
+                          handleSubmit(
+                            e,
+                            user,
+                            user.status === "active" ? "inactive" : "active"
+                          )
+                        }
                         className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-full text-sm"
                       >
-                        {user.status === "active" ? translations.users.actions.deactivate : translations.users.actions.activate}
+                        {user.status === "active"
+                          ? translations.users.actions.deactivate
+                          : translations.users.actions.activate}
                       </button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} className="text-center">{translations.users.noData}</td>
+                  <td colSpan={8} className="text-center">
+                    {translations.users.noData}
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -237,8 +260,8 @@ export default function Users() {
         </div>
 
         {/* Pagination Controls */}
-      
-       <Pagination
+
+        <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={setCurrentPage}
@@ -246,7 +269,5 @@ export default function Users() {
         />
       </div>
     </div>
-
   );
 }
-
