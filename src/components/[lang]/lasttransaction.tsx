@@ -69,7 +69,15 @@ export default function LastTranaction() {
     },
     {
       header: translations.transactions.table.from,
-      accessor: "mobile",
+      accessor: (item: Transactions) => (
+        <span style={{
+          direction: 'ltr',
+          textAlign: 'left',
+          display: 'inline-block'
+        }}>
+          {item.mobile}
+        </span>
+      ),
       className: "text-[#F58C7B]",
     },
     {
