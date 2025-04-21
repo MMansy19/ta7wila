@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+import useCurrency from "../Shared/useCurrency";
 
 type Checkout = {
   id: number;
@@ -20,6 +21,7 @@ const Checkout: React.FC = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const formatCurrency = useCurrency();
 
   const fetchCheckouts = async (currentPage: number): Promise<Checkout[]> => {
     const response = await axios.get(`${apiUrl}/checkouts?page=${currentPage}`, {
@@ -87,7 +89,7 @@ const Checkout: React.FC = () => {
                   <tr key={checkout.id} className="text-start">
                     <td className="p-2">{checkout.id}</td>
                     <td className="p-2">{checkout.ref_id}</td>
-                    <td className="p-2">{checkout.amount}</td>
+                    <td className="p-2">{formatCurrency(checkout.amount)}</td>
                     <td className="p-2">{checkout.status}</td>
                     <td className="p-2">{new Date(checkout.paid_at || "N/A").toLocaleDateString()}</td>
                     <td className="p-2">

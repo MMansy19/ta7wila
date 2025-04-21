@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Plans from "../plans/page";
 import getAuthHeaders from "../Shared/getAuth";
 import { Plan } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 export default function PriceUser() {
   const translations = useTranslation();
@@ -58,6 +59,7 @@ export default function PriceUser() {
 
 function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
 
   return (
     <section className="py-8">
@@ -80,7 +82,7 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
               </div>
               <div className="flex items-baseline gap-2 mb-6">
                 <span className="text-5xl font-bold">
-                  {currentPlan.amount} {translations.dashboard.cards.currency}
+                   {formatCurrency(currentPlan.amount)}
                 </span>
                 <span className="text-lg text-gray-400">
                   {translations.price.perMonth}

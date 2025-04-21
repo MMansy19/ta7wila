@@ -4,6 +4,7 @@ import { useState } from "react";
 import getAuthHeaders from "../../app/[lang]/dashboard/Shared/getAuth";
 import Table, { TableColumn } from "../Shared/Table";
 import Image from "next/image";
+import useCurrency from "@/app/[lang]/dashboard/Shared/useCurrency";
 
 export interface Transactions {
   id: number;
@@ -30,6 +31,7 @@ export default function LastTranaction() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7;
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
 
   async function getTransaction() {
     const response = await fetch(`${apiUrl}/transactions?page=1`, {
@@ -95,7 +97,7 @@ export default function LastTranaction() {
     {
       header: translations.transactions.table.amount,
       accessor: (item: Transactions) =>
-        ` ${item.amount} ${translations.dashboard.cards.currency}`,
+        ` ${formatCurrency(item.amount)}`,
       className: "font-bold",
     },
     {

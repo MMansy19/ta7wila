@@ -206,7 +206,17 @@ export default function Vendors() {
                     </td>
                     <td className="p-2">{user.name}</td>
                     <td className="p-2">{user.email}</td>
-                    <td className="p-2">{user.mobile}</td>
+                    <td className="p-2">
+                      <span
+                        style={{
+                          direction: "ltr",
+                          textAlign: "left",
+                          display: "inline-block",
+                        }}
+                      >
+                        {user.mobile}
+                      </span>
+                    </td>
                     <td className="p-2">
                       <span className={`px-2 py-1 rounded-[16px] text-black ${user.status === "active" ? "bg-green-500" : "bg-[#F58C7B]"}`}>
                         {user.status}

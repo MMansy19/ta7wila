@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import SubscriptionModal from "./modal";
 import { ApiResponse, Plan } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState<Plan[]>([]);
@@ -18,6 +19,7 @@ export default function Subscriptions() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+  const formatCurrency = useCurrency();
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const translations = useTranslation();
@@ -114,7 +116,7 @@ export default function Subscriptions() {
                   subscriptions.map((subscription) => (
                     <tr key={subscription.id} className="transition py-2 border-b border-white/10">
                       <td className="p-2">{subscription.title}</td>
-                      <td className="p-2">{subscription.amount} {translations.dashboard.cards.currency}</td>
+                      <td className="p-2">{formatCurrency(subscription.amount)}</td>
                       <td className="p-2">{subscription.subscription_type}</td>
                       <td className="p-2">
                   

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../Shared/getAuth";
 import { PaymentData, PaymentOption, TransactionData } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 const CheckTransactionSchema = Yup.object().shape({
   applicationId: Yup.string().required("Please select an application"),
@@ -39,6 +40,7 @@ export default function TransactionModal({
   const [payments, setPayments] = useState<any[]>([]);
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return "N/A";
@@ -266,7 +268,7 @@ export default function TransactionModal({
                             {translations.paymentVerification.modal.transactionDetails.totalAmount}
                           </label>
                           <div className="text-base">
-                            {transactionData.amount} EGP
+                            {formatCurrency(transactionData.amount)}
                           </div>
                         </div>
                       </div>

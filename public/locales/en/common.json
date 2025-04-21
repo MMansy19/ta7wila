@@ -694,7 +694,7 @@
       "titlePlaceholder": "Plan Title",
       "subtitle": "Subtitle",
       "subtitlePlaceholder": "Short Description",
-      "amount": "Amount (USD)",
+      "amount": "Amount",
       "amountPlaceholder": "0.00",
       "applicationsCount": "Applications",
       "employeesCount": "Employees",

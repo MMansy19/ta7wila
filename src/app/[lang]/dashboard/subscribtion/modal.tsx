@@ -1,11 +1,13 @@
 import { useTranslation } from "@/context/translation-context";
 import { SubscriptionModalProps } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 const SubscriptionModal = ({
   selectedSubscription,
   onClose,
 }: SubscriptionModalProps) => {
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
 
   return (
     <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
@@ -83,7 +85,7 @@ const SubscriptionModal = ({
 
               <div>
                 <div className="text-white text-2xl font-bold mb-1">
-                  {selectedSubscription.amount} {translations.dashboard.cards.currency}
+                 {formatCurrency(selectedSubscription.amount)}
                 </div>
                 <div className="text-[#d5d5d5] text-sm">
                   {translations.subscription.modal.subscriptionAmount}

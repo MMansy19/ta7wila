@@ -7,6 +7,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
 import { type CheckoutDetails, Params } from "../types";
+import useCurrency from "../../Shared/useCurrency";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -17,6 +18,7 @@ export default async function CheckoutDetails({
 }) {
   const { id } = await params;
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
   async function fetchCheckoutDetails() {
     const response = await axios.get(`${apiUrl}/checkouts/${id}`, {
       headers: getAuthHeaders(),
@@ -158,7 +160,7 @@ export default async function CheckoutDetails({
             <span className="text-white">
               {translations.checkout.details.paymentDetails.amount}  :
             </span>
-            <span className="text-white">{checkout.amount.toFixed(2)}{translations.dashboard.cards.currency}</span>
+            <span className="text-white">{formatCurrency(checkout.amount)} </span>
           </div>
         </div>
 
@@ -210,7 +212,7 @@ export default async function CheckoutDetails({
                     : "--"}
                 </td>
                 <td className="py-4 text-white">
-                  {checkout.amount.toFixed(2)} EGP
+                {formatCurrency(checkout.amount)}
                 </td>
               </tr>
             </tbody>

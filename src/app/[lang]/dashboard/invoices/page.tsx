@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import { Invoice } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -14,6 +15,7 @@ export default function Invoices() {
   const translations = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const formatCurrency = useCurrency();
 
   const fetchInvoices = async (): Promise<Invoice[]> => {
     const response = await axios.get(`${apiUrl}/invoices?page=${currentPage}`, { headers: getAuthHeaders() });
@@ -71,10 +73,10 @@ export default function Invoices() {
                 invoices.map((invoice) => (
                   <tr key={invoice.id} className="text-start border-b border-white/10 px-2 py-4">
                     <td className="p-2">{invoice.id}</td>
-                    <td className="p-2">{invoice.total_amount} {translations.dashboard.cards.currency}</td>
-                    <td className="p-2">{invoice.total_fees} {translations.dashboard.cards.currency}</td>
-                    <td className="p-2">{invoice.late_fees || "-"} {translations.dashboard.cards.currency}</td>
-                    <td className="p-2">{invoice.developer_fees} {translations.dashboard.cards.currency}</td>
+                    <td className="p-2">{formatCurrency(invoice.total_amount)}</td>
+                    <td className="p-2">{formatCurrency(invoice.total_fees)} </td>
+                    <td className="p-2">{formatCurrency(invoice.late_fees )} </td>
+                    <td className="p-2">{formatCurrency(invoice.developer_fees)}</td>
                     <td className="p-2">{new Date(invoice.paid_at).toLocaleDateString()}</td>
                     <td className="p-2">
                       <Link href={`/dashboard/invoicesDetails/${invoice.id}`}>

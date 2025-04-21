@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import getAuthHeaders from "../Shared/getAuth";
 import { Params } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 export interface Transactions {
   id: number;
@@ -24,7 +25,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function Table({ params }: { params: Params }) {
   const translations = useTranslation();
-
+  const formatCurrency = useCurrency();
   const [currentPage, setCurrentPage] = useState(1);
   const [filterState, setFilterState] = useState<string>("All");
 
@@ -98,7 +99,7 @@ export default function Table({ params }: { params: Params }) {
                     <td className="p-2">{transaction.id}</td>
                     <td className="p-2 text-[#F58C7B]">{transaction.from}</td>
                     <td className="p-2">{transaction.provider}</td>
-                    <td className="p-2 font-bold text-[#53B4AB]">{transaction.amount} {translations.dashboard.cards.currency}</td>
+                    <td className="p-2 font-bold text-[#53B4AB]">{formatCurrency(transaction.amount)}</td>
                     <td className="p-2">
                       {transaction.state === "pending" ? (
                         <span className="text-[#F58C7B]">{translations.transactions.status.pending}</span>

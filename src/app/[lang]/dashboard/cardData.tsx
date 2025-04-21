@@ -3,6 +3,7 @@ import { useTranslation } from "@/context/translation-context";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
+import useCurrency from "../dashboard/Shared/useCurrency";
 
 interface SummaryData {
   total_amount: number;
@@ -19,6 +20,7 @@ const DashboardCards = () => {
   const translations = useTranslation();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const { isDeveloper, setIsDeveloper } = useDeveloper();
+  const formatCurrency = useCurrency();
 
   React.useEffect(() => {
     const isDev = localStorage.getItem("isDeveloper") === "true";
@@ -64,7 +66,7 @@ const DashboardCards = () => {
             fontWeight="bold"
           
           >
-            {data?.result.total_amount}{" "}<tspan fontSize="12" dx="3" dy="3" >{translations.dashboard.cards.currency}</tspan>
+          {formatCurrency(data?.result.total_amount)}{" "}
           </text>
 
         </svg>
@@ -83,7 +85,7 @@ const DashboardCards = () => {
             <path fillRule="evenodd" clipRule="evenodd" d="M151.145 14C150.106 14 149.264 14.8421 149.264 15.881V20.119C149.264 21.1579 150.106 22 151.145 22H157.383C158.422 22 159.264 21.1579 159.264 20.119V15.881C159.264 14.8421 158.422 14 157.383 14H151.145ZM161.145 26C160.106 26 159.264 26.8422 159.264 27.881V32.1191C159.264 33.1579 160.106 34 161.145 34H167.383C168.422 34 169.264 33.1579 169.264 32.1191V27.881C169.264 26.8422 168.422 26 167.383 26H161.145ZM167.868 18.7502L167.148 19.4699C166.855 19.7628 166.855 20.2377 167.148 20.5305C167.441 20.8234 167.916 20.8234 168.209 20.5305L169.502 19.2377C170.185 18.5542 170.185 17.4462 169.502 16.7628L168.209 15.4699C167.916 15.177 167.441 15.177 167.148 15.4699C166.855 15.7628 166.855 16.2377 167.148 16.5305L167.868 17.2502H163.264C162.85 17.2502 162.514 17.586 162.514 18.0002C162.514 18.4144 162.85 18.7502 163.264 18.7502H167.868ZM151.38 31.4697L150.661 30.75H155.264C155.678 30.75 156.014 30.4142 156.014 30C156.014 29.5858 155.678 29.25 155.264 29.25H150.661L151.38 28.5303C151.673 28.2375 151.673 27.7626 151.38 27.4697C151.087 27.1768 150.613 27.1768 150.32 27.4697L149.027 28.7626C148.343 29.446 148.343 30.554 149.027 31.2375L150.32 32.5303C150.613 32.8232 151.087 32.8232 151.38 32.5303C151.673 32.2375 151.673 31.7626 151.38 31.4697Z" fill="#A7A4A4" />
           </g>
           <text x="40%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="17" fontWeight="500">
-            {translations.dashboard.cards.pendingAmount}
+            {translations.dashboard.cards.pendingAmount} 
           </text>
           <text
             x="35%"
@@ -94,7 +96,7 @@ const DashboardCards = () => {
             fontSize="20"
             fontWeight="bold"
           >
-            {data?.result.total_pending_amount}{" "}<tspan fontSize="12" dx="3" dy="3">{translations.dashboard.cards.currency}</tspan>
+           {formatCurrency(data?.result.total_pending_amount)}{" "}
           </text>
 
         </svg>
@@ -202,7 +204,7 @@ const DashboardCards = () => {
                 fontWeight="bold"
                 className="px-2"
               >
-                {data?.result?.total_developer_fees}{" "}<tspan fontSize="12" dx="3" dy="3">{translations.dashboard.cards.currency}</tspan>
+               {formatCurrency(data?.result?.total_developer_fees)}
               </text>
             </svg>
           </div>
@@ -261,7 +263,7 @@ const DashboardCards = () => {
               fontWeight="bold"
               className="px-2"
             >
-              {data?.result?.total_developer_fees}{" "}<tspan fontSize="12" dx="3" dy="3">{translations.dashboard.cards.currency}</tspan>
+            {formatCurrency(data?.result?.total_developer_fees)}{" "}
             </text>
           </svg>
         </div>

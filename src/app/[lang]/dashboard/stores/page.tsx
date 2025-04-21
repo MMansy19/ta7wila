@@ -147,7 +147,18 @@ export default function StoresTable() {
                   >
                     <td className="p-2">{store.id}</td>
                     <td className="p-2">{store.name}</td>
-                    <td className="p-2" >{store.mobile}</td>
+                    <td className="p-2">
+                      <span
+                        style={{
+                          direction: "ltr",
+                          textAlign: "left",
+                          display: "inline-block",
+                        }}
+                      >
+                       {store.mobile}
+                      </span>
+                    </td>
+                   
                     <td className="p-2">
                       <span
                         className={`px-3 py-1 rounded-full text-sm   ${

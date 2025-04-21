@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import { Transactions } from "./types";
 import { useParams } from "next/navigation";
+import useCurrency from "../Shared/useCurrency";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -24,6 +25,7 @@ export default function Transaction() {
   const [filterState, setFilterState] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
 
   const defaultPaymentOptions = [
     { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
@@ -197,10 +199,8 @@ export default function Transaction() {
                       )}
                     </td>
                     <td className="p-2 font-bold text-white/70">
-                      {transaction.amount}{" "}
-                      <span className="text-xs text-white/70">
-                        {translations.dashboard.cards.currency}
-                      </span>
+                   {formatCurrency(transaction.amount)}
+                  
                     </td>
                     <td className="p-2 text-xs">
                       {transaction.state === "pending" ? (

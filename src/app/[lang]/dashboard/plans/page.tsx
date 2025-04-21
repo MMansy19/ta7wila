@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import { Plan } from "../price/types";
+import useCurrency from "../Shared/useCurrency";
 
 export default function Plans() {
   const translations = useTranslation();
@@ -15,6 +16,11 @@ export default function Plans() {
   );
   const [plans, setPlans] = useState<Plan[]>([]);
   const router = useRouter();
+  const formatCurrency = useCurrency();
+
+
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +96,7 @@ export default function Plans() {
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
                 <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-4xl font-bold">${plan.amount}</span>
+                  <span className="text-4xl font-bold">{formatCurrency(plan.amount)}</span>
                   <span className="text-lg opacity-80">
                     {translations.plans.perMonth}
                   </span>

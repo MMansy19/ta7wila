@@ -3,9 +3,11 @@ import { useTranslation } from "@/context/translation-context";
 import { useEffect, useState } from "react";
 import getAuthHeaders from "../../Shared/getAuth";
 import { Invoice, Params } from "../types";
+import useCurrency from "../../Shared/useCurrency";
 
 export default function InvoiceDetails({ params }: { params: Promise<Params> }) {
   const translations = useTranslation();
+  const formatCurrency = useCurrency();
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +49,7 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
   }
 
   if (!invoice) {
-    return <div>No invoice found</div>;
+    return <div>{translations.invoice.noInvoices}</div>;
   }
 
   return (
@@ -55,7 +57,7 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
       <div className="bg-[#1F1F1F] rounded-lg shadow-lg px-8 pt-6 pb-1 mx-auto">
         <div className="flex justify-between mb-2 flex-wrap">
           <div className="flex text-center w-full mt-2">
-            <span className={`badge ${invoice.status === 'completed' ? 'bg-green-500' : 'bg-[#F58C7B]'} text-black px-2 py-2 rounded-lg w-full`}>
+            <span className={`badge ${invoice.status === 'completed' ? 'bg-green-500 bg-opacity-20'  : 'bg-[#F58C7B] bg-opacity-20'} text-black px-2 py-2 rounded-lg w-full`}>
               {invoice.status === 'completed' ? translations.transactions.status.completed : translations.transactions.status.pending}!
             </span>
           </div>
@@ -88,27 +90,27 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
         <div className="block lg:hidden mb-4">
           <div className="flex justify-between">
             <span className="text-white">{translations.invoice.amountWithoutFees}:</span>
-            <span className="text-white">{invoice.amount_without_fees}</span>
+            <span className="text-white">{formatCurrency(invoice.amount_without_fees)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-white">{translations.invoice.lateFees}:</span>
-            <span className="text-white">{invoice.late_fees}</span>
+            <span className="text-white">{formatCurrency(invoice.late_fees)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-white">{translations.invoice.developerFees}:</span>
-            <span className="text-white">{invoice.developer_fees}</span>
+            <span className="text-white">{formatCurrency(invoice.developer_fees)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-white">{translations.invoice.totalFees}:</span>
-            <span className="text-white">{invoice.total_fees}</span>
+            <span className="text-white">{formatCurrency(invoice.total_fees)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-white">{translations.invoice.subscriptionAmount}:</span>
-            <span className="text-white">{invoice.subscription_amount}</span>
+            <span className="text-white">{formatCurrency(invoice.subscription_amount)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-white">{translations.invoice.amountInclFees}:</span>
-            <span className="text-white">{invoice.amount_includes_fees}</span>
+            <span className="text-white">{formatCurrency(invoice.amount_includes_fees)}</span>
           </div>
         </div>
 
@@ -127,12 +129,12 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
             </thead>
             <tbody>
               <tr>
-                <td className="py-4 text-white">{invoice.amount_without_fees}</td>
-                <td className="py-4 text-white">{invoice.late_fees}</td>
-                <td className="py-4 text-white">{invoice.developer_fees}</td>
-                <td className="py-4 text-white">{invoice.total_fees}</td>
-                <td className="py-4 text-white">{invoice.subscription_amount}</td>
-                <td className="py-4 text-white">{invoice.amount_includes_fees}</td>
+                <td className="py-4 text-white">{formatCurrency(invoice.amount_without_fees)}</td>
+                <td className="py-4 text-white">{formatCurrency(invoice.late_fees)}</td>
+                <td className="py-4 text-white">{formatCurrency(invoice.developer_fees)}</td>
+                <td className="py-4 text-white">{formatCurrency(invoice.total_fees)}</td>
+                <td className="py-4 text-white">{formatCurrency(invoice.subscription_amount)}</td>
+                <td className="py-4 text-white">{formatCurrency(invoice.amount_includes_fees)}</td>
               </tr>
             </tbody>
           </table>
@@ -140,7 +142,7 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
 
         <div className="flex justify-end mb-2">
           <div className="text-green-200 font-bold text-xl mr-2">{translations.invoice.total}:</div>
-          <div className="text-white font-bold text-xl">{invoice.total_amount} {translations.dashboard.cards.currency}</div>
+          <div className="text-white font-bold text-xl">{formatCurrency(invoice.total_amount)}</div>
         </div>
 
         <div className="border-t-2 border-green-200 pt-4 mb-8">

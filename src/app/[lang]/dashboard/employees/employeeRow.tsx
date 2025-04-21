@@ -21,19 +21,19 @@ const EmployeeRow = ({
       <td className="p-2">{user.id}</td>
       <td className="p-2">{user.name}</td>
       <td className="p-2">{user.email}</td>
+
       <td className="p-2">
-        <td className="p-2">
-          <span
-            style={{
-              direction: "ltr",
-              textAlign: "left",
-              display: "inline-block",
-            }}
-          >
-            {user.mobile}
-          </span>
-        </td>
+        <span
+          style={{
+            direction: "ltr",
+            textAlign: "left",
+            display: "inline-block",
+          }}
+        >
+          {user.mobile}
+        </span>
       </td>
+
       <td className="p-2">{user.status || "null"}</td>
       <td className="p-2">{user.createdAt}</td>
       <td className="p-2 gap-2 flex items-center justify-center">

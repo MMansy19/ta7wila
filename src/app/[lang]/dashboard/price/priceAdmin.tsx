@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import FormField from "../Shared/FormField";
 import getAuthHeaders from "../Shared/getAuth";
 import { Plan } from "./types";
+import useCurrency from "../Shared/useCurrency";
 
 export default function AdminPlans() {
   const translations = useTranslation();
@@ -14,28 +15,63 @@ export default function AdminPlans() {
   const [editingPlan, setEditingPlan] = useState<Plan | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [deletingPlan, setDeletingPlan] = useState<Plan | null>(null);
+  const formatCurrency = useCurrency();
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   // Validation schema
   const validationSchema = Yup.object().shape({
     title: Yup.string()
-      .required(translations.price?.validation?.titleRequired || "Title is required")
-      .min(3, translations.price?.validation?.titleMinLength || "Title must be at least 3 characters"),
-    subtitle: Yup.string()
-      .required(translations.price?.validation?.subtitleRequired || "Subtitle is required"),
+      .required(
+        translations.price?.validation?.titleRequired || "Title is required"
+      )
+      .min(
+        3,
+        translations.price?.validation?.titleMinLength ||
+          "Title must be at least 3 characters"
+      ),
+    subtitle: Yup.string().required(
+      translations.price?.validation?.subtitleRequired || "Subtitle is required"
+    ),
     amount: Yup.number()
-      .required(translations.price?.validation?.amountRequired || "Amount is required")
-      .min(0, translations.price?.validation?.amountMin || "Amount must be greater than 0"),
+      .required(
+        translations.price?.validation?.amountRequired || "Amount is required"
+      )
+      .min(
+        0,
+        translations.price?.validation?.amountMin ||
+          "Amount must be greater than 0"
+      ),
     applications_count: Yup.number()
-      .required(translations.price?.validation?.applicationsRequired || "Applications count is required")
-      .min(0, translations.price?.validation?.applicationsMin || "Applications count must be greater than 0"),
+      .required(
+        translations.price?.validation?.applicationsRequired ||
+          "Applications count is required"
+      )
+      .min(
+        0,
+        translations.price?.validation?.applicationsMin ||
+          "Applications count must be greater than 0"
+      ),
     employees_count: Yup.number()
-      .required(translations.price?.validation?.employeesRequired || "Employees count is required")
-      .min(0, translations.price?.validation?.employeesMin || "Employees count must be greater than 0"),
+      .required(
+        translations.price?.validation?.employeesRequired ||
+          "Employees count is required"
+      )
+      .min(
+        0,
+        translations.price?.validation?.employeesMin ||
+          "Employees count must be greater than 0"
+      ),
     vendors_count: Yup.number()
-      .required(translations.price?.validation?.vendorsRequired || "Vendors count is required")
-      .min(0, translations.price?.validation?.vendorsMin || "Vendors count must be greater than 0"),
+      .required(
+        translations.price?.validation?.vendorsRequired ||
+          "Vendors count is required"
+      )
+      .min(
+        0,
+        translations.price?.validation?.vendorsMin ||
+          "Vendors count must be greater than 0"
+      ),
   });
 
   useEffect(() => {
@@ -61,7 +97,7 @@ export default function AdminPlans() {
     try {
       const planToAdd = {
         ...values,
-        employees_count: Number(values.employees_count)
+        employees_count: Number(values.employees_count),
       };
       await axios.post(`${apiUrl}/plans/add`, planToAdd, {
         headers: getAuthHeaders(),
@@ -81,7 +117,7 @@ export default function AdminPlans() {
     try {
       const planToUpdate = {
         ...values,
-        employees_count: Number(values.employees_count)
+        employees_count: Number(values.employees_count),
       };
       await axios.post(`${apiUrl}/plans/update`, planToUpdate, {
         headers: getAuthHeaders(),
@@ -95,9 +131,13 @@ export default function AdminPlans() {
 
   const handleDeletePlan = async (id: number) => {
     try {
-      await axios.post(`${apiUrl}/plans/delete/${id}`, {}, {
-        headers: getAuthHeaders(),
-      });
+      await axios.post(
+        `${apiUrl}/plans/delete/${id}`,
+        {},
+        {
+          headers: getAuthHeaders(),
+        }
+      );
       fetchPlans();
     } catch (error) {
       console.error("Error deleting plan:", error);
@@ -108,7 +148,9 @@ export default function AdminPlans() {
     <div className="grid">
       <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-xl max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold mb-4">{translations.price.manageTitle}</h2>
+          <h2 className="text-2xl font-semibold mb-4">
+            {translations.price.manageTitle}
+          </h2>
           <div className="flex flex-wrap gap-2 justify-end md:justify-start">
             <button
               className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-lg text-sm"
@@ -124,8 +166,14 @@ export default function AdminPlans() {
           <div className="fixed w-full z-20 inset-0 bg-black/70 flex justify-center items-center">
             <div className="bg-neutral-900 rounded-xl p-5 shadow-xl max-w-2xl w-full mx-4 border border-neutral-800">
               <div className="flex justify-between text-xl font-bold mb-4">
-                <h3 className="text-2xl font-bold mb-6 text-white">{translations.price.modal.addTitle}</h3>
-                <button type="button" onClick={() => setShowAddModal(false)} className="text-white">
+                <h3 className="text-2xl font-bold mb-6 text-white">
+                  {translations.price.modal.addTitle}
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setShowAddModal(false)}
+                  className="text-white"
+                >
                   <svg
                     width="24"
                     height="24"
@@ -151,7 +199,7 @@ export default function AdminPlans() {
                   subtitle: "",
                   applications_count: "",
                   employees_count: "",
-                  vendors_count: ""
+                  vendors_count: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleAddPlan}
@@ -177,9 +225,9 @@ export default function AdminPlans() {
                     <FormField
                       name="amount"
                       type="number"
-                      label={`${translations.price.modal.amount}`}
+                      label={`${translations.price.modal.amount} (${formatCurrency(0)})`}
                       placeholder="0.00"
-                      min={0}  
+                      min={0}
                       required
                     />
 
@@ -232,8 +280,14 @@ export default function AdminPlans() {
           <div className="fixed w-full z-20 inset-0 bg-black/70 flex justify-center items-center">
             <div className="bg-neutral-900 rounded-xl p-5 shadow-xl max-w-2xl w-full mx-4 border border-neutral-800">
               <div className="flex justify-between text-xl font-bold mb-4">
-                <h3 className="text-2xl font-bold mb-6 text-white">{translations.price.modal.editTitle}</h3>
-                <button type="button" onClick={() => setEditingPlan(null)} className="text-white">
+                <h3 className="text-2xl font-bold mb-6 text-white">
+                  {translations.price.modal.editTitle}
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setEditingPlan(null)}
+                  className="text-white"
+                >
                   <svg
                     width="24"
                     height="24"
@@ -260,7 +314,6 @@ export default function AdminPlans() {
                 {({ isSubmitting }) => (
                   <Form className="space-y-5">
                     <Field type="hidden" name="id" />
-
                     <FormField
                       name="title"
                       type="text"
@@ -278,7 +331,7 @@ export default function AdminPlans() {
                     <FormField
                       name="amount"
                       type="number"
-                      label={`${translations.price.modal.amount}`}
+                      label={`${translations.price.modal.amount} (${formatCurrency(0)})`}
                       min={0}
                       required
                     />
@@ -329,7 +382,9 @@ export default function AdminPlans() {
         {deletingPlan && (
           <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
             <div className="bg-neutral-900 rounded-lg p-6 shadow-lg mx-6">
-              <h3 className="text-xl font-bold mb-4">{translations.price.modal.deleteTitle}</h3>
+              <h3 className="text-xl font-bold mb-4">
+                {translations.price.modal.deleteTitle}
+              </h3>
               <p className="mb-4">{translations.price.modal.deleteConfirm}</p>
               <div className="flex justify-end gap-2">
                 <button
@@ -370,12 +425,15 @@ export default function AdminPlans() {
             <tbody>
               {plans.length > 0 ? (
                 plans.map((plan) => (
-                  <tr key={plan.id} className="text-start shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.1)]">
+                  <tr
+                    key={plan.id}
+                    className="text-start shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.1)]"
+                  >
                     <td className="p-2">{plan.id}</td>
                     <td className="p-2 text-[#F58C7B]">{plan.title}</td>
                     <td className="p-2">{plan.subtitle}</td>
                     <td className="p-2 font-bold text-[#53B4AB]">
-                      {plan.amount} {translations.dashboard.cards.currency}
+                      {formatCurrency(plan.amount)}
                     </td>
                     <td className="p-2">{plan.applications_count}</td>
                     <td className="p-2">{plan.employees_count}</td>
