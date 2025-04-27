@@ -1,20 +1,13 @@
 "use client";
-import { getUserProfile, User } from "@/api/profile";
 
 import LastTranaction from "@/components/[lang]/lasttransaction";
 import { useTranslation } from "@/context/translation-context";
-import { useEffect, useState } from "react";
+
 import DashboardCards from "./cardData";
-
+import { useProfile } from "@/context/ProfileContext";
 export default function Main() {
-  const [user, setUser] = useState<User | null>(null);
   const translations = useTranslation();
-
-  useEffect(() => {
-    getUserProfile().then((profile) => {
-      setUser(profile);
-    });
-  }, []);
+  const { profile } = useProfile();
 
   return (
     <div className="min-h-screen text-white">
@@ -24,11 +17,11 @@ export default function Main() {
             {translations.dashboard.welcome}
           </div>
           <div className="mt-1.5 text-3xl font-medium max-md:max-w-full">
-            {user?.name ? (
+            {profile?.name ? (
               <>
-                {user.name.split(" ")[0]}{" "}
-                <span className="bg-gradient-to-r from-gray-100 via-gray-300 to-gray-500 text-transparent bg-clip-text">
-                  {user.name.split(" ")[1] || ""}
+                {profile.name.split(" ")[0]}{" "}
+                <span className="bg-gradient-to-r from-gray-100 via-gray-300 to-gray-500 text-transparent bg-clip-text capitalize">
+                  {profile?.name.split(" ")[1] || ""}
                 </span>
               </>
             ) : (
@@ -39,7 +32,7 @@ export default function Main() {
             {translations.dashboard.greeting}
           </div>
         </div>
-        <DashboardCards/>
+        <DashboardCards />
       </div>
       <LastTranaction />
     </div>

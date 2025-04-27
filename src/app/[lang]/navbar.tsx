@@ -12,6 +12,7 @@ import ActionButton from "@/components/[lang]/ui/landingbtn";
 export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string; }) {
       const [menuOpen, setMenuOpen] = useState(false);
       const [activeSection, setActiveSection] = useState("#home");
+      const [mounted, setMounted] = useState(false);
       const navigationItems = [
         { translationKey: "home", href: "#home" },
         { translationKey: "about", href: "#about" },
@@ -23,6 +24,7 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
       const translations = useTranslation()
     
       useEffect(() => {
+        setMounted(true);
         const sections = navigationItems.map(({ href }) =>
           document.querySelector(href)
         );
@@ -93,7 +95,7 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
                 key={href}
                 translationKey={translationKey}
                 href={href}
-                isActive={activeSection === href}
+                isActive={mounted && activeSection === href}
                 translations={translations}
               />
             ))}

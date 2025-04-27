@@ -1,10 +1,10 @@
-import { useDeveloper } from "@/context/DeveloperContext";
+'use client'
 import { useTranslation } from "@/context/translation-context";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
 import useCurrency from "../dashboard/Shared/useCurrency";
-
+import { useProfile } from "@/context/ProfileContext";
 interface SummaryData {
   total_amount: number;
   total_pending_amount: number;
@@ -19,13 +19,11 @@ interface SummaryData {
 const DashboardCards = () => {
   const translations = useTranslation();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const { isDeveloper, setIsDeveloper } = useDeveloper();
-  const formatCurrency = useCurrency();
 
-  React.useEffect(() => {
-    const isDev = localStorage.getItem("isDeveloper") === "true";
-    setIsDeveloper(isDev);
-  }, [setIsDeveloper]);
+  const formatCurrency = useCurrency();
+  const {profile} = useProfile();
+
+
 
   async function getSummery() {
     const response = await fetch(`${apiUrl}/user-summary`, {
@@ -170,7 +168,7 @@ const DashboardCards = () => {
           </text>
         </svg>
       </div>
-      {!isDeveloper ? (
+      {profile?.is_developer ? (
         <div className="relative">
 
           <div className="absolute z-10 flex items-center justify-center w-full h-full">

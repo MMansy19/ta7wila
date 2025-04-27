@@ -1,6 +1,5 @@
 
 
-import { Suspense } from 'react';
 import { Locale } from '@/i18n-config';
 import LandingPage from '../PageContent';
 

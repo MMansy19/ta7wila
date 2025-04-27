@@ -13,29 +13,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/[lang]/ui/tooltip";
-import { useDeveloper } from "@/context/DeveloperContext";
+
 import { useTranslation } from "@/context/translation-context";
 import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 import * as React from "react";
 import { getUserProfile, User } from "../../api/profile";
 import { NavMain } from "./nav-main";
-
+import { useProfile } from "@/context/ProfileContext";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
-  const { isDeveloper, setIsDeveloper } = useDeveloper();
+  const {profile} = useProfile();
   const [user, setUser] = React.useState<User | null>(null);
   const translations = useTranslation();
 
-  React.useEffect(() => {
-    const isDev = localStorage.getItem("isDeveloper") === "true";
-    setIsDeveloper(isDev);
-
-    getUserProfile().then((profile) => {
-      setUser(profile);
-    });
-  }, [setIsDeveloper]);
+ 
 
   function logout(event: any) {
     event.preventDefault();
@@ -227,7 +220,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ),
       },
 
-      ...(isDeveloper
+      ...(profile?.is_developer
         ? [
             {
               title: translations.sidebar.vendors,

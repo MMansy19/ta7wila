@@ -27,7 +27,7 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const translations = useTranslation();
-  // Add this line if using Next.js 13+
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -57,8 +57,10 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
         throw new Error(data.errorMessage || translations.auth.toast.unexpectedError);
       }
 
-      setCookie("token", data?.result?.token);
+     setCookie("token", data?.result?.token);
+     
       toast.success(translations.auth.toast.loginSuccess);
+
 
       const pathSegments = window.location.pathname.split('/');
       const locale = pathSegments[1] || 'en';

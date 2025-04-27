@@ -1,5 +1,5 @@
 "use client";
-import { useDeveloper } from "@/context/DeveloperContext";
+
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../Shared/getAuth";
-
+import { useProfile } from "@/context/ProfileContext";
 interface User {
   id: number;
   name: string;
@@ -29,10 +29,10 @@ export default function Vendors() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalVendors, setTotalVendors] = useState(1);
-  const { isDeveloper, setIsDeveloper } = useDeveloper();
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const translations = useTranslation();
+  const {profile} = useProfile();
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [newVendor, setNewVendor] = useState({

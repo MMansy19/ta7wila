@@ -11,48 +11,72 @@ import {
 } from "@/components/[lang]/ui/dropdown-menu";
 import { Separator } from "@/components/[lang]/ui/separator";
 import { SidebarTrigger } from "@/components/[lang]/ui/sidebar";
-import { useDeveloper } from "@/context/DeveloperContext";
+
 import { useTranslation } from "@/context/translation-context";
 import { deleteCookie } from "cookies-next";
 import { Bell, Wifi, WifiOff } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
-import { checkDeveloperMode, getUserProfile, User } from "../../api/profile";
 import { Locale } from "@/i18n-config";
 import LocaleSwitcher from "../../app/lang-switcher/LangSwitcher";
-import { useWiFi } from "@/context/WiFiContext";
-
+import { useProfile } from "@/context/ProfileContext";
+import axios from "axios";
+import getAuthHeaders from "@/app/[lang]/dashboard/Shared/getAuth";
+import { toast } from "react-hot-toast";
 export default function Header({ lang }: { lang: Locale }) {
   const translations = useTranslation();
-  const { isDeveloper, setIsDeveloper } = useDeveloper();
-  const [user, setUser] = useState<User | null>(null);
-  const { isWiFiEnabled, toggleWiFi } = useWiFi();
+  const {profile, setProfile } = useProfile();
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  const handleCheckDeveloperMode = useCallback(async () => {
-    const isDev = await checkDeveloperMode();
-    if (isDev) {
-      setIsDeveloper(true);
-      localStorage.setItem("isDeveloper", "true");
-    }
-  }, [setIsDeveloper]);
-
-  useEffect(() => {
-    const isDev = localStorage.getItem("isDeveloper") === "true";
-    setIsDeveloper(isDev);
-
-    getUserProfile().then((profile) => {
-      setUser(profile);
+ 
+  // Updated handleCheckDeveloperMode
+const handleCheckDeveloperMode = async () => {
+  const data = await axios.post(
+    `${apiUrl}/profile/isDeveloper`,
+    {},
+    { headers: getAuthHeaders() }
+  );
+  if (data.data.success) {
+    setProfile(prev => {
+      if (!prev) return prev; 
+      return {
+        ...prev,
+        is_developer: true
+      };
     });
-  }, [setIsDeveloper]);
+    window.location.href = "/dashboard";
+  }
+};
 
-  const goBacktoUserMode = async () => {
-    const isDev = await checkDeveloperMode();
-    if (isDev) {
-      setIsDeveloper(false);
-      localStorage.setItem("isDeveloper", "false");
-      window.location.href = "/dashboard";
+
+  const handleToggleWiFi = async () => {
+    
+    try {
+      const response = await axios.post(
+        `${apiUrl}/transactions/is-enabled`,
+        {},
+        { headers: getAuthHeaders() }
+      );
+
+      if (response.data.success) {
+        setProfile(prev => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            is_transactions_enabled: !prev.is_transactions_enabled
+          };
+        });
+        toast.success(
+          !profile?.is_transactions_enabled ? "WiFi enabled" : "WiFi disabled"
+        );
+      }
+    } catch (error) {
+      toast.error("Failed to toggle WiFi");
     }
   };
+
+
+
+
 
   function logout(event: any) {
     event.preventDefault();
@@ -60,6 +84,8 @@ export default function Header({ lang }: { lang: Locale }) {
     deleteCookie("token");
     window.location.href = "/login";
   }
+
+  
 
   return (
     <header className="flex h-16 shrink-0 text-white px-4 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 justify-between">
@@ -69,13 +95,13 @@ export default function Header({ lang }: { lang: Locale }) {
       </div>
 
       <div className="flex items-center gap-4 w-auto">
-        {user?.user_type !== "admin" && (
+        {profile?.user_type !== "admin" && (
           <div className="items-center">
             <Button
               variant="secondary"
               size="sm"
               onClick={
-                isDeveloper ? goBacktoUserMode : handleCheckDeveloperMode
+                profile?.is_developer ? handleCheckDeveloperMode : handleCheckDeveloperMode
               }
               className="rounded-full px-4 py-5 bg-[#53B4AB] hover:bg-[#469c93] text-xs text-black"
             >
@@ -94,7 +120,8 @@ export default function Header({ lang }: { lang: Locale }) {
                   strokeLinejoin="round"
                 />
               </svg>
-              {isDeveloper
+              {
+                profile?.is_developer 
                 ? translations.header.devMode.backTo
                 : translations.header.devMode.switchTo}
             </Button>
@@ -105,14 +132,14 @@ export default function Header({ lang }: { lang: Locale }) {
           variant="ghost"
           size="icon"
           className="relative h-8 w-8 rounded-full bg-neutral-900"
-          onClick={toggleWiFi}
+          onClick={handleToggleWiFi}
         >
           <div
             className={`h-4 w-4 ${
-              isWiFiEnabled ? "text-green-400 animate-pulse" : "text-gray-400"
+              profile?.is_transactions_enabled ? "text-green-400 animate-pulse" : "text-gray-400"
             }`}
           >
-            {isWiFiEnabled ? <Wifi /> : <WifiOff />}
+            {profile?.is_transactions_enabled ? <Wifi /> : <WifiOff />}
           </div>
         </Button>
 
@@ -154,17 +181,17 @@ export default function Header({ lang }: { lang: Locale }) {
               </Avatar>
               <div className="hidden flex-col text-left md:flex">
                 <span className="text-sm font-semibold">
-                  {user?.name || "Loading..."}
+                  {profile?.name || "Loading..."}
                 </span>
-                <span className="text-xs text-gray-400">{user?.email}</span>
+                <span className="text-xs text-gray-400">{profile?.email}</span>
               </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium">{user?.name}</p>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
+                <p className="text-sm font-medium">{profile?.name}</p>
+                <p className="text-xs text-muted-foreground">{profile?.email}</p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />

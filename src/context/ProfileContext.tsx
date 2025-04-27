@@ -1,63 +1,61 @@
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import Cookies from 'cookies-next';
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+'use client'
+import { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from "react";
+import axios from "axios";
+import getAuthHeaders from "@/app/[lang]/dashboard/Shared/getAuth";
 
-interface UserProfile {
+interface Profile {
+  id: number;
   name: string;
+  mobile: string;
   email: string;
-  role: string; 
+  is_developer: boolean;
+  is_transactions_enabled: boolean;
+  username: string;
+  status: string;
+  user_type: string;
+  image: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
-interface UserContextType {
-  userProfile: UserProfile | null;
-  setUserProfile: (profile: UserProfile | null) => void;
-  clearUserProfile: () => void;
+interface ProfileContextType {
+  profile: Profile | null;
+  setProfile: Dispatch<SetStateAction<Profile | null>>;
+  fetchProfile: () => Promise<void>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
-export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+export const ProfileProvider = ({ children }: { children: ReactNode }) => {
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  const fetchProfile = async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/profile`, {
+        headers: getAuthHeaders(),
+      });
+      setProfile(response.data.result);
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    }
+  };
 
   useEffect(() => {
-    const storedProfile = getCookie('userProfile');
-    if (storedProfile) {
-      try {
-        setUserProfile(JSON.parse(storedProfile as string));
-      } catch {
-        console.error("Failed to parse user profile from cookies.");
-      }
-    }
+    fetchProfile();
   }, []);
 
-  const updateUserProfile = (profile: UserProfile | null) => {
-    if (profile) {
-      setUserProfile(profile);
-     
-    } else {
-      setUserProfile(null);
-    
-    }
-  };
-
-  const clearUserProfile = () => {
-    setUserProfile(null);
-  
-  };
-
   return (
-    <UserContext.Provider
-      value={{ userProfile, setUserProfile: updateUserProfile, clearUserProfile }}
-    >
+    <ProfileContext.Provider value={{ profile, setProfile, fetchProfile }}>
       {children}
-    </UserContext.Provider>
+    </ProfileContext.Provider>
   );
 };
 
-export const useClient = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useClient must be used within a UserProvider');
+export const useProfile = () => {
+  const context = useContext(ProfileContext);
+  if (context === undefined) {
+    throw new Error('useProfile must be used within a ProfileProvider');
   }
   return context;
 };
+  

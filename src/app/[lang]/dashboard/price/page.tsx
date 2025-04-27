@@ -1,8 +1,8 @@
 "use client";
-import { getUserProfile, User } from "@/api/profile";
+import { useProfile } from "@/context/ProfileContext";
 import { useTranslation } from "@/context/translation-context";
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Dynamically import components with loading states
 const AdminPlans = dynamic(() => import('./priceAdmin'), {
@@ -16,24 +16,11 @@ const PriceUser = dynamic(() => import('./priceUser'), {
 });
 
 export default function Price() {
-  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const translations = useTranslation();
-
-  useEffect(() => {
-    getUserProfile()
-      .then((profile) => {
-        setUser(profile);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch user profile:", error);
-        setError("Failed to load user profile");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const { profile } = useProfile();
+ 
 
   if (loading) {
     return <p>{translations.price.loading}</p>;
@@ -43,6 +30,6 @@ export default function Price() {
     return <p>{error}</p>;
   }
 
-  return user?.user_type === "admin" ? <AdminPlans /> : <PriceUser />;
+  return profile?.user_type === "admin" ? <AdminPlans /> : <PriceUser />;
 }
 

@@ -163,9 +163,12 @@ body {
   left: 26px;
 }
 
-.bg-imgg{
+
+
+.bg-imgg {
   background-image: url("/Desktop - 3.jpg");
   background-size: cover;
+  background-position: center;
 }
 .bg-img2{
   background-image: url("/Frame 1984078134.png");
