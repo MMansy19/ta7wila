@@ -14,22 +14,19 @@ import { SidebarTrigger } from "@/components/[lang]/ui/sidebar";
 import { useDeveloper } from "@/context/DeveloperContext";
 import { useTranslation } from "@/context/translation-context";
 import { deleteCookie } from "cookies-next";
-import { Bell, Globe, Wifi } from "lucide-react";
+import { Bell, Wifi, WifiOff } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { checkDeveloperMode, getUserProfile, User } from "../../api/profile";
-import { usePathname, useRouter } from "next/navigation";
 import { Locale } from "@/i18n-config";
-import DasboardLangSwitcher from "@/app/lang-switcher/dasboardLangSwitcher";
 import LocaleSwitcher from "../../app/lang-switcher/LangSwitcher";
+import { useWiFi } from "@/context/WiFiContext";
 
-export default function Header({  lang }: {  lang: Locale; }) {
+export default function Header({ lang }: { lang: Locale }) {
   const translations = useTranslation();
   const { isDeveloper, setIsDeveloper } = useDeveloper();
   const [user, setUser] = useState<User | null>(null);
-  const router = useRouter();
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isWiFiEnabled, toggleWiFi } = useWiFi();
 
   const handleCheckDeveloperMode = useCallback(async () => {
     const isDev = await checkDeveloperMode();
@@ -63,7 +60,6 @@ export default function Header({  lang }: {  lang: Locale; }) {
     deleteCookie("token");
     window.location.href = "/login";
   }
-
 
   return (
     <header className="flex h-16 shrink-0 text-white px-4 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 justify-between">
@@ -109,13 +105,20 @@ export default function Header({  lang }: {  lang: Locale; }) {
           variant="ghost"
           size="icon"
           className="relative h-8 w-8 rounded-full bg-neutral-900"
+          onClick={toggleWiFi}
         >
-          <Wifi className="h-4 w-4" />
+          <div
+            className={`h-4 w-4 ${
+              isWiFiEnabled ? "text-green-400 animate-pulse" : "text-gray-400"
+            }`}
+          >
+            {isWiFiEnabled ? <Wifi /> : <WifiOff />}
+          </div>
         </Button>
 
         <LocaleSwitcher currentLang={lang} />
 
-       {/* <DasboardLangSwitcher currentLang={lang} /> */}
+        {/* <DasboardLangSwitcher currentLang={lang} /> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -166,7 +169,9 @@ export default function Header({  lang }: {  lang: Locale; }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link href="/dashboard/settings">
-              <div className="p-1 hover:bg-slate-600/10 border-lg">{translations.header.profile}</div>
+              <div className="p-1 hover:bg-slate-600/10 border-lg">
+                {translations.header.profile}
+              </div>
             </Link>
             <Link href="/dashboard/settings">
               <div className="p-1 hover:bg-slate-600/10 border-lg">
@@ -174,8 +179,11 @@ export default function Header({  lang }: {  lang: Locale; }) {
               </div>
             </Link>
             <DropdownMenuSeparator />
-            <button onClick={logout} >
-              <div className="p-1 hover:bg-slate-600/10 border-lg"> {translations.header.logout}</div>
+            <button onClick={logout}>
+              <div className="p-1 hover:bg-slate-600/10 border-lg">
+                {" "}
+                {translations.header.logout}
+              </div>
             </button>
           </DropdownMenuContent>
         </DropdownMenu>

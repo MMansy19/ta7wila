@@ -10,6 +10,7 @@ export default async function Layout({ children ,params }: { children: React.Rea
   
   const { lang } = await params
   return (
+    
     <DeveloperProvider>
       <AppProvider>
         <SidebarProvider>

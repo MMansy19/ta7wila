@@ -66,3 +66,17 @@ export const checkDeveloperMode = async (): Promise<boolean> => {
   }
 };
 
+// Check WiFi status
+export const checkWiFiStatus = async (): Promise<boolean> => {
+  try {
+    const response = await axios.post(`${apiUrl}/transactions/is-enabled`, {}, {
+      headers: getAuthHeaders(),  
+    });
+    return response.data.result;
+  } catch (error) {
+    console.error('Error checking WiFi status:', error);
+    return false;
+  }
+};
+
+
