@@ -166,6 +166,7 @@
     "stores": "Stores",
     "employees": "Employees",
     "vendors": "Vendors",
+    "identityVerification": "Verifications Identity",
     "users": "Users",
     "subscriptions": "Subscriptions",
     "paymentsVerifications": "Payment Verifications",
@@ -258,7 +259,8 @@
       "mobile": "Mobile",
       "status": "Status",
       "createdAt": "Created At",
-      "actions": "Actions"
+      "actions": "Actions",
+      "view": "View"
     },
     "actions": {
       "activate": "Activate",

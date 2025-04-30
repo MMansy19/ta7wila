@@ -158,6 +158,8 @@ export type TranslationKeys = {
     dashboard: string;
     transactions: string;
     invoices: string;
+    verifications: string;
+    identityVerification: string;
     checkout: string;
     stores: string;
     employees: string;
@@ -255,6 +257,7 @@ export type TranslationKeys = {
       status: string;
       createdAt: string;
       actions: string;
+      view: string;
     };
     actions: {
       activate: string;

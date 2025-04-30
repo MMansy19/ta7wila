@@ -13,22 +13,17 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/[lang]/ui/tooltip";
-
 import { useTranslation } from "@/context/translation-context";
 import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 import * as React from "react";
-import { getUserProfile, User } from "../../api/profile";
 import { NavMain } from "./nav-main";
 import { useProfile } from "@/context/ProfileContext";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
-  const {profile} = useProfile();
-  const [user, setUser] = React.useState<User | null>(null);
+  const { profile } = useProfile();
   const translations = useTranslation();
-
- 
 
   function logout(event: any) {
     event.preventDefault();
@@ -242,7 +237,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
           ]
         : []),
-      ...(user?.user_type === "admin"
+      ...(profile?.user_type === "admin"
         ? [
             {
               title: translations.sidebar.users,
@@ -295,6 +290,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     clipRule="evenodd"
                     d="M7.30845 6.26711C7.20719 6.2558 7.10427 6.25 7 6.25C5.48122 6.25 4.25 7.48122 4.25 9C4.25 10.5188 5.48122 11.75 7 11.75C7.48537 11.75 7.94138 11.6243 8.33721 11.4036C7.99374 11.0341 7.70549 10.6126 7.4856 10.1522C7.33631 10.2152 7.17222 10.25 7 10.25C6.30964 10.25 5.75 9.69036 5.75 9C5.75 8.30964 6.30964 7.75 7 7.75C7.00205 7.75 7.00409 7.75 7.00614 7.75001C7.0317 7.23096 7.13641 6.73272 7.30845 6.26711Z"
                     fill="currentColor"
+                  />
+                </svg>
+              ),
+            },
+            {
+              title: translations.sidebar.identityVerification,
+              url: "/dashboard/verifications",
+              icon: (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="3"
+                    cy="3"
+                    r="3"
+                    transform="matrix(1 0 0 -1 9 12)"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M18.9989 21.8743C20.7247 21.4306 22 19.8642 22 18V6C22 3.79086 20.2091 2 18 2H6C3.79086 2 2 3.79086 2 6V18C2 19.8642 3.27532 21.4306 5.00111 21.8743M18.9989 21.8743C18.6796 21.9563 18.3449 22 18 22H6C5.6551 22 5.32039 21.9563 5.00111 21.8743M18.9989 21.8743C18.9318 18.0663 15.824 15 12 15C8.17601 15 5.06818 18.0663 5.00111 21.8743"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
                   />
                 </svg>
               ),
@@ -465,7 +488,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
     preferences: [
-      ...(user?.user_type === "admin"
+      ...(profile?.user_type === "admin"
         ? [
             {
               title: translations.sidebar.advancedSettings,

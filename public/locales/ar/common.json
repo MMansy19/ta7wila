@@ -162,6 +162,7 @@
     "dashboard": "لوحة التحكم",
     "transactions": "المعاملات",
     "invoices": "الفواتير",
+    "identityVerification": "التحقق من الهوية",
     "checkout": "الدفع",
     "stores": "المتاجر",
     "employees": "الموظفين",
@@ -258,7 +259,8 @@
       "mobile": "الجوال",
       "status": "الحالة",
       "createdAt": "تاريخ الإنشاء",
-      "actions": "الإجراءات"
+      "actions": "الإجراءات",
+      "view": "عرض"
     },
     "actions": {
       "activate": "تفعيل",
