@@ -308,3 +308,13 @@ table tr {
 .min-h {
   min-height: 100% !important;
 }
+
+
+.custom-select option:hover {
+  background: #555555 !important;
+  color: white;
+}
+
+.custom-select option:checked {
+  background: #666666;
+}

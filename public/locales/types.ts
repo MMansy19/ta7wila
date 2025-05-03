@@ -94,6 +94,18 @@ export type TranslationKeys = {
     confirmDeleteMessage:string;
   
   },
+  verifications: {
+    details: string;
+    rejectionDetails: string;
+    reason: string;
+    type: string;
+    uploadedPhotos: string;
+    frontPhoto: string;
+    backPhoto: string;
+    selfiePhoto: string;
+    approve: string;
+    reject: string;
+  }
   footer: {
     platformDesc: string;
     innovativeSolutions: string;

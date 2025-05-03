@@ -95,6 +95,18 @@
     "confirmDeleteMessage":"Are you sure you want to delete this?"
 
   },
+  "verifications": {
+    "details": "Verification Details",
+    "rejectionDetails": "Rejection Details",
+    "reason": "Reason",
+    "type": "Type",
+    "uploadedPhotos": "Uploaded Photos",
+    "frontPhoto": "Front",
+    "backPhoto": "Back",
+    "selfiePhoto": "Selfie",
+    "approve": "Approve",
+    "reject": "Reject"
+  },
   "footer": {
     "platformDesc": "Your platform for easy management of future groups",
     "innovativeSolutions": "Provides innovative solutions to facilitate access to your services with ease and efficiency",

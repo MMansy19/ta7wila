@@ -343,7 +343,7 @@ export default function Rejectedreasons() {
                     onChange={(e) =>
                       setFormData({ ...formData, value: e.target.value })
                     }
-                    className="w-full p-2 rounded-lg bg-neutral-700 border-none"
+                    className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                     required
                   />
                 </div>
@@ -359,7 +359,7 @@ export default function Rejectedreasons() {
                         rejected_reason_type: e.target.value,
                       })
                     }
-                    className="w-full p-2 rounded-lg bg-neutral-700 border-none"
+                    className="custom-select px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10 "
                     required
                   >
                     <option value="">{translations.common.selectType}</option>

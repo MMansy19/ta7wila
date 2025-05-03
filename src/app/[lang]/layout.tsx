@@ -11,7 +11,10 @@ export function generateStaticParams() {
 
 export const metadata = {
   title: "Ta7wila",
-  description: "Your application description",
+  description: "Payment Gateway",
+  icons: {
+    icon: "/Group (1).png",
+  },
 };
 
 export default async function RootLayout({

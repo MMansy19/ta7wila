@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Verifications {
   id: number;
   front_photo: string;
@@ -25,5 +27,32 @@ export interface Verifications {
     updated_at: string;
   } | null;
 }
+
+
+export interface DetailItemProps {
+  label: string;
+  value?: string | number | null;
+  children?: ReactNode;
+};
+
+export interface PhotoPreviewProps {
+  label: string;
+  src: string;
+};
+
+export interface ActionButtonProps  {
+  color: "green" | "red";
+  children: ReactNode;
+  onClick?: () => void;
+};
+
+export interface Rejectedreasons {
+  id: number;
+  value: string;
+  status: string;
+  rejected_reason_type: string;
+  created_at: string | null;
+  updated_at: string | null;
+};
 
   

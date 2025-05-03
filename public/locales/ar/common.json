@@ -92,6 +92,18 @@
     "selectType":"اختر النوع",
     "confirmDeleteMessage":"هل أنت متأكد أنك تريد حذف هذا العنصر؟"
   },
+  "verifications": {
+    "details": "تفاصيل التحقق",
+    "rejectionDetails": "تفاصيل الرفض",
+    "reason": "السبب",
+    "type": "النوع",
+    "uploadedPhotos": "الصور المرفوعة",
+    "frontPhoto": "الأمام",
+    "backPhoto": "الخلف",
+    "selfiePhoto": "صورة شخصية",
+    "approve": "موافقة",
+    "reject": "رفض"
+  },
   "footer": {
     "platformDesc": "منصتك لإدارة المجموعات المستقبلية بسهولة",
     "innovativeSolutions": "يقدم حلولاً مبتكرة لتسهيل الوصول إلى خدماتك بكل سلاسة وكفاءة",
