@@ -68,6 +68,16 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      animation: {
+        'spin-slow': 'spin 10s linear infinite',
+        'spin-slow-reverse': 'spin-reverse 12s linear infinite',
+      },
+      keyframes: {
+        'spin-reverse': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(-360deg)' },
+        },
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -75,5 +85,9 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"),require('flowbite/plugin')],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    require('flowbite/plugin'),
+  ],
 } satisfies Config;
