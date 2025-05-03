@@ -2,7 +2,7 @@
 import { useProfile } from "@/context/ProfileContext";
 import { useTranslation } from "@/context/translation-context";
 import dynamic from 'next/dynamic';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Dynamically import components with loading states
 const AdminPlans = dynamic(() => import('./priceAdmin'), {
@@ -20,6 +20,13 @@ export default function Price() {
   const [error, setError] = useState<string | null>(null);
   const translations = useTranslation();
   const { profile } = useProfile();
+
+
+  useEffect(() => {
+    if (profile) {
+      setLoading(false);
+    }
+  }, [profile]);
  
 
   if (loading) {
