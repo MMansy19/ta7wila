@@ -100,13 +100,13 @@
       "stepTitles": {
         "step1": "Identity Verification",
         "step2": "Document Upload",
-        "step3": "Live Selfie",
+        "step3": " Selfie",
         "step4": "Confirmation"
       },
       "stepDescriptions": {
         "step1": "Confirm your identity",
         "step2": "Upload required documents",
-        "step3": "Take a real-time photo",
+        "step3": "Send a real-time photo",
         "step4": "Review and submit"
       },
       "startVerification": "Start Verification Process",
@@ -120,9 +120,9 @@
       "uploadSuccessful": "Upload Successful",
       "bothSidesRequired": "Both front and back sides are required",
       "pleaseUploadBoth": "Please upload both front and back sides of your ID",
-      "liveSelfie": "Live Selfie Verification",
-      "takePhoto": "Take Live Photo",
-      "retakePhoto": "Retake Photo",
+      "liveSelfie": " Selfie Verification",
+      "takePhoto": "Upload Photo",
+      "retakePhoto": "Reupload Photo",
       "verificationComplete": "Verification Complete!",
       "verificationSuccess": "Verification Successful!",
       "confirmationMessage": "Your documents have been successfully submitted. We will review them and notify you via email once the verification is complete.",

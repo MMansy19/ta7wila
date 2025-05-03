@@ -1,19 +1,18 @@
 "use client";
 
 import React, { useState, useEffect, ChangeEvent, use } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  CheckCircle,
-  CameraAlt,
-  CloudUpload,
-  ArrowBack,
-  ArrowForward,
-} from "@mui/icons-material";
+  faCheckCircle,
+  faCameraAlt,
+  faCloudUpload,
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import axios from "axios";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
 import { useTranslation } from "@/context/translation-context";
-
-
 
 interface FilePreview {
   file: File;
@@ -27,25 +26,24 @@ export default function VerificationSteps() {
   const [selfieDoc, setSelfieDoc] = useState<FilePreview | null>(null);
 
   const translation = useTranslation();
-  
 
   const steps = [
-    { 
-      title: translation.verification.stepTitles.step1, 
-      description: translation.verification.stepDescriptions.step1 
+    {
+      title: translation.verification.stepTitles.step1,
+      description: translation.verification.stepDescriptions.step1,
     },
-    { 
-      title: translation.verification.stepTitles.step2, 
-      description: translation.verification.stepDescriptions.step2 
+    {
+      title: translation.verification.stepTitles.step2,
+      description: translation.verification.stepDescriptions.step2,
     },
-    { 
-      title: translation.verification.stepTitles.step3, 
-      description: translation.verification.stepDescriptions.step3 
+    {
+      title: translation.verification.stepTitles.step3,
+      description: translation.verification.stepDescriptions.step3,
     },
-    { 
-      title: translation.verification.stepTitles.step4, 
-      description: translation.verification.stepDescriptions.step4 
-    }
+    {
+      title: translation.verification.stepTitles.step4,
+      description: translation.verification.stepDescriptions.step4,
+    },
   ];
 
   useEffect(() => {
@@ -117,21 +115,21 @@ export default function VerificationSteps() {
       case 0:
         return (
           <div className="text-center py-12">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-300 mb-4">
-              {translation.verification.secureVerification}
-            </h2>
-            <p className="text-gray-200 mb-8">
-              {translation.verification.secureVerificationDesc}
-            </p>
-            <button
-              onClick={handleNext}
-              className="bg-[#53B4AB] text-white px-8 py-3 rounded-lg hover:bg-[#86d7cf] transition-colors text-sm"
-            >
-              {translation.verification.startVerification}
-            </button>
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-gray-300 mb-4">
+                {translation.verification.secureVerification}
+              </h2>
+              <p className="text-gray-200 mb-8">
+                {translation.verification.secureVerificationDesc}
+              </p>
+              <button
+                onClick={handleNext}
+                className="bg-[#53B4AB] text-white px-8 py-3 rounded-lg hover:bg-[#86d7cf] transition-colors text-sm"
+              >
+                {translation.verification.startVerification}
+              </button>
+            </div>
           </div>
-        </div>
         );
       case 1:
         return (
@@ -148,13 +146,19 @@ export default function VerificationSteps() {
                         className="w-full max-w-[240px] h-48 object-contain mb-4 rounded-lg"
                       />
                       <div className="text-[#53B4AB]">
-                        <CheckCircle className="inline mr-2" />
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          className="inline mr-2"
+                        />
                         {translation.verification.frontUploaded}
                       </div>
                     </>
                   ) : (
                     <>
-                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <FontAwesomeIcon
+                        icon={faCloudUpload}
+                        className="text-[#53B4AB] text-4xl mb-4"
+                      />
                       <h3 className="font-medium text-gray-300 mb-2">
                         {translation.verification.frontSide}
                       </h3>
@@ -186,13 +190,19 @@ export default function VerificationSteps() {
                         className="w-full max-w-[240px] h-48 object-contain mb-4 rounded-lg"
                       />
                       <div className="text-[#53B4AB]">
-                        <CheckCircle className="inline mr-2" />
+                        <FontAwesomeIcon
+                          icon={faCheckCircle}
+                          className="inline mr-2"
+                        />
                         {translation.verification.backUploaded}
                       </div>
                     </>
                   ) : (
                     <>
-                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <FontAwesomeIcon
+                        icon={faCloudUpload}
+                        className="text-[#53B4AB] text-4xl mb-4"
+                      />
                       <h3 className="font-medium text-gray-300 mb-2">
                         {translation.verification.backSide}
                       </h3>
@@ -236,7 +246,10 @@ export default function VerificationSteps() {
                     />
                   ) : (
                     <>
-                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <FontAwesomeIcon
+                        icon={faCloudUpload}
+                        className="text-[#53B4AB] text-4xl mb-4"
+                      />
                       <h3 className="font-medium text-gray-700 mb-2">
                         Front Side of ID
                       </h3>
@@ -256,7 +269,10 @@ export default function VerificationSteps() {
               </label>
               {frontDoc && (
                 <div className="mt-4 text-[#53B4AB]">
-                  <CheckCircle className="inline mr-2" />
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    className="inline mr-2"
+                  />
                   Upload Successful
                 </div>
               )}
@@ -277,7 +293,10 @@ export default function VerificationSteps() {
                     />
                   ) : (
                     <>
-                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <FontAwesomeIcon
+                        icon={faCloudUpload}
+                        className="text-[#53B4AB] text-4xl mb-4"
+                      />
                       <h3 className="font-medium text-gray-700 mb-2">
                         Back Side of ID
                       </h3>
@@ -297,7 +316,10 @@ export default function VerificationSteps() {
               </label>
               {backDoc && (
                 <div className="mt-4 text-[#53B4AB]">
-                  <CheckCircle className="inline mr-2" />
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    className="inline mr-2"
+                  />
                   Upload Successful
                 </div>
               )}
@@ -327,14 +349,19 @@ export default function VerificationSteps() {
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                      <CameraAlt className="text-gray-400 text-3xl" />
+                      <FontAwesomeIcon
+                        icon={faCameraAlt}
+                        className="text-gray-400 text-3xl"
+                      />
                     </div>
                   )}
                 </div>
               </div>
               <label className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#a8d4d0] inline-flex items-center cursor-pointer transition-colors">
-                <CameraAlt className="mr-2" />
-                {selfieDoc ? translation.verification.retakePhoto : translation.verification.takePhoto}
+                <FontAwesomeIcon icon={faCameraAlt} className="mr-2" />
+                {selfieDoc
+                  ? translation.verification.retakePhoto
+                  : translation.verification.takePhoto}
                 <VisuallyHiddenInput
                   type="file"
                   accept="image/*"
@@ -350,16 +377,19 @@ export default function VerificationSteps() {
       case 3:
         return (
           <div className="py-12 text-center">
-          <div className="max-w-xl mx-auto">
-            <CheckCircle className="text-green-500 text-6xl mx-auto mb-6" />
-            <h2 className="text-2xl font-bold mb-4 text-white">
-              {translation.verification.verificationComplete}
-            </h2>
-            <p className="text-gray-300 mb-8">
-              {translation.verification.confirmationMessage}
-            </p>
+            <div className="max-w-xl mx-auto">
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                className="text-green-500 text-6xl mx-auto mb-6"
+              />
+              <h2 className="text-2xl font-bold mb-4 text-white">
+                {translation.verification.verificationComplete}
+              </h2>
+              <p className="text-gray-300 mb-8">
+                {translation.verification.confirmationMessage}
+              </p>
+            </div>
           </div>
-        </div>
         );
       default:
         return <p>Unknown step</p>;
@@ -393,7 +423,10 @@ export default function VerificationSteps() {
                      ${index <= activeStep ? "bg-[#53B4AB] text-white" : "bg-gray-200 text-gray-500"}`}
                 >
                   {index < activeStep ? (
-                    <CheckCircle className="w-5 h-5 " />
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      className="w-5 h-5 "
+                    />
                   ) : (
                     index + 1
                   )}
@@ -416,8 +449,6 @@ export default function VerificationSteps() {
                   <div
                     className={`absolute top-5 left-full -ml-[calc(50%+20px)] w-full h-1 
             ${index < activeStep ? "bg-[#53B4AB]" : "bg-gray-200"}`}
-
-            
                   />
                 )}
               </div>
@@ -444,31 +475,33 @@ export default function VerificationSteps() {
 
         {/* Navigation Controls */}
         {activeStep < steps.length && activeStep > 0 && (
-        <div className="flex justify-between items-center bg-[#1F1F1F] rounded-xl shadow-sm p-6" dir="ltr">
-          <button
-            onClick={handleBack}
-            className="text-gray-600 hover:text-gray-800 flex items-center"
+          <div
+            className="flex justify-between items-center bg-[#1F1F1F] rounded-xl shadow-sm p-6"
+            dir="ltr"
           >
-            <ArrowBack className="mr-2" /> {translation.verification.back}
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={
-              (activeStep === 1 && (!frontDoc || !backDoc)) ||
-              (activeStep === 2 && !selfieDoc)
-            }
-            className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#7de7dc] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {activeStep === steps.length - 1
-              ? translation.verification.submit
-              : translation.verification.continue}
-            <ArrowForward className="inline ml-2" />
-          </button>
-        </div>
-      )}
+            <button
+              onClick={handleBack}
+              className="text-gray-600 hover:text-gray-800 flex items-center"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />{" "}
+              {translation.verification.back}
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={
+                (activeStep === 1 && (!frontDoc || !backDoc)) ||
+                (activeStep === 2 && !selfieDoc)
+              }
+              className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#7de7dc] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {activeStep === steps.length - 1
+                ? translation.verification.submit
+                : translation.verification.continue}
+              <FontAwesomeIcon icon={faArrowRight} className="inline ml-2" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
-
