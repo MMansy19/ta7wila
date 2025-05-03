@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent, Dispatch, SetStateAction } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import {
   CheckCircle,
   CameraAlt,
@@ -9,39 +9,88 @@ import {
   ArrowForward,
 } from "@mui/icons-material";
 import Image from "next/image";
+import axios from "axios";
+import getAuthHeaders from "../dashboard/Shared/getAuth";
 
 const steps = [
-  "Verify Identity",
-  "Upload Documents",
-  "Take Selfie",
-  "Confirm Transfer",
+  { title: "Identity Verification", description: "Confirm your identity" },
+  { title: "Document Upload", description: "Upload required documents" },
+  { title: "Live Selfie", description: "Take a real-time photo" },
+  { title: "Confirmation", description: "Review and submit" },
 ];
+
+interface FilePreview {
+  file: File;
+  preview: string;
+}
 
 export default function VerificationSteps() {
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [frontId, setFrontId] = useState<string | null>(null);
-  const [backId, setBackId] = useState<string | null>(null);
-  const [selfie, setSelfie] = useState<string | null>(null);
+  const [frontDoc, setFrontDoc] = useState<FilePreview | null>(null);
+  const [backDoc, setBackDoc] = useState<FilePreview | null>(null);
+  const [selfieDoc, setSelfieDoc] = useState<FilePreview | null>(null);
 
-  const handleNext = () =>
-    setActiveStep((prev) => Math.min(prev + 1, steps.length));
+  useEffect(() => {
+    return () => {
+      [frontDoc, backDoc, selfieDoc].forEach((doc) => {
+        if (doc) URL.revokeObjectURL(doc.preview);
+      });
+    };
+  }, [frontDoc, backDoc, selfieDoc]);
+
+  const handleNext = () => {
+    if (activeStep === steps.length - 1) {
+      submitVerification();
+    } else {
+      setActiveStep((prev) => Math.min(prev + 1, steps.length));
+    }
+  };
+
   const handleBack = () => setActiveStep((prev) => Math.max(prev - 1, 0));
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleFileUpload = (
     event: ChangeEvent<HTMLInputElement>,
-    setFile: Dispatch<SetStateAction<string | null>>
+    setDoc: (doc: FilePreview | null) => void
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      setFile(URL.createObjectURL(file));
-      setTimeout(handleNext, 1500);
+      const preview = URL.createObjectURL(file);
+      setDoc({ file, preview });
+      // setTimeout(handleNext, 1500);
+    }
+  };
+
+  const submitVerification = async () => {
+    const formData = new FormData();
+    if (frontDoc) formData.append("front_photo", frontDoc.file);
+    if (backDoc) formData.append("back_photo", backDoc.file);
+    if (selfieDoc) formData.append("selfie_photo", selfieDoc.file);
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/identity-verification/create`,
+        formData,
+        {
+          headers: {
+            ...getAuthHeaders(),
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setActiveStep((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error("Error submitting verification:", error);
     }
   };
 
   const VisuallyHiddenInput = (props: any) => (
     <input
       {...props}
-      className="absolute inset-0 w-1 h-1 opacity-0 overflow-hidden -z-10"
+      className="absolute inset-0 w-full h-full opacity-0 overflow-hidden cursor-pointer"
     />
   );
 
@@ -49,96 +98,252 @@ export default function VerificationSteps() {
     switch (step) {
       case 0:
         return (
-          <div className="text-white text-center rounded-lg-lg my-10">
-            <h2 className="text-xl font-semibold mb-2">
-              Identity Verification Required
-            </h2>
-            <p className="text-gray-600 mb-4">
-              To complete your transfer, we need to verify your identity. Please
-              have your government-issued ID ready.
-            </p>
-            <button
-              onClick={handleNext}
-              className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-            >
-              Begin Verification <ArrowForward className="inline ml-2" />
-            </button>
+          <div className="text-center py-12">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-gray-300 mb-4">
+                Secure Identity Verification
+              </h2>
+              <p className="text-gray-200 mb-8">
+                To ensure the security of your transactions, we need to verify
+                your identity. Please prepare a valid government-issued ID
+                document.
+              </p>
+              <button
+                onClick={handleNext}
+                className="bg-[#53B4AB] text-white px-8 py-3 rounded-lg hover:bg-[#86d7cf] transition-colors text-sm"
+              >
+                Start Verification Process
+              </button>
+            </div>
           </div>
         );
       case 1:
         return (
-          <div className="mt-6 flex gap-4 justify-center">
-            {[
-              { label: "Front of ID", file: frontId, setFile: setFrontId },
-              { label: "Back of ID", file: backId, setFile: setBackId },
-            ].map(({ label, file, setFile }, idx) => (
-              <div
-                key={idx}
-                className="text-white p-6 w-60 text-center rounded-lg-lg"
-              >
-                <label className="cursor-pointer inline-block">
-                  <CloudUpload fontSize="large" />
-                  <VisuallyHiddenInput
-                    type="file"
-                    accept="image/*"
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      handleFileUpload(e, setFile)
-                    }
-                  />
-                </label>
-                <p className="text-sm text-gray-600 mt-2">{label}</p>
-                {file && <CheckCircle className="text-[#53B4AB] mt-2" />}
-              </div>
-            ))}
-          </div>
-        );
-      case 2:
-        return (
-          <div className="mt-6 text-center">
-            <h2 className="text-xl font-semibold mb-4">Take a Live Selfie</h2>
-            <div className="w-48 h-48 mx-auto mb-4 rounded-lg-full border-2 flex items-center justify-center">
-              <CameraAlt fontSize="large" />
-            </div>
-            <label className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-blue-700 inline-flex items-center cursor-pointer">
-              <CameraAlt className="mr-2" /> Take Photo
-              <VisuallyHiddenInput
-                type="file"
-                accept="image/*"
-                capture="user"
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleFileUpload(e, setSelfie)
-                }
-              />
-            </label>
-            {selfie && (
-              <div className="mt-4 flex justify-center items-center gap-2">
-                <img
-                  src={selfie}
-                  alt="Selfie"
-                  className="w-36 h-auto rounded-lg-md"
+          <div className="grid md:grid-cols-2 gap-6 py-8">
+            {/* Front ID Section */}
+            <div className="border-2 border-dashed border-gray-700 rounded-xl p-6 text-center hover:border-[#53B4AB] transition-colors relative">
+              <label className="cursor-pointer block">
+                <div className="flex flex-col items-center min-h-[200px] justify-center">
+                  {frontDoc ? (
+                    <>
+                      <img
+                        src={frontDoc.preview}
+                        alt="Front ID preview"
+                        className="w-full max-w-[240px] h-48 object-contain mb-4 rounded-lg"
+                      />
+                      <div className="text-[#53B4AB]">
+                        <CheckCircle className="inline mr-2" />
+                        Front Uploaded
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <h3 className="font-medium text-gray-300 mb-2">
+                        Front Side of ID
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        JPEG, PNG, or PDF (Max 5MB)
+                      </p>
+                    </>
+                  )}
+                </div>
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleFileUpload(e, setFrontDoc)
+                  }
                 />
-                <CheckCircle className="text-[#53B4AB]" />
+              </label>
+            </div>
+
+            {/* Back ID Section */}
+            <div className="border-2 border-dashed border-gray-700 rounded-xl p-6 text-center hover:border-[#53B4AB] transition-colors relative">
+              <label className="cursor-pointer block">
+                <div className="flex flex-col items-center min-h-[200px] justify-center">
+                  {backDoc ? (
+                    <>
+                      <img
+                        src={backDoc.preview}
+                        alt="Back ID preview"
+                        className="w-full max-w-[240px] h-48 object-contain mb-4 rounded-lg"
+                      />
+                      <div className="text-[#53B4AB]">
+                        <CheckCircle className="inline mr-2" />
+                        Back Uploaded
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <h3 className="font-medium text-gray-300 mb-2">
+                        Back Side of ID
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        JPEG, PNG, or PDF (Max 5MB)
+                      </p>
+                    </>
+                  )}
+                </div>
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleFileUpload(e, setBackDoc)
+                  }
+                />
+              </label>
+            </div>
+
+            {(!frontDoc || !backDoc) && (
+              <div className="col-span-2 text-center mt-4 text-red-500">
+                <p>Both front and back sides are required</p>
               </div>
             )}
           </div>
         );
+        return (
+          <div className="grid md:grid-cols-2 gap-6 py-8">
+            {/* Front Side Section */}
+            <div
+              key="front"
+              className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-[#53B4AB] transition-colors"
+            >
+              <label className="cursor-pointer">
+                <div className="flex flex-col items-center">
+                  {frontDoc ? (
+                    <img
+                      src={frontDoc?.preview}
+                      alt="Document preview"
+                      className="w-48 h-32 object-contain mb-4 rounded-lg"
+                    />
+                  ) : (
+                    <>
+                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <h3 className="font-medium text-gray-700 mb-2">
+                        Front Side of ID
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        JPEG, PNG, or PDF (Max 5MB)
+                      </p>
+                    </>
+                  )}
+                </div>
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleFileUpload(e, setFrontDoc)
+                  }
+                />
+              </label>
+              {frontDoc && (
+                <div className="mt-4 text-[#53B4AB]">
+                  <CheckCircle className="inline mr-2" />
+                  Upload Successful
+                </div>
+              )}
+            </div>
+
+            {/* Back Side Section */}
+            <div
+              key="back"
+              className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-[#53B4AB] transition-colors"
+            >
+              <label className="cursor-pointer">
+                <div className="flex flex-col items-center">
+                  {backDoc ? (
+                    <img
+                      src={backDoc?.preview}
+                      alt="Document preview"
+                      className="w-48 h-32 object-contain mb-4 rounded-lg"
+                    />
+                  ) : (
+                    <>
+                      <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
+                      <h3 className="font-medium text-gray-700 mb-2">
+                        Back Side of ID
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        JPEG, PNG, or PDF (Max 5MB)
+                      </p>
+                    </>
+                  )}
+                </div>
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleFileUpload(e, setBackDoc)
+                  }
+                />
+              </label>
+              {backDoc && (
+                <div className="mt-4 text-[#53B4AB]">
+                  <CheckCircle className="inline mr-2" />
+                  Upload Successful
+                </div>
+              )}
+            </div>
+
+            {(!frontDoc || !backDoc) && (
+              <div className="col-span-2 text-center mt-4 text-red-500">
+                <p>Please upload both front and back sides of your ID</p>
+              </div>
+            )}
+          </div>
+        );
+      case 2:
+        return (
+          <div className="py-12 text-center">
+            <div className="max-w-md mx-auto">
+              <h2 className="text-xl font-semibold mb-6">
+                Live Selfie Verification
+              </h2>
+              <div className="relative w-48 h-48 mx-auto mb-8">
+                <div className="absolute inset-0 border-2 border-gray-200 rounded-full overflow-hidden">
+                  {selfieDoc ? (
+                    <img
+                      src={selfieDoc.preview}
+                      alt="Selfie preview"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                      <CameraAlt className="text-gray-400 text-3xl" />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <label className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#a8d4d0] inline-flex items-center cursor-pointer transition-colors">
+                <CameraAlt className="mr-2" />
+                {selfieDoc ? "Retake Photo" : "Take Live Photo"}
+                <VisuallyHiddenInput
+                  type="file"
+                  accept="image/*"
+                  capture="user"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleFileUpload(e, setSelfieDoc)
+                  }
+                />
+              </label>
+            </div>
+          </div>
+        );
       case 3:
         return (
-          <div className="bg-white shadow-md p-6 text-center rounded-lg-lg">
-            <CheckCircle className="text-[#53B4AB] text-6xl mx-auto mb-4" />
-            <h2 className="text-2xl font-semibold mb-2">
-              Verification Complete!
-            </h2>
-            <p className="text-gray-600">
-              Your transfer of $1,500.00 to John Doe has been processed.
-            </p>
-            <p className="text-gray-600">Estimated arrival: 2 business days</p>
-            <button
-              onClick={handleNext}
-              className="bg-[#53B4AB] text-white px-6 py-2 mt-4 rounded-lg hover:bg-blue-700"
-            >
-              Finish
-            </button>
+          <div className="py-12 text-center">
+            <div className="max-w-xl mx-auto">
+              <CheckCircle className="text-green-500 text-6xl mx-auto mb-6" />
+              <h2 className="text-2xl font-bold mb-4 text-white">
+                Verification Complete!
+              </h2>
+              <p className="text-gray-300 mb-8">
+                Your documents have been successfully submitted. We will review
+                them and notify you via email once the verification is complete.
+              </p>
+            </div>
           </div>
         );
       default:
@@ -147,72 +352,103 @@ export default function VerificationSteps() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-imgg p-6">
-      <div>
-        <Image
-          width={200}
-          height={200}
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/82abf788e81d00493505b733772e69127dd1ec73b52053d9ddbb4f60508f2764"
-          className="object-contain w-36 mx-auto"
-          alt="Company Logo"
-        />
-        <div className="flex flex-col items-center max-w-4xl mx-auto py-6">
-          <div className="flex justify-between w-full mb-8">
-            {steps.map((label, index) => (
+    <div className="min-h-screen bg-imgg">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-12 text-center">
+          <Image
+            width={160}
+            height={40}
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/82abf788e81d00493505b733772e69127dd1ec73b52053d9ddbb4f60508f2764" // Update with your logo path
+            alt="Company Logo"
+            className="mx-auto"
+          />
+        </div>
+
+        {/* Progress Steps */}
+        <div className="mb-12">
+          <div className="flex justify-between items-start relative">
+            {steps.map((step, index) => (
               <div
                 key={index}
-                className={`flex-1 text-center py-2 border-b-4 transition-all ${
-                  index === activeStep
-                    ? "border-[#53B4AB] text-[#53B4AB] font-semibold"
-                    : index < activeStep
-                      ? "border-[#53B4AB] text-[#53B4AB]"
-                      : "border-gray-300 text-gray-400"
-                }`}
+                className="flex-1 flex flex-col items-center relative"
               >
-                {label}
+                {/* Step circle and number/icon */}
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors z-50
+                     ${index <= activeStep ? "bg-[#53B4AB] text-white" : "bg-gray-200 text-gray-500"}`}
+                >
+                  {index < activeStep ? (
+                    <CheckCircle className="w-5 h-5 " />
+                  ) : (
+                    index + 1
+                  )}
+                </div>
+
+                {/* Step labels */}
+                <div className="text-center px-2">
+                  <p
+                    className={`text-sm font-medium ${index <= activeStep ? "text-gray-300" : "text-gray-300"}`}
+                  >
+                    {step.title}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {step.description}
+                  </p>
+                </div>
+
+                {/* Connection line */}
+                {index < steps.length - 1 && (
+                  <div
+                    className={`absolute top-5 left-full -ml-[calc(50%+20px)] w-full h-1 
+            ${index < activeStep ? "bg-[#53B4AB]" : "bg-gray-200"}`}
+                  />
+                )}
               </div>
             ))}
           </div>
+        </div>
 
-          <div className="w-full min-h-[400px] text-white p-6 py-6">
-            {activeStep >= steps.length ? (
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-2">
-                  🎉 Transfer Successful!
-                </h2>
-                <p className="text-gray-600">
-                  Your funds have been transferred. You'll receive a
-                  confirmation email shortly.
-                </p>
-              </div>
-            ) : (
-              <>{getStepContent(activeStep)}</>
-            )}
-          </div>
-          {activeStep < steps.length && (
-            <div className="flex justify-between items-center w-full mt-6 px-6 pb-6">
-              <button
-                onClick={handleBack}
-                disabled={activeStep === 0}
-                className="border border-gray-300 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
-              >
-                <ArrowBack className="inline mr-1" /> Back
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={
-                  (activeStep === 1 && (!frontId || !backId)) ||
-                  (activeStep === 2 && !selfie)
-                }
-                className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#4acabd] disabled:opacity-50"
-              >
-                {activeStep === 0 ? "Start Verification" : "Continue"}{" "}
-                <ArrowForward className="inline ml-2" />
-              </button>
+        {/* Step Content */}
+        <div className="bg-[#1F1F1F] rounded-xl shadow-sm p-6 sm:p-8 mb-6">
+          {activeStep >= steps.length ? (
+            <div className="text-center py-12">
+              <h2 className="text-2xl font-bold mb-4 text-white">
+                Verification Successful!
+              </h2>
+              <p className="text-gray-300 mb-8">
+                You'll receive a confirmation email with transaction details
+                shortly.
+              </p>
             </div>
+          ) : (
+            <>{getStepContent(activeStep)}</>
           )}
         </div>
+
+        {/* Navigation Controls */}
+        {activeStep < steps.length && activeStep > 0 && (
+          <div className="flex justify-between items-center bg-[#1F1F1F] rounded-xl shadow-sm p-6">
+            <button
+              onClick={handleBack}
+              className="text-gray-600 hover:text-gray-800 flex items-center"
+            >
+              <ArrowBack className="mr-2" /> Back
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={
+                (activeStep === 1 && (!frontDoc || !backDoc)) ||
+                (activeStep === 2 && !selfieDoc)
+              }
+              className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#7de7dc] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {activeStep === steps.length - 1
+                ? "Confirm and Submit"
+                : "Continue"}
+              <ArrowForward className="inline ml-2" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

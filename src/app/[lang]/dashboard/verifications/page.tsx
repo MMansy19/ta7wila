@@ -47,7 +47,7 @@ const DetailItem = ({ label, value, children }: DetailItemProps) => (
 const PhotoPreview = ({ label, src }: PhotoPreviewProps) => (
   <div className="group relative overflow-hidden rounded-lg aspect-video bg-neutral-700">
     <img
-      src={`https://api.ta7wila.com/uploads/${src}`}
+      src={`https://api.ta7wila.com/${src}`}
       alt={label}
       className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
     />

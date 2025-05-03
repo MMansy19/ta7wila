@@ -66,6 +66,34 @@ export type TranslationKeys = {
     description: string;
     startNow: string;
   };
+  common:{
+    createdSuccessfully:string;
+    errorOccurred:string;
+    updatedSuccessfully:string;
+    confirmDelete:string;
+    deletedSuccessfully:string;
+    addNew:string;
+    edit:string;
+    delete:string;
+    cancel:string;
+    save:string;
+    create:string;
+    update:string;
+    close:string;
+    loading:string;
+    type:string;
+    status:string;
+    actions:string;
+    view:string;
+    noData:string;
+    active:string;
+    inactive:string;
+    value:string;
+    statusUpdated:string;
+    selectType:string;
+    confirmDeleteMessage:string;
+  
+  },
   footer: {
     platformDesc: string;
     innovativeSolutions: string;
@@ -159,6 +187,7 @@ export type TranslationKeys = {
     transactions: string;
     invoices: string;
     verifications: string;
+    Rejectedreasons: string;
     identityVerification: string;
     checkout: string;
     stores: string;
@@ -365,6 +394,7 @@ export type TranslationKeys = {
       employees: string;
       vendors: string;
       createdAt: string;
+      updatedAt: string;
       actions: string;
       view: string;
     };
@@ -373,6 +403,8 @@ export type TranslationKeys = {
       close: string;
       subscriptionAmount: string;
       subscriptionAmountLabel: string;
+      rejectedreasontype: string;
+      rejectedreasonValue: string;
       status: string;
       paymentDate: string;
       userInfo: string;

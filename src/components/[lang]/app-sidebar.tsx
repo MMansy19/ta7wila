@@ -381,6 +381,31 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               ),
             },
             {
+              title: translations.sidebar.Rejectedreasons,
+              url: "/dashboard/rejected-reasons",
+              icon: (
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 2.5C5.5 2.5 2.5 5.5 2.5 10C2.5 14.5 5.5 17.5 10 17.5C14.5 17.5 17.5 14.5 17.5 10C17.5 5.5 14.5 2.5 10 2.5ZM10 15C8.34315 15 7 13.6569 7 12C7 10.3431 8.34315 9 10 9C11.6569 9 13 10.3431 13 12C13 13.6569 11.6569 15 10 15Z"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12.75 7H7L6.25 8H12L12.75 7Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ),
+            },
+            {
               title: translations.sidebar.paymentsVerifications,
               url: "/dashboard/paymentVerification",
               icon: (
