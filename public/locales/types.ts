@@ -94,6 +94,41 @@ export type TranslationKeys = {
     confirmDeleteMessage:string;
   
   },
+  verification: {
+    stepTitles: {
+      step1: string;
+      step2: string;
+      step3: string;
+      step4: string;
+    };
+    stepDescriptions: {
+      step1: string;
+      step2: string;
+      step3: string;
+      step4: string;
+    };
+    startVerification: string;
+    secureVerification: string;
+    secureVerificationDesc: string;
+    frontSide: string;
+    backSide: string;
+    fileNote: string;
+    frontUploaded: string;
+    backUploaded: string;
+    uploadSuccessful: string;
+    bothSidesRequired: string;
+    pleaseUploadBoth: string;
+    liveSelfie: string;
+    takePhoto: string;
+    retakePhoto: string;
+    verificationComplete: string;
+    verificationSuccess: string;
+    confirmationMessage: string;
+    finalMessage: string;
+    back: string;
+    continue: string;
+    submit: string;
+  };
   verifications: {
     details: string;
     rejectionDetails: string;

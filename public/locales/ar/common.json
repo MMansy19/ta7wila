@@ -92,6 +92,44 @@
     "selectType":"اختر النوع",
     "confirmDeleteMessage":"هل أنت متأكد أنك تريد حذف هذا العنصر؟"
   },
+  
+    "verification": {
+      "stepTitles": {
+        "step1": "التحقق من الهوية",
+        "step2": "تحميل المستندات",
+        "step3": "سيلفي مباشر",
+        "step4": "التأكيد"
+      },
+      "stepDescriptions": {
+        "step1": "تأكيد هويتك",
+        "step2": "تحميل المستندات المطلوبة",
+        "step3": "التقاط صورة فورية",
+        "step4": "مراجعة وإرسال"
+      },
+      "startVerification": "بدء عملية التحقق",
+      "secureVerification": "التحقق الآمن من الهوية",
+      "secureVerificationDesc": "لضمان أمان معاملاتك، نحتاج إلى التحقق من هويتك. يُرجى تجهيز بطاقة هوية حكومية صالحة.",
+      "frontSide": "الوجه الأمامي للهوية",
+      "backSide": "الوجه الخلفي للهوية",
+      "fileNote": "JPEG، PNG، أو PDF (بحد أقصى 5 ميجابايت)",
+      "frontUploaded": "تم تحميل الوجه الأمامي",
+      "backUploaded": "تم تحميل الوجه الخلفي",
+      "uploadSuccessful": "تم التحميل بنجاح",
+      "bothSidesRequired": "مطلوب تحميل كلا الجانبين",
+      "pleaseUploadBoth": "يرجى تحميل الوجهين الأمامي والخلفي للهوية",
+      "liveSelfie": "التحقق من السيلفي المباشر",
+      "takePhoto": "التقاط صورة مباشرة",
+      "retakePhoto": "إعادة التقاط الصورة",
+      "verificationComplete": "تم التحقق بنجاح!",
+      "verificationSuccess": "تم التحقق بنجاح!",
+      "confirmationMessage": "تم إرسال مستنداتك بنجاح. سنقوم بمراجعتها وإبلاغك عبر البريد الإلكتروني عند اكتمال التحقق.",
+      "finalMessage": "ستتلقى رسالة تأكيد بالبريد الإلكتروني بتفاصيل العملية قريبًا.",
+      "back": "رجوع",
+      "continue": "متابعة",
+      "submit": "تأكيد وإرسال"
+    }
+  ,
+  
   "verifications": {
     "details": "تفاصيل التحقق",
     "rejectionDetails": "تفاصيل الرفض",

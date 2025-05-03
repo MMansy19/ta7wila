@@ -95,6 +95,44 @@
     "confirmDeleteMessage":"Are you sure you want to delete this?"
 
   },
+  
+    "verification": {
+      "stepTitles": {
+        "step1": "Identity Verification",
+        "step2": "Document Upload",
+        "step3": "Live Selfie",
+        "step4": "Confirmation"
+      },
+      "stepDescriptions": {
+        "step1": "Confirm your identity",
+        "step2": "Upload required documents",
+        "step3": "Take a real-time photo",
+        "step4": "Review and submit"
+      },
+      "startVerification": "Start Verification Process",
+      "secureVerification": "Secure Identity Verification",
+      "secureVerificationDesc": "To ensure the security of your transactions, we need to verify your identity. Please prepare a valid government-issued ID document.",
+      "frontSide": "Front Side of ID",
+      "backSide": "Back Side of ID",
+      "fileNote": "JPEG, PNG, or PDF (Max 5MB)",
+      "frontUploaded": "Front Uploaded",
+      "backUploaded": "Back Uploaded",
+      "uploadSuccessful": "Upload Successful",
+      "bothSidesRequired": "Both front and back sides are required",
+      "pleaseUploadBoth": "Please upload both front and back sides of your ID",
+      "liveSelfie": "Live Selfie Verification",
+      "takePhoto": "Take Live Photo",
+      "retakePhoto": "Retake Photo",
+      "verificationComplete": "Verification Complete!",
+      "verificationSuccess": "Verification Successful!",
+      "confirmationMessage": "Your documents have been successfully submitted. We will review them and notify you via email once the verification is complete.",
+      "finalMessage": "You'll receive a confirmation email with transaction details shortly.",
+      "back": "Back",
+      "continue": "Continue",
+      "submit": "Confirm and Submit"
+    },
+  
+  
   "verifications": {
     "details": "Verification Details",
     "rejectionDetails": "Rejection Details",

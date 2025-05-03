@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, use } from "react";
 import {
   CheckCircle,
   CameraAlt,
@@ -11,13 +11,9 @@ import {
 import Image from "next/image";
 import axios from "axios";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
+import { useTranslation } from "@/context/translation-context";
 
-const steps = [
-  { title: "Identity Verification", description: "Confirm your identity" },
-  { title: "Document Upload", description: "Upload required documents" },
-  { title: "Live Selfie", description: "Take a real-time photo" },
-  { title: "Confirmation", description: "Review and submit" },
-];
+
 
 interface FilePreview {
   file: File;
@@ -29,6 +25,28 @@ export default function VerificationSteps() {
   const [frontDoc, setFrontDoc] = useState<FilePreview | null>(null);
   const [backDoc, setBackDoc] = useState<FilePreview | null>(null);
   const [selfieDoc, setSelfieDoc] = useState<FilePreview | null>(null);
+
+  const translation = useTranslation();
+  
+
+  const steps = [
+    { 
+      title: translation.verification.stepTitles.step1, 
+      description: translation.verification.stepDescriptions.step1 
+    },
+    { 
+      title: translation.verification.stepTitles.step2, 
+      description: translation.verification.stepDescriptions.step2 
+    },
+    { 
+      title: translation.verification.stepTitles.step3, 
+      description: translation.verification.stepDescriptions.step3 
+    },
+    { 
+      title: translation.verification.stepTitles.step4, 
+      description: translation.verification.stepDescriptions.step4 
+    }
+  ];
 
   useEffect(() => {
     return () => {
@@ -99,23 +117,21 @@ export default function VerificationSteps() {
       case 0:
         return (
           <div className="text-center py-12">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold text-gray-300 mb-4">
-                Secure Identity Verification
-              </h2>
-              <p className="text-gray-200 mb-8">
-                To ensure the security of your transactions, we need to verify
-                your identity. Please prepare a valid government-issued ID
-                document.
-              </p>
-              <button
-                onClick={handleNext}
-                className="bg-[#53B4AB] text-white px-8 py-3 rounded-lg hover:bg-[#86d7cf] transition-colors text-sm"
-              >
-                Start Verification Process
-              </button>
-            </div>
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-300 mb-4">
+              {translation.verification.secureVerification}
+            </h2>
+            <p className="text-gray-200 mb-8">
+              {translation.verification.secureVerificationDesc}
+            </p>
+            <button
+              onClick={handleNext}
+              className="bg-[#53B4AB] text-white px-8 py-3 rounded-lg hover:bg-[#86d7cf] transition-colors text-sm"
+            >
+              {translation.verification.startVerification}
+            </button>
           </div>
+        </div>
         );
       case 1:
         return (
@@ -133,17 +149,17 @@ export default function VerificationSteps() {
                       />
                       <div className="text-[#53B4AB]">
                         <CheckCircle className="inline mr-2" />
-                        Front Uploaded
+                        {translation.verification.frontUploaded}
                       </div>
                     </>
                   ) : (
                     <>
                       <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
                       <h3 className="font-medium text-gray-300 mb-2">
-                        Front Side of ID
+                        {translation.verification.frontSide}
                       </h3>
                       <p className="text-sm text-gray-500">
-                        JPEG, PNG, or PDF (Max 5MB)
+                        {translation.verification.fileNote}
                       </p>
                     </>
                   )}
@@ -171,17 +187,17 @@ export default function VerificationSteps() {
                       />
                       <div className="text-[#53B4AB]">
                         <CheckCircle className="inline mr-2" />
-                        Back Uploaded
+                        {translation.verification.backUploaded}
                       </div>
                     </>
                   ) : (
                     <>
                       <CloudUpload className="text-[#53B4AB] text-4xl mb-4" />
                       <h3 className="font-medium text-gray-300 mb-2">
-                        Back Side of ID
+                        {translation.verification.backSide}
                       </h3>
                       <p className="text-sm text-gray-500">
-                        JPEG, PNG, or PDF (Max 5MB)
+                        {translation.verification.fileNote}
                       </p>
                     </>
                   )}
@@ -198,7 +214,7 @@ export default function VerificationSteps() {
 
             {(!frontDoc || !backDoc) && (
               <div className="col-span-2 text-center mt-4 text-red-500">
-                <p>Both front and back sides are required</p>
+                <p>{translation.verification.bothSidesRequired}</p>
               </div>
             )}
           </div>
@@ -299,7 +315,7 @@ export default function VerificationSteps() {
           <div className="py-12 text-center">
             <div className="max-w-md mx-auto">
               <h2 className="text-xl font-semibold mb-6">
-                Live Selfie Verification
+                {translation.verification.liveSelfie}
               </h2>
               <div className="relative w-48 h-48 mx-auto mb-8">
                 <div className="absolute inset-0 border-2 border-gray-200 rounded-full overflow-hidden">
@@ -318,7 +334,7 @@ export default function VerificationSteps() {
               </div>
               <label className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#a8d4d0] inline-flex items-center cursor-pointer transition-colors">
                 <CameraAlt className="mr-2" />
-                {selfieDoc ? "Retake Photo" : "Take Live Photo"}
+                {selfieDoc ? translation.verification.retakePhoto : translation.verification.takePhoto}
                 <VisuallyHiddenInput
                   type="file"
                   accept="image/*"
@@ -334,17 +350,16 @@ export default function VerificationSteps() {
       case 3:
         return (
           <div className="py-12 text-center">
-            <div className="max-w-xl mx-auto">
-              <CheckCircle className="text-green-500 text-6xl mx-auto mb-6" />
-              <h2 className="text-2xl font-bold mb-4 text-white">
-                Verification Complete!
-              </h2>
-              <p className="text-gray-300 mb-8">
-                Your documents have been successfully submitted. We will review
-                them and notify you via email once the verification is complete.
-              </p>
-            </div>
+          <div className="max-w-xl mx-auto">
+            <CheckCircle className="text-green-500 text-6xl mx-auto mb-6" />
+            <h2 className="text-2xl font-bold mb-4 text-white">
+              {translation.verification.verificationComplete}
+            </h2>
+            <p className="text-gray-300 mb-8">
+              {translation.verification.confirmationMessage}
+            </p>
           </div>
+        </div>
         );
       default:
         return <p>Unknown step</p>;
@@ -365,7 +380,7 @@ export default function VerificationSteps() {
         </div>
 
         {/* Progress Steps */}
-        <div className="mb-12">
+        <div className="mb-12" dir="ltr">
           <div className="flex justify-between items-start relative">
             {steps.map((step, index) => (
               <div
@@ -401,6 +416,8 @@ export default function VerificationSteps() {
                   <div
                     className={`absolute top-5 left-full -ml-[calc(50%+20px)] w-full h-1 
             ${index < activeStep ? "bg-[#53B4AB]" : "bg-gray-200"}`}
+
+            
                   />
                 )}
               </div>
@@ -427,29 +444,31 @@ export default function VerificationSteps() {
 
         {/* Navigation Controls */}
         {activeStep < steps.length && activeStep > 0 && (
-          <div className="flex justify-between items-center bg-[#1F1F1F] rounded-xl shadow-sm p-6">
-            <button
-              onClick={handleBack}
-              className="text-gray-600 hover:text-gray-800 flex items-center"
-            >
-              <ArrowBack className="mr-2" /> Back
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={
-                (activeStep === 1 && (!frontDoc || !backDoc)) ||
-                (activeStep === 2 && !selfieDoc)
-              }
-              className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#7de7dc] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {activeStep === steps.length - 1
-                ? "Confirm and Submit"
-                : "Continue"}
-              <ArrowForward className="inline ml-2" />
-            </button>
-          </div>
-        )}
+        <div className="flex justify-between items-center bg-[#1F1F1F] rounded-xl shadow-sm p-6" dir="ltr">
+          <button
+            onClick={handleBack}
+            className="text-gray-600 hover:text-gray-800 flex items-center"
+          >
+            <ArrowBack className="mr-2" /> {translation.verification.back}
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={
+              (activeStep === 1 && (!frontDoc || !backDoc)) ||
+              (activeStep === 2 && !selfieDoc)
+            }
+            className="bg-[#53B4AB] text-white px-6 py-2 rounded-lg hover:bg-[#7de7dc] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {activeStep === steps.length - 1
+              ? translation.verification.submit
+              : translation.verification.continue}
+            <ArrowForward className="inline ml-2" />
+          </button>
+        </div>
+      )}
       </div>
     </div>
   );
 }
+
+
