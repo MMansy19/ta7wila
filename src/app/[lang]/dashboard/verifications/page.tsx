@@ -1,13 +1,17 @@
 "use client";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
-import { ActionButtonProps, DetailItemProps, PhotoPreviewProps, Rejectedreasons, Verifications } from "./types";
+import {
+  ActionButtonProps,
+  DetailItemProps,
+  PhotoPreviewProps,
+  Rejectedreasons,
+  Verifications,
+} from "./types";
 import { useQuery } from "@tanstack/react-query";
-
-
 
 export default function Verification() {
   const translations = useTranslation();
@@ -204,7 +208,7 @@ export default function Verification() {
                     <td className="p-3">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          verification.status === "active"
+                          verification.status === "verified"
                             ? "text-[#53B4AB] bg-[#0FDBC8] bg-opacity-20"
                             : "text-[#F58C7B] bg-[#F58C7B] bg-opacity-20"
                         }`}
@@ -336,16 +340,7 @@ export default function Verification() {
                     {translations.verifications.rejectionDetails}
                   </p>
                   <p className="text-sm">
-                    <span className="opacity-75">
-                      {translations.verifications.reason}:
-                    </span>{" "}
                     {selectedVerification.rejected_reason.value}
-                  </p>
-                  <p className="text-sm">
-                    <span className="opacity-75">
-                      {translations.verifications.type}:
-                    </span>{" "}
-                    {selectedVerification.rejected_reason.rejected_reason_type}
                   </p>
                 </div>
               )}
@@ -447,7 +442,7 @@ export default function Verification() {
                     <ActionButton
                       color="green"
                       onClick={() =>
-                        handleStatusUpdate(selectedVerification.id, "approved")
+                        handleStatusUpdate(selectedVerification.id, "verified")
                       }
                     >
                       {translations.verifications.approve}
@@ -466,28 +461,50 @@ export default function Verification() {
         )}
       </div>
       {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[60]"
+  <div
+    role="dialog"
+    aria-modal="true"
+    aria-label="Enlarged image preview"
+    className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[60] 
+               animate-fade-in"
+    onClick={() => setSelectedImage(null)}
+  >
+    <div 
+      className="relative max-w-4xl max-h-[90vh] p-4"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="relative group flex items-center justify-center">
+        <img
+          src={selectedImage}
+          className="object-contain max-w-full max-h-[80vh] rounded-lg shadow-2xl"
+          alt="Enlarged preview"
+          loading="lazy"
+          decoding="async"
+        />
+        
+        <button
+          className="absolute -top-3 -right-3 bg-red-500/90 text-white rounded-full 
+                     w-10 h-10 flex items-center justify-center hover:bg-red-600/90 
+                     transition-all duration-200 backdrop-blur-sm shadow-lg
+                     transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white"
           onClick={() => setSelectedImage(null)}
+          aria-label="Close image preview"
+          onKeyDown={(e) => e.key === 'Escape' && setSelectedImage(null)}
         >
-          <div className="relative max-w-[20vw] max-h-[20vh] -mt-20">
-            <img
-              src={selectedImage}
-              className="object-contain max-w-full max-h-full"
-              alt="Enlarged preview"
-            />
-            <button
-              className="absolute top-4 right-4 bg-gray-500/80 text-white rounded-full 
-             w-8 h-8 flex items-center justify-center hover:bg-gray-400/90 
-             transition-all duration-200 backdrop-blur-sm shadow-lg"
-              onClick={() => setSelectedImage(null)}
-              aria-label="Close image preview"
-            >
-              <span className="text-2xl leading-none mb-1">×</span>
-            </button>
-          </div>
+          <span className="text-3xl leading-none mb-1.5">×</span>
+        </button>
+        
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 
+                       to-transparent pointer-events-none">
+          <p className="text-white/80 text-sm text-center opacity-0 group-hover:opacity-100 
+                       transition-opacity duration-300">
+            Click anywhere to close
+          </p>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
