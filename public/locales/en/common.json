@@ -319,6 +319,9 @@
   },
   "users": {
     "title": "Users",
+    "user": "User",
+    "admin": "Admin",
+   
     "total": "Total Users",
     "search": {
       "placeholder": "Search users..."
@@ -912,7 +915,11 @@
       "employeesCount": "Employees",
       "vendorsCount": "Vendors",
       "subscriptionDate": "Subscription Date",
-      "renewalDate": "Renewal Date"
+      "renewalDate": "Renewal Date",
+      "noSubscription": {
+        "title": "No Active Subscription",
+        "description": "User has not subscribed to any plan yet"
+      }
     },
     "linkedStores": {
       "title": "Linked Stores"

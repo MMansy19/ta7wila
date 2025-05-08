@@ -318,6 +318,8 @@
   "users": {
     "title": "المستخدمين",
     "total": "إجمالي المستخدمين",
+    "user": "المستخدم",
+    "admin": "المسؤول",
     "search": {
       "placeholder": "البحث عن المستخدمين..."
     },
@@ -910,7 +912,11 @@
       "employeesCount": "الموظفين",
       "vendorsCount": "الموردين",
       "subscriptionDate": "تاريخ الاشتراك",
-      "renewalDate": "تاريخ التجديد"
+      "renewalDate": "تاريخ التجديد",
+      "noSubscription": {
+        "title": "لا يوجد اشتراك نشط",
+        "description": "لم يشترك المستخدم في أي خطة حتى الآن"
+      }
     },
     "linkedStores": {
       "title": "المتاجر المرتبطة"

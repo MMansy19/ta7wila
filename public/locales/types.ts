@@ -321,6 +321,8 @@ export type TranslationKeys = {
   users: {
     title: string;
     total: string;
+    user: string;
+    admin: string;
     search: {
       placeholder: string;
     };
@@ -917,6 +919,10 @@ export type TranslationKeys = {
       vendorsCount: string;
       subscriptionDate: string;
       renewalDate: string;
+      noSubscription: {
+        title: string;
+        description: string;
+      };
     };
     linkedStores: {
       title: string;
