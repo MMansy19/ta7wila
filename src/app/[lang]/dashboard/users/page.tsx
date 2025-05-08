@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+import Link from "next/link";
 
 interface User {
   id: number;
@@ -84,7 +85,7 @@ export default function Users() {
       const response = await axios.get(`${apiUrl}/users?page=${page}`, {
         headers: getAuthHeaders(),
       });
-      const data = response.data.result.data;
+      const data = response.data.result.data.reverse();
 
       const transformedUsers: User[] = data.map((item: any) => ({
         id: item.id,
@@ -230,7 +231,26 @@ export default function Users() {
                       </span>
                     </td>
                     <td className="p-2">{user.createdAt}</td>
-                    <td className="p-2">
+                    <td className="p-2 space-x-2 flex items-center gap-2">
+                      <Link href={`/dashboard/user-info/${user.id}`}>
+                        <button className="bg-[#53B4AB] text-xs hover:bg-[#459a91] text-white px-4 py-1.5 rounded-md \ transition-colors duration-200 flex items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mr-1"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          {translations.stores.actions.details}
+                        </button>
+                      </Link>
                       <button
                         onClick={(e) =>
                           handleSubmit(
@@ -239,8 +259,27 @@ export default function Users() {
                             user.status === "active" ? "inactive" : "active"
                           )
                         }
-                        className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-full text-sm"
+                        className={`px-4 py-1.5 rounded-md text-xs transition-colors duration-200 flex items-center
+      ${
+        user.status === "active"
+          ? "bg-red-600 hover:bg-red-700"
+          : "bg-green-600 hover:bg-green-700"
+      } text-white`}
                       >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 mr-1"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                          />
+                        </svg>
                         {user.status === "active"
                           ? translations.users.actions.deactivate
                           : translations.users.actions.activate}

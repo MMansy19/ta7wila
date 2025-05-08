@@ -70,69 +70,65 @@
     "description": "Provides you with an integrated experience to manage payment operations easily and know future financial flows with complete accuracy.",
     "startNow": "Start Now"
   },
-  "common":{
-    "createdSuccessfully":"Created successful",
-    "errorOccurred":"Error Occurred",
-    "updatedSuccessfully":"Updated Successfully",
-    "confirmDelete":"confirmDelete",
-    "deletedSuccessfully":"Deleted Successfully",
-    "addNew":"Add New",
-    "edit":"Edit",
-    "delete":"Delete",
-    "cancel":"Cancel",
-    "save":"Save",
-    "create":"Create Rejected Reason",
-    "update":"Update",
-    "close":"Close",
-    "value":"Value",
-    "status":"Status",
-    "actions":"Actions",
-    "active":"Active",
-    "inactive":"Inactive",
-    "noData":"No Data",
-    "statusUpdated":"Status Updated",
-    "selectType":"Select Type",
-    "confirmDeleteMessage":"Are you sure you want to delete this?"
-
+  "common": {
+    "createdSuccessfully": "Created successful",
+    "errorOccurred": "Error Occurred",
+    "updatedSuccessfully": "Updated Successfully",
+    "confirmDelete": "confirmDelete",
+    "deletedSuccessfully": "Deleted Successfully",
+    "addNew": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create Rejected Reason",
+    "update": "Update",
+    "close": "Close",
+    "value": "Value",
+    "status": "Status",
+    "actions": "Actions",
+    "active": "Active",
+    "inactive": "Inactive",
+    "noData": "No Data",
+    "statusUpdated": "Status Updated",
+    "selectType": "Select Type",
+    "confirmDeleteMessage": "Are you sure you want to delete this?"
   },
-  
-    "verification": {
-      "stepTitles": {
-        "step1": "Identity Verification",
-        "step2": "Document Upload",
-        "step3": " Selfie",
-        "step4": "Confirmation"
-      },
-      "stepDescriptions": {
-        "step1": "Confirm your identity",
-        "step2": "Upload required documents",
-        "step3": "Send a real-time photo",
-        "step4": "Review and submit"
-      },
-      "startVerification": "Start Verification Process",
-      "secureVerification": "Secure Identity Verification",
-      "secureVerificationDesc": "To ensure the security of your transactions, we need to verify your identity. Please prepare a valid government-issued ID document.",
-      "frontSide": "Front Side of ID",
-      "backSide": "Back Side of ID",
-      "fileNote": "JPEG, PNG, or PDF (Max 5MB)",
-      "frontUploaded": "Front Uploaded",
-      "backUploaded": "Back Uploaded",
-      "uploadSuccessful": "Upload Successful",
-      "bothSidesRequired": "Both front and back sides are required",
-      "pleaseUploadBoth": "Please upload both front and back sides of your ID",
-      "liveSelfie": " Selfie Verification",
-      "takePhoto": "Upload Photo",
-      "retakePhoto": "Reupload Photo",
-      "verificationComplete": "Verification Complete!",
-      "verificationSuccess": "Verification Successful!",
-      "confirmationMessage": "Your documents have been successfully submitted. We will review them and notify you via email once the verification is complete.",
-      "finalMessage": "You'll receive a confirmation email with transaction details shortly.",
-      "back": "Back",
-      "continue": "Continue",
-      "submit": "Confirm and Submit"
+  "verification": {
+    "stepTitles": {
+      "step1": "Identity Verification",
+      "step2": "Document Upload",
+      "step3": " Selfie",
+      "step4": "Confirmation"
     },
-  
-  
+    "stepDescriptions": {
+      "step1": "Confirm your identity",
+      "step2": "Upload required documents",
+      "step3": "Send a real-time photo",
+      "step4": "Review and submit"
+    },
+    "startVerification": "Start Verification Process",
+    "secureVerification": "Secure Identity Verification",
+    "secureVerificationDesc": "To ensure the security of your transactions, we need to verify your identity. Please prepare a valid government-issued ID document.",
+    "frontSide": "Front Side of ID",
+    "backSide": "Back Side of ID",
+    "fileNote": "JPEG, PNG, or PDF (Max 5MB)",
+    "frontUploaded": "Front Uploaded",
+    "backUploaded": "Back Uploaded",
+    "uploadSuccessful": "Upload Successful",
+    "bothSidesRequired": "Both front and back sides are required",
+    "pleaseUploadBoth": "Please upload both front and back sides of your ID",
+    "liveSelfie": " Selfie Verification",
+    "takePhoto": "Upload Photo",
+    "retakePhoto": "Reupload Photo",
+    "verificationComplete": "Verification Complete!",
+    "verificationSuccess": "Verification Successful!",
+    "confirmationMessage": "Your documents have been successfully submitted. We will review them and notify you via email once the verification is complete.",
+    "finalMessage": "You'll receive a confirmation email with transaction details shortly.",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Confirm and Submit"
+  },
   "verifications": {
     "details": "Verification Details",
     "rejectionDetails": "Rejection Details",
@@ -171,9 +167,9 @@
     "signUp": "Sign Up",
     "email": "Email",
     "password": "Password",
-    "confirmPassword":"Confirm Password",
+    "confirmPassword": "Confirm Password",
     "name": "Name",
-    "userName":"Username",
+    "userName": "Username",
     "mobile": "Mobile",
     "forgotPassword": "Forgot Password?",
     "clickHere": "Click Here",
@@ -280,7 +276,7 @@
     "profile": "Profile",
     "settings": "Settings",
     "logout": "Logout",
-    "updateProfile":"update Profile",
+    "updateProfile": "update Profile",
     "devMode": {
       "switchTo": "Switch to Developer Mode",
       "backTo": "Back to User Mode"
@@ -880,10 +876,60 @@
     "profileUpdated": "Profile updated successfully!",
     "passwordChanged": "Password changed successfully!",
     "appToken": "Your App Token",
-    "Token":"App Token"
+    "Token": "App Token"
   },
   "errors": {
     "developerMode": "You aren't developer to do this action, upgrade your account from normal user to developer to be able to do this action then try again",
     "statusUpdated": "Status updated successfully!"
+  },
+  "userInfo": {
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "connection": {
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "enabledDesc": "User is currently connected and can perform transactions and receive notifications from the app",
+      "disabledDesc": "User is currently disconnected and cannot perform transactions or receive notifications from the app"
+    },
+    "accountInfo": {
+      "title": "Account Information",
+      "username": "Username: ",
+      "userType": "User Type: ",
+      "transactionStatus": "Transaction Status: "
+    },
+    "subscriptionInfo": {
+      "title": "Subscription Information",
+      "plan": "Plan",
+      "description": "Description",
+      "amount": "Amount",
+      "type": "Subscription Type",
+      "status": "Status",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "applicationsCount": "Applications",
+      "employeesCount": "Employees",
+      "vendorsCount": "Vendors",
+      "subscriptionDate": "Subscription Date",
+      "renewalDate": "Renewal Date"
+    },
+    "linkedStores": {
+      "title": "Linked Stores"
+    },
+    "transactions": {
+      "title": "Recent Transactions",
+      "transactionId": "Transaction ID",
+      "refId": "Reference ID",
+      "amount": "Amount",
+      "netAmount": "Net Amount",
+      "fees": "Fees",
+      "status": "Status",
+      "completed": "Completed",
+      "paymentMethod": "Payment Method",
+      "senderName": "Sender Name",
+      "transactionDate": "Date",
+      "notAvailable": "N/A"
+    }
   }
 }

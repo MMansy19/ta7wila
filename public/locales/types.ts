@@ -886,5 +886,55 @@ export type TranslationKeys = {
       actions: string;
     };
   };
+  userInfo: {
+    status: {
+      active: string;
+      inactive: string;
+    };
+    connection: {
+      enabled: string;
+      disabled: string;
+      enabledDesc: string;
+      disabledDesc: string;
+    };
+    accountInfo: {
+      title: string;
+      username: string;
+      userType: string;
+      transactionStatus: string;
+    };
+    subscriptionInfo: {
+      title: string;
+      plan: string;
+      description: string;
+      amount: string;
+      type: string;
+      status: string;
+      monthly: string;
+      yearly: string;
+      applicationsCount: string;
+      employeesCount: string;
+      vendorsCount: string;
+      subscriptionDate: string;
+      renewalDate: string;
+    };
+    linkedStores: {
+      title: string;
+    };
+    transactions: {
+      title: string;
+      transactionId: string;
+      refId: string;
+      amount: string;
+      netAmount: string;
+      fees: string;
+      status: string;
+      completed: string;
+      paymentMethod: string;
+      senderName: string;
+      transactionDate: string;
+      notAvailable: string;
+    };
+  };
 };
 

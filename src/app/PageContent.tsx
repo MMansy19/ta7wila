@@ -6,12 +6,12 @@ import "swiper/css";
 import DevPart from "./[lang]/devSection";
 import DownloadApp from "./[lang]/downloadapp";
 import Footer from "./[lang]/footer";
+import Hero from "./[lang]/heroSection";
+import Navbar from "./[lang]/navbar";
 import OurFetures from "./[lang]/ourfeture";
 import PaymentServices from "./[lang]/paymentServices";
 import Services from "./[lang]/services";
 import Slider from "./[lang]/slider";
-import Navbar from "./[lang]/navbar";
-import Hero from "./[lang]/heroSection";
 
 export default function LandingPage({ lang }: { lang: Locale }) {
   const [bgColor, setBgColor] = useState("bg-transparent");

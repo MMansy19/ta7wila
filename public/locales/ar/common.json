@@ -70,66 +70,63 @@
     "description": "يوفّر لك تجربة متكاملة لإدارة عمليات الدفع بسهولة ومعرفة التدفقات المالية المستقبلية بكل دقة.",
     "startNow": "أبدأ الآن"
   },
-  "common":{
-    "createdSuccessfully":"تم انشاء بنجاح",
-    "errorOccurred":"حدث خطأ",
-    "updatedSuccessfully":"تم التحديث بنجاح",
-    "confirmDelete":"تأكيد الحذف",
-    "deletedSuccessfully":"تم الحذف بنجاح",
-    "addNew":"إضافة جديد",
-    "edit":"تعديل",
-    "delete":"حذف",
-    "cancel":"إلغاء",
-    "save":"حفظ",
-    "create":"انشاء سبب للرفض",
-    "value":"القيمة",
-    "status":"الحالة",
-    "actions":"الإجراءات",
-    "type":"النوع",
-    "active":"نشط",
-    "inactive":"غير نشط",
-    "statusUpdated":"تم تحديث الحالة",
-    "selectType":"اختر النوع",
-    "confirmDeleteMessage":"هل أنت متأكد أنك تريد حذف هذا العنصر؟"
+  "common": {
+    "createdSuccessfully": "تم انشاء بنجاح",
+    "errorOccurred": "حدث خطأ",
+    "updatedSuccessfully": "تم التحديث بنجاح",
+    "confirmDelete": "تأكيد الحذف",
+    "deletedSuccessfully": "تم الحذف بنجاح",
+    "addNew": "إضافة جديد",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "create": "انشاء سبب للرفض",
+    "value": "القيمة",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "type": "النوع",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "statusUpdated": "تم تحديث الحالة",
+    "selectType": "اختر النوع",
+    "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذا العنصر؟"
   },
-  
-    "verification": {
-      "stepTitles": {
-        "step1": "التحقق من الهوية",
-        "step2": "تحميل المستندات",
-        "step3": "سيلفي",
-        "step4": "التأكيد"
-      },
-      "stepDescriptions": {
-        "step1": "تأكيد هويتك",
-        "step2": "تحميل المستندات المطلوبة",
-        "step3": "ارسال صورة فورية",
-        "step4": "مراجعة وإرسال"
-      },
-      "startVerification": "بدء عملية التحقق",
-      "secureVerification": "التحقق الآمن من الهوية",
-      "secureVerificationDesc": "لضمان أمان معاملاتك، نحتاج إلى التحقق من هويتك. يُرجى تجهيز بطاقة هوية حكومية صالحة.",
-      "frontSide": "الوجه الأمامي للهوية",
-      "backSide": "الوجه الخلفي للهوية",
-      "fileNote": "JPEG، PNG، أو PDF (بحد أقصى 5 ميجابايت)",
-      "frontUploaded": "تم تحميل الوجه الأمامي",
-      "backUploaded": "تم تحميل الوجه الخلفي",
-      "uploadSuccessful": "تم التحميل بنجاح",
-      "bothSidesRequired": "مطلوب تحميل كلا الجانبين",
-      "pleaseUploadBoth": "يرجى تحميل الوجهين الأمامي والخلفي للهوية",
-      "liveSelfie": "التحقق من السيلفي المباشر",
-      "takePhoto": "ارسال صورة",
-      "retakePhoto": "إعادة ارسال الصورة",
-      "verificationComplete": "تم التحقق بنجاح!",
-      "verificationSuccess": "تم التحقق بنجاح!",
-      "confirmationMessage": "تم إرسال مستنداتك بنجاح. سنقوم بمراجعتها وإبلاغك عبر البريد الإلكتروني عند اكتمال التحقق.",
-      "finalMessage": "ستتلقى رسالة تأكيد بالبريد الإلكتروني بتفاصيل العملية قريبًا.",
-      "back": "رجوع",
-      "continue": "متابعة",
-      "submit": "تأكيد وإرسال"
-    }
-  ,
-  
+  "verification": {
+    "stepTitles": {
+      "step1": "التحقق من الهوية",
+      "step2": "تحميل المستندات",
+      "step3": "سيلفي",
+      "step4": "التأكيد"
+    },
+    "stepDescriptions": {
+      "step1": "تأكيد هويتك",
+      "step2": "تحميل المستندات المطلوبة",
+      "step3": "ارسال صورة فورية",
+      "step4": "مراجعة وإرسال"
+    },
+    "startVerification": "بدء عملية التحقق",
+    "secureVerification": "التحقق الآمن من الهوية",
+    "secureVerificationDesc": "لضمان أمان معاملاتك، نحتاج إلى التحقق من هويتك. يُرجى تجهيز بطاقة هوية حكومية صالحة.",
+    "frontSide": "الوجه الأمامي للهوية",
+    "backSide": "الوجه الخلفي للهوية",
+    "fileNote": "JPEG، PNG، أو PDF (بحد أقصى 5 ميجابايت)",
+    "frontUploaded": "تم تحميل الوجه الأمامي",
+    "backUploaded": "تم تحميل الوجه الخلفي",
+    "uploadSuccessful": "تم التحميل بنجاح",
+    "bothSidesRequired": "مطلوب تحميل كلا الجانبين",
+    "pleaseUploadBoth": "يرجى تحميل الوجهين الأمامي والخلفي للهوية",
+    "liveSelfie": "التحقق من السيلفي المباشر",
+    "takePhoto": "ارسال صورة",
+    "retakePhoto": "إعادة ارسال الصورة",
+    "verificationComplete": "تم التحقق بنجاح!",
+    "verificationSuccess": "تم التحقق بنجاح!",
+    "confirmationMessage": "تم إرسال مستنداتك بنجاح. سنقوم بمراجعتها وإبلاغك عبر البريد الإلكتروني عند اكتمال التحقق.",
+    "finalMessage": "ستتلقى رسالة تأكيد بالبريد الإلكتروني بتفاصيل العملية قريبًا.",
+    "back": "رجوع",
+    "continue": "متابعة",
+    "submit": "تأكيد وإرسال"
+  },
   "verifications": {
     "details": "تفاصيل التحقق",
     "rejectionDetails": "تفاصيل الرفض",
@@ -168,9 +165,9 @@
     "signUp": "إنشاء حساب",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
-    "confirmPassword":"تأكيد كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
     "name": "الاسم",
-    "userName":"اسم المستخدم",
+    "userName": "اسم المستخدم",
     "mobile": "رقم الجوال",
     "forgotPassword": "نسيت كلمة المرور؟",
     "clickHere": "اضغط هنا",
@@ -235,7 +232,7 @@
     "transactions": "المعاملات",
     "invoices": "الفواتير",
     "identityVerification": "التحقق من الهوية",
-    "Rejectedreasons" : "أسباب الرفض",
+    "Rejectedreasons": "أسباب الرفض",
     "checkout": "الدفع",
     "stores": "المتاجر",
     "employees": "الموظفين",
@@ -277,7 +274,7 @@
     "profile": "الملف الشخصي",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
-    "updateProfile":"تحديث الملف الشخصي",
+    "updateProfile": "تحديث الملف الشخصي",
     "devMode": {
       "switchTo": "التبديل إلى وضع المطور",
       "backTo": "العودة إلى وضع المستخدم"
@@ -363,7 +360,7 @@
     },
     "table": {
       "id": "#",
-      "image": "الصورة", 
+      "image": "الصورة",
       "name": "الاسم",
       "email": "البريد الإلكتروني",
       "mobile": "الجوال",
@@ -373,7 +370,7 @@
     },
     "actions": {
       "activate": "تفعيل",
-      "deactivate": "تعطيل"  
+      "deactivate": "تعطيل"
     },
     "noData": "لا يوجد موردين."
   },
@@ -475,7 +472,7 @@
       "employees": "الموظفين",
       "vendors": "الموردين",
       "createdAt": "تاريخ الإنشاء",
-      "updatedAt":"تاريخ التحديث",
+      "updatedAt": "تاريخ التحديث",
       "actions": "الإجراءات",
       "view": "عرض"
     },
@@ -681,7 +678,7 @@
       "webhook": "Webhook",
       "status": "الحالة",
       "createdAt": "تاريخ الإنشاء",
-      "updatedAt": "تاريخ التحديث", 
+      "updatedAt": "تاريخ التحديث",
       "actions": "الإجراءات"
     },
     "status": {
@@ -694,7 +691,7 @@
       "update": "تحديث",
       "payment": "الدفع",
       "logs": "السجلات",
-      "details": "التفاصيل", 
+      "details": "التفاصيل",
       "manualCheck": "التحقق اليدوي من المعاملات"
     }
   },
@@ -716,7 +713,7 @@
     },
     "paymentOption": {
       "label": "طريقة الدفع",
-      "required": "مطلوب", 
+      "required": "مطلوب",
       "select": "اختر طريقة الدفع"
     },
     "form": {
@@ -729,7 +726,7 @@
       "id": "#",
       "name": "اسم المرسل",
       "amount": "المبلغ الإجمالي",
-      "date": "تاريخ المعاملة", 
+      "date": "تاريخ المعاملة",
       "status": "الحالة الحالية",
       "verificationStatus": "حالة طلب التحقق",
       "approved": "موافق",
@@ -841,7 +838,7 @@
   "checkout": {
     "details": {
       "storeInfo": "معلومات المتجر",
-      "personalInfo": "المعلومات الشخصية", 
+      "personalInfo": "المعلومات الشخصية",
       "labels": {
         "name": "الاسم:",
         "email": "البريد الإلكتروني:",
@@ -854,7 +851,7 @@
       "paymentDetails": {
         "id": "#",
         "refId": "الرقم المرجعي",
-        "itemId": "معرف العنصر", 
+        "itemId": "معرف العنصر",
         "paidAt": "تاريخ الدفع",
         "createdAt": "تاريخ الإنشاء",
         "updatedAt": "تاريخ التحديث",
@@ -877,10 +874,60 @@
     "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
     "passwordChanged": "تم تغيير كلمة المرور بنجاح!",
     "appToken": "رمز التطبيق الخاص بك",
-    "Token":"رمز التطبيق"
+    "Token": "رمز التطبيق"
   },
   "errors": {
     "developerMode": "أنت لست مطورًا للقيام بهذا الإجراء، قم بترقية حسابك من مستخدم عادي إلى مطور لتتمكن من القيام بهذا الإجراء ثم حاول مرة أخرى",
     "statusUpdated": "تم تحديث الحالة بنجاح!"
+  },
+  "userInfo": {
+    "status": {
+      "active": "مفعل",
+      "inactive": "غير مفعل"
+    },
+    "connection": {
+      "enabled": "مفعل",
+      "disabled": "غير مفعل",
+      "enabledDesc": "المستخدم متصل الان ويمكنه اجراء المعاملات واستقبال الاشعارات من التطبيق",
+      "disabledDesc": "المستخدم غير متصل الان ولا يمكنه اجراء المعاملات واستقبال الاشعارات من التطبيق"
+    },
+    "accountInfo": {
+      "title": "بيانات الحساب",
+      "username": "اسم المستخدم: ",
+      "userType": "نوع المستخدم: ",
+      "transactionStatus": "حالة المعاملات: "
+    },
+    "subscriptionInfo": {
+      "title": "معلومات الاشتراك",
+      "plan": "الخطة",
+      "description": "الوصف",
+      "amount": "المبلغ",
+      "type": "نوع الاشتراك",
+      "status": "الحالة",
+      "monthly": "شهري",
+      "yearly": "سنوي",
+      "applicationsCount": "التطبيقات",
+      "employeesCount": "الموظفين",
+      "vendorsCount": "الموردين",
+      "subscriptionDate": "تاريخ الاشتراك",
+      "renewalDate": "تاريخ التجديد"
+    },
+    "linkedStores": {
+      "title": "المتاجر المرتبطة"
+    },
+    "transactions": {
+      "title": "المعاملات الأخيرة",
+      "transactionId": "رقم المعاملة",
+      "refId": "الرقم المرجعي",
+      "amount": "المبلغ",
+      "netAmount": "المبلغ الصافي",
+      "fees": "الرسوم",
+      "status": "الحالة",
+      "completed": "مكتملة",
+      "paymentMethod": "طريقة الدفع",
+      "senderName": "اسم المرسل",
+      "transactionDate": "التاريخ",
+      "notAvailable": "غير متاح"
+    }
   }
 }

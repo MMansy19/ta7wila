@@ -1,13 +1,13 @@
 'use client'
 
-import LocaleSwitcher from "../lang-switcher/LangSwitcher";
 import NavigationLink from "@/components/[lang]/NavigationLink";
+import ActionButton from "@/components/[lang]/ui/landingbtn";
 import { useTranslation } from "@/context/translation-context";
 import { Locale } from "@/i18n-config";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import ActionButton from "@/components/[lang]/ui/landingbtn";
+import LocaleSwitcher from "../lang-switcher/LangSwitcher";
 
 export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string; }) {
       const [menuOpen, setMenuOpen] = useState(false);
@@ -48,7 +48,7 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
     return(
         <>
         <nav
-          className={`flex fixed justify-between items-center px-4 lg:px-20 py-4 w-full ${bgColor} bg-opacity-90 z-50 transition-colors duration-300`}
+          className={`flex fixed justify-between items-center px-4 lg:px-20 py-4 w-full ${bgColor} bg-opacity-90 z-50 transition-colors duration-300 review all componants in this land check responsive of all in all screen sure that all matching together px-4 sm:px-6 lg:px-8 py-2 sm:py-4 `}
         >
           <div className="flex items-center gap-2">
             <button

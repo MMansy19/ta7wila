@@ -16,11 +16,11 @@ export default function PaymentServices() {
               {translations.paymentDescription}
             </p>
           </div>
-          <div className="flex pt-2.5 mt-16 max-w-full w-[333px] max-md:mt-10">
-            {/* <Image src="/Frame 27.svg" width="800" height="900" alt="" /> */}
-            <div className="relative w-[500px] h-[500px] mx-auto">
+          <div className="w-full max-w-[333px] md:max-w-[500px] mx-auto my-10">
+            <Image src="/Frame 27.svg" width="800" height="900" alt="" />
+            {/* <div className="relative w-[500px] h-[500px] mx-auto">
               {/* الشمس في المنتصف */}
-              <div className="w-16 h-16 bg-[#A5CBAD] bg-opacity-20 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 shadow-xl flex items-center justify-center">
+              {/* <div className="w-16 h-16 bg-[#A5CBAD] bg-opacity-20 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 shadow-xl flex items-center justify-center">
                 <svg
                   width="25"
                   height="25"
@@ -165,9 +165,9 @@ export default function PaymentServices() {
                   </div>
                 );
               })}
-            </div>
+            </div>  */}
 
-            <style jsx>{`
+            {/* <style jsx>{`
               @keyframes spin {
                 from {
                   transform: rotate(0deg);
@@ -176,7 +176,7 @@ export default function PaymentServices() {
                   transform: rotate(360deg);
                 }
               }
-            `}</style>
+            `}</style> */}
           </div>
         </div>
       </div>

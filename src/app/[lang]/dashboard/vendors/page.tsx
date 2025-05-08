@@ -163,15 +163,15 @@ export default function Vendors() {
   return (
     <div>
       <div className="text-white grid">
-        <div className="flex overflow-hidden flex-col  px-8 py-6 w-full bg-neutral-900 rounded-[18px] max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
+        <div className="flex overflow-hidden flex-col  px-8 py-6 w-full bg-neutral-900 rounded-xl max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
           <Toaster position="top-right" reverseOrder={false} />
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-semibold">{translations.vendors.title}</h1>
             <div className="flex flex-wrap gap-2 justify-end md:justify-start">
-              <button className="bg-[#53B4AB] hover:bg-[#419189] text-black px-4 py-2 rounded-[16px] text-sm">
+              <button className="bg-[#53B4AB] hover:bg-[#419189] text-black px-4 py-2 rounded-lg text-sm">
                 {translations.vendors.total}: {totalVendors}
               </button>
-              <button className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-[16px] text-sm" onClick={() => setShowAddModal(true)}>
+              <button className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-lg text-sm" onClick={() => setShowAddModal(true)}>
                 {translations.vendors.addNew}
               </button>
             </div>
@@ -218,13 +218,13 @@ export default function Vendors() {
                       </span>
                     </td>
                     <td className="p-2">
-                      <span className={`px-2 py-1 rounded-[16px] text-black ${user.status === "active" ? "bg-green-500" : "bg-[#F58C7B]"}`}>
+                      <span className={`px-2 py-1 rounded-lg text-black ${user.status === "active" ? "bg-green-500" : "bg-[#F58C7B]"}`}>
                         {user.status}
                       </span>
                     </td>
                     <td className="p-2">{user.createdAt}</td>
                     <td className="p-2">
-                      <button  disabled={isSubmitting} onClick={(e) => handleSubmit(e, user, user.status === "active" ? "inactive" : "active")} className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-[16px]">
+                      <button  disabled={isSubmitting} onClick={(e) => handleSubmit(e, user, user.status === "active" ? "inactive" : "active")} className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-lg">
                         {user.status === "active" ? translations.vendors.actions.deactivate : translations.vendors.actions.activate}
                       </button>
                     </td>
@@ -280,7 +280,7 @@ export default function Vendors() {
           </div>
           {showAddModal && (
            <div className="fixed w-full z-20 inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-           <div className="bg-neutral-900 rounded-[18px] p-6 shadow-lg w-[600px] mx-6">
+           <div className="bg-neutral-900 rounded-xl p-6 shadow-lg w-[600px] mx-6">
              <h2 className="text-xl font-bold mb-4">{translations.vendors.modal.title}</h2>
              <Formik
                initialValues={{ name: "", email: "", mobile: "", password: "" }}
@@ -299,7 +299,7 @@ export default function Vendors() {
                        type="text"
                        name="name"
                        placeholder="Name"
-                       className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                       className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                      />
                      <ErrorMessage name="name" component="div" className="text-red-500 text-sm pt-2" />
                    </div>
@@ -308,7 +308,7 @@ export default function Vendors() {
                        type="email"
                        name="email"
                        placeholder="Email"
-                       className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                       className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                      />
                      <ErrorMessage name="email" component="div" className="text-red-500 text-sm pt-2" />
                    </div>
@@ -317,7 +317,7 @@ export default function Vendors() {
                        type="text"
                        name="mobile"
                        placeholder="Mobile"
-                       className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                       className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                      />
                      <ErrorMessage name="mobile" component="div" className="text-red-500 text-sm pt-2" />
                    </div>
@@ -326,7 +326,7 @@ export default function Vendors() {
                        type="password"
                        name="password"
                        placeholder="Password"
-                       className="w-full px-3 py-2 bg-[#444444] text-white rounded-[18px]"
+                       className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
                      />
                      <ErrorMessage name="password" component="div" className="text-red-500 text-sm pt-2" />
                    </div>
@@ -334,14 +334,14 @@ export default function Vendors() {
                      <button
                        type="button"
                        onClick={() => setShowAddModal(false)}
-                       className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-[18px] mr-2"
+                       className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-lg text-sm mr-2"
                      >
                        {translations.vendors.modal.cancel}
                      </button>
                      <button
                        type="submit"
                        disabled={isSubmitting}
-                       className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-[18px]"
+                       className="bg-[#53B4AB] hover:bg-[#479d94] text-black px-4 py-2 rounded-lg text-sm"
                      >
                        {isSubmitting ? translations.vendors.modal.adding : translations.vendors.modal.add}
                      </button>
