@@ -48,10 +48,10 @@ export default function DownloadApp() {
     <h2 className="text-2xl md:text-3xl font-bold tracking-tighter leading-8 md:leading-10 text-black">
       {translations.downloadApp.title}
     </h2>
-    <p className="mt-5 text-sm md:text-xl my-6 leading-6 md:leading-8 text-neutral-700">
+    <p className="mt-5 text-sm md:text-xl my-2 md:my-6 leading-6 md:leading-8 text-neutral-700">
       {translations.downloadApp.description}
     </p>
-    <div className="flex justify-start items-start gap-4">
+    <div className="flex justify-start items-start gap-4 py-4">
       <button
         className={`flex gap-2 justify-center text-sm items-center px-6 py-3 md:text-base font-semibold text-center text-black bg-red-400 rounded-lg min-h-[40px] md:min-h-[50px] ${
           direction === "ltr" ? "flex-row-reverse" : "flex-row"

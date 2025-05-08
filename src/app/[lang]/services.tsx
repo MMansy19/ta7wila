@@ -19,7 +19,7 @@ export default function Services() {
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 items-center py-4 px-4  lg:px-8 w-full bg-black">
-      <div className="flex flex-col flex-1 my-auto w-full basis-0 max-md:max-w-full mx-6 bg-gradient-to-b from-black to-[#161616] p-6 rounded-[120px] ">
+      <div className="flex flex-col flex-1 my-auto w-full basis-0 max-md:max-w-full mx-6 bg-gradient-to-b from-black to-[#161616] p-6 rounded-[80px] ">
         <div className="flex flex-col items-center max-w-full  ">
           <h2 className="text-2xl font-bold  text-white text-center">
             {translations.services.title}

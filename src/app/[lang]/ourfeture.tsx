@@ -8,7 +8,7 @@ export default function OurFeatures() {
   
   return (
     <div className="bg-black text-white lg:px-12 px-4">
-      <div className=" mx-auto px-4 py-10 bg-gradient-to-t from-black to-[#161616] rounded-[120px]">
+      <div className=" mx-auto px-4 py-10 bg-gradient-to-t from-black to-[#161616] rounded-[80px]">
         <motion.div  initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

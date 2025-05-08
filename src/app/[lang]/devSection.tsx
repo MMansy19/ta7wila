@@ -9,7 +9,7 @@ export default function DevPart() {
 
   return (
     <div className="lg:px-10 bg-black">
-      <div className="bg-gradient-to-b from-black to-[#161616] rounded-[50px] md:rounded-[120px] min-h-28">
+      <div className="bg-gradient-to-b from-black to-[#161616] rounded-[50px] md:rounded-[80px] min-h-28">
         <div className="p-6 xl:px-20 flex flex-col-reverse md:flex-row justify-between items-center gap-6">
 
           {/* Text Content */}
