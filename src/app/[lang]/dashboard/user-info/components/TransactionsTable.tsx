@@ -50,56 +50,64 @@ export function TransactionsTable({
             </tr>
           </thead>
           <tbody>
-            {transactions.data.map((transaction) => (
-              <tr key={transaction.id} className="border-b border-white/10">
-                <td className="px-4 py-2">{transaction.transaction_id || "#"}</td>
-                <td className="px-4 py-2">{transaction.ref_id} </td>
-                <td className="px-4 py-2">{formatCurrency(transaction.amount)} </td>
-                <td className="px-4 py-2">
-                  {formatCurrency(transaction.amount_exclude_fees)}
-                </td>
-                <td className="px-4 py-2">
-                  {formatCurrency(transaction.total_fees)}{" "}
-                </td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      transaction.status === "completed"
-                        ? "bg-[#53B4AB] bg-opacity-20 text-[#53B4AB]"
-                        : "bg-[#F58C7B] bg-opacity-20 text-[#F58C7B]"
-                    }`}
-                  >
-                    {transaction.status === "completed"
-                      ? translations.userInfo.transactions.completed
-                      : transaction.status}
-                  </span>
-                </td>
-                <td className="px-4 py-2 flex items-center gap-2">
-                  {(() => {
-                    const paymentOption = defaultPaymentOptions.find(
-                      (opt) => opt.key === transaction.payment_option.toLowerCase()
-                    );
-                    return paymentOption ? (
-                      <Image
-                        src={paymentOption.img}
-                        width={24}
-                        height={24}
-                        alt={transaction.payment_option}
-                        className="w-6 h-6 object-contain"
-                      />
-                    ) : null;
-                  })()}
-                  <span>{transaction.payment_option}</span>
-                </td>
-                <td className="px-4 py-2">
-                  {transaction.sender_name ||
-                    translations.userInfo.transactions.notAvailable}
-                </td>
-                <td className="px-4 py-2">
-                  {new Date(transaction.transaction_date).toLocaleDateString()}
+            {transactions.data.length > 0 ? (
+              transactions.data.map((transaction) => (
+                <tr key={transaction.id} className="border-b border-white/10">
+                  <td className="px-4 py-2">{transaction.transaction_id || "#"}</td>
+                  <td className="px-4 py-2">{transaction.ref_id} </td>
+                  <td className="px-4 py-2">{formatCurrency(transaction.amount)} </td>
+                  <td className="px-4 py-2">
+                    {formatCurrency(transaction.amount_exclude_fees)}
+                  </td>
+                  <td className="px-4 py-2">
+                    {formatCurrency(transaction.total_fees)}{" "}
+                  </td>
+                  <td className="px-4 py-2">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs ${
+                        transaction.status === "completed"
+                          ? "bg-[#53B4AB] bg-opacity-20 text-[#53B4AB]"
+                          : "bg-[#F58C7B] bg-opacity-20 text-[#F58C7B]"
+                      }`}
+                    >
+                      {transaction.status === "completed"
+                        ? translations.userInfo.transactions.completed
+                        : transaction.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 flex items-center gap-2">
+                    {(() => {
+                      const paymentOption = defaultPaymentOptions.find(
+                        (opt) => opt.key === transaction.payment_option.toLowerCase()
+                      );
+                      return paymentOption ? (
+                        <Image
+                          src={paymentOption.img}
+                          width={24}
+                          height={24}
+                          alt={transaction.payment_option}
+                          className="w-6 h-6 object-contain"
+                        />
+                      ) : null;
+                    })()}
+                    <span>{transaction.payment_option}</span>
+                  </td>
+                  <td className="px-4 py-2">
+                    {transaction.sender_name ||
+                      translations.userInfo.transactions.notAvailable}
+                  </td>
+                  <td className="px-4 py-2">
+                    {new Date(transaction.transaction_date).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={9} className="px-4 py-8 text-center text-gray-400">
+                  {translations.transactions.noTransactions}
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

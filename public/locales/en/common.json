@@ -259,8 +259,12 @@
     "cards": {
       "totalAmount": "Total Amount",
       "pendingAmount": "Pending Amount",
+      "total_platform_fees_amount": "Total Platform Fees Amount",
       "totalTransactions": "Total Transactions",
       "activeStores": "Active Stores",
+      "inactiveStores": "Inactive Stores",
+      "activeUsers": "Active Users",
+      "totalUsers": "Total Users",
       "totalCashback": "Total Cashback",
       "currency": "EGP",
       "time": "times",
@@ -285,6 +289,21 @@
     }
   },
   "transactions": {
+    "analysis": {
+      "title": "Transaction Analysis",
+      "stats": {
+        "title": "Statistics",
+        "totalTransactions": "Total Transactions",
+        "totalAmount": "Total Amount",
+        "totalUsers": "Total Users",
+        "totalFees": "Total Fees"
+      },
+      "dateRange": {
+        "title": "Date Range",
+        "from": "From",
+        "to": "To"
+      }
+    },
     "lastTransactions": "Latest Transactions",
     "noTransactions": "No transactions",
     "currency": "EGP",
@@ -910,7 +929,6 @@
       "enabled": "Enabled",
       "enabledDesc": "Your connection is active and working properly",
       "disabled": "Connection Disabled",
-
       "disabledDesc": "Your connection is currently disabled"
     },
     "accountInfo": {
@@ -956,6 +974,18 @@
       "senderName": "Sender Name",
       "transactionDate": "Date",
       "notAvailable": "N/A"
+    },
+    "analysis": {
+      "title": "Transaction Analysis",
+      "totalTransactions": "Total Transactions",
+      "totalAmount": "Total Amount",
+      "totalFees": "Total Fees",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "chartTitle": "Transaction Volume Over Time",
+      "noData": "No transactions data available",
+      "amount": "Amount",
+      "count": "Count"
     }
   }
 }

@@ -258,8 +258,12 @@ export type TranslationKeys = {
     cards: {
       totalAmount: string;
       pendingAmount: string;
+      total_platform_fees_amount: string;
       totalTransactions: string;
       activeStores: string;
+      inactiveStores: string;
+      totalUsers: string;
+      totalVendors: string;
       totalCashback: string;
       currency: string;
       time: string;
@@ -281,9 +285,22 @@ export type TranslationKeys = {
     devMode: {
       switchTo: string;
       backTo: string;
-    };
-  };
+    };  };
   transactions: {
+    analysis: {
+      title: string;
+      stats: {
+        title: string;
+        totalTransactions: string;
+        totalAmount: string;
+        totalFees: string;
+      };
+      dateRange: {
+        title: string;
+        from: string;
+        to: string;
+      };
+    };
     lastTransactions: string;
     noTransactions: string;
     currency: string;

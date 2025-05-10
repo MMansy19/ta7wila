@@ -257,8 +257,12 @@
     "cards": {
       "totalAmount": "المبلغ الإجمالي",
       "pendingAmount": "المبلغ المعلق",
+      "total_platform_fees_amount": "إجمالي رسوم المنصة",
       "totalTransactions": "إجمالي المعاملات",
       "activeStores": "المتاجر النشطة",
+      "inactiveStores": "المتاجر غير النشطة",
+      "totalUsers": "إجمالي المستخدمين",
+      "activeUsers": "المستخدمين النشطين",
       "totalCashback": "إجمالي الكاش باك",
       "currency": "ج.م.",
       "time": "مرة",
@@ -281,8 +285,22 @@
       "switchTo": "التبديل إلى وضع المطور",
       "backTo": "العودة إلى وضع المستخدم"
     }
-  },
-  "transactions": {
+  },  "transactions": {
+    "analysis": {
+      "title": "تحليل المعاملات",
+      "stats": {
+        "title": "الإحصائيات",
+        "totalTransactions": "إجمالي المعاملات",
+        "totalAmount": "المبلغ الإجمالي",
+        "totalUsers":"إجمالي المستخدمين",
+        "totalFees": "إجمالي الرسوم"
+      },
+      "dateRange": {
+        "title": "النطاق الزمني",
+        "from": "من",
+        "to": "إلى"
+      }
+    },
     "lastTransactions": "آخر المعاملات",
     "noTransactions": "لا توجد معاملات",
     "currency": "ج.م.",

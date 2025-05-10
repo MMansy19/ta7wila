@@ -5,6 +5,8 @@ import { faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import TransactionAnalysisChart from "../../analytics/TransactionAnalysisChart.new";
 import getAuthHeaders from "../../Shared/getAuth";
 import useCurrency from "../../Shared/useCurrency";
 import { AccountInfo } from "../components/AccountInfo";
@@ -26,6 +28,10 @@ export default function UserInfoClient({ id }: { id: string }) {
   const translations = useTranslation();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const formatCurrency = useCurrency();
+  const [analysisData, setAnalysisData] = useState<any>(null);
+  const [period, setPeriod] = useState<"weekly" | "monthly">("weekly");
+  const [error, setError] = useState<string | null>(null);
+  const [isAnalysisLoading, setIsAnalysisLoading] = useState(false);
 
   async function fetchUserInfo() {
     const response = await axios.get(`${apiUrl}/users/${id}`, {
@@ -36,7 +42,7 @@ export default function UserInfoClient({ id }: { id: string }) {
 
   const {
     data: user,
-    error,
+    error: userError,
     isLoading,
   } = useQuery<UserData & { applications: Application[] }, Error>({
     queryKey: ["user-info", id],
@@ -46,8 +52,38 @@ export default function UserInfoClient({ id }: { id: string }) {
     refetchOnWindowFocus: false,
   });
 
+  useEffect(() => {
+    async function fetchAnalysisData() {
+      if (!user?.user?.id) return;
+
+      setIsAnalysisLoading(true);
+      try {
+        const response = await axios.get(`${apiUrl}/transactions/analysis`, {
+          params: {
+            period: period,
+            timeframe: "year",
+            user_id: user.user.id,
+          },
+          headers: getAuthHeaders(),
+        });
+        if (response.data.success) {
+          setAnalysisData(response.data);
+        } else {
+          setError("Failed to fetch analysis data");
+        }
+      } catch (err) {
+        setError("An error occurred while fetching data");
+        console.error("Analysis data fetch error:", err);
+      } finally {
+        setIsAnalysisLoading(false);
+      }
+    }
+
+    fetchAnalysisData();
+  }, [period, user?.user?.id, apiUrl]);
+
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading user information</div>;
+  if (userError) return <div>Error loading user information</div>;
   if (!user) return <div>No data found</div>;
 
   return (
@@ -89,7 +125,10 @@ export default function UserInfoClient({ id }: { id: string }) {
           <div className="flex gap-2 mt-2">
             <div className="group flex items-center gap-3 p-2.5">
               <div className="w-8 h-8 flex items-center justify-center bg-purple-400/20 rounded-lg group-hover:bg-purple-400/30 transition-colors">
-                <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4 text-purple-300/80 group-hover:text-purple-200" />
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="w-4 h-4 text-purple-300/80 group-hover:text-purple-200"
+                />
               </div>
               <span className="text-neutral-300 font-medium tracking-wide">
                 {user.user.email}
@@ -98,13 +137,19 @@ export default function UserInfoClient({ id }: { id: string }) {
 
             <div className="group flex items-center gap-3 p-2.5">
               <div className="w-8 h-8 flex items-center justify-center bg-blue-400/20 rounded-lg group-hover:bg-blue-400/30 transition-colors">
-                <FontAwesomeIcon icon={faPhone} className="w-4 h-4 text-blue-300/80 group-hover:text-blue-200" />
+                <FontAwesomeIcon
+                  icon={faPhone}
+                  className="w-4 h-4 text-blue-300/80 group-hover:text-blue-200"
+                />
               </div>
-              <span className="text-neutral-300 font-medium tracking-wide"  style={{
-                          direction: "ltr",
-                          textAlign: "left",
-                          display: "inline-block",
-                        }}>
+              <span
+                className="text-neutral-300 font-medium tracking-wide"
+                style={{
+                  direction: "ltr",
+                  textAlign: "left",
+                  display: "inline-block",
+                }}
+              >
                 {user.user.mobile}
               </span>
             </div>
@@ -113,31 +158,80 @@ export default function UserInfoClient({ id }: { id: string }) {
       </div>
 
       <UserStatusInfo user={user.user} translations={translations} />
-      
+
+      {error ? (
+        <div className="bg-red-400/20 text-red-300 p-4 rounded-lg">{error}</div>
+      ) : (
+        <div className="relative">
+          {isAnalysisLoading && (
+            <div className="absolute inset-0 bg-neutral-900/50 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+            </div>
+          )}
+          <div className="bg-neutral-900 rounded-xl p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold">
+                {translations.transactions.analysis.title}
+              </h3>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setPeriod("weekly")}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    period === "weekly"
+                      ? "bg-[#53B4AB] text-black"
+                      : "bg-neutral-800 text-white hover:bg-neutral-700"
+                  }`}
+                >
+                  Weekly
+                </button>
+                <button
+                  onClick={() => setPeriod("monthly")}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    period === "monthly"
+                      ? "bg-[#53B4AB] text-black"
+                      : "bg-neutral-800 text-white hover:bg-neutral-700"
+                  }`}
+                >
+                  Monthly
+                </button>
+              </div>
+            </div>
+            <TransactionAnalysisChart
+              data={analysisData?.data || []}
+              timeframe={period}
+              period={analysisData?.period || "current"}
+              dateRange={{
+                start:
+                  analysisData?.dateRange?.start || new Date().toISOString(),
+                end: analysisData?.dateRange?.end || new Date().toISOString(),
+              }}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <AccountInfo user={user.user} translations={translations} />
-        <SubscriptionInfo 
-          subscription={user.subscription} 
+        <SubscriptionInfo
+          subscription={user.subscription}
           translations={translations}
           formatCurrency={formatCurrency}
         />
       </div>
 
       {user.applications && (
-        <ApplicationsTable 
+        <ApplicationsTable
           applications={user.applications}
           translations={translations}
         />
       )}
 
-      <TransactionsTable 
+      <TransactionsTable
         transactions={user.transactions}
         translations={translations}
         formatCurrency={formatCurrency}
         defaultPaymentOptions={defaultPaymentOptions}
       />
-
-     
     </div>
   );
 }
