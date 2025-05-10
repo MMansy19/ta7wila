@@ -34,7 +34,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/profile`, {
         headers: getAuthHeaders(),
       });
-      setProfile(response.data.result);
+      setProfile(response.data.result.profile);
     } catch (error) {
       console.error("Failed to fetch profile:", error);
     }

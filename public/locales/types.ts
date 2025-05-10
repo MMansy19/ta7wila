@@ -913,7 +913,9 @@ export type TranslationKeys = {
       type: string;
       status: string;
       monthly: string;
+      upgradeNow: string;
       yearly: string;
+      choosePlan: string;
       applicationsCount: string;
       employeesCount: string;
       vendorsCount: string;
@@ -940,6 +942,18 @@ export type TranslationKeys = {
       senderName: string;
       transactionDate: string;
       notAvailable: string;
+    };
+  };
+  applications: {
+    title: string;
+    noApplications: string;
+    website: string;
+    paymentOptions: string;
+    activePaymentMethods: string;
+    public: string;
+    status: {
+      active: string;
+      inactive: string;
     };
   };
 };

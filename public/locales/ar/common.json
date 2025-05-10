@@ -90,7 +90,9 @@
     "inactive": "غير نشط",
     "statusUpdated": "تم تحديث الحالة",
     "selectType": "اختر النوع",
-    "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذا العنصر؟"
+    "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "previous": "السابق",
+    "next": "التالي"
   },
   "verification": {
     "stepTitles": {
@@ -697,6 +699,18 @@
       "manualCheck": "التحقق اليدوي من المعاملات"
     }
   },
+  "applications": {
+    "title": "التطبيقات",
+    "noApplications": "لا توجد تطبيقات",
+    "website": "الموقع الإلكتروني",
+    "paymentOptions": "خيارات الدفع",
+    "activePaymentMethods": "طرق الدفع النشطة",
+    "public": "عام",
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    }
+  },
   "plans": {
     "title": "اختر خطتك",
     "perMonth": "/ شهريًا",
@@ -888,10 +902,13 @@
       "inactive": "غير مفعل"
     },
     "connection": {
-      "enabled": "مفعل",
-      "disabled": "غير مفعل",
-      "enabledDesc": "المستخدم متصل الان ويمكنه اجراء المعاملات واستقبال الاشعارات من التطبيق",
-      "disabledDesc": "المستخدم غير متصل الان ولا يمكنه اجراء المعاملات واستقبال الاشعارات من التطبيق"
+      "loading": "جاري التحميل...",
+      "enable": "تفعيل",
+      "disable": "تعطيل",
+      "enabledDesc": "الاتصال نشط ويعمل بشكل صحيح",
+      "disabled": "الاتصال معطل",
+      "enabled": "الاتصال مفعل",
+      "disabledDesc": "الاتصال الخاص  معطل حالياً"
     },
     "accountInfo": {
       "title": "بيانات الحساب",
@@ -908,6 +925,8 @@
       "status": "الحالة",
       "monthly": "شهري",
       "yearly": "سنوي",
+      "upgradeNow": "قم بالترقية الآن",
+      "choosePlan": "اختر خطة",
       "applicationsCount": "التطبيقات",
       "employeesCount": "الموظفين",
       "vendorsCount": "الموردين",

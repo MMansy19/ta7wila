@@ -92,7 +92,9 @@
     "noData": "No Data",
     "statusUpdated": "Status Updated",
     "selectType": "Select Type",
-    "confirmDeleteMessage": "Are you sure you want to delete this?"
+    "confirmDeleteMessage": "Are you sure you want to delete this?",
+    "previous": "Previous",
+    "next": "Next"
   },
   "verification": {
     "stepTitles": {
@@ -321,7 +323,6 @@
     "title": "Users",
     "user": "User",
     "admin": "Admin",
-   
     "total": "Total Users",
     "search": {
       "placeholder": "Search users..."
@@ -700,6 +701,18 @@
       "manualCheck": "Manual Transaction Check"
     }
   },
+  "applications": {
+    "title": "Applications",
+    "noApplications": "No applications found",
+    "website": "Website",
+    "paymentOptions": "Payment Options",
+    "activePaymentMethods": "Active Payment Methods",
+    "public": "Public",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
   "plans": {
     "title": "Choose Your Plan",
     "perMonth": "/month",
@@ -891,10 +904,14 @@
       "inactive": "Inactive"
     },
     "connection": {
+      "loading": "Loading...",
+      "enable": "Enable",
+      "disable": "Disable",
       "enabled": "Enabled",
-      "disabled": "Disabled",
-      "enabledDesc": "User is currently connected and can perform transactions and receive notifications from the app",
-      "disabledDesc": "User is currently disconnected and cannot perform transactions or receive notifications from the app"
+      "enabledDesc": "Your connection is active and working properly",
+      "disabled": "Connection Disabled",
+
+      "disabledDesc": "Your connection is currently disabled"
     },
     "accountInfo": {
       "title": "Account Information",
@@ -908,6 +925,8 @@
       "description": "Description",
       "amount": "Amount",
       "type": "Subscription Type",
+      "upgradeNow": "Upgrade Now",
+      "choosePlan": "Choose Your Plan",
       "status": "Status",
       "monthly": "Monthly",
       "yearly": "Yearly",

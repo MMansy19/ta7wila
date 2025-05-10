@@ -56,21 +56,72 @@ export interface User {
   updated_at: string;
 }
 
-
-
 export interface UserData {
-  name: string;
-  email: string;
-  mobile: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    mobile: string;
+    user_type: string;
+    status: "active" | "inactive";
+    is_transactions_enabled: boolean;
+    created_at: string;
+    updated_at: string;
+  };
+  subscription?: {
+    id: string;
+    title: string;
+    amount: number;
+    status: "active" | "inactive";
+    subscription_type: "monthly" | "yearly";
+    applications_count: number;
+    max_applications_count: number;
+    created_at: string;
+    updated_at: string;
+  };
+  transactions: {
+    data: Array<{
+      id: string;
+      transaction_id: string;
+      ref_id: string;
+      amount: number;
+      amount_exclude_fees: number;
+      total_fees: number;
+      status: "completed" | "pending" | "failed";
+      payment_option: string;
+      sender_name?: string;
+      transaction_date: string;
+    }>;
+  };
+}
+
+export interface Payment {
+  id: number;
+  value: string;
+  max_daily_transactions_amount: number;
+  max_monthly_transactions_amount: number;
+  ref_id: string;
+  is_public: boolean;
   status: 'active' | 'inactive';
-  username: string;
-  user : User;
-  user_type: 'user' | 'developer';
-  is_transactions_enabled: boolean;
+  payment_option: string;
   created_at: string;
   updated_at: string;
-  subscription: Subscription;
-  transactions: {
-    data: Transaction[];
-  };
+  application_id: number;
+  user_id: number;
+}
+
+export interface Application {
+  payment_options: string[];
+  id: number;
+  name: string;
+  subdomain: string;
+  logo: string | null;
+  mobile: string;
+  website: string;
+  email: string;
+  status: 'active' | 'inactive';
+  created_at: string;
+  updated_at: string;
+  vendor_id: number;
+  payments: Payment[];
 }
