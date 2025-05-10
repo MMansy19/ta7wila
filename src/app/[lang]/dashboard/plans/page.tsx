@@ -18,10 +18,6 @@ export default function Plans() {
   const router = useRouter();
   const formatCurrency = useCurrency();
 
-
-  
-
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -65,8 +61,6 @@ export default function Plans() {
           name: url.searchParams.get("name") || "",
         };
 
-        console.log(new URLSearchParams(params).toString());
-
         router.push(
           `/dashboard/payment-confirmation?${new URLSearchParams(params).toString()}`
         );
@@ -96,7 +90,9 @@ export default function Plans() {
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
                 <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-4xl font-bold">{formatCurrency(plan.amount)}</span>
+                  <span className="text-4xl font-bold">
+                    {formatCurrency(plan.amount)}
+                  </span>
                   <span className="text-lg opacity-80">
                     {translations.plans.perMonth}
                   </span>
@@ -121,7 +117,8 @@ export default function Plans() {
                         />
                       </svg>
                       <span className="font-bold">
-                      {plan.applications_count} {translations.plans.applications}
+                        {plan.applications_count}{" "}
+                        {translations.plans.applications}
                       </span>
                     </li>
                     <li className="flex items-center">

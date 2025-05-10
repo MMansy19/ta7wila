@@ -13,6 +13,9 @@ import Image from "next/image";
 import axios from "axios";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
 import { useTranslation } from "@/context/translation-context";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
 
 interface FilePreview {
   file: File;
@@ -24,8 +27,9 @@ export default function VerificationSteps() {
   const [frontDoc, setFrontDoc] = useState<FilePreview | null>(null);
   const [backDoc, setBackDoc] = useState<FilePreview | null>(null);
   const [selfieDoc, setSelfieDoc] = useState<FilePreview | null>(null);
-
+const router = useRouter();
   const translation = useTranslation();
+
 
   const steps = [
     {
@@ -95,11 +99,21 @@ export default function VerificationSteps() {
         }
       );
 
+       const pathSegments = window.location.pathname.split("/");
+      const locale = pathSegments[1] || "en";
+
       if (response.status === 200) {
         setActiveStep((prev) => prev + 1);
+        router.push(`/${locale}/dashboard/plans`);
       }
-    } catch (error) {
-      console.error("Error submitting verification:", error);
+    } catch (err) {
+      console.error("Error submitting verification:", err);
+       toast.error(
+        err instanceof Error
+          ? err.message
+          : "An error occurred while submitting the verification."
+      );
+      
     }
   };
 
@@ -336,7 +350,7 @@ export default function VerificationSteps() {
         return (
           <div className="py-12 text-center">
             <div className="max-w-md mx-auto">
-              <h2 className="text-xl font-semibold mb-6">
+              <h2 className="text-xl font-semibold mb-6 text-white">
                 {translation.verification.liveSelfie}
               </h2>
               <div className="relative w-48 h-48 mx-auto mb-8">

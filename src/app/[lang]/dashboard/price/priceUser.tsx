@@ -2,18 +2,22 @@
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import Plans from "../plans/page";
 import getAuthHeaders from "../Shared/getAuth";
-import { Plan } from "./types";
 import useCurrency from "../Shared/useCurrency";
+import { Plan } from "./types";
 
 export default function PriceUser() {
   const translations = useTranslation();
-  const [plans, setPlans] = useState<Plan[]>([]);
   const [currentPlan, setCurrentPlan] = useState<Plan | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [subscribingPlanId, setSubscribingPlanId] = useState<number | null>(
+    null
+  );
+  const router = useRouter();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
@@ -26,10 +30,14 @@ export default function PriceUser() {
 
         if (subscriptionResponse.data.success) {
           setCurrentPlan(subscriptionResponse.data.result);
+          setSubscribingPlanId(subscriptionResponse.data.result.plan_id);
         }
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response?.status === 422 && 
-            error.response?.data?.errorMessage === "Subscription not found") {
+        if (
+          axios.isAxiosError(error) &&
+          error.response?.status === 422 &&
+          error.response?.data?.errorMessage === "Subscription not found"
+        ) {
           setCurrentPlan(null);
         } else {
           console.error("Error fetching subscription data:", error);
@@ -42,6 +50,39 @@ export default function PriceUser() {
     fetchData();
   }, [apiUrl]);
 
+  const handleSubscribe = async () => {
+    try {
+      const response = await axios.post(
+        `${apiUrl}/subscriptions/${subscribingPlanId}/subscribe`,
+        {},
+        {
+          headers: {
+            ...getAuthHeaders(),
+          },
+        }
+      );
+
+      if (response.data.success == true) {
+        console.log(response.data);
+        const iframeUrl = response.data.result.redirect_iframe_url;
+        const url = new URL(iframeUrl);
+        const params = {
+          amount: url.searchParams.get("amount") || "",
+          ref_id: url.searchParams.get("ref_id") || "",
+          name: url.searchParams.get("name") || "",
+        };
+
+        router.push(
+          `/dashboard/payment-confirmation?${new URLSearchParams(params).toString()}`
+        );
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.errorMessage || "An error occurred");
+    } finally {
+      setSubscribingPlanId(null);
+    }
+  };
+
   if (isLoading) {
     return <div>{translations.price.loading}</div>;
   }
@@ -49,7 +90,10 @@ export default function PriceUser() {
   return (
     <>
       {currentPlan ? (
-        <SubscriptionDetails currentPlan={currentPlan} />
+        <SubscriptionDetails
+          currentPlan={currentPlan}
+          handleSubscribe={handleSubscribe}
+        />
       ) : (
         <Plans />
       )}
@@ -57,7 +101,13 @@ export default function PriceUser() {
   );
 }
 
-function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
+function SubscriptionDetails({
+  currentPlan,
+  handleSubscribe,
+}: {
+  currentPlan: Plan;
+  handleSubscribe: (planId: number) => Promise<void>;
+}) {
   const translations = useTranslation();
   const formatCurrency = useCurrency();
 
@@ -82,7 +132,7 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
               </div>
               <div className="flex items-baseline gap-2 mb-6">
                 <span className="text-5xl font-bold">
-                   {formatCurrency(currentPlan.amount)}
+                  {formatCurrency(currentPlan.amount)}
                 </span>
                 <span className="text-lg text-gray-400">
                   {translations.price.perMonth}
@@ -99,8 +149,11 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                     {translations.price.suspensionWarning}
                   </p>
                 </div>
-              </div>
-              <button className="w-full mt-6 py-4 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]">
+              </div>{" "}
+              <button
+                onClick={() => handleSubscribe(currentPlan.id)}
+                className="w-full mt-6 py-4 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]"
+              >
                 {translations.price.payNow}
               </button>
             </div>
@@ -131,9 +184,12 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                   </div>
                   <div>
                     <p className="font-semibold">
-                      {currentPlan.applications_count} / {currentPlan.max_applications_count}
+                      {currentPlan.applications_count} /{" "}
+                      {currentPlan.max_applications_count}
                     </p>
-                    <p className="text-sm opacity-80">{translations.price.applications}</p>
+                    <p className="text-sm opacity-80">
+                      {translations.price.applications}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -155,9 +211,12 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                   </div>
                   <div>
                     <p className="font-semibold">
-                      {currentPlan.employees_count} / {currentPlan.max_employees_count}
+                      {currentPlan.employees_count} /{" "}
+                      {currentPlan.max_employees_count}
                     </p>
-                    <p className="text-sm opacity-80">{translations.price.employees}</p>
+                    <p className="text-sm opacity-80">
+                      {translations.price.employees}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -179,9 +238,12 @@ function SubscriptionDetails({ currentPlan }: { currentPlan: Plan }) {
                   </div>
                   <div>
                     <p className="font-semibold">
-                      {currentPlan.vendors_count} / {currentPlan.max_vendors_count}
+                      {currentPlan.vendors_count} /{" "}
+                      {currentPlan.max_vendors_count}
                     </p>
-                    <p className="text-sm opacity-80">{translations.price.vendors}</p>
+                    <p className="text-sm opacity-80">
+                      {translations.price.vendors}
+                    </p>
                   </div>
                 </div>
               </div>

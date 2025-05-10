@@ -28,7 +28,6 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
   const router = useRouter();
   const translations = useTranslation();
 
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -54,23 +53,29 @@ const LoginForm: React.FC<{ onSwitchToRegister: () => void }> = ({
 
       const data = response.data;
       if (response.status !== 200) {
-        throw new Error(data.errorMessage || translations.auth.toast.unexpectedError);
+        throw new Error(
+          data.errorMessage || translations.auth.toast.unexpectedError
+        );
       }
 
-     setCookie("token", data?.result?.token);
-     
+      setCookie("token", data?.result?.token);
+
       toast.success(translations.auth.toast.loginSuccess);
 
+      const pathSegments = window.location.pathname.split("/");
+      const locale = pathSegments[1] || "en";
 
-      const pathSegments = window.location.pathname.split('/');
-      const locale = pathSegments[1] || 'en';
-  
       // Redirect with locale
-      router.push(`/${locale}/dashboard`);
-      
+      if (data?.result?.identity === null) {
+        router.push(`/${locale}/verfication-steps`);
+      } else {
+        router.push(`/${locale}/dashboard`);
+      }
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : translations.auth.toast.unexpectedError
+        err instanceof Error
+          ? err.message
+          : translations.auth.toast.unexpectedError
       );
     }
   };
@@ -253,7 +258,9 @@ const RegisterForm: React.FC<{ onSwitchToLogin: () => void }> = ({
       toast.success(translations.auth.toast.registerSuccess);
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : translations.auth.toast.unexpectedError
+        err instanceof Error
+          ? err.message
+          : translations.auth.toast.unexpectedError
       );
     }
   };
@@ -376,7 +383,7 @@ const RegisterForm: React.FC<{ onSwitchToLogin: () => void }> = ({
 
               <div className="relative mb-4 mt-3">
                 <label htmlFor="confirmPassword" className="block text-sm mb-2">
-                {translations.auth.confirmPassword}
+                  {translations.auth.confirmPassword}
                 </label>
                 <div className="relative">
                   <Field
