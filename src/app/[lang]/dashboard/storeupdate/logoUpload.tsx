@@ -8,7 +8,6 @@ import getAuthHeaders from "../Shared/getAuth";
 import { Params } from "./types";
 
 
-
 export default function UploadLogo({ params, logo }: { params: Params; logo: string | null }) {
   const translations = useTranslation();
   const [logoPreview, setLogoPreview] = useState<string | undefined>(undefined);
@@ -68,20 +67,43 @@ export default function UploadLogo({ params, logo }: { params: Params; logo: str
             "Content-Type": "multipart/form-data",
           },
         }
-
-
       );
       if (response.status === 200) {
         toast.success("Logo uploaded successfully!");
       } else {
         toast.error("Failed to upload logo.");
       }
-    } catch (error) {
-      toast.error("An error occurred during logo upload.");
+    } catch (error: unknown) {
+      let errorMessage = translations.errors?.developerMode || "An error occurred during logo upload.";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setUploadingLogo(false);
     }
   };
+
   return (
     <div className="justify-center text-center items-center mb-2">
       <h3 className="text-lg font-semibold mb-3">{translations.storeUpdate.logoUpload.updateLogo}</h3>

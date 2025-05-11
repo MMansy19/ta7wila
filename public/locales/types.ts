@@ -9,6 +9,7 @@ export type TranslationKeys = {
     about: string;
     home: string;
     tryFree: string;
+    dashboard: string;
     howItWorks: string;
   };
   whatispayment:any;

@@ -241,8 +241,26 @@ export default function PaymentService({
       setLoading(false);
     }
   };
-
-  if (error) return <div className="text-red-500">Error: {error}</div>;
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-neutral-900">
+        <div className="text-center p-8 rounded-lg bg-neutral-800">
+          <div className="text-red-500 text-xl mb-4">
+           An error occurred
+          </div>          <div className="text-white/70 mb-4">{error}</div>
+          <button
+            onClick={() => {
+              setError(null);
+              fetchStores();
+            }}
+            className="bg-[#53B4AB] hover:bg-[#347871] text-black px-6 py-2 rounded-lg"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

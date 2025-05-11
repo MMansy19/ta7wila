@@ -1,7 +1,7 @@
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
-import { toast } from "react-hot-toast";
 import axios from "axios";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import getAuthHeaders from "../app/[lang]/dashboard/Shared/getAuth";
 
 interface WiFiContextType {
@@ -24,13 +24,37 @@ export const WiFiProvider = ({ children }: { children: ReactNode }) => {
       );
 
       if (response.data.success) {
-        setIsWiFiEnabled(!isWiFiEnabled); // Toggle locally
+        setIsWiFiEnabled(!isWiFiEnabled);
         toast.success(
           !isWiFiEnabled ? "WiFi enabled" : "WiFi disabled"
         );
       }
-    } catch (error) {
-      toast.error("Failed to toggle WiFi");
+    } catch (error: unknown) {
+      let errorMessage = "An unknown error occurred.";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error("Failed to toggle WiFi: " + errorMessage);
     }
   };
 

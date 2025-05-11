@@ -31,7 +31,7 @@ export default function Plans() {
         setPlans(sortedPlans);
         console.log(plansResponse);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error(" fetching data:", error);
       }
     };
 

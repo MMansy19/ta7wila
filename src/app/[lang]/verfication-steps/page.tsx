@@ -1,21 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent, use } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "@/context/translation-context";
 import {
-  faCheckCircle,
-  faCameraAlt,
-  faCloudUpload,
   faArrowLeft,
   faArrowRight,
+  faCameraAlt,
+  faCheckCircle,
+  faCloudUpload,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import getAuthHeaders from "../dashboard/Shared/getAuth";
-import { useTranslation } from "@/context/translation-context";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
+import getAuthHeaders from "../dashboard/Shared/getAuth";
 
 interface FilePreview {
   file: File;
@@ -27,9 +26,8 @@ export default function VerificationSteps() {
   const [frontDoc, setFrontDoc] = useState<FilePreview | null>(null);
   const [backDoc, setBackDoc] = useState<FilePreview | null>(null);
   const [selfieDoc, setSelfieDoc] = useState<FilePreview | null>(null);
-const router = useRouter();
+  const router = useRouter();
   const translation = useTranslation();
-
 
   const steps = [
     {
@@ -99,21 +97,40 @@ const router = useRouter();
         }
       );
 
-       const pathSegments = window.location.pathname.split("/");
+      const pathSegments = window.location.pathname.split("/");
       const locale = pathSegments[1] || "en";
 
       if (response.status === 200) {
         setActiveStep((prev) => prev + 1);
         router.push(`/${locale}/dashboard/plans`);
       }
-    } catch (err) {
-      console.error("Error submitting verification:", err);
-       toast.error(
-        err instanceof Error
-          ? err.message
-          : "An error occurred while submitting the verification."
-      );
-      
+    } catch (error: unknown) {
+      console.error("Error submitting verification:", error);
+      let errorMessage = "An error occurred while submitting the verification.";
+
+      if (error && typeof error === "object" && "response" in error) {
+        const err = error as {
+          response: {
+            data?: {
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          };
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     }
   };
 

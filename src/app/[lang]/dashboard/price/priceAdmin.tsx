@@ -3,11 +3,12 @@ import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import FormField from "../Shared/FormField";
 import getAuthHeaders from "../Shared/getAuth";
-import { Plan } from "./types";
 import useCurrency from "../Shared/useCurrency";
+import { Plan } from "./types";
 
 export default function AdminPlans() {
   const translations = useTranslation();
@@ -18,6 +19,22 @@ export default function AdminPlans() {
   const formatCurrency = useCurrency();
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+  const handleError = (error: unknown) => {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data?.errorMessage) {
+        toast.error(error.response.data.errorMessage);
+      } else if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else if (error.response?.status === 401) {
+        toast.error(translations.common.errorOccurred || "Unauthorized access");
+      } else {
+        toast.error(translations.common.errorOccurred);
+      }
+    } else {
+      toast.error(translations.common.errorOccurred);
+    }
+  };
 
   // Validation schema
   const validationSchema = Yup.object().shape({
@@ -89,7 +106,7 @@ export default function AdminPlans() {
         )
       );
     } catch (error) {
-      console.error("Error fetching plans:", error);
+      handleError(error);
     }
   };
 
@@ -102,10 +119,11 @@ export default function AdminPlans() {
       await axios.post(`${apiUrl}/plans/add`, planToAdd, {
         headers: getAuthHeaders(),
       });
+      toast.success(translations.common.createdSuccessfully);
       fetchPlans();
       setShowAddModal(false);
     } catch (error) {
-      console.error("Error adding plan:", error);
+      handleError(error);
     }
   };
 
@@ -122,10 +140,11 @@ export default function AdminPlans() {
       await axios.post(`${apiUrl}/plans/update`, planToUpdate, {
         headers: getAuthHeaders(),
       });
+      toast.success(translations.common.updatedSuccessfully);
       fetchPlans();
       setEditingPlan(null);
     } catch (error) {
-      console.error("Error updating plan:", error);
+      handleError(error);
     }
   };
 
@@ -138,14 +157,15 @@ export default function AdminPlans() {
           headers: getAuthHeaders(),
         }
       );
+      toast.success(translations.common.deletedSuccessfully);
       fetchPlans();
     } catch (error) {
-      console.error("Error deleting plan:", error);
+      handleError(error);
     }
   };
-
   return (
     <div className="grid">
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="flex overflow-hidden flex-col px-8 py-6 w-full bg-neutral-900 rounded-xl max-md:max-w-full text-white min-h-[calc(100vh-73px)]">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold mb-4">

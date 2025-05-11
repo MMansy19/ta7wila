@@ -1,5 +1,6 @@
 "use client";
 
+import { useProfile } from "@/context/ProfileContext";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -8,7 +9,6 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../Shared/getAuth";
-import { useProfile } from "@/context/ProfileContext";
 interface User {
   id: number;
   name: string;
@@ -71,11 +71,32 @@ export default function Vendors() {
         prevUsers.map((u) =>
           u.id === user.id ? { ...u, status: newStatus } : u
         )
-      );
-    } catch (err: any) {
-      const message =
-        err.response?.data?.message || "An error occurred while updating the status.";
-      toast.error(message);
+      );    } catch (error: unknown) {
+      let errorMessage = "An error occurred while updating the status.";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -146,11 +167,32 @@ export default function Vendors() {
       );
       toast.success("Vendor added successfully!");
       setShowAddModal(false);
-      fetchUsers(currentPage);
-    } catch (err: any) {
-      const message =
-        err.response?.data?.errorMessage || "An error occurred while adding the vendor.";
-      toast.error(message);
+      fetchUsers(currentPage);    } catch (error: unknown) {
+      let errorMessage = "An error occurred while adding the vendor.";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     }finally{
       setIsSubmitting(false)
     }

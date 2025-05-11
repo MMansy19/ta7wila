@@ -4,6 +4,7 @@ import NavigationLink from "@/components/[lang]/NavigationLink";
 import ActionButton from "@/components/[lang]/ui/landingbtn";
 import { useTranslation } from "@/context/translation-context";
 import { Locale } from "@/i18n-config";
+import { getCookie } from "cookies-next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
       const [menuOpen, setMenuOpen] = useState(false);
       const [activeSection, setActiveSection] = useState("#home");
       const [mounted, setMounted] = useState(false);
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
       const navigationItems = [
         { translationKey: "home", href: "#home" },
         { translationKey: "about", href: "#about" },
@@ -25,18 +27,20 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
     
       useEffect(() => {
         setMounted(true);
+        const token = getCookie("token");
+        setIsLoggedIn(!!token);
+
         const sections = navigationItems.map(({ href }) =>
           document.querySelector(href)
         );
     
         const observer = new IntersectionObserver(
-          (entries) => {
+          (entries: IntersectionObserverEntry[]) => {
             const visibleSection = entries.find((entry) => entry.isIntersecting);
             if (visibleSection) {
               setActiveSection(`#${visibleSection.target.id}`);
             }
-          },
-          { threshold: 0.5 }
+          }
         );
     
         sections.forEach((section) => {
@@ -44,7 +48,8 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
         });
     
         return () => observer.disconnect();
-      }, []);
+      }, [navigationItems]);
+
     return(
         <>
         <nav
@@ -52,7 +57,7 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
         >
           <div className="flex items-center gap-2">
             <button
-              className="block md:hidden  text-xl px-4 py-2 rounded-lg  font-bold text-[#53B4AB] bg-neutral-900"
+              className="block md:hidden text-xl px-4 py-2 rounded-lg font-bold text-[#53B4AB] bg-neutral-900"
               onClick={() => setMenuOpen((prev) => !prev)}
             >
               <svg
@@ -81,15 +86,15 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
               </svg>
             </button>
             
-            <Link href="/login">
-              <ActionButton text={translations.navigation.tryFree}  />
+            <Link href={isLoggedIn ? `/${lang}/dashboard` : "/login"}>
+              <ActionButton text={isLoggedIn ? translations.navigation.dashboard : translations.navigation.tryFree} />
             </Link>
             <div className="text-[#53B4AB]">
             <LocaleSwitcher currentLang={lang}  />
             </div>
           </div>
 
-          <div className="hidden md:flex  gap-4 items-center">
+          <div className="hidden md:flex gap-4 items-center">
             {navigationItems.map(({ translationKey, href }) => (
               <NavigationLink
                 key={href}
@@ -111,7 +116,7 @@ export default function Navbar({ lang, bgColor}: { lang: Locale;bgColor: string;
           />
         </nav>
         {menuOpen && (
-          <ul className="flex flex-col-reverse md:hidden text-right z-10 bg-black bg-opacity-80 text-white fixed w-full  px-4  pt-16">
+          <ul className="flex flex-col-reverse md:hidden text-right z-10 bg-black bg-opacity-80 text-white fixed w-full px-4 pt-16">
             {navigationItems.map((item, index) => (
               <li key={index}>
                 <NavigationLink {...item} translations={translations} />

@@ -361,7 +361,7 @@ const SidebarHeader = React.forwardRef<
   React.ComponentProps<"div">
 >(({ className, ...props }, ref) => {
   return (
-    <Link href='/dashboard'>
+    <Link href='/'>
     <div
       ref={ref}
       data-sidebar="header"

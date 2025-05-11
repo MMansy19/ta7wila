@@ -7,9 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../Shared/getAuth";
 
-
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
 
 interface User {
   id: number;
@@ -19,7 +17,6 @@ interface User {
   email: string;
   [key: string]: any;
 }
-
 
 interface PasswordChangeValues {
   currentPassword: string;
@@ -31,8 +28,8 @@ export default function Settings() {
   const [user, setUser] = useState<User | null>(null);
   const translations = useTranslation();
   const [token, setToken] = useState<string>("");
-
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const validationSchema = Yup.object({
     username: Yup.string().required(translations.auth.validation.nameRequired),
@@ -51,70 +48,91 @@ export default function Settings() {
       .required(translations.auth.forgetPassword.validation.confirmPasswordRequired),
   });
 
-
   const copyToClipboard = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(token);
     toast.success(translations.settings.tokenCopied);
   };
 
-
   useEffect(() => {
-    axios
-      .get(`${apiUrl}/profile`, { headers: getAuthHeaders() })
-      .then((response) => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/profile`, { headers: getAuthHeaders() });
         setUser(response.data.result);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching user data:", error);
-      });
-  }, []);
+        if (axios.isAxiosError(error)) {
+          if (error.response?.data?.message) {
+            toast.error(error.response.data.message);
+          } else if (error.response?.data.errorMessage ) {
+            toast.error(error.response?.data.errorMessage);
+          } else if (error.response?.status === 401) {
+            toast.error("Unauthorized access");
+          } else {
+            toast.error(translations.errors?.developerMode || "Failed to fetch profile data");
+          }
+        }
+        setError("Failed to load profile");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  useEffect(() => {
-    axios
-      .get(`${apiUrl}/token`, { headers: getAuthHeaders() })
-      .then((response) => {
+    const fetchToken = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/token`, { headers: getAuthHeaders() });
         setToken(response.data.result.value);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
-  }, []);
+      } catch (error) {
+        console.error("Error fetching token:", error);
+        if (axios.isAxiosError(error)) {
+          if (error.response?.data?.message) {
+            toast.error(error.response.data.message);
+          } else {
+            toast.error(translations.errors?.developerMode || "Failed to fetch token");
+          }
+        }
+      }
+    };
 
+    fetchUserProfile();
+    fetchToken();
+  }, [translations.errors?.developerMode]);
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: User,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void }
   ) => {
     setSubmitting(true);
-    axios
-      .post(`${apiUrl}/profile/update`, values, { headers: getAuthHeaders() })
-      .then((response) => {
-        const updatedUser = response.data.result;
-        setUser((prevUser) => {
-          if (!prevUser) return updatedUser;
-          return { ...prevUser, ...updatedUser };
-        });
-        toast.success(translations.settings.profileUpdated);
-      })
-      .catch((error) => {
-        console.error("Error updating profile:", error);
-        toast.error("Failed to update profile");
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+    try {
+      const response = await axios.post(
+        `${apiUrl}/profile/update`, 
+        values, 
+        { headers: getAuthHeaders() }
+      );
+      const updatedUser = response.data.result;
+      setUser(prev => prev ? { ...prev, ...updatedUser } : updatedUser);
+      toast.success(translations.settings?.profileUpdated || "Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data?.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error(translations.errors?.developerMode || "Failed to update profile");
+        }
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-
-
-  const handlePasswordChange = (
+  const handlePasswordChange = async (
     values: PasswordChangeValues,
     { setSubmitting, resetForm }: { setSubmitting: (isSubmitting: boolean) => void; resetForm: () => void }
   ) => {
     setSubmitting(true);
-    axios
-      .post(
+    try {
+      await axios.post(
         `${apiUrl}/profile/change-password`,
         {
           id: user?.id,
@@ -122,24 +140,61 @@ export default function Settings() {
           newPassword: values.newPassword,
         },
         { headers: getAuthHeaders() }
-      )
-      .then(() => {
-        toast.success(translations.settings.passwordChanged);
-        resetForm();
-      })
-      .catch((error) => {
-        toast.error("Failed to change password", error.message);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+      );
+      toast.success(translations.settings?.passwordChanged || "Password changed successfully");
+      resetForm();
+    } catch (error) {
+      console.error("Error changing password:", error);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data?.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error(translations.errors?.developerMode || "Failed to change password");
+        }
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  if (!user) {
-    return <></>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#53B4AB]"></div>
+      </div>
+    );
   }
 
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-neutral-900">
+        <div className="text-center p-8 rounded-lg bg-neutral-800">
+          <div className="text-red-500 text-xl mb-4">
+            {translations.errors?.developerMode || "An error occurred"}
+          </div>
+          <div className="text-white/70 mb-4">{error}</div>
+          <button
+            onClick={() => {
+              setError(null);
+              setIsLoading(true);
+              window.location.reload();
+            }}
+            className="bg-[#53B4AB] hover:bg-[#347871] text-black px-6 py-2 rounded-lg"
+          >
+            {"Try Again"}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#53B4AB]"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-2  text-white mt-4">

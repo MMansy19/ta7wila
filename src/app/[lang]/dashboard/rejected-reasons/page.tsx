@@ -32,6 +32,22 @@ export default function Rejectedreasons() {
     rejected_reason_type: "",
   });
 
+  const handleError = (error: unknown) => {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data?.errorMessage) {
+        toast.error(error.response.data.errorMessage);
+      } else if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else if (error.response?.status === 401) {
+        toast.error("Unauthorized access");
+      } else {
+        toast.error(translations.common.errorOccurred);
+      }
+    } else {
+      toast.error(translations.common.errorOccurred);
+    }
+  };
+
   const StatusToggle = ({
     status,
     onClick,
@@ -67,7 +83,7 @@ export default function Rejectedreasons() {
       toast.success(translations.common.statusUpdated);
       refetch();
     } catch (error) {
-      toast.error(translations.common.errorOccurred);
+      handleError(error);
     }
   };
 
@@ -101,9 +117,10 @@ export default function Rejectedreasons() {
       setIsModalOpen(false);
       refetch();
     } catch (error) {
-      toast.error(translations.common.errorOccurred);
+      handleError(error);
     }
   };
+
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingReason) return;
@@ -116,7 +133,7 @@ export default function Rejectedreasons() {
       setEditingReason(null);
       refetch();
     } catch (error) {
-      toast.error(translations.common.errorOccurred);
+      handleError(error);
     }
   };
 
@@ -136,7 +153,7 @@ export default function Rejectedreasons() {
       toast.success(translations.common.deletedSuccessfully);
       refetch();
     } catch (error) {
-      toast.error(translations.common.errorOccurred);
+      handleError(error);
     } finally {
       setDeleteModalOpen(false);
       setSelectedReasonId(null);
@@ -144,16 +161,22 @@ export default function Rejectedreasons() {
   };
 
   if (error) {
-    toast.error(translations.invoice.errorLoading);
     return (
-      <div className="flex flex-col items-center justify-center h-screen text-white">
-        <p>{translations.invoice.errorLoading}</p>
-        <button
-          className="mt-4 bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded"
-          onClick={() => refetch()}
-        >
-          {translations.price.loading}
-        </button>
+      <div className="flex items-center justify-center min-h-screen bg-neutral-900">
+        <div className="text-center p-8 rounded-lg bg-neutral-800">
+          <div className="text-red-500 text-xl mb-4">
+            {translations.common.errorOccurred}
+          </div>
+          <div className="text-white/70 mb-4">
+            {error instanceof Error ? error.message : translations.invoice.errorLoading}
+          </div>
+          <button
+            onClick={() => refetch()}
+            className="bg-[#53B4AB] hover:bg-[#347871] text-black px-6 py-2 rounded-lg"
+          >
+            {translations.common.save}
+          </button>
+        </div>
       </div>
     );
   }

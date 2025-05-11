@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Wifi, WifiOff } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
 
 interface UserStatusInfoProps {
@@ -32,8 +33,33 @@ export function UserStatusInfo({ user, translations, onStatusChange }: UserStatu
       if (onStatusChange) {
         onStatusChange(newStatus);
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      let errorMessage = translations.errors?.developerMode || "Error updating status";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
       console.error('Error updating status:', error);
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

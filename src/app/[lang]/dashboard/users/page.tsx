@@ -1,13 +1,13 @@
 "use client";
+import Pagination from "@/components/Shared/Pagination";
 import { useTranslation } from "@/context/translation-context";
 import axios from "axios";
-import Pagination from "@/components/Shared/Pagination";
 import { Search } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
-import Link from "next/link";
 
 interface User {
   id: number;
@@ -70,11 +70,32 @@ export default function Users() {
         prevUsers.map((u) =>
           u.id === user.id ? { ...u, status: newStatus } : u
         )
-      );
-    } catch (err: any) {
-      const message =
-        err.response?.data?.message || translations.errors.developerMode;
-      toast.error(message);
+      );    } catch (error: unknown) {
+      let errorMessage = translations.errors.developerMode;
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -101,11 +122,32 @@ export default function Users() {
       setUsers(transformedUsers.reverse());
       setFilteredUsers(transformedUsers.reverse());
       setTotalPages(response.data.result.totalPages);
-      setTotalVendors(response.data.result.total);
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || translations.errors.developerMode
-      );
+      setTotalVendors(response.data.result.total);    } catch (error: unknown) {
+      let errorMessage = translations.errors.developerMode;
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

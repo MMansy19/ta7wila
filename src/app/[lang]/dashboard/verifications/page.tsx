@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useTranslation } from "@/context/translation-context";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import {
@@ -11,7 +12,6 @@ import {
   Rejectedreasons,
   Verifications,
 } from "./types";
-import { useQuery } from "@tanstack/react-query";
 
 export default function Verification() {
   const translations = useTranslation();
@@ -92,6 +92,7 @@ export default function Verification() {
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
+
   const fetchVerifications = async (currentPage: number) => {
     setLoading(true);
     try {
@@ -103,8 +104,32 @@ export default function Verification() {
       } else {
         toast.error(data.message || "Failed to fetch verifications.");
       }
-    } catch (error) {
-      toast.error("Error fetching verifications.");
+    } catch (error: unknown) {
+      let errorMessage = "Error fetching verifications.";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     }
     setLoading(false);
   };
@@ -138,8 +163,32 @@ export default function Verification() {
         setShowRejectForm(false);
         fetchVerifications(page);
       }
-    } catch (error) {
-      toast.error("Error updating status.");
+    } catch (error: unknown) {
+      let errorMessage = "Error updating status.";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     }
   };
 

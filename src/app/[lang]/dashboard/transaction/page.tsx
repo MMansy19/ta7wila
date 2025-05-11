@@ -5,12 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
-import { Transactions } from "./types";
-import { useParams } from "next/navigation";
 import useCurrency from "../Shared/useCurrency";
+import { Transactions } from "./types";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -106,9 +106,32 @@ export default function Transaction() {
           { headers: getAuthHeaders() }
         );
 
-        toast.success("Transaction marked as completed!");
-      } catch (error) {
-        toast.success("Already marked as completed.");
+        toast.success("Transaction marked as completed!");      } catch (error: unknown) {
+        let errorMessage = translations.errors?.developerMode || "Error updating transaction";
+        
+        if (error && typeof error === 'object' && 'response' in error) {
+          const err = error as { 
+            response: { 
+              data?: { 
+                errorMessage?: string;
+                message?: string;
+                result?: Record<string, string>;
+              } | string;
+            }
+          };
+
+          if (typeof err.response.data === "string") {
+            errorMessage = err.response.data;
+          } else if (err.response.data?.errorMessage) {
+            errorMessage = err.response.data.errorMessage;
+          } else if (err.response.data?.message) {
+            errorMessage = err.response.data.message;
+          } else if (err.response.data?.result) {
+            errorMessage = Object.values(err.response.data.result).join(", ");
+          }
+        }
+
+        toast.error(errorMessage);
       } finally {
         setShowModal(false);
         setSelectedTransactionId(null);
@@ -116,7 +139,41 @@ export default function Transaction() {
     }
   };
 
-  if (error instanceof Error) return <div>Error: {error.message}</div>;
+  if (error) {
+    let errorMessage = translations.errors?.developerMode || "Error loading transactions";
+    
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'object' && 'response' in error) {
+      const err = error as { 
+        response: { 
+          data?: { 
+            errorMessage?: string;
+            message?: string;
+            result?: Record<string, string>;
+          } | string;
+        }
+      };
+
+      if (typeof err.response.data === "string") {
+        errorMessage = err.response.data;
+      } else if (err.response.data?.errorMessage) {
+        errorMessage = err.response.data.errorMessage;
+      } else if (err.response.data?.message) {
+        errorMessage = err.response.data.message;
+      } else if (err.response.data?.result) {
+        errorMessage = Object.values(err.response.data.result).join(", ");
+      }
+    }
+    
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-red-500 bg-red-100/10 p-4 rounded-lg">
+          {errorMessage}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid">

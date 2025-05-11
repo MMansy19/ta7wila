@@ -38,7 +38,7 @@ export default function LastTranaction() {
       headers: getAuthHeaders(),
     });
     const data: Transactions = await response.json();
-    return data.result.data;
+    return data.result.data.reverse();
   }
 
   const {

@@ -4,9 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+import useCurrency from "../Shared/useCurrency";
 import SubscriptionModal from "./modal";
 import { ApiResponse, Plan } from "./types";
-import useCurrency from "../Shared/useCurrency";
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState<Plan[]>([]);
@@ -47,11 +47,32 @@ export default function Subscriptions() {
         const response = await axios.get<ApiResponse>(url, {
           headers: getAuthHeaders(),
         });
-        setSubscriptions(response.data.result.data);
-      } catch (err: any) {
-        setError(
-          err.response?.data?.message || "Failed to fetch subscriptions"
-        );
+        setSubscriptions(response.data.result.data);      } catch (error: unknown) {
+        let errorMessage = translations.errors?.developerMode || "Failed to fetch subscriptions";
+        
+        if (error && typeof error === 'object' && 'response' in error) {
+          const err = error as { 
+            response: { 
+              data?: { 
+                errorMessage?: string;
+                message?: string;
+                result?: Record<string, string>;
+              } | string;
+            }
+          };
+
+          if (typeof err.response.data === "string") {
+            errorMessage = err.response.data;
+          } else if (err.response.data?.errorMessage) {
+            errorMessage = err.response.data.errorMessage;
+          } else if (err.response.data?.message) {
+            errorMessage = err.response.data.message;
+          } else if (err.response.data?.result) {
+            errorMessage = Object.values(err.response.data.result).join(", ");
+          }
+        }
+
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -78,15 +99,44 @@ export default function Subscriptions() {
             : sub
         )
       );
-      closeModal();
-    } catch (err) {
-      toast.error("Failed to update subscription");
+      closeModal();    } catch (error: unknown) {
+      let errorMessage = translations.errors?.developerMode || "Failed to update subscription";
+      
+      if (error && typeof error === 'object' && 'response' in error) {
+        const err = error as { 
+          response: { 
+            data?: { 
+              errorMessage?: string;
+              message?: string;
+              result?: Record<string, string>;
+            } | string;
+          }
+        };
+
+        if (typeof err.response.data === "string") {
+          errorMessage = err.response.data;
+        } else if (err.response.data?.errorMessage) {
+          errorMessage = err.response.data.errorMessage;
+        } else if (err.response.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response.data?.result) {
+          errorMessage = Object.values(err.response.data.result).join(", ");
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (error) return <div className="text-red-500">Error: {error}</div>;
+  if (error) return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-red-500 bg-red-100/10 p-4 rounded-lg">
+        {error}
+      </div>
+    </div>
+  );
 
   return (
     <div>

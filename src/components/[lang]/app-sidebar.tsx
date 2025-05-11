@@ -19,6 +19,7 @@ import Image from "next/image";
 import * as React from "react";
 import { NavMain } from "./nav-main";
 import { useProfile } from "@/context/ProfileContext";
+import Link from "next/link";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
@@ -606,19 +607,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="items-center py-6">
         {state === "expanded" ? (
+      
           <Image
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/82abf788e81d00493505b733772e69127dd1ec73b52053d9ddbb4f60508f2764"
             alt={translations.title}
             width={130}
             height={100}
           />
+         
         ) : (
+         
           <Image
             src="/Clip path group.svg"
             alt={translations.title}
             width={40}
             height={40}
           />
+     
         )}
       </SidebarHeader>
 
