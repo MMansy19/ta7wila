@@ -58,7 +58,7 @@ export default function Settings() {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(`${apiUrl}/profile`, { headers: getAuthHeaders() });
-        setUser(response.data.result);
+        setUser(response.data.result.profile);
       } catch (error) {
         console.error("Error fetching user data:", error);
         if (axios.isAxiosError(error)) {

@@ -19,7 +19,7 @@ export const getUserProfile = async (): Promise<User | null> => {
     const response = await axios.get(`${apiUrl}/profile`, {
       headers: getAuthHeaders(), 
     });
-    return response.data.result;
+    return response.data.result.profile;
   } catch (error) {
     console.error('Error fetching user profile:', error);
     toast.error('Failed to fetch user profile.');
