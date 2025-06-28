@@ -423,6 +423,7 @@ export type TranslationKeys = {
       selectPaymentOption: string;
       checkButton: string;
       transactionDetails: {
+        selectedPaymentId: string;
         title: string;
         value: string;
         transactionId: string;
