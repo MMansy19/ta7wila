@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import getAuthHeaders from "../../Shared/getAuth";
 import UploadLogo from "../logoUpload";
 import { Params, Store } from "../types";
+export const dynamic = 'force-dynamic';
 
 export default function StoreUpdate({ params }: { params: Promise<Params> }) {
   const translations = useTranslation();

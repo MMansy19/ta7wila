@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
 import { type CheckoutDetails, Params } from "../types";
 import useCurrency from "../../Shared/useCurrency";
+export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 

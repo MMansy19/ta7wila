@@ -1,4 +1,5 @@
 import getPostData from "@/lib/posts";
+export const dynamic = 'force-dynamic';
 
 export default async function Documentation() {
   const postData = await getPostData("documentation");

@@ -7,6 +7,7 @@ import getAuthHeaders from "../Shared/getAuth";
 import useCurrency from "../Shared/useCurrency";
 import SubscriptionModal from "./modal";
 import { ApiResponse, Plan } from "./types";
+export const dynamic = 'force-dynamic';
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState<Plan[]>([]);

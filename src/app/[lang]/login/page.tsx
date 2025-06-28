@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import * as Yup from "yup";
+export const dynamic = 'force-dynamic';
 
 const API_URL = "https://api.ta7wila.com";
 

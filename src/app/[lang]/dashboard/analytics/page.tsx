@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import getAuthHeaders from "../Shared/getAuth";
 import TransactionAnalysisChart from "./TransactionAnalysisChart";
+export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 

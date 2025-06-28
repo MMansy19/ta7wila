@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import getAuthHeaders from "../Shared/getAuth";
 import { UserInfoClient } from "./components/UserInfoClient";
+export const dynamic = 'force-dynamic';
 
 export default function UserInfoPage() {
   const [userData, setUserData] = useState<any>(null);

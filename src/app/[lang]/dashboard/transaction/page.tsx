@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import useCurrency from "../Shared/useCurrency";
 import { Transactions } from "./types";
+export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 

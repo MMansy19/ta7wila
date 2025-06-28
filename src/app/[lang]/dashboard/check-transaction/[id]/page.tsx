@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../../Shared/getAuth";
 import { PaymentOption } from "../../paymentVerification/types";
+export const dynamic = 'force-dynamic';
 
 interface Store {
   id: string;

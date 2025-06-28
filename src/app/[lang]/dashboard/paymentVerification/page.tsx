@@ -11,6 +11,7 @@ import getAuthHeaders from "../Shared/getAuth";
 import PaymentsTable from "./PaymentsTable";
 import TransactionModal from "./TransactionModal";
 import { PaymentData, PaymentOption } from "./types";
+export const dynamic = 'force-dynamic';
 
 export default function UserPermissions() {
   const params = useParams();

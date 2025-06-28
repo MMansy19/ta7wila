@@ -8,6 +8,7 @@ import Employees from "../employees";
 import Payments from "../payments";
 import Table from "../table";
 import { Params } from "../types";
+export const dynamic = 'force-dynamic';
 
 export default function StoreDetails({ params }: { params: Promise<Params> }) {
   

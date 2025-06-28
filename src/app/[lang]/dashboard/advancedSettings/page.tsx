@@ -5,7 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
-import FormField from "../Shared/FormField";
+export const dynamic = 'force-dynamic';
 
 interface Setting {
   id: number;

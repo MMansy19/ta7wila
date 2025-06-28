@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+export const dynamic = 'force-dynamic';
 
 interface User {
   id: number;

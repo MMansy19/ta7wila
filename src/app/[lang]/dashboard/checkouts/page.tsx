@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import useCurrency from "../Shared/useCurrency";
+export const dynamic = 'force-dynamic';
 
 type Checkout = {
   id: number;

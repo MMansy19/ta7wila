@@ -6,6 +6,8 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
 import { Log, Params } from "../types";
+export const dynamic = 'force-dynamic';
+
 
 export default function Logs({ params }: { params: Promise<Params> }) {
   const translations = useTranslation();

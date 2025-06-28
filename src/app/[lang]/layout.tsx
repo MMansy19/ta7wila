@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { i18nConfig, type Locale } from '../../i18n-config';
+import { locales, type Locale } from '../../i18n-config';
 import '@/styles/globals.css';
 import { DeveloperProvider } from '@/context/DeveloperContext';
 
 export function generateStaticParams() {
-  return i18nConfig.locales.map((locale) => ({ lang: locale }));
+  return locales.map((locale) => ({ lang: locale }));
 }
 
 export const metadata = {
@@ -23,7 +23,7 @@ export default async function RootLayout({
 }) {
 
   const { lang } = await params;
-  const messages = await getMessages();
+  const messages = await getMessages({ locale: lang });
 
   return (
     <html

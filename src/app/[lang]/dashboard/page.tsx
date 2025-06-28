@@ -8,6 +8,7 @@ import { useState } from "react";
 import TransactionAnalysisChart from "./analytics/TransactionAnalysisChart";
 import DashboardCards from "./cardData";
 import getAuthHeaders from "./Shared/getAuth";
+export const dynamic = 'force-dynamic';
 
 export default function Main() {
   const translations = useTranslation();

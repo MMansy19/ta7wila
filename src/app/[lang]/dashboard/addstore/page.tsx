@@ -9,6 +9,7 @@ import FormField from "../Shared/FormField";
 import getAuthHeaders from "../Shared/getAuth";
 import { FormData } from "./types";
 import { createValidationSchema } from "./validation";
+export const dynamic = 'force-dynamic';
 
 const StoreSettings: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

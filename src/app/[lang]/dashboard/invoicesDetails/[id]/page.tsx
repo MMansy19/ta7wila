@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import getAuthHeaders from "../../Shared/getAuth";
 import { Invoice, Params } from "../types";
 import useCurrency from "../../Shared/useCurrency";
+export const dynamic = 'force-dynamic';
 
 export default function InvoiceDetails({ params }: { params: Promise<Params> }) {
   const translations = useTranslation();

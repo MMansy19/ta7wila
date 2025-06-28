@@ -12,6 +12,7 @@ import {
   Rejectedreasons,
   Verifications,
 } from "./types";
+export const dynamic = 'force-dynamic';
 
 export default function Verification() {
   const translations = useTranslation();

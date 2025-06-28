@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
+export const dynamic = 'force-dynamic';
 
 const API_URL = "https://api.ta7wila.com";
 
