@@ -51,6 +51,7 @@ export default function PriceUser() {
   }, [apiUrl]);
 
   const handleSubscribe = async () => {
+    console.log("currentPlan:", currentPlan);
     try {
       const response = await axios.post(
         `${apiUrl}/subscriptions/${subscribingPlanId}/subscribe`,
@@ -150,12 +151,14 @@ function SubscriptionDetails({
                   </p>
                 </div>
               </div>{" "}
-              <button
-                onClick={() => handleSubscribe(currentPlan.id)}
-                className="w-full mt-6 py-4 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]"
-              >
-                {translations.price.payNow}
-              </button>
+              {(currentPlan.status === "pending" || currentPlan.status === "pending-renewal") && (
+                <button
+                  onClick={() => handleSubscribe(currentPlan.id)}
+                  className="w-full mt-6 py-4 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]"
+                >
+                  {translations.price.payNow}
+                </button>
+              )}
             </div>
           </div>
 
