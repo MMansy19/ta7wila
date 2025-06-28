@@ -28,6 +28,7 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
         const data = await response.json();
         if (data.success) {
           setInvoice(data.result);
+          console.log("Invoice data:", data.result);
         } else {
           setError("Unable to retrieve invoice details");
         }

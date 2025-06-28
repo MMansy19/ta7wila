@@ -540,7 +540,7 @@
         "placeholder": "أدخل البريد الإلكتروني"
       },
       "mobileWallet": {
-        "label": "المحفظة *",
+        "label": "رقم الهاتف *",
         "placeholder": "+201000000000"
       },
       "subdomain": {

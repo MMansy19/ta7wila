@@ -543,7 +543,7 @@
         "placeholder": "Enter email"
       },
       "mobileWallet": {
-        "label": "Mobile Wallet *",
+        "label": "Mobile Number *",
         "placeholder": "+201000000000"
       },
       "subdomain": {

@@ -76,7 +76,11 @@ export default function PaymentService({
     value: Yup.string()
       .required(translations.storepayment.validation.valueRequired || "Value is required"),
     ref_id: Yup.string()
-      .required(translations.storepayment.validation.refIdRequired || "Reference ID is required"),
+      .when('payment_option', {
+        is: (payment_option: string) => payment_option !== 'instapay',
+        then: (schema) => schema.required(translations.storepayment.validation.refIdRequired || "Reference ID is required"),
+        otherwise: (schema) => schema.optional()
+      }),
     payment_option: Yup.string()
       .required(translations.storepayment.validation.paymentOptionRequired || "Payment option is required"),
     is_public: Yup.boolean()
@@ -87,7 +91,11 @@ export default function PaymentService({
     value: Yup.string()
       .required(translations.storepayment.validation.valueRequired || "Value is required"),
     ref_id: Yup.string()
-      .required(translations.storepayment.validation.refIdRequired || "Reference ID is required"),
+      .when('payment_option', {
+        is: (payment_option: string) => payment_option !== 'instapay',
+        then: (schema) => schema.required(translations.storepayment.validation.refIdRequired || "Reference ID is required"),
+        otherwise: (schema) => schema.optional()
+      }),
     payment_option: Yup.string()
       .required(translations.storepayment.validation.paymentOptionRequired || "Payment option is required"),
     is_public: Yup.boolean()
@@ -127,15 +135,17 @@ export default function PaymentService({
     setSubmittingAdd(true);
     try {
       const { id } = await params;
+      const submitData = {
+        id: id,
+        value: values.value,
+        payment_option: values.payment_option,
+        ref_id: values.payment_option === 'instapay' ? '' : values.ref_id,
+        is_public: values.is_public,
+      };
+      
       await axios.post(
         `${apiUrl}/payments/add`,
-        {
-          id: id,
-          value: values.value,
-          payment_option: values.payment_option,
-          ref_id: values.ref_id,
-          is_public: values.is_public,
-        },
+        submitData,
         {
           headers: {
             ...getAuthHeaders(),
@@ -175,15 +185,17 @@ export default function PaymentService({
     if (!selectedStore) return;
     setSubmitting(true);
     try {
+      const submitData = {
+        id: selectedStore.id,
+        value: values.value,
+        is_public: values.is_public,
+        ref_id: values.payment_option === 'instapay' ? '' : values.ref_id,
+        payment_option: values.payment_option,
+      };
+      
       await axios.post(
         `${apiUrl}/payments/update`,
-        {
-          id: selectedStore.id,
-          value: values.value,
-          is_public: values.is_public,
-          ref_id: values.ref_id,
-          payment_option: values.payment_option,
-        },
+        submitData,
         {
           headers: {
             ...getAuthHeaders(),
@@ -435,21 +447,23 @@ export default function PaymentService({
                         />
                       </div>
 
-                      <div className="my-4">
-                        <label className="block text-sm font-medium mb-2">
-                          {translations.storepayment.modal.update.refId}
-                        </label>
-                        <Field
-                          name="ref_id"
-                          type="text"
-                          className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
-                        />
-                        <ErrorMessage
-                          name="ref_id"
-                          component="div"
-                          className="text-red-500 text-sm mt-1"
-                        />
-                      </div>
+                      {values.payment_option !== "instapay" && (
+                        <div className="my-4">
+                          <label className="block text-sm font-medium mb-2">
+                            {translations.storepayment.modal.update.refId}
+                          </label>
+                          <Field
+                            name="ref_id"
+                            type="text"
+                            className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
+                          />
+                          <ErrorMessage
+                            name="ref_id"
+                            component="div"
+                            className="text-red-500 text-sm mt-1"
+                          />
+                        </div>
+                      )}
 
                       <div className="mb-4">
                         <label className="block text-sm font-medium mb-2">
@@ -566,22 +580,24 @@ export default function PaymentService({
                           className="text-red-500 text-sm mt-1"
                         />
                       </div>
-                      <div className="my-4">
-                        <label className="block text-sm font-medium mb-2">
-                          {translations.storepayment.modal.add.referenceLabel}
-                        </label>
-                        <Field
-                          name="ref_id"
-                          type="text"
-                          placeholder="Enter reference ID"
-                          className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
-                        />
-                        <ErrorMessage
-                          name="ref_id"
-                          component="div"
-                          className="text-red-500 text-sm mt-1"
-                        />
-                      </div>
+                      {values.payment_option !== "instapay" && (
+                        <div className="my-4">
+                          <label className="block text-sm font-medium mb-2">
+                            {translations.storepayment.modal.add.referenceLabel}
+                          </label>
+                          <Field
+                            name="ref_id"
+                            type="text"
+                            placeholder="Enter reference ID"
+                            className="px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10"
+                          />
+                          <ErrorMessage
+                            name="ref_id"
+                            component="div"
+                            className="text-red-500 text-sm mt-1"
+                          />
+                        </div>
+                      )}
                       <div className="my-4">
                         <label className="block text-sm font-medium mb-2">
                           {translations.storepayment.modal.add.visibility}
