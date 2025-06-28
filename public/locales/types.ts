@@ -439,6 +439,7 @@ export type TranslationKeys = {
         amountRequired: string;
         invalidAmount: string;
         pleaseSelectPaymentValue: string;
+        selectedPaymentId: string;
       };
     };
     status: {

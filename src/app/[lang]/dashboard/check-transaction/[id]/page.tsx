@@ -84,6 +84,9 @@ export default function CheckTransaction({
     values: { mobile: string; amount: string; payment_option: string },
     { setSubmitting }: any
   ) => {
+    console.log("Form submission - selectedPaymentId:", selectedPaymentId);
+    console.log("Form submission - selectedPaymentValues:", selectedPaymentValues);
+    
     if (!selectedPaymentId) {
       toast.error("Please select a payment value");
       return;
@@ -91,6 +94,7 @@ export default function CheckTransaction({
 
     try {
       const { id } = await params;
+      console.log("Submitting with payment_id:", selectedPaymentId);
       const response = await axios.post(
         `${apiUrl}/transactions/manual-check`,
         {
@@ -156,6 +160,8 @@ export default function CheckTransaction({
             });
           setPaymentOptions(formattedOptions);
           setPayments(response.data.result.payments || []);
+          console.log("Payment options fetched:", formattedOptions);
+          console.log("Payments fetched:", response.data.result.payments || []);
         }
       } catch (err) {
         toast.error("Failed to fetch payment options");
@@ -170,14 +176,24 @@ export default function CheckTransaction({
     const activePayments = payments.filter(
       (p) => p.payment_option === methodKey 
     );
-    setSelectedPaymentValues(
-      activePayments.map((p) => ({ value: p.value, id: p.id }))
-    );
-    setSelectedPaymentId(null);
+    const paymentValues = activePayments.map((p) => ({ value: p.value, id: p.id }));
+    setSelectedPaymentValues(paymentValues);
+    
+    // Auto-select the first payment if there's only one, or reset selection
+    if (paymentValues.length === 1) {
+      setSelectedPaymentId(paymentValues[0].id);
+      console.log("Auto-selected payment ID:", paymentValues[0].id);
+    } else {
+      setSelectedPaymentId(null);
+    }
+    
+    console.log("Method selected:", methodKey);
+    console.log("Available payments:", paymentValues);
   };
 
   const handlePaymentValueSelect = (paymentId: number) => {
     setSelectedPaymentId(paymentId);
+    console.log("Payment value selected, ID:", paymentId);
   };
 
   const handleCopy = (value: string) => {
@@ -234,6 +250,12 @@ export default function CheckTransaction({
               <p className="text-sm text-[#53B4AB]">
                 {translations.paymentVerification.modal.transactionDetails.pleaseSelectPaymentValue}
               </p>
+              {selectedPaymentId && (
+                <p className="text-xs text-green-400 mt-1">
+                  {translations.paymentVerification.modal.transactionDetails.selectedPaymentId}
+                  : {selectedPaymentId}
+                </p>
+              )}
             </div>
             
             <div className="space-y-3">
@@ -251,6 +273,10 @@ export default function CheckTransaction({
                     <div className="flex items-center gap-2">
                       <span className="font-medium">
                         {translations.paymentVerification.modal.transactionDetails.value}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        ({translations.paymentVerification.modal.transactionDetails.selectedPaymentId}
+                          : {payment.id})
                       </span>
                     </div>
                     <div className="flex items-center gap-2">

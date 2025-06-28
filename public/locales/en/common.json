@@ -475,7 +475,8 @@
         "instapayIdTooShort": "Instapay ID is too short",
         "amountRequired": "Amount is required",
         "invalidAmount": "Amount must be a positive number",
-        "pleaseSelectPaymentValue": "Please select a payment value"
+        "pleaseSelectPaymentValue": "Please select a payment value",
+        "selectedPaymentId": "Selected Payment ID"
       }
     },
     "status": {

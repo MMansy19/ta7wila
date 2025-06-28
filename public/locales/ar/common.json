@@ -472,7 +472,8 @@
         "instapayIdTooShort": "معرف Instapay قصير جدًا",
         "amountRequired": "المبلغ مطلوب",
         "invalidAmount": "يجب أن يكون المبلغ رقمًا موجبًا",
-        "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع"
+        "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع",
+        "selectedPaymentId": "معرف الدفع"
       }
     },
     "status": {
