@@ -439,8 +439,17 @@ export type TranslationKeys = {
         amountRequired: string;
         invalidAmount: string;
         pleaseSelectPaymentValue: string;
-        selectedPaymentId: string;
       };
+        selectedPaymentId: string;
+        selectedPaymentOption: string;
+        paymentId: string;
+        referenceId: string;
+        createdDate: string;
+        mobile: string;
+        status: string;
+        pending: string;
+        paymentDetails: string;
+
     };
     status: {
       verified: string;
