@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/[lang]/ui/dropdown-menu";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Ellipsis } from "lucide-react";
 import Link from "next/link";

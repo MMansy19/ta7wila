@@ -1,6 +1,6 @@
 'use client'
 import { useProfile } from "@/context/ProfileContext";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { useQuery } from "@tanstack/react-query";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
 import useCurrency from "../dashboard/Shared/useCurrency";

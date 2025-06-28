@@ -1,7 +1,7 @@
 "use client";
 
 import useCurrency from '@/app/[lang]/dashboard/Shared/useCurrency';
-import { useTranslation } from '@/context/translation-context';
+import { useTranslation } from '@/hooks/useTranslation';
 import {
     BarElement,
     CategoryScale,

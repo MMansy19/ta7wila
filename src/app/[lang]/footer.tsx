@@ -1,4 +1,4 @@
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";

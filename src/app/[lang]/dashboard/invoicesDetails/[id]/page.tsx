@@ -1,5 +1,5 @@
 "use client"
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect, useState } from "react";
 import getAuthHeaders from "../../Shared/getAuth";
 import { Invoice, Params } from "../types";

@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";

@@ -1,4 +1,4 @@
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";

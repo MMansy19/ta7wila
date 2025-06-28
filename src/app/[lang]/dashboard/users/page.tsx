@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/components/Shared/Pagination";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Search } from "lucide-react";
 import Link from "next/link";

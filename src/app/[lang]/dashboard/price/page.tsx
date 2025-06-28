@@ -1,6 +1,6 @@
 "use client";
 import { useProfile } from "@/context/ProfileContext";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from "react";
 

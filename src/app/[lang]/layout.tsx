@@ -1,50 +1,45 @@
-import { ReactNode } from "react";
-import { i18nConfig, type Locale } from "../../i18n-config";
-import "@/styles/globals.css";
-import { TranslationProvider } from "@/context/translation-context";
-import { getTranslations } from "@/lib/i18n";
-import { TranslationKeys } from "../../../public/locales/types";
+import { ReactNode } from 'react';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { i18nConfig, type Locale } from '../../i18n-config';
+import '@/styles/globals.css';
+import { DeveloperProvider } from '@/context/DeveloperContext';
 
 export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ lang: locale }));
 }
 
 export const metadata = {
-  title: "Ta7wila",
-  description: "Payment Gateway",
-  icons: {
-    icon: "/Group (1).png",
-  },
+  title: 'Ta7wila',
+  description: 'Your application description',
 };
 
 export default async function RootLayout({
   children,
-  params,
+  params
 }: {
   children: ReactNode;
   params: Promise<{ lang: Locale }>;
 }) {
-  const { lang } = await params;
 
-  const translations = (await getTranslations(
-    lang
-  )) as unknown as TranslationKeys;
+  const { lang } = await params;
+  const messages = await getMessages();
 
   return (
     <html
       lang={lang}
-      dir={lang === "ar" ? "rtl" : "ltr"}
-      suppressHydrationWarning={true}
+      dir={lang === 'ar' ? 'rtl' : 'ltr'}
+      suppressHydrationWarning
     >
       <head>
         <link rel="shortcut icon" href="/Group (1).png" />
       </head>
-      <body suppressHydrationWarning={true}>
-
-          <TranslationProvider value={translations}>
+      <body>
+        <NextIntlClientProvider locale={lang} messages={messages}>
+          <DeveloperProvider>
             {children}
-          </TranslationProvider>
-
+          </DeveloperProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

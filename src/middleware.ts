@@ -1,94 +1,109 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { i18nConfig } from './i18n-config'
+import createIntlMiddleware from 'next-intl/middleware';
+import { locales, defaultLocale, pathnames, localePrefix } from './i18n-config'
 
-let locales = ['en', 'ar']
-let defaultLocale = i18nConfig.defaultLocale
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
+  pathnames,
+  localePrefix
+});
 
-export async function middleware(request: NextRequest) {
-  console.log("middleware is running")
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const token = request.cookies.get("token")?.value
-  const userLocale = request.cookies.get("NEXT_LOCALE")?.value || defaultLocale
+  const token = request.cookies.get("token")?.value;
+  const savedLocale = request.cookies.get("NEXT_LOCALE")?.value;
 
- 
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.includes('.') || 
-    pathname.startsWith('/api') ||
-    pathname.startsWith('/static') ||
-    pathname === '/favicon.ico'
-  ) {
+  if (pathname.startsWith('/_next') || pathname.includes('.') || pathname.startsWith('/api')) {
     return NextResponse.next()
   }
 
-  
-  if (token &&  (pathname.includes("/login"))) {
-    return NextResponse.redirect(new URL(`/${userLocale}/dashboard`, request.url))
+  const pathnameHasValidLocale = locales.some(locale => 
+    pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  // Get preferred locale (saved locale or default)
+  const preferredLocale = (savedLocale && locales.includes(savedLocale as any)) ? savedLocale : defaultLocale;
+
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL(`/${preferredLocale}`, request.url));
   }
 
-  if (token && (pathname.includes("/forgetpassword"))  ) {
-    return NextResponse.redirect(new URL(`/${userLocale}/dashboard`, request.url))
-  }
-
-  if (pathname.includes("/dashboard")) {
-    if (!token) {
-      return NextResponse.redirect(new URL(`/${userLocale}/login`, request.url))
+  if (!pathnameHasValidLocale) {
+    const segments = pathname.split('/').filter(Boolean);
+    const firstSegment = segments[0];
+    
+    // For dashboard routes, use preferred locale (saved or default)
+    if (segments[0] === 'dashboard' || pathname.startsWith('/dashboard')) {
+      return NextResponse.redirect(new URL(`/${preferredLocale}${pathname}`, request.url));
     }
-
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL 
-      const response = await fetch(`${apiUrl}/profile`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-
-      if (!response.ok) {
-      
-        const response = NextResponse.redirect(new URL(`/${userLocale}/login`, request.url))
-        response.cookies.delete("token")
-        return response
-      }
-    } catch (error) {
-     
-      const response = NextResponse.redirect(new URL(`/${userLocale}/login`, request.url))
-      response.cookies.delete("token")
-      return response
+    
+    if (firstSegment?.length === 2) {
+      const restOfPath = segments.slice(1).join('/');
+      const redirectPath = restOfPath ? `/${preferredLocale}/${restOfPath}` : `/${preferredLocale}`;
+      return NextResponse.redirect(new URL(redirectPath, request.url));
     }
-  }
-  
-
-
-
-
- 
-  const pathLocale = i18nConfig.locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  )
-
-  // If no locale in path, redirect to the user's preferred locale
-  if (!pathLocale) {
-    // Use the user's preferred locale from cookie or default to 'ar'
-    const response = NextResponse.redirect(new URL(`/${userLocale}${pathname}`, request.url))
-    response.cookies.set('NEXT_LOCALE', userLocale)
-    return response
+    
+    return NextResponse.redirect(new URL(`/${preferredLocale}${pathname}`, request.url));
   }
 
-  return NextResponse.next()
+  const currentLocale = locales.find(locale => 
+    pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  ) || preferredLocale;
+
+  // Save the current locale to cookies if it's different from saved one
+  const response = NextResponse.next();
+  if (currentLocale !== savedLocale) {
+    response.cookies.set('NEXT_LOCALE', currentLocale, {
+      path: '/',
+      maxAge: 31536000, // 1 year
+      sameSite: 'lax'
+    });
+  }
+
+  if (pathname.includes('/dashboard') && !token) {
+    const redirectResponse = NextResponse.redirect(new URL(`/${currentLocale}/login`, request.url));
+    if (currentLocale !== savedLocale) {
+      redirectResponse.cookies.set('NEXT_LOCALE', currentLocale, {
+        path: '/',
+        maxAge: 31536000,
+        sameSite: 'lax'
+      });
+    }
+    return redirectResponse;
+  }
+
+  const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';
+  const isValidPath = Object.keys(pathnames).some(validPath => {
+    if (validPath === '/') return pathWithoutLocale === '/';
+    return pathWithoutLocale.startsWith(validPath);
+  });
+
+  if (!isValidPath && pathWithoutLocale !== '/' && !pathWithoutLocale.startsWith('/dashboard')) {
+    const redirectResponse = NextResponse.redirect(new URL(`/${currentLocale}`, request.url));
+    if (currentLocale !== savedLocale) {
+      redirectResponse.cookies.set('NEXT_LOCALE', currentLocale, {
+        path: '/',
+        maxAge: 31536000,
+        sameSite: 'lax'
+      });
+    }
+    return redirectResponse;
+  }
+
+  // Apply the intl middleware and preserve cookies
+  const intlResponse = intlMiddleware(request);
+  if (currentLocale !== savedLocale && intlResponse) {
+    intlResponse.cookies.set('NEXT_LOCALE', currentLocale, {
+      path: '/',
+      maxAge: 31536000,
+      sameSite: 'lax'
+    });
+  }
+
+  return intlResponse || response;
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|api|static).*)',
-    '/dashboard/:path*',
-    '/login/:path*',
-    '/forgetpassword/:path*',
-  ]
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)', '/', '/dashboard/:path*']
 }
-
-
-
-
-
-

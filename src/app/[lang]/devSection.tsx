@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ActionButton from "@/components/[lang]/ui/landingbtn";
 import Link from "next/link";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { motion } from "framer-motion";
 
 export default function DevPart() {

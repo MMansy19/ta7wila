@@ -1,4 +1,4 @@
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { motion } from "framer-motion";
 
 export default function Services() {

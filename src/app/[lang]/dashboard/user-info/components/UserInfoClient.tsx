@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { AccountInfo } from "./AccountInfo";
 import { SubscriptionInfo } from "./SubscriptionInfo";
 import { TransactionsTable } from "./TransactionsTable";

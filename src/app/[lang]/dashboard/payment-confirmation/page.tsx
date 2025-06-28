@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Field, Form, Formik } from 'formik';
 import Image from "next/image";

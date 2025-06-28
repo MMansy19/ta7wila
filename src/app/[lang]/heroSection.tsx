@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ActionButton from "@/components/[lang]/ui/landingbtn";
-import { useTranslation } from '@/context/translation-context';
+import { useTranslation } from '@/hooks/useTranslation';
 import Link from "next/link";
 
 export default function Hero(){

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Pagination from "@/components/Shared/Pagination";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";

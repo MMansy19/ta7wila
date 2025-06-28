@@ -1,4 +1,4 @@
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import getAuthHeaders from "../../app/[lang]/dashboard/Shared/getAuth";
