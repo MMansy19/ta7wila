@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Form, Formik } from "formik";
 import React, { useMemo, useState } from "react";
@@ -9,6 +9,7 @@ import FormField from "../Shared/FormField";
 import getAuthHeaders from "../Shared/getAuth";
 import { FormData } from "./types";
 import { createValidationSchema } from "./validation";
+export const dynamic = 'force-dynamic';
 
 const StoreSettings: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

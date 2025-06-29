@@ -1,7 +1,7 @@
 "use client";
 
 import { useProfile } from "@/context/ProfileContext";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Image from "next/image";
@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../Shared/getAuth";
+export const dynamic = 'force-dynamic';
+
 interface User {
   id: number;
   name: string;

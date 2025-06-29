@@ -1,6 +1,6 @@
 import { User } from './types';
 import EmployeeRow from './employeeRow';
-import { useTranslation } from '@/context/translation-context';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface EmployeeTableProps {
   users: User[];

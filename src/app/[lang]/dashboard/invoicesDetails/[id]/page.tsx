@@ -1,9 +1,10 @@
 "use client"
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect, useState } from "react";
 import getAuthHeaders from "../../Shared/getAuth";
 import { Invoice, Params } from "../types";
 import useCurrency from "../../Shared/useCurrency";
+export const dynamic = 'force-dynamic';
 
 export default function InvoiceDetails({ params }: { params: Promise<Params> }) {
   const translations = useTranslation();
@@ -27,6 +28,7 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
         const data = await response.json();
         if (data.success) {
           setInvoice(data.result);
+          console.log("Invoice data:", data.result);
         } else {
           setError("Unable to retrieve invoice details");
         }

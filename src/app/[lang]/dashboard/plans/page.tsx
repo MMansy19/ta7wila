@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import { Plan } from "../price/types";
 import useCurrency from "../Shared/useCurrency";
+export const dynamic = 'force-dynamic';
 
 export default function Plans() {
   const translations = useTranslation();

@@ -2,7 +2,7 @@
 
 import NavigationLink from "@/components/[lang]/NavigationLink";
 import ActionButton from "@/components/[lang]/ui/landingbtn";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { Locale } from "@/i18n-config";
 import { getCookie } from "cookies-next";
 import Image from "next/image";

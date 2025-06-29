@@ -1,11 +1,12 @@
 "use client"
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import getAuthHeaders from "../Shared/getAuth";
+export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 

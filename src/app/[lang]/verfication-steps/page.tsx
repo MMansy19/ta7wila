@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import {
   faArrowLeft,
   faArrowRight,
@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import getAuthHeaders from "../dashboard/Shared/getAuth";
+export const dynamic = 'force-dynamic';
 
 interface FilePreview {
   file: File;

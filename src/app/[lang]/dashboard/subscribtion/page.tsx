@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -7,6 +7,7 @@ import getAuthHeaders from "../Shared/getAuth";
 import useCurrency from "../Shared/useCurrency";
 import SubscriptionModal from "./modal";
 import { ApiResponse, Plan } from "./types";
+export const dynamic = 'force-dynamic';
 
 export default function Subscriptions() {
   const [subscriptions, setSubscriptions] = useState<Plan[]>([]);

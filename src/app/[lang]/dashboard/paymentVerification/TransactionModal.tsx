@@ -1,4 +1,4 @@
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
@@ -155,22 +155,132 @@ export default function TransactionModal({
           </button>
         </div>
         {!showSecondForm ? (
-          <Formik
-            initialValues={{
-              applicationId: "",
-              paymentOption: "",
-            }}
-            validationSchema={CheckTransactionSchema}
-            onSubmit={handleCheckTransaction}
-          >
-            {({ errors, touched, values, setFieldValue }) => (
-              <Form>
-                <input
-                  type="hidden"
-                  value={paymentData?.id || ""}
-                  name="paymentDataId"
-                />
-                <div className="mb-4">
+          <>
+            {/* Payment Data Details Section */}
+            {paymentData && (
+              <div className="bg-[#333333] rounded-lg p-4 mb-6">
+                <h3 className="text-lg font-semibold text-white mb-3">
+                  {translations.paymentVerification.modal.paymentDetails || "Payment Details"}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white">
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">
+                      {translations.paymentVerification.modal.paymentId || "Payment ID"}
+                    </label>
+                    <div className="text-base">
+                      #{paymentData.id}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">
+                      {translations.paymentVerification.modal.referenceId || "Reference ID"}
+                    </label>
+                    <div className="text-base">
+                      #{paymentData.ref_id}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">
+                      {translations.common?.status || "Status"}
+                    </label>
+                    <div className="text-base">
+                      <span className={`px-2 py-1 rounded text-sm ${
+                        paymentData.status === 'verified' ? 'bg-green-500/20 text-green-400' :
+                        paymentData.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
+                        'bg-yellow-500/20 text-yellow-400'
+                      }`}>
+                        {paymentData.status || translations.paymentVerification.status?.pending || 'Pending'}
+                      </span>
+                    </div>
+                  </div>
+                  {paymentData.transaction_id && (
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-1">
+                        {translations.paymentVerification.modal.transactionDetails.transactionId || "Transaction ID"}
+                      </label>
+                      <div className="text-base">
+                        #{paymentData.transaction_id}
+                      </div>
+                    </div>
+                  )}
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">
+                      {translations.common?.value || "Value"}
+                    </label>
+                    <div className="text-base">
+                      {paymentData.value}
+                    </div>
+                  </div>
+                  {paymentData.user?.mobile && (
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-1">
+                        {translations.paymentVerification.modal.mobile || "Mobile"}
+                      </label>
+                      <div className="text-base">
+                        {paymentData.user.mobile}
+                      </div>
+                    </div>
+                  )}
+                  {paymentData.created_at && (
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-1">
+                        {translations.paymentVerification.modal.createdDate || "Created Date"}
+                      </label>
+                      <div className="text-base">
+                        {formatDate(paymentData.created_at)}
+                      </div>
+                    </div>
+                  )}
+                  {paymentData.user?.name && (
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-1">
+                        {translations.paymentVerification.table?.userName || "User Name"}
+                      </label>
+                      <div className="text-base">
+                        {paymentData.user.name}
+                      </div>
+                    </div>
+                  )}
+                  {paymentData.payment_option && (
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-1">
+                        {translations.paymentVerification.modal.paymentOption || "Payment Option"}
+                      </label>
+                      <div className="text-base">
+                        {paymentData.payment_option}
+                      </div>
+                    </div>
+                  )}
+                  {paymentData.application?.name && (
+                    <div>
+                      <label className="block text-sm text-gray-400 mb-1">
+                        {translations.paymentVerification.modal.application || "Application"}
+                      </label>
+                      <div className="text-base">
+                        {paymentData.application.name}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            <Formik
+              initialValues={{
+                applicationId: "",
+                paymentOption: "",
+              }}
+              validationSchema={CheckTransactionSchema}
+              onSubmit={handleCheckTransaction}
+            >
+              {({ errors, touched, values, setFieldValue }) => (
+                <Form>
+                  <input
+                    type="hidden"
+                    value={paymentData?.id || ""}
+                    name="paymentDataId"
+                  />
+                  <div className="mb-4">
                   <label className="block text-sm text-white mb-2">
                     {translations.paymentVerification.modal.application} <span className="text-red-500">*</span>
                   </label>
@@ -233,6 +343,7 @@ export default function TransactionModal({
               </Form>
             )}
           </Formik>
+          </>
         ) : (
           <Formik
             initialValues={{

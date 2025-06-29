@@ -1,7 +1,7 @@
 "use client";
 
 import Pagination from "@/components/Shared/Pagination";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Search } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -11,6 +11,7 @@ import getAuthHeaders from "../Shared/getAuth";
 import PaymentsTable from "./PaymentsTable";
 import TransactionModal from "./TransactionModal";
 import { PaymentData, PaymentOption } from "./types";
+export const dynamic = 'force-dynamic';
 
 export default function UserPermissions() {
   const params = useParams();

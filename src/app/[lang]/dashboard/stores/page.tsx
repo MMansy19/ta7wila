@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/[lang]/ui/dropdown-menu";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Ellipsis } from "lucide-react";
 import Link from "next/link";
@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import { useParams } from "next/navigation";
+export const dynamic = 'force-dynamic';
 
 interface Store {
   id: number;

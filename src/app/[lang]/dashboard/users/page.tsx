@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/components/Shared/Pagination";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { Search } from "lucide-react";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
+export const dynamic = 'force-dynamic';
 
 interface User {
   id: number;

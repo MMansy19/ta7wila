@@ -93,7 +93,13 @@ export type TranslationKeys = {
     statusUpdated:string;
     selectType:string;
     confirmDeleteMessage:string;
-  
+    noResponse:string;
+    unexpectedError:string;
+    copiedToClipboard:string;
+    notFound:string;
+    storePayment:string;
+    copyToClipboard:string;
+    
   },
   verification: {
     stepTitles: {
@@ -177,6 +183,8 @@ export type TranslationKeys = {
     alreadyHaveAccount: string;
     dontHaveAccount: string;
     submitting: string;
+    customerName: string;
+    enterFullName: string;
     validation: {
         invalidEmail: string;
         emailRequired:  string;
@@ -400,9 +408,12 @@ export type TranslationKeys = {
   paymentVerification: {
     title: string;
     noData: string;
+    instructions: string;
+    successMessage:string;
     search: {
       placeholder: string;
     };
+    submitPayment: string;
     table: {
       id: string;
       userName: string;
@@ -422,7 +433,11 @@ export type TranslationKeys = {
       paymentOption: string;
       selectPaymentOption: string;
       checkButton: string;
+      selectPaymentMethodFirst: string;
+      fillPaymentInfo: string;
+
       transactionDetails: {
+        selectedPaymentId: string;
         title: string;
         value: string;
         transactionId: string;
@@ -440,6 +455,16 @@ export type TranslationKeys = {
         invalidAmount: string;
         pleaseSelectPaymentValue: string;
       };
+        selectedPaymentId: string;
+        selectedPaymentOption: string;
+        paymentId: string;
+        referenceId: string;
+        createdDate: string;
+        mobile: string;
+        status: string;
+        pending: string;
+        paymentDetails: string;
+
     };
     status: {
       verified: string;
@@ -560,6 +585,10 @@ export type TranslationKeys = {
     loading: string;
     error: string;
     title: string;
+    paymentLinkCopied: string;
+    publicPaymentLink: string;
+    sharePaymentLink: string;
+    copyPaymentLink: string;
     payments: {
       title: string;
       noData: string;

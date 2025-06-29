@@ -83,15 +83,24 @@
     "cancel": "إلغاء",
     "save": "حفظ",
     "create": "انشاء سبب للرفض",
+    "update": "تحديث",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل...",
+    "type": "النوع",
     "value": "القيمة",
     "status": "الحالة",
     "actions": "الإجراءات",
-    "type": "النوع",
+    "view": "عرض",
+    "noData": "لا توجد بيانات",
     "active": "نشط",
     "inactive": "غير نشط",
     "statusUpdated": "تم تحديث الحالة",
     "selectType": "اختر النوع",
     "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "noResponse": "لم يتم استلام استجابة من الخادم",
+    "unexpectedError": "حدث خطأ غير متوقع",
+    "copyToClipboard": "نسخ إلى الحافظة",
+    "storePayment": "دفع المتجر",
     "previous": "السابق",
     "next": "التالي"
   },
@@ -434,6 +443,9 @@
   "paymentVerification": {
     "title": "التحقق من المدفوعات",
     "noData": "لا توجد عمليات تحقق من المدفوعات متاحة.",
+    "instructions": "أكمل دفعتك باستخدام إحدى طرق الدفع المتاحة",
+    "successMessage": "تم إرسال معلومات الدفع بنجاح! يرجى إكمال الدفع باستخدام المعلومات المقدمة.",
+    "submitPayment": "إرسال معلومات الدفع",
     "search": {
       "placeholder": "البحث عن عمليات التحقق من المدفوعات..."
     },
@@ -456,6 +468,17 @@
       "paymentOption": "طريقة الدفع",
       "selectPaymentOption": "اختر طريقة الدفع",
       "checkButton": "تحقق من المعاملة",
+      "selectPaymentMethodFirst": "اختر طريقة دفع أولاً",
+      "fillPaymentInfo": "يرجى ملء معلومات الدفع الخاصة بك",
+      "paymentDetails": "تفاصيل الدفع",
+      "paymentId": "رقم الدفع",
+      "referenceId": "الرقم المرجعي",
+      "status": "الحالة",
+      "pending": "قيد الانتظار",
+      "value": "القيمة",
+      "mobile": "الهاتف المحمول",
+      "createdDate": "تاريخ الإنشاء",
+      "userName": "اسم المستخدم",
       "transactionDetails": {
         "title": "تفاصيل المعاملة",
         "value": "الرقم المرجعي",
@@ -472,7 +495,8 @@
         "instapayIdTooShort": "معرف Instapay قصير جدًا",
         "amountRequired": "المبلغ مطلوب",
         "invalidAmount": "يجب أن يكون المبلغ رقمًا موجبًا",
-        "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع"
+        "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع",
+        "selectedPaymentId": "معرف الدفع"
       }
     },
     "status": {
@@ -540,7 +564,7 @@
         "placeholder": "أدخل البريد الإلكتروني"
       },
       "mobileWallet": {
-        "label": "المحفظة *",
+        "label": "رقم الهاتف *",
         "placeholder": "+201000000000"
       },
       "subdomain": {
@@ -590,6 +614,10 @@
     "loading": "جارٍ التحميل...",
     "error": "خطأ في تحميل المعاملات.",
     "title": "تفاصيل المتجر",
+    "paymentLinkCopied": "تم نسخ رابط الدفع إلى الحافظة!",
+    "publicPaymentLink": "رابط الدفع العام",
+    "sharePaymentLink": "شارك هذا الرابط مع العملاء للسماح لهم بالدفع مباشرة",
+    "copyPaymentLink": "نسخ رابط الدفع",
     "payments": {
       "title": "ملخص الدفع",
       "noData": "لا توجد مدفوعات متاحة",

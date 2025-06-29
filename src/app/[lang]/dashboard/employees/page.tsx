@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,6 +11,7 @@ import EmployeeTable from "./employeeTable";
 import Header from "./header";
 import Pagination from "./pagination";
 import { Store, User } from "./types";
+export const dynamic = 'force-dynamic';
 
 export default function Employees() {
   const translations = useTranslation();

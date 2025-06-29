@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/components/Shared/Pagination";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Search } from "lucide-react";
@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
 import useCurrency from "../Shared/useCurrency";
 import { Transactions } from "./types";
+export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 

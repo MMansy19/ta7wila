@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
@@ -8,25 +8,27 @@ import toast from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
 import { type CheckoutDetails, Params } from "../types";
 import useCurrency from "../../Shared/useCurrency";
+import { use, useEffect } from "react";
+export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export default async function CheckoutDetails({
+export default function CheckoutDetails({
   params,
 }: {
   params: Promise<Params>;
 }) {
-  const { id } = await params;
+  const { id } = use(params);
   const translations = useTranslation();
   const formatCurrency = useCurrency();
-  async function fetchCheckoutDetails() {
+  async function fetchCheckoutDetails(): Promise<CheckoutDetails> {
     const response = await axios.get(`${apiUrl}/checkouts/${id}`, {
       headers: getAuthHeaders(),
     });
     return response.data.result || {};
   }
 
-  const { data: checkout, error } = useQuery<CheckoutDetails, Error>({
+  const { data: checkout, error, isLoading } = useQuery<CheckoutDetails, Error>({
     queryKey: ["checkoutDetails", id],
     queryFn: () => fetchCheckoutDetails(),
     enabled: !!id,
@@ -34,9 +36,22 @@ export default async function CheckoutDetails({
     refetchOnWindowFocus: false,
   });
 
-  if (error || !checkout) {
-    toast.error("Error fetching checkout details!");
-    return <div>Error loading checkout details.</div>;
+  useEffect(() => {
+    if (error) {
+      toast.error("Error fetching checkout details!");
+    }
+  }, [error]);
+
+  if (isLoading) {
+    return <div className="text-white text-center p-8">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-white text-center p-8">Error loading checkout details.</div>;
+  }
+
+  if (!checkout) {
+    return <div className="text-white text-center p-8">No checkout data found.</div>;
   }
 
   return (
@@ -66,17 +81,15 @@ export default async function CheckoutDetails({
             </div>
             <div className="text-white mb-2">
               <strong>{translations.checkout.details.labels.mobile}</strong>{" "}
-              <td className="p-2">
-                <span
-                  style={{
-                    direction: "ltr",
-                    textAlign: "left",
-                    display: "inline-block",
-                  }}
-                >
-                  {checkout.application.mobile}
-                </span>
-              </td>
+              <span
+                style={{
+                  direction: "ltr",
+                  textAlign: "left",
+                  display: "inline-block",
+                }}
+              >
+                {checkout.application.mobile}
+              </span>
             </div>
           </div>
 

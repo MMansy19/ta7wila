@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/components/[lang]/ui/separator";
 import { SidebarTrigger } from "@/components/[lang]/ui/sidebar";
 
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { deleteCookie } from "cookies-next";
 import { Bell, Wifi, WifiOff } from "lucide-react";
 import Link from "next/link";

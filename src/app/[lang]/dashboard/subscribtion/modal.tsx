@@ -1,4 +1,4 @@
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { SubscriptionModalProps } from "./types";
 import useCurrency from "../Shared/useCurrency";
 

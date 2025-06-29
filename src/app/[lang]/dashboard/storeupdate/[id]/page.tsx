@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useCallback, useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import getAuthHeaders from "../../Shared/getAuth";
 import UploadLogo from "../logoUpload";
 import { Params, Store } from "../types";
+export const dynamic = 'force-dynamic';
 
 export default function StoreUpdate({ params }: { params: Promise<Params> }) {
   const translations = useTranslation();

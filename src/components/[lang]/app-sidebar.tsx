@@ -13,7 +13,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/[lang]/ui/tooltip";
-import { useTranslation } from "@/context/translation-context";
+import { useTranslation } from '@/hooks/useTranslation';
 import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 import * as React from "react";
