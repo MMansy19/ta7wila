@@ -35,7 +35,7 @@ export default function PublicPayment({
     const [payments, setPayments] = useState<any[]>([]);
     const [storeInfo, setStoreInfo] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
-    
+
     const defaultPaymentOptions = [
         { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
         { name: "orange cash", key: "ocash", img: "/ocash.svg" },
@@ -43,7 +43,7 @@ export default function PublicPayment({
         { name: "INSTAPAY", key: "instapay", img: "/instapay.svg" },
         { name: "Apple Pay", key: "applepay", img: "/applepay.svg" },
     ];
-    
+
     const [selectedMethod, setSelectedMethod] = useState<string>("");
     const [hoveredMethod, setHoveredMethod] = useState<string>("");
     const [selectedPaymentValues, setSelectedPaymentValues] = useState<
@@ -146,16 +146,13 @@ export default function PublicPayment({
         const fetchStoreData = async () => {
             try {
                 const { id } = await params;
-                
-                    const response = await axios.get(`${apiUrl}/applications/${id}`, {
-                        headers: getAuthHeaders(),
-                    });
+                const response = await axios.get(`${apiUrl}/applications/${id}`, {
+                    headers: getAuthHeaders(),
+                });
 
                 if (response?.data.success && response?.data.result) {
                     const storeData = response.data.result;
-                    
                     setStoreInfo(storeData);
-                    
                     if (storeData.payment_options) {
                         const formattedOptions: PaymentOption[] =
                             storeData.payment_options.map((optionKey: string) => {
@@ -207,241 +204,247 @@ export default function PublicPayment({
 
     const handleCopy = (value: string) => {
         navigator.clipboard.writeText(value);
-        toast.success("Copied to clipboard!");
+        alert("تم النسخ!");
     };
 
     if (isLoading) {
-        return (
-            <Loading />
-        );
+        return <Loading />;
     }
 
     if (!storeInfo) {
         return (
-            <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
+            <div className="min-h-screen bg-[#2A2A2A] flex items-center justify-center">
                 <div className="text-white text-xl">Store not found</div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-neutral-900 py-8 px-4">
+        <div className="min-h-screen bg-[#2A2A2A] py-8 px-4">
             <div className="max-w-6xl mx-auto">
                 <Toaster position="top-right" reverseOrder={false} />
-                
-                {/* Store Header */}
-                <div className="bg-[#1E1E1E] rounded-xl p-6 mb-8 text-center">
-                    <h1 className="text-4xl font-bold text-white mb-2">
-                        {storeInfo.name || translations.common.storePayment || "Store Payment"}
-                    </h1>
-                    <p className="text-gray-300">
-                        {translations.paymentVerification.instructions || "Complete your payment using one of the available payment methods"}
-                    </p>
-                </div>
 
-                <div className="bg-neutral-800 rounded-[18px] p-6 shadow-lg text-[#FFFFFF]">
-                    <h2 className="text-3xl font-bold mb-8 text-center">
-                        {translations.paymentVerification.title}
-                    </h2>
-                    
+                <div className="bg-[#1E1E1E] rounded-[18px] p-8 shadow-lg text-[#FFFFFF]">
+                    <div className="flex items-center justify-center mb-8">
+                        <Image src="/Frame 1984078121.png" alt="Ta7wila Logo" width={160} height={50} />
+                    </div>
+
                     <div className="grid md:grid-cols-2 gap-8">
-                        {/* Payment Methods Section */}
-                        <div className="col-md-6">
-                            <div className="bg-[#1E1E1E] rounded-xl p-6 shadow-md">
-                                <h3 className="font-semibold text-xl mb-6 text-center">
-                                    {translations.storepayment.modal.add.paymentOption}
-                                </h3>
-                                <div className="flex flex-wrap justify-center gap-4 py-4">
-                                    {paymentOptions.map((method) => (
-                                        <div
-                                            key={method.key}
-                                            className={`flex flex-col items-center justify-center p-4 rounded-xl w-28 cursor-pointer transition-all duration-200 ${
-                                                selectedMethod === method.key
-                                                    ? "bg-[#53B4AB] text-black shadow-lg scale-105"
-                                                    : hoveredMethod === method.key
-                                                    ? "bg-gray-700"
-                                                    : "bg-[#2A2A2A] hover:bg-gray-700"
+                        
+                        <div className="space-y-4">
+
+                            <h1 className="text-2xl font-bold text-center mb-6 text-white">
+                                أختر طريقة الدفع
+                            </h1>
+
+                            {/* Payment Methods */}
+                            <div className="flex justify-center gap-4 mb-8">
+                                {paymentOptions.map((method) => (
+                                    <div
+                                        key={method.key}
+                                        className={`flex flex-col items-center justify-center p-4 rounded-xl w-24 h-24 cursor-pointer transition-all duration-200 ${selectedMethod === method.key
+                                            ? "bg-[#53B4AB] text-black shadow-lg scale-105"
+                                            : hoveredMethod === method.key
+                                                ? "bg-gray-700"
+                                                : "bg-[#2A2A2A] hover:bg-gray-700"
                                             }`}
-                                            onClick={() => handlePaymentMethodSelect(method.key)}
-                                            onMouseEnter={() => setHoveredMethod(method.key)}
-                                            onMouseLeave={() => setHoveredMethod("")}
-                                        >
-                                            <Image
-                                                src={method.img}
-                                                alt={method.name}
-                                                width={48}
-                                                height={48}
-                                                className="mb-3"
-                                            />
-                                            <span className="text-sm font-medium">{method.name}</span>
-                                        </div>
-                                    ))}
-                                </div>
+                                        onClick={() => handlePaymentMethodSelect(method.key)}
+                                        onMouseEnter={() => setHoveredMethod(method.key)}
+                                        onMouseLeave={() => setHoveredMethod("")}
+                                    >
+                                        <Image
+                                            src={method.img}
+                                            alt={method.name}
+                                            width={32}
+                                            height={32}
+                                            className="mb-2"
+                                        />
+                                        <span className="text-xs font-medium text-center leading-tight">
+                                            {method.name}
+                                        </span>
+                                        {method.key === "applepay" && (
+                                            <span className="text-xs text-gray-400 mt-1">Coming Soon</span>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="text-center">
+                                <h3 className="font-semibold text-lg mb-2 text-white">
+                                لا يوجد عمولة علي الشحن                               
+                                </h3>
                             </div>
 
-                            {/* Payment Values Section */}
-                            <div className="mt-8 bg-[#1E1E1E] rounded-xl p-6 shadow-md">
-                                <div className="mb-4 text-center">
-                                    <h3 className="font-semibold text-xl mb-2">
-                                        {translations.paymentVerification.modal.transactionDetails.title}
-                                    </h3>
-                                    <p className="text-sm text-[#53B4AB]">
-                                        {translations.paymentVerification.modal.transactionDetails.pleaseSelectPaymentValue}
-                                    </p>
-                                    {selectedPaymentId && (
-                                        <p className="text-xs text-green-400 mt-1">
-                                            {translations.paymentVerification.modal.transactionDetails.selectedPaymentId}: {selectedPaymentId}
-                                        </p>
-                                    )}
-                                </div>
-                                <div className="space-y-3">
-                                    {selectedPaymentValues.length > 0 ? (
-                                        selectedPaymentValues.map((payment) => (
-                                            <div
-                                                key={payment.id}
-                                                className={`flex justify-between items-center w-full cursor-pointer transition-all duration-200 p-3 rounded-lg ${
-                                                    selectedPaymentId === payment.id
-                                                        ? "bg-[#53B4AB] bg-opacity-20 border border-[#53B4AB]"
-                                                        : "bg-[#2A2A2A] hover:bg-gray-700"
+                            <div className="space-y-3">
+                                {selectedPaymentValues.length > 0 ? (
+                                    selectedPaymentValues.map((payment) => (
+                                        <div
+                                            key={payment.id}
+                                            className={`flex justify-between items-center w-full cursor-pointer transition-all duration-200 p-4 rounded-lg ${selectedPaymentId === payment.id
+                                                ? "bg-[#53B4AB] bg-opacity-20 border border-[#53B4AB]"
+                                                : "bg-[#2A2A2A] hover:bg-gray-700"
                                                 }`}
-                                                onClick={() => handlePaymentValueSelect(payment.id)}
-                                            >
-                                                <div className="flex items-center gap-2">
-                                                    <span className="font-medium">
-                                                        {translations.paymentVerification.modal.transactionDetails.value}
-                                                    </span>
-                                                    <span className="text-xs text-gray-400">
-                                                        ({translations.paymentVerification.modal.transactionDetails.selectedPaymentId}: {payment.id})
-                                                    </span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-sm font-semibold bg-[#3A3A3A] p-2 rounded-lg text-[#53B4AB]">
-                                                        {payment.value}
-                                                    </span>
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleCopy(payment.value);
-                                                        }}
-                                                        className="p-2 rounded-lg hover:bg-[#3A3A3A] transition-colors duration-200"
-                                                        title={translations.common.copyToClipboard || "Copy to clipboard"}
-                                                    >
-                                                        <svg
-                                                            width="20"
-                                                            height="20"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            className="text-[#53B4AB]"
-                                                        >
-                                                            <path
-                                                                d="M17 6L17 14C17 16.2091 15.2091 18 13 18H7M17 6C17 3.79086 15.2091 2 13 2L10.6569 2C9.59599 2 8.57857 2.42143 7.82843 3.17157L4.17157 6.82843C3.42143 7.57857 3 8.59599 3 9.65685L3 14C3 16.2091 4.79086 18 7 18M17 6C19.2091 6 21 7.79086 21 10V18C21 20.2091 19.2091 22 17 22H11C8.79086 22 7 20.2091 7 18M9 2L9 4C9 6.20914 7.20914 8 5 8L3 8"
-                                                                stroke="currentColor"
-                                                                strokeWidth="1.5"
-                                                                strokeLinejoin="round"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                </div>
+                                            onClick={() => handlePaymentValueSelect(payment.id)}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <span className="font-medium text-white">
+                                                    {payment.value}
+                                                </span>
                                             </div>
-                                        ))
-                                    ) : (
-                                        <div className="flex justify-between items-center w-full p-4 rounded-lg bg-[#2A2A2A]">
-                                            <p className="font-medium">
-                                                {translations.paymentVerification.modal.selectPaymentMethodFirst || "Select a payment method first"}
-                                            </p>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleCopy(payment.value);
+                                                }}
+                                                className="text-[#53B4AB] hover:text-[#4a9e96]"
+                                            >
+                                                نسخ
+                                            </button>
                                         </div>
-                                    )}
-                                </div>
+                                    ))
+                                ) : (
+                                    <>
+                                        <div className="flex justify-between items-center bg-[#2A2A2A] p-4 rounded-lg">
+                                            <span className="font-medium text-white">01030769583</span>
+                                            <button
+                                                onClick={() => handleCopy("01030769583")}
+                                                className="text-[#53B4AB] hover:text-[#4a9e96]"
+                                            >
+                                                نسخ
+                                            </button>
+                                        </div>
+
+                                        <div className="flex justify-between items-center bg-[#2A2A2A] p-4 rounded-lg">
+                                            <span className="font-medium text-white">01030769583</span>
+                                            <button
+                                                onClick={() => handleCopy("01030769583")}
+                                                className="text-[#53B4AB] hover:text-[#4a9e96]"
+                                            >
+                                                نسخ
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </div>
+
+                            <p className="text-sm text-gray-400 mt-2 text-center">
+                                رقم متوظفون خاش الخاص بلا<br />
+                                رقم خدمة العصك
+                            </p>
                         </div>
 
-                        {/* Payment Form Section */}
-                        <div className="col-md-6">
-                            <div className="bg-[#1E1E1E] rounded-xl p-6 shadow-md">
-                                <div className="mb-6 text-center">
-                                    <h3 className="font-semibold text-xl mb-2">
-                                        {translations.paymentVerification.modal.transactionDetails.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-400">
-                                        {translations.paymentVerification.modal.fillPaymentInfo || "Please fill in your payment information"}
-                                    </p>
-                                </div>
-
-                                <Formik
-                                    initialValues={{
-                                        customer_name: "",
-                                        mobile: "",
-                                        amount: "",
-                                        payment_option: selectedMethod,
-                                    }}
-                                    validationSchema={validationSchema}
-                                    onSubmit={handleSubmitPayment}
-                                    enableReinitialize
-                                >
-                                    {({ isSubmitting }) => (
-                                        <Form className="space-y-5">
-                                            <div className="mb-4">
-                                                <h4 className="font-semibold mb-2 text-lg">
-                                                    {selectedMethod === "instapay" ? 
-                                                        "InstaPay ID" : 
-                                                        translations.auth.mobile || "Mobile Number"}
-                                                </h4>
-                                                <Field
-                                                    name="mobile"
-                                                    className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white text-base h-12 border border-gray-700 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
-                                                    placeholder={
-                                                        selectedMethod === "instapay"
-                                                            ? translations.storepayment.modal.add.valuePlaceholder
-                                                            : translations.storepayment.modal.add.valuePlaceholder
-                                                    }
-                                                />
-                                                <ErrorMessage
-                                                    name="mobile"
-                                                    component="p"
-                                                    className="text-red-500 text-sm mt-1"
-                                                />
-                                            </div>
-
-                                            <div className="mb-4">
-                                                <h4 className="font-semibold mb-2 text-lg">
-                                                    {translations.paymentVerification.modal.transactionDetails.totalAmount || "Amount (EGP)"}
-                                                </h4>
-                                                <Field
-                                                    name="amount"
-                                                    className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white text-base h-12 border border-gray-700 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
-                                                    placeholder="0 EGP"
-                                                />
-                                                <ErrorMessage
-                                                    name="amount"
-                                                    component="p"
-                                                    className="text-red-500 text-sm mt-1"
-                                                />
-                                            </div>
-
-                                            <Field
-                                                type="hidden"
-                                                name="payment_option"
-                                                value={selectedMethod}
-                                            />
-
-                                            <button
-                                                type="submit"
-                                                className="w-full p-3 bg-[#53B4AB] hover:bg-[#347871] text-black rounded-lg mt-6 font-semibold text-sm transition-colors duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-                                                disabled={isSubmitting || !selectedMethod || !selectedPaymentId}
-                                            >
-                                                {isSubmitting
-                                                    ? translations.auth.submitting
-                                                    : translations.paymentVerification.submitPayment || "Submit Payment Information"}
-                                            </button>
-                                        </Form>
-                                    )}
-                                </Formik>
+                        <div className="space-y-4">
+                            <div className="text-center">
+                                <h3 className="font-semibold text-lg mb-2 text-white">
+                                    رقم فودافون كاش الخاص بنا
+                                </h3>
                             </div>
+
+                            {/* Instructions */}
+                            <div className="bg-[#2A2A2A] p-4 rounded-lg mb-6">
+                                <p className="text-sm text-gray-300 mb-3">
+                                بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلالة في خانة رقم الهاتف و كتابه المبلغ الذي قمت بتحويله بالجنية المصري في خانه المبلغ                                 </p>
+
+                                <p className="text-sm text-gray-300">
+                                الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة                                
+                                </p>
+                            </div>
+
+                            <Formik
+                                initialValues={{
+                                    customer_name: "",
+                                    mobile: "",
+                                    amount: "",
+                                    payment_option: selectedMethod,
+                                }}
+                                validationSchema={validationSchema}
+                                onSubmit={handleSubmitPayment}
+                                enableReinitialize
+                            >
+                                {({ isSubmitting }) => (
+                                    <Form className="space-y-5">
+                                        <div>
+                                            <label className="block text-white font-medium mb-2">
+                                                رقم الهاتف <span className="text-red-500">*</span>
+                                            </label>
+                                            <Field
+                                                name="mobile"
+                                                className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
+                                                placeholder="01030600000"
+                                            />
+                                            <ErrorMessage
+                                                name="mobile"
+                                                component="p"
+                                                className="text-red-500 text-sm mt-1"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-white font-medium mb-2">
+                                                رقم الحساب <span className="text-red-500">*</span>
+                                            </label>
+                                            <Field
+                                                name="customer_name"
+                                                className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
+                                                placeholder="رقم المعلومات"
+                                            />
+                                            <ErrorMessage
+                                                name="customer_name"
+                                                component="p"
+                                                className="text-red-500 text-sm mt-1"
+                                            />
+                                        </div>
+
+                                        <div className="flex gap-4">
+                                            <div className="flex-1">
+                                                <label className="block text-white font-medium mb-2">
+                                                    رقم <span className="text-red-500">*</span>
+                                                </label>
+                                                <Field
+                                                    name="amount"
+                                                    className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
+                                                    placeholder="50"
+                                                />
+                                                <ErrorMessage
+                                                    name="amount"
+                                                    component="p"
+                                                    className="text-red-500 text-sm mt-1"
+                                                />
+                                            </div>
+
+                                            <div className="flex-1">
+                                                <label className="block text-white font-medium mb-2">
+                                                    رقم الآن
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
+                                                    placeholder="01030769583"
+                                                    value="01030769583"
+                                                    readOnly
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <Field
+                                            type="hidden"
+                                            name="payment_option"
+                                            value={selectedMethod}
+                                        />
+
+                                        <button
+                                            type="submit"
+                                            className="w-full p-3 bg-[#53B4AB] hover:bg-[#4a9e96] text-white rounded-lg font-semibold transition-colors duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                            disabled={isSubmitting || !selectedMethod || !selectedPaymentId}
+                                        >
+                                            {isSubmitting ? "جاري الإرسال..." : "تأكيد الدفع"}
+                                        </button>
+                                    </Form>
+                                )}
+                            </Formik>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
         </div>
     );
 }
