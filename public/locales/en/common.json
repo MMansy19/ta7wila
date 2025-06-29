@@ -515,7 +515,7 @@
     "instructions": "After transfer, confirm the transfer by writing the phone number you transferred from in the phone number field and write the amount you transferred in Egyptian pounds in the amount field",
     "waitInstructions": "Please wait 5 minutes if confirmation fails and try again",
     "amount": "Amount",
-    "amountPlaceholder": "Enter amount in pounds",
+    "amountPlaceholder": "Enter amount",
     "phoneNumber": "Phone Number",
     "instapayUsername": "Instapay Username",
     "phonePlaceholder": "01000000000",

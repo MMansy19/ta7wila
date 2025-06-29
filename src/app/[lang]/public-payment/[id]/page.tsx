@@ -81,7 +81,6 @@ export default function PublicPayment({
                 translations?.paymentVerification?.modal?.transactionDetails?.invalidAmount || "Invalid amount",
                 (value) => !isNaN(Number(value)) && Number(value) > 0
             ),
-        customer_name: Yup.string().required(translations?.auth?.validation?.nameRequired || "Customer name is required"),
     });
 
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -101,17 +100,28 @@ export default function PublicPayment({
         }
 
         try {
+            // Generate a unique reference ID
+            const ref_id = `CTRI${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}${String(new Date().getDate()).padStart(2, '0')}${String(Date.now()).slice(-6)}`;
+            
             const response = await axios.post(
-                `${apiUrl}/transactions/public-payment`,
+                `${apiUrl}/check-transaction`,
                 {
-                    payment_option: values.payment_option,
-                    application_id: resolvedParams.id,
-                    amount: values.amount,
                     value: values.mobile,
+                    amount: values.amount,
+                    application_id: resolvedParams.id,
+                    payment_option: values.payment_option,
+                    ref_id: ref_id,
                     payment_id: selectedPaymentId,
                     customer_name: values.customer_name,
+                },
+                {
+                    headers: getAuthHeaders(),
                 }
             );
+            if (!response.data.success) {
+                toast.error(response.data.message || "Failed to submit payment");
+                return;
+            }
 
             // Success - transfer completed
             toast.success(translations.publicPayment?.transferSuccess || "تم التحويل بنجاح! سيتم مراجعة طلبك والتأكيد خلال دقائق قليلة");
@@ -166,6 +176,7 @@ export default function PublicPayment({
                 if (response?.data.success && response?.data.result) {
                     const storeData = response.data.result;
                     setStoreInfo(storeData);
+                    console.log("Store Data:", storeData);
                     if (storeData.payment_options) {
                         const formattedOptions: PaymentOption[] =
                             storeData.payment_options.map((optionKey: string) => {
@@ -238,8 +249,24 @@ export default function PublicPayment({
                 <Toaster position="top-right" reverseOrder={false} />
 
                 <div className="bg-[#1E1E1E] rounded-[18px] p-4 md:p-8 shadow-lg text-[#FFFFFF]">
-                    <div className="flex items-center justify-center mb-6 md:mb-8">
+                    <div className="flex items-center justify-center gap-4 mb-6 md:mb-8 flex-col md:flex-row">
                         <Image src="/Frame 1984078121.png" alt="Ta7wila Logo" width={160} height={50} />
+                        {storeInfo?.logo && (
+                            <>
+                                <div className="flex items-center justify-center">
+                                    <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+                                    <div className="mx-3 w-2 h-2 rounded-full bg-[#53B4AB]"></div>
+                                    <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+                                </div>
+                                <Image 
+                                    src={`https://api.ta7wila.com/${storeInfo.logo}`} 
+                                    alt="Store Logo" 
+                                    width={60} 
+                                    height={60}
+                                    className="rounded-lg object-contain border border-gray-600 bg-white/5 p-1"
+                                />
+                            </>
+                        )}
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -340,7 +367,6 @@ export default function PublicPayment({
 
                             <Formik
                                 initialValues={{
-                                    customer_name: "",
                                     mobile: "",
                                     amount: "",
                                     payment_option: selectedMethod,
@@ -351,19 +377,6 @@ export default function PublicPayment({
                             >
                                 {({ isSubmitting }) => (
                                     <Form className="space-y-4 md:space-y-5">
-                                        <div className='w-full'>
-                                            <label className="block text-white font-medium mb-2 text-sm md:text-base">
-                                                {translations.publicPayment?.customerName || "اسم العميل"}
-                                            </label>
-                                            <Field
-                                                type="text"
-                                                name="customer_name"
-                                                className="px-3 md:px-4 py-2 md:py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200 text-sm md:text-base"
-                                                placeholder={translations.publicPayment?.customerNamePlaceholder || "أدخل اسم العميل"}
-                                            />
-                                            <ErrorMessage name="customer_name" component="div" className="text-red-500 text-xs md:text-sm mt-1" />
-                                        </div>
-                                        
                                         <div className='flex md:flex-row flex-col gap-3 md:gap-4'>
                                             <div className='w-full md:max-w-[180px]'>
                                                 <label className="block text-white font-medium mb-2 text-sm md:text-base">
