@@ -220,53 +220,57 @@ export default function PublicPayment({
     }
 
     return (
-        <div className="min-h-screen bg-[#2A2A2A] py-8 px-4">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-[#2A2A2A] flex items-center justify-center py-8 px-4">
+            <div className="max-w-6xl w-full mx-auto">
                 <Toaster position="top-right" reverseOrder={false} />
 
-                <div className="bg-[#1E1E1E] rounded-[18px] p-8 shadow-lg text-[#FFFFFF]">
-                    <div className="flex items-center justify-center mb-8">
+                <div className="bg-[#1E1E1E] rounded-[18px] p-4 md:p-8 shadow-lg text-[#FFFFFF]">
+                    <div className="flex items-center justify-center mb-6 md:mb-8">
                         <Image src="/Frame 1984078121.png" alt="Ta7wila Logo" width={160} height={50} />
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                         
                         <div className="space-y-4">
 
-                            <h1 className="text-2xl font-bold text-center mb-6 text-white">
+                            <h1 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-white">
                                 أختر طريقة الدفع
                             </h1>
 
-                            {/* Payment Methods */}
-                            <div className="flex justify-center gap-4 mb-8">
-                                {paymentOptions.map((method) => (
-                                    <div
-                                        key={method.key}
-                                        className={`flex flex-col items-center justify-center p-4 rounded-xl w-24 h-24 cursor-pointer transition-all duration-200 ${selectedMethod === method.key
-                                            ? "bg-[#53B4AB] text-black shadow-lg scale-105"
-                                            : hoveredMethod === method.key
-                                                ? "bg-gray-700"
-                                                : "bg-[#2A2A2A] hover:bg-gray-700"
-                                            }`}
-                                        onClick={() => handlePaymentMethodSelect(method.key)}
-                                        onMouseEnter={() => setHoveredMethod(method.key)}
-                                        onMouseLeave={() => setHoveredMethod("")}
-                                    >
-                                        <Image
-                                            src={method.img}
-                                            alt={method.name}
-                                            width={32}
-                                            height={32}
-                                            className="mb-2"
-                                        />
-                                        <span className="text-xs font-medium text-center leading-tight">
-                                            {method.name}
-                                        </span>
-                                        {method.key === "applepay" && (
-                                            <span className="text-xs text-gray-400 mt-1">Coming Soon</span>
-                                        )}
+                            {/* Payment Methods - Mobile Responsive with Horizontal Scroll */}
+                            <div className="mb-6 md:mb-8">
+                                <div className="flex justify-center gap-3 md:gap-4 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+                                    <div className="flex gap-3 md:gap-4 min-w-max md:min-w-0">
+                                        {paymentOptions.map((method) => (
+                                            <div
+                                                key={method.key}
+                                                className={`flex flex-col items-center justify-center p-3 md:p-4 rounded-xl w-20 h-20 md:w-24 md:h-24 cursor-pointer transition-all duration-200 flex-shrink-0 ${selectedMethod === method.key
+                                                    ? "bg-[#53B4AB] text-black shadow-lg scale-105"
+                                                    : hoveredMethod === method.key
+                                                        ? "bg-gray-700"
+                                                        : "bg-[#2A2A2A] hover:bg-gray-700"
+                                                    }`}
+                                                onClick={() => handlePaymentMethodSelect(method.key)}
+                                                onMouseEnter={() => setHoveredMethod(method.key)}
+                                                onMouseLeave={() => setHoveredMethod("")}
+                                            >
+                                                <Image
+                                                    src={method.img}
+                                                    alt={method.name}
+                                                    width={28}
+                                                    height={28}
+                                                    className="mb-1 md:mb-2 md:w-8 md:h-8"
+                                                />
+                                                <span className="text-[10px] md:text-xs font-medium text-center leading-tight px-1">
+                                                    {method.name}
+                                                </span>
+                                                {method.key === "applepay" && (
+                                                    <span className="text-[8px] md:text-xs text-gray-400 mt-1">Coming Soon</span>
+                                                )}
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
+                                </div>
                             </div>
                             <div className="text-center">
                                 <h3 className="font-semibold text-lg mb-2 text-white">
@@ -275,7 +279,7 @@ export default function PublicPayment({
                             </div>
 
                             <div className="space-y-3">
-                                {selectedPaymentValues.length > 0 ? (
+                                {selectedPaymentValues.length > 0 && (
                                     selectedPaymentValues.map((payment) => (
                                         <div
                                             key={payment.id}
@@ -301,28 +305,6 @@ export default function PublicPayment({
                                             </button>
                                         </div>
                                     ))
-                                ) : (
-                                    <>
-                                        <div className="flex justify-between items-center bg-[#2A2A2A] p-4 rounded-lg">
-                                            <span className="font-medium text-white">01030769583</span>
-                                            <button
-                                                onClick={() => handleCopy("01030769583")}
-                                                className="text-[#53B4AB] hover:text-[#4a9e96]"
-                                            >
-                                                نسخ
-                                            </button>
-                                        </div>
-
-                                        <div className="flex justify-between items-center bg-[#2A2A2A] p-4 rounded-lg">
-                                            <span className="font-medium text-white">01030769583</span>
-                                            <button
-                                                onClick={() => handleCopy("01030769583")}
-                                                className="text-[#53B4AB] hover:text-[#4a9e96]"
-                                            >
-                                                نسخ
-                                            </button>
-                                        </div>
-                                    </>
                                 )}
                             </div>
 
@@ -340,11 +322,11 @@ export default function PublicPayment({
                             </div>
 
                             {/* Instructions */}
-                            <div className="bg-[#2A2A2A] p-4 rounded-lg mb-6">
-                                <p className="text-sm text-gray-300 mb-3">
+                            <div className="bg-[#2A2A2A] p-3 md:p-4 rounded-lg mb-4 md:mb-6">
+                                <p className="text-xs md:text-sm text-gray-300 mb-2 md:mb-3">
                                 بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلالة في خانة رقم الهاتف و كتابه المبلغ الذي قمت بتحويله بالجنية المصري في خانه المبلغ                                 </p>
 
-                                <p className="text-sm text-gray-300">
+                                <p className="text-xs md:text-sm text-gray-300">
                                 الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة                                
                                 </p>
                             </div>
@@ -361,28 +343,38 @@ export default function PublicPayment({
                                 enableReinitialize
                             >
                                 {({ isSubmitting }) => (
-                                    <Form className="space-y-5">
-                                            <div className="flex-1">
-                                                <label className="block text-white font-medium mb-2 mt-8">
-                                                    رقم الهاتف
+                                    <Form className="space-y-4 md:space-y-5">
+                                        <div className='flex md:flex-row flex-col gap-3 md:gap-4'>
+                                            <div className='w-full md:max-w-[180px]'>
+                                                <label className="block text-white font-medium mb-2 text-sm md:text-base">
+                                                    المبلغ
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
-                                                    placeholder="01030769583"
-                                                    value="01030769583"
-                                                    readOnly
+                                                <Field
+                                                    type="number"
+                                                    name="amount"
+                                                    className="px-3 md:px-4 py-2 md:py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200 text-sm md:text-base"
+                                                    placeholder="أدخل المبلغ بالجنيه"
                                                 />
+                                                <ErrorMessage name="amount" component="div" className="text-red-500 text-xs md:text-sm mt-1" />
                                             </div>
-                                            <Field
-                                            type="hidden"
-                                            name="payment_option"
-                                            value={selectedMethod}
-                                        />
+
+                                            <div className='w-full'>
+                                                <label className="block text-white font-medium mb-2 text-sm md:text-base">
+                                                    {selectedMethod === "instapay" ? "اسم المسخدم على انستا باي" : "رقم الهاتف"}
+                                                </label>
+                                                <Field
+                                                    type="tel"
+                                                    name="mobile"
+                                                    className="px-3 md:px-4 py-2 md:py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200 text-sm md:text-base"
+                                                    placeholder={selectedMethod === "instapay" ? "user@instapay" : "01000000000"}
+                                                />
+                                                <ErrorMessage name="mobile" component="div" className="text-red-500 text-xs md:text-sm mt-1" />
+                                            </div>
+                                    </div>
 
                                         <button
                                             type="submit"
-                                            className="w-full p-3 bg-[#53B4AB] hover:bg-[#4a9e96] text-white rounded-lg font-semibold transition-colors duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full p-2 md:p-3 bg-[#53B4AB] hover:bg-[#4a9e96] text-white rounded-lg font-semibold transition-colors duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
                                             disabled={isSubmitting || !selectedMethod || !selectedPaymentId}
                                         >
                                             {isSubmitting ? "جاري الإرسال..." : "تأكيد الدفع"}
