@@ -362,58 +362,9 @@ export default function PublicPayment({
                             >
                                 {({ isSubmitting }) => (
                                     <Form className="space-y-5">
-                                        <div>
-                                            <label className="block text-white font-medium mb-2">
-                                                رقم الهاتف <span className="text-red-500">*</span>
-                                            </label>
-                                            <Field
-                                                name="mobile"
-                                                className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
-                                                placeholder="01030600000"
-                                            />
-                                            <ErrorMessage
-                                                name="mobile"
-                                                component="p"
-                                                className="text-red-500 text-sm mt-1"
-                                            />
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-white font-medium mb-2">
-                                                رقم الحساب <span className="text-red-500">*</span>
-                                            </label>
-                                            <Field
-                                                name="customer_name"
-                                                className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
-                                                placeholder="رقم المعلومات"
-                                            />
-                                            <ErrorMessage
-                                                name="customer_name"
-                                                component="p"
-                                                className="text-red-500 text-sm mt-1"
-                                            />
-                                        </div>
-
-                                        <div className="flex gap-4">
                                             <div className="flex-1">
-                                                <label className="block text-white font-medium mb-2">
-                                                    رقم <span className="text-red-500">*</span>
-                                                </label>
-                                                <Field
-                                                    name="amount"
-                                                    className="px-4 py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200"
-                                                    placeholder="50"
-                                                />
-                                                <ErrorMessage
-                                                    name="amount"
-                                                    component="p"
-                                                    className="text-red-500 text-sm mt-1"
-                                                />
-                                            </div>
-
-                                            <div className="flex-1">
-                                                <label className="block text-white font-medium mb-2">
-                                                    رقم الآن
+                                                <label className="block text-white font-medium mb-2 mt-8">
+                                                    رقم الهاتف
                                                 </label>
                                                 <input
                                                     type="text"
@@ -423,9 +374,7 @@ export default function PublicPayment({
                                                     readOnly
                                                 />
                                             </div>
-                                        </div>
-
-                                        <Field
+                                            <Field
                                             type="hidden"
                                             name="payment_option"
                                             value={selectedMethod}
