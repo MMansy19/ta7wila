@@ -73,13 +73,26 @@ export function middleware(request: NextRequest) {
     return redirectResponse;
   }
 
+  // Allow public access to public-payment pages
+  if (pathname.includes('/public-payment')) {
+    const response = NextResponse.next();
+    if (currentLocale !== savedLocale) {
+      response.cookies.set('NEXT_LOCALE', currentLocale, {
+        path: '/',
+        maxAge: 31536000,
+        sameSite: 'lax'
+      });
+    }
+    return response;
+  }
+
   const pathWithoutLocale = pathname.replace(`/${currentLocale}`, '') || '/';
   const isValidPath = Object.keys(pathnames).some(validPath => {
     if (validPath === '/') return pathWithoutLocale === '/';
     return pathWithoutLocale.startsWith(validPath);
   });
 
-  if (!isValidPath && pathWithoutLocale !== '/' && !pathWithoutLocale.startsWith('/dashboard')) {
+  if (!isValidPath && pathWithoutLocale !== '/' && !pathWithoutLocale.startsWith('/dashboard') && !pathWithoutLocale.startsWith('/public-payment')) {
     const redirectResponse = NextResponse.redirect(new URL(`/${currentLocale}`, request.url));
     if (currentLocale !== savedLocale) {
       redirectResponse.cookies.set('NEXT_LOCALE', currentLocale, {
@@ -105,5 +118,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)', '/', '/dashboard/:path*']
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)', '/', '/dashboard/:path*', '/public-payment/:path*']
 }

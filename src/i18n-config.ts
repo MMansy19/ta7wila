@@ -18,6 +18,10 @@ export const pathnames: Pathnames<typeof locales> = {
   '/forgetpassword': {
     en: '/forgetpassword',
     ar: '/forgetpassword'
+  },
+  '/public-payment': {
+    en: '/public-payment',
+    ar: '/public-payment'
   }
 } satisfies Pathnames<typeof locales>;
 
