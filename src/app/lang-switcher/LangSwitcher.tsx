@@ -18,8 +18,8 @@ export default function LocaleSwitcher({
   const switchLocale = (newLocale: string) => {
     const newPath = pathname.replace(`/${currentLang}`, `/${newLocale}`);
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
-    router.push(newPath);
     setIsOpen(false);
+    window.location.href = newPath;
   };
 
   return (

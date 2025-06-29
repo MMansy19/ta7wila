@@ -144,8 +144,6 @@ const handleCheckDeveloperMode = async () => {
         </Button>
 
         <LocaleSwitcher currentLang={lang} />
-
-        {/* <DasboardLangSwitcher currentLang={lang} /> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
