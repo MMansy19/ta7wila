@@ -54,13 +54,14 @@ export default function InvoiceDetails({ params }: { params: Promise<Params> }) 
     return <div>{translations.invoice.noInvoices}</div>;
   }
 
+
   return (
     <div className="container">
       <div className="bg-[#1F1F1F] rounded-lg shadow-lg px-8 pt-6 pb-1 mx-auto">
         <div className="flex justify-between mb-2 flex-wrap">
           <div className="flex text-center w-full mt-2">
-            <span className={`badge ${invoice.status === 'completed' ? 'bg-green-500 bg-opacity-20'  : 'bg-[#F58C7B] bg-opacity-20'} text-black px-2 py-2 rounded-lg w-full`}>
-              {invoice.status === 'completed' ? translations.transactions.status.completed : translations.transactions.status.pending}!
+            <span className={`badge ${invoice.status === 'paid' ? 'bg-green-500'  : 'bg-[#F58C7B]'} text-black px-2 py-2 rounded-lg w-full`}>
+              {invoice.status === 'paid' ? translations.transactions.status.completed : translations.transactions.status.pending}!
             </span>
           </div>
         </div>

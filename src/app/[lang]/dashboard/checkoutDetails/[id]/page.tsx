@@ -58,12 +58,10 @@ export default function CheckoutDetails({
     <div className="container">
       <div className="bg-[#1F1F1F] rounded-lg shadow-lg px-8 pt-6 pb-1 mx-auto min-h-[calc(100vh-77px)]">
         <div className="flex text-center w-full mt-2">
-          <span
-            className={`badge ${checkout.status === "paid" ? "bg-green-500" : "bg-[#F58C7B]"} text-black px-2 py-2 rounded-lg w-full`}
-          >
-            {checkout.status.charAt(0).toUpperCase() + checkout.status.slice(1)}{" "}
-            !
+          <span className={`badge ${checkout.status === 'paid' ? 'bg-green-500' : 'bg-[#F58C7B]'} text-black px-2 py-2 rounded-lg w-full`}>
+            {checkout.status === 'paid' ? translations.transactions.status.completed : translations.transactions.status.pending}!
           </span>
+
         </div>
 
         <div className="flex justify-between mb-4 border-b-2 border-green-200 py-3 flex-wrap">
