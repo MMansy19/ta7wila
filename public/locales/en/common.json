@@ -508,6 +508,29 @@
       "check": "Check"
     }
   },
+  "publicPayment": {
+    "title": "Choose Payment Method",
+    "noCommission": "No commission on charging",
+    "ourNumber": "Our Vodafone Cash Number",
+    "instructions": "After transfer, confirm the transfer by writing the phone number you transferred from in the phone number field and write the amount you transferred in Egyptian pounds in the amount field",
+    "waitInstructions": "Please wait 5 minutes if confirmation fails and try again",
+    "amount": "Amount",
+    "amountPlaceholder": "Enter amount in pounds",
+    "phoneNumber": "Phone Number",
+    "instapayUsername": "Instapay Username",
+    "phonePlaceholder": "01000000000",
+    "instapayPlaceholder": "user@instapay",
+    "confirmPayment": "Confirm Payment",
+    "submitting": "Submitting...",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "footerNote": "Our reserved number\nCustomer service number",
+    "storeNotFound": "Store not found",
+    "customerName": "Customer Name",
+    "customerNamePlaceholder": "Enter customer name",
+    "transferSuccess": "Transfer completed successfully! Your request will be reviewed and confirmed within a few minutes",
+    "transferNotCompleted": "Transfer not completed yet! Please make sure to complete the transfer first"
+  },
   "subscription": {
     "title": "Subscriptions",
     "noData": "No subscriptions found.",

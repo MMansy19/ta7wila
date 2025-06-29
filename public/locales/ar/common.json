@@ -499,6 +499,29 @@
         "selectedPaymentId": "معرف الدفع"
       }
     },
+    "publicPayment": {
+      "title": "اختر طريقة الدفع",
+      "noCommission": "لا يوجد عمولة على الشحن",
+      "ourNumber": "رقم فودافون كاش الخاص بنا",
+      "instructions": "بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلاله في خانة رقم الهاتف و كتابة المبلغ الذي قمت بتحويله بالجنيه المصري في خانة المبلغ",
+      "waitInstructions": "الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة",
+      "amount": "المبلغ",
+      "amountPlaceholder": "أدخل المبلغ بالجنيه",
+      "phoneNumber": "رقم الهاتف",
+      "instapayUsername": "اسم المستخدم على انستا باي",
+      "phonePlaceholder": "01000000000",
+      "instapayPlaceholder": "user@instapay",
+      "confirmPayment": "تأكيد الدفع",
+      "submitting": "جاري الإرسال...",
+      "copy": "نسخ",
+      "copied": "تم النسخ!",
+      "footerNote": "رقم محفوظ خاص بنا\nرقم خدمة العملاء",
+      "storeNotFound": "المتجر غير موجود",
+      "customerName": "اسم العميل",
+      "customerNamePlaceholder": "أدخل اسم العميل",
+      "transferSuccess": "تم التحويل بنجاح! سيتم مراجعة طلبك والتأكيد خلال دقائق قليلة",
+      "transferNotCompleted": "لم يتم التحويل بعد! يرجى التأكد من إكمال عملية التحويل أولاً"
+    },
     "status": {
       "verified": "تم التحقق",
       "pending": "قيد الانتظار"

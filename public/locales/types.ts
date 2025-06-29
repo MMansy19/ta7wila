@@ -1003,5 +1003,28 @@ export type TranslationKeys = {
       inactive: string;
     };
   };
+  publicPayment: {
+    title: string;
+    noCommission: string;
+    ourNumber: string;
+    instructions: string;
+    waitInstructions: string;
+    amount: string;
+    amountPlaceholder: string;
+    phoneNumber: string;
+    instapayUsername: string;
+    phonePlaceholder: string;
+    instapayPlaceholder: string;
+    confirmPayment: string;
+    submitting: string;
+    copy: string;
+    copied: string;
+    footerNote: string;
+    storeNotFound: string;
+    customerName: string;
+    customerNamePlaceholder: string;
+    transferSuccess: string;
+    transferNotCompleted: string;
+  };
 };
 

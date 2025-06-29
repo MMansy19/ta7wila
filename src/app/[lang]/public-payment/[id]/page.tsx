@@ -35,6 +35,7 @@ export default function PublicPayment({
     const [payments, setPayments] = useState<any[]>([]);
     const [storeInfo, setStoreInfo] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [resolvedParams, setResolvedParams] = useState<Params | null>(null);
 
     const defaultPaymentOptions = [
         { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
@@ -57,32 +58,30 @@ export default function PublicPayment({
             then: (schema) =>
                 schema
                     .required(
-                        translations.paymentVerification.modal.transactionDetails
-                            .instapayIdRequired
+                        translations?.paymentVerification?.modal?.transactionDetails?.instapayIdRequired || "Instapay ID is required"
                     )
                     .min(
                         6,
-                        translations.paymentVerification.modal.transactionDetails
-                            .instapayIdTooShort
+                        translations?.paymentVerification?.modal?.transactionDetails?.instapayIdTooShort || "Instapay ID is too short"
                     ),
             otherwise: (schema) =>
                 schema
-                    .required(translations.auth.validation.mobileRequired)
+                    .required(translations?.auth?.validation?.mobileRequired || "Mobile number is required")
                     .matches(
                         /^(010|011|012|015)\d{8}$/,
-                        translations.auth.validation.mobileInvalid
+                        translations?.auth?.validation?.mobileInvalid || "Invalid mobile number"
                     ),
         }),
         amount: Yup.string()
             .required(
-                translations.paymentVerification.modal.transactionDetails.amountRequired
+                translations?.paymentVerification?.modal?.transactionDetails?.amountRequired || "Amount is required"
             )
             .test(
                 "is-positive",
-                translations.paymentVerification.modal.transactionDetails.invalidAmount,
+                translations?.paymentVerification?.modal?.transactionDetails?.invalidAmount || "Invalid amount",
                 (value) => !isNaN(Number(value)) && Number(value) > 0
             ),
-        customer_name: Yup.string().required(translations.auth.validation.nameRequired || "Customer name is required"),
+        customer_name: Yup.string().required(translations?.auth?.validation?.nameRequired || "Customer name is required"),
     });
 
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -92,17 +91,21 @@ export default function PublicPayment({
         { setSubmitting, resetForm }: any
     ) => {
         if (!selectedPaymentId) {
-            toast.error(translations.paymentVerification.modal.transactionDetails.pleaseSelectPaymentValue);
+            toast.error(translations?.paymentVerification?.modal?.transactionDetails?.pleaseSelectPaymentValue || "Please select a payment method");
+            return;
+        }
+
+        if (!resolvedParams) {
+            toast.error("Invalid request parameters");
             return;
         }
 
         try {
-            const { id } = await params;
             const response = await axios.post(
                 `${apiUrl}/transactions/public-payment`,
                 {
                     payment_option: values.payment_option,
-                    application_id: id,
+                    application_id: resolvedParams.id,
                     amount: values.amount,
                     value: values.mobile,
                     payment_id: selectedPaymentId,
@@ -110,13 +113,14 @@ export default function PublicPayment({
                 }
             );
 
-            toast.success(translations.paymentVerification.successMessage || "Payment submitted successfully! Please complete the payment using the provided information.");
+            // Success - transfer completed
+            toast.success(translations.publicPayment?.transferSuccess || "تم التحويل بنجاح! سيتم مراجعة طلبك والتأكيد خلال دقائق قليلة");
             resetForm();
             setSelectedMethod("");
             setSelectedPaymentId(null);
             setSelectedPaymentValues([]);
         } catch (err: any) {
-            let errorMessage = translations.common.errorOccurred || "Failed to submit payment";
+            let errorMessage = translations?.common?.errorOccurred || "Failed to submit payment";
 
             if (err.response) {
                 if (typeof err.response.data === "string") {
@@ -128,12 +132,12 @@ export default function PublicPayment({
                 } else if (err.response.data?.result) {
                     errorMessage = Object.values(err.response.data.result).join(", ");
                 } else {
-                    errorMessage = translations.common.errorOccurred || "An unknown error occurred.";
+                    errorMessage = translations?.common?.errorOccurred || "An unknown error occurred.";
                 }
             } else if (err.request) {
-                errorMessage = translations.common.noResponse || "No response received from the server.";
+                errorMessage = translations?.common?.noResponse || "No response received from the server.";
             } else {
-                errorMessage = err.message || translations.common.unexpectedError || "An unexpected error occurred.";
+                errorMessage = err.message || translations?.common?.unexpectedError || "An unexpected error occurred.";
             }
 
             toast.error(errorMessage);
@@ -141,12 +145,21 @@ export default function PublicPayment({
             setSubmitting(false);
         }
     };
+    useEffect(() => {
+        const resolveParams = async () => {
+            const resolved = await params;
+            setResolvedParams(resolved);
+        };
+        
+        resolveParams();
+    }, [params]);
 
     useEffect(() => {
         const fetchStoreData = async () => {
+            if (!resolvedParams) return;
+            
             try {
-                const { id } = await params;
-                const response = await axios.get(`${apiUrl}/applications/${id}`, {
+                const response = await axios.get(`${apiUrl}/applications/${resolvedParams.id}`, {
                     headers: getAuthHeaders(),
                 });
 
@@ -171,17 +184,17 @@ export default function PublicPayment({
                         setPayments(storeData.payments || []);
                     }
                 } else {
-                    toast.error(translations.common.errorOccurred || "Failed to fetch store information");
+                    toast.error(translations?.common?.errorOccurred || "Failed to fetch store information");
                 }
             } catch (err) {
-                toast.error(translations.common.errorOccurred || "Failed to fetch store information");
+                toast.error(translations?.common?.errorOccurred || "Failed to fetch store information");
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchStoreData();
-    }, [apiUrl]);
+    }, [apiUrl, resolvedParams]);
 
     const handlePaymentMethodSelect = (methodKey: string) => {
         setSelectedMethod(methodKey);
@@ -204,7 +217,7 @@ export default function PublicPayment({
 
     const handleCopy = (value: string) => {
         navigator.clipboard.writeText(value);
-        alert("تم النسخ!");
+        alert(translations.publicPayment?.copied || "تم النسخ!");
     };
 
     if (isLoading) {
@@ -214,7 +227,7 @@ export default function PublicPayment({
     if (!storeInfo) {
         return (
             <div className="min-h-screen bg-[#2A2A2A] flex items-center justify-center">
-                <div className="text-white text-xl">Store not found</div>
+                <div className="text-white text-xl">{translations.publicPayment?.storeNotFound || "Store not found"}</div>
             </div>
         );
     }
@@ -234,7 +247,7 @@ export default function PublicPayment({
                         <div className="space-y-4">
 
                             <h1 className="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 text-white">
-                                أختر طريقة الدفع
+                                {translations.publicPayment?.title || "اختر طريقة الدفع"}
                             </h1>
 
                             {/* Payment Methods - Mobile Responsive with Horizontal Scroll */}
@@ -274,7 +287,7 @@ export default function PublicPayment({
                             </div>
                             <div className="text-center">
                                 <h3 className="font-semibold text-lg mb-2 text-white">
-                                لا يوجد عمولة علي الشحن                               
+                                    {translations.publicPayment?.noCommission || "لا يوجد عمولة على الشحن"}                               
                                 </h3>
                             </div>
 
@@ -301,33 +314,27 @@ export default function PublicPayment({
                                                 }}
                                                 className="text-[#53B4AB] hover:text-[#4a9e96]"
                                             >
-                                                نسخ
+                                                {translations.publicPayment?.copy || "نسخ"}
                                             </button>
                                         </div>
                                     ))
                                 )}
                             </div>
 
-                            <p className="text-sm text-gray-400 mt-2 text-center">
-                                رقم متوظفون خاش الخاص بلا<br />
-                                رقم خدمة العصك
+                            <p className="text-sm text-gray-400 mt-2 text-center whitespace-pre-line">
+                                {translations.publicPayment?.footerNote || "رقم محفوظ خاص بنا\nرقم خدمة العملاء"}
                             </p>
                         </div>
 
                         <div className="space-y-4">
-                            <div className="text-center">
-                                <h3 className="font-semibold text-lg mb-2 text-white">
-                                    رقم فودافون كاش الخاص بنا
-                                </h3>
-                            </div>
 
                             {/* Instructions */}
                             <div className="bg-[#2A2A2A] p-3 md:p-4 rounded-lg mb-4 md:mb-6">
                                 <p className="text-xs md:text-sm text-gray-300 mb-2 md:mb-3">
-                                بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلالة في خانة رقم الهاتف و كتابه المبلغ الذي قمت بتحويله بالجنية المصري في خانه المبلغ                                 </p>
+                                    {translations.publicPayment?.instructions || "بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلالة في خانة رقم الهاتف و كتابه المبلغ الذي قمت بتحويله بالجنية المصري في خانه المبلغ"}                                 </p>
 
                                 <p className="text-xs md:text-sm text-gray-300">
-                                الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة                                
+                                    {translations.publicPayment?.waitInstructions || "الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة"}                                
                                 </p>
                             </div>
 
@@ -344,29 +351,48 @@ export default function PublicPayment({
                             >
                                 {({ isSubmitting }) => (
                                     <Form className="space-y-4 md:space-y-5">
+                                        <div className='w-full'>
+                                            <label className="block text-white font-medium mb-2 text-sm md:text-base">
+                                                {translations.publicPayment?.customerName || "اسم العميل"}
+                                            </label>
+                                            <Field
+                                                type="text"
+                                                name="customer_name"
+                                                className="px-3 md:px-4 py-2 md:py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200 text-sm md:text-base"
+                                                placeholder={translations.publicPayment?.customerNamePlaceholder || "أدخل اسم العميل"}
+                                            />
+                                            <ErrorMessage name="customer_name" component="div" className="text-red-500 text-xs md:text-sm mt-1" />
+                                        </div>
+                                        
                                         <div className='flex md:flex-row flex-col gap-3 md:gap-4'>
                                             <div className='w-full md:max-w-[180px]'>
                                                 <label className="block text-white font-medium mb-2 text-sm md:text-base">
-                                                    المبلغ
+                                                    {translations.publicPayment?.amount || "المبلغ"}
                                                 </label>
                                                 <Field
                                                     type="number"
                                                     name="amount"
                                                     className="px-3 md:px-4 py-2 md:py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200 text-sm md:text-base"
-                                                    placeholder="أدخل المبلغ بالجنيه"
+                                                    placeholder={translations.publicPayment?.amountPlaceholder || "أدخل المبلغ بالجنيه"}
                                                 />
                                                 <ErrorMessage name="amount" component="div" className="text-red-500 text-xs md:text-sm mt-1" />
                                             </div>
 
                                             <div className='w-full'>
                                                 <label className="block text-white font-medium mb-2 text-sm md:text-base">
-                                                    {selectedMethod === "instapay" ? "اسم المسخدم على انستا باي" : "رقم الهاتف"}
+                                                    {selectedMethod === "instapay" 
+                                                        ? (translations.publicPayment?.instapayUsername || "اسم المستخدم على انستا باي")
+                                                        : (translations.publicPayment?.phoneNumber || "رقم الهاتف")
+                                                    }
                                                 </label>
                                                 <Field
                                                     type="tel"
                                                     name="mobile"
                                                     className="px-3 md:px-4 py-2 md:py-3 rounded-lg w-full bg-[#2A2A2A] text-white border border-gray-600 focus:border-[#53B4AB] focus:outline-none transition-colors duration-200 text-sm md:text-base"
-                                                    placeholder={selectedMethod === "instapay" ? "user@instapay" : "01000000000"}
+                                                    placeholder={selectedMethod === "instapay" 
+                                                        ? (translations.publicPayment?.instapayPlaceholder || "user@instapay")
+                                                        : (translations.publicPayment?.phonePlaceholder || "01000000000")
+                                                    }
                                                 />
                                                 <ErrorMessage name="mobile" component="div" className="text-red-500 text-xs md:text-sm mt-1" />
                                             </div>
@@ -377,7 +403,10 @@ export default function PublicPayment({
                                             className="w-full p-2 md:p-3 bg-[#53B4AB] hover:bg-[#4a9e96] text-white rounded-lg font-semibold transition-colors duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
                                             disabled={isSubmitting || !selectedMethod || !selectedPaymentId}
                                         >
-                                            {isSubmitting ? "جاري الإرسال..." : "تأكيد الدفع"}
+                                            {isSubmitting 
+                                                ? (translations.publicPayment?.submitting || "جاري الإرسال...") 
+                                                : (translations.publicPayment?.confirmPayment || "تأكيد الدفع")
+                                            }
                                         </button>
                                     </Form>
                                 )}
