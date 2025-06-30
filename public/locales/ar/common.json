@@ -336,6 +336,13 @@
     "details": {
       "title": "تفاصيل المعاملة",
       "close": "إغلاق",
+      "sections": {
+        "basicInfo": "المعلومات الأساسية",
+        "financialInfo": "المعلومات المالية",
+        "statusInfo": "معلومات الحالة",
+        "userApp": "المستخدم والتطبيق",
+        "timestamps": "الطوابع الزمنية"
+      },
       "fields": {
         "transactionId": "رقم المعاملة",
         "refId": "الرقم المرجعي",

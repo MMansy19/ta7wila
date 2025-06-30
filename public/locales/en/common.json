@@ -337,6 +337,13 @@
     "details": {
       "title": "Transaction Details",
       "close": "Close",
+      "sections": {
+        "basicInfo": "Basic Information",
+        "financialInfo": "Financial Information",
+        "statusInfo": "Status Information",
+        "userApp": "User & Application",
+        "timestamps": "Timestamps"
+      },
       "fields": {
         "transactionId": "Transaction ID",
         "refId": "Reference ID",
@@ -883,7 +890,7 @@
       "verificationStatus": "Verification Request Status",
       "approved": "Approved",
       "rejected": "Rejected",
-      "updateStatus": "Update Verification Status"
+      "updateStatus": "Update Verification Status" 
     }
   },
   "price": {

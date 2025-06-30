@@ -32,33 +32,6 @@ export default function Transaction() {
   const translations = useTranslation();
   const formatCurrency = useCurrency();
 
-  // Fallback values for transaction details translations
-  const detailsTranslations = {
-    title: "Transaction Details",
-    close: "Close",
-    fields: {
-      transactionId: "Transaction ID",
-      refId: "Reference ID",
-      amount: "Amount",
-      amountExcludeFees: "Amount (Excluding Fees)",
-      platformFees: "Platform Fees",
-      developerFees: "Developer Fees",
-      totalFees: "Total Fees",
-      mobile: "Mobile Number",
-      senderName: "Sender Name",
-      transactionDate: "Transaction Date",
-      status: "Status",
-      developerWithdrawalStatus: "Developer Withdrawal Status",
-      platformWithdrawalStatus: "Platform Withdrawal Status",
-      paymentOption: "Payment Option",
-      createdAt: "Created At",
-      updatedAt: "Updated At",
-      userName: "User Name",
-      application: "Application",
-      applicationEmail: "Application Email"
-    }
-  };
-
   const defaultPaymentOptions = [
     { name: "VF- CASH", key: "vcash", img: "/vcash.svg" },
     { name: "Et- CASH", key: "ecash", img: "/ecash.svg" },
@@ -365,7 +338,7 @@ export default function Transaction() {
                             e.stopPropagation();
                             handleViewDetails(transaction.id);
                           }}
-                          title="View Details"
+                          title={(translations.transactions as any)?.action?.viewDetails || "View Details"}
                         >
                           <Eye className="w-4 h-4" />
                         </button>
@@ -439,7 +412,7 @@ export default function Transaction() {
             <div className="bg-neutral-800 p-6 rounded-lg text-white max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">
-                  {detailsTranslations.title}
+                  {(translations.transactions as any)?.details?.title || "Transaction Details"}
                 </h2>
                 <button
                   className="text-gray-400 hover:text-white transition-colors"
@@ -456,13 +429,13 @@ export default function Transaction() {
                 {/* Basic Information */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium text-[#53B4AB] border-b border-white/10 pb-2">
-                    Basic Information
+                    {(translations.transactions as any)?.details?.sections?.basicInfo || "Basic Information"}
                   </h3>
                   
                   <div className="space-y-3">
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.transactionId}
+                        {(translations.transactions as any)?.details?.fields?.transactionId || "Transaction ID"}
                       </span>
                       <span className="text-white font-mono">
                         {selectedTransactionDetails.transaction_id || "-"}
@@ -471,7 +444,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.refId}
+                        {(translations.transactions as any)?.details?.fields?.refId || "Reference ID"}
                       </span>
                       <span className="text-white font-mono">
                         {selectedTransactionDetails.ref_id || "-"}
@@ -480,7 +453,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.mobile}
+                        {(translations.transactions as any)?.details?.fields?.mobile || "Mobile Number"}
                       </span>
                       <span className="text-white" style={{ direction: "ltr", textAlign: "left" }}>
                         {selectedTransactionDetails.mobile || "-"}
@@ -489,7 +462,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.senderName}
+                        {(translations.transactions as any)?.details?.fields?.senderName || "Sender Name"}
                       </span>
                       <span className="text-white">
                         {selectedTransactionDetails.sender_name || "-"}
@@ -498,7 +471,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.paymentOption}
+                        {(translations.transactions as any)?.details?.fields?.paymentOption || "Payment Option"}
                       </span>
                       <div className="flex items-center gap-2">
                         {defaultPaymentOptions.find(
@@ -529,13 +502,13 @@ export default function Transaction() {
                 {/* Financial Information */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium text-[#53B4AB] border-b border-white/10 pb-2">
-                    Financial Information
+                    {(translations.transactions as any)?.details?.sections?.financialInfo || "Financial Information"}
                   </h3>
                   
                   <div className="space-y-3">
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.amount}
+                        {(translations.transactions as any)?.details?.fields?.amount || "Amount"}
                       </span>
                       <span className="text-white font-bold text-lg">
                         {formatCurrency(selectedTransactionDetails.amount)}
@@ -544,7 +517,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.amountExcludeFees}
+                        {(translations.transactions as any)?.details?.fields?.amountExcludeFees || "Amount (Excluding Fees)"}
                       </span>
                       <span className="text-white">
                         {formatCurrency(selectedTransactionDetails.amount_exclude_fees)}
@@ -553,7 +526,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.platformFees}
+                        {(translations.transactions as any)?.details?.fields?.platformFees || "Platform Fees"}
                       </span>
                       <span className="text-white">
                         {formatCurrency(selectedTransactionDetails.platform_fees)}
@@ -562,7 +535,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.developerFees}
+                        {(translations.transactions as any)?.details?.fields?.developerFees || "Developer Fees"}
                       </span>
                       <span className="text-white">
                         {formatCurrency(selectedTransactionDetails.developer_fees)}
@@ -571,7 +544,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.totalFees}
+                        {(translations.transactions as any)?.details?.fields?.totalFees || "Total Fees"}
                       </span>
                       <span className="text-white">
                         {formatCurrency(selectedTransactionDetails.total_fees)}
@@ -583,13 +556,13 @@ export default function Transaction() {
                 {/* Status Information */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium text-[#53B4AB] border-b border-white/10 pb-2">
-                    Status Information
+                    {(translations.transactions as any)?.details?.sections?.statusInfo || "Status Information"}
                   </h3>
                   
                   <div className="space-y-3">
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.status}
+                        {(translations.transactions as any)?.details?.status || "Status"}
                       </span>
                       <span className={`px-3 py-1 rounded-full text-xs ${
                         selectedTransactionDetails.status === "pending" 
@@ -604,7 +577,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.developerWithdrawalStatus}
+                        {(translations.transactions as any)?.details?.fields?.developerWithdrawalStatus || "Developer Withdrawal Status"}
                       </span>
                       <span className="text-white capitalize">
                         {selectedTransactionDetails.developer_withdrawal_status || "-"}
@@ -613,7 +586,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.platformWithdrawalStatus}
+                        {(translations.transactions as any)?.details?.fields?.platformWithdrawalStatus || "Platform Withdrawal Status"}
                       </span>
                       <span className="text-white capitalize">
                         {selectedTransactionDetails.platform_withdrawal_status || "-"}
@@ -625,13 +598,13 @@ export default function Transaction() {
                 {/* User & Application Information */}
                 <div className="space-y-4">
                   <h3 className="text-lg font-medium text-[#53B4AB] border-b border-white/10 pb-2">
-                    User & Application
+                    {(translations.transactions as any)?.details?.sections?.userApp || "User & Application"}
                   </h3>
                   
                   <div className="space-y-3">
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.userName}
+                        {(translations.transactions as any)?.details?.fields?.userName || "User Name"}
                       </span>
                       <span className="text-white">
                         {selectedTransactionDetails.user?.name || "-"}
@@ -640,7 +613,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.application}
+                        {(translations.transactions as any)?.details?.fields?.application || "Application"}
                       </span>
                       <span className="text-white">
                         {selectedTransactionDetails.application?.name || "-"}
@@ -649,7 +622,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.applicationEmail}
+                        {(translations.transactions as any)?.details?.fields?.applicationEmail || "Application Email"}
                       </span>
                       <span className="text-white">
                         {selectedTransactionDetails.application?.email || "-"}
@@ -661,13 +634,13 @@ export default function Transaction() {
                 {/* Timestamps */}
                 <div className="col-span-1 md:col-span-2 space-y-4">
                   <h3 className="text-lg font-medium text-[#53B4AB] border-b border-white/10 pb-2">
-                    Timestamps
+                    {(translations.transactions as any)?.details?.sections?.timestamps || "Timestamps"}
                   </h3>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.transactionDate}
+                        {(translations.transactions as any)?.details?.fields?.transactionDate || "Transaction Date"}
                       </span>
                       <span className="text-white">
                         {new Date(selectedTransactionDetails.transaction_date).toLocaleString()}
@@ -676,7 +649,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.createdAt}
+                        {(translations.transactions as any)?.details?.fields?.createdAt || "Created At"}
                       </span>
                       <span className="text-white">
                         {new Date(selectedTransactionDetails.created_at).toLocaleString()}
@@ -685,7 +658,7 @@ export default function Transaction() {
 
                     <div>
                       <span className="text-gray-400 text-sm block">
-                        {detailsTranslations.fields.updatedAt}
+                        {(translations.transactions as any)?.details?.fields?.updatedAt || "Updated At"}
                       </span>
                       <span className="text-white">
                         {new Date(selectedTransactionDetails.updated_at).toLocaleString()}
@@ -703,7 +676,7 @@ export default function Transaction() {
                     setSelectedTransactionDetails(null);
                   }}
                 >
-                  {detailsTranslations.close}
+                  {(translations.transactions as any)?.details?.close || "Close"}
                 </button>
               </div>
             </div>
