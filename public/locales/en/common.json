@@ -331,7 +331,33 @@
     },
     "action": {
       "markAsCompleted": "Mark as Completed",
-      "completed": "Completed"
+      "completed": "Completed",
+      "viewDetails": "View Details"
+    },
+    "details": {
+      "title": "Transaction Details",
+      "close": "Close",
+      "fields": {
+        "transactionId": "Transaction ID",
+        "refId": "Reference ID",
+        "amount": "Amount",
+        "amountExcludeFees": "Amount (Excluding Fees)",
+        "platformFees": "Platform Fees",
+        "developerFees": "Developer Fees",
+        "totalFees": "Total Fees",
+        "mobile": "Mobile Number",
+        "senderName": "Sender Name",
+        "transactionDate": "Transaction Date",
+        "status": "Status",
+        "developerWithdrawalStatus": "Developer Withdrawal Status",
+        "platformWithdrawalStatus": "Platform Withdrawal Status",
+        "paymentOption": "Payment Option",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "userName": "User Name",
+        "application": "Application",
+        "applicationEmail": "Application Email"
+      }
     },
     "noData": "No transactions available.",
     "table": {
@@ -506,6 +532,45 @@
     },
     "action": {
       "check": "Check"
+    }
+  },
+  "paymentConfirmation": {
+    "title": "Payment Confirmation",
+    "subscriptionDetails": "Subscription Details",
+    "planName": "Plan Name",
+    "description": "Description",
+    "loadingPaymentMethods": "Loading payment methods...",
+    "noPaymentOptions": "No payment options available",
+    "contactSupportSubscription": "Please contact support to configure subscription payment methods",
+    "contactStoreOwner": "Please contact the store owner to configure payment methods",
+    "noCheckoutData": "No checkout data available",
+    "unableToLoadSubscription": "Unable to load subscription payment options. Please try again or contact support.",
+    "checkRefId": "Please check if the ref_id is correct or contact the store owner.",
+    "instapayId": "Instapay ID",
+    "checkoutDataNotLoaded": "Checkout data not loaded",
+    "selectPaymentMethod": "Please select a payment method",
+    "transactionCheckedSuccessfully": "Transaction checked successfully",
+    "failedToCheckTransaction": "Failed to check transaction",
+    "notProvided": "Not provided",
+    "notAvailable": "N/A",
+    "subscriptionType": "Subscription Type",
+    "maxApplications": "Max Applications",
+    "maxEmployees": "Max Employees",
+    "maxVendors": "Max Vendors",
+    "amountPlaceholder": "0 EGP",
+    "amount": "Amount",
+    "currency": "EGP",
+    "subscriptionPayment": "Subscription Payment",
+    "defaultPaymentOption": "Default",
+    "forSubscriptions": "for subscriptions",
+    "paymentNumbers": {
+      "ourNumber": "Our Number",
+      "selectMethodFirst": "Please select a payment method first",
+      "vcash": "01234567890",
+      "ecash": "01123456789", 
+      "wecash": "01098765432",
+      "instapay": "@ta7wila",
+      "ocash": "01187654321"
     }
   },
   "publicPayment": {

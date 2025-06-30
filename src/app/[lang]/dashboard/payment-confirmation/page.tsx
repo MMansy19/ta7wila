@@ -32,6 +32,44 @@ export default function PaymentConfirmation() {
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+  // Helper function to get payment method number
+  const getPaymentMethodNumber = () => {
+    const paymentNumbers = translations.paymentConfirmation.paymentNumbers;
+    
+    // Map different payment method variations to our keys
+    const methodMap: { [key: string]: keyof typeof paymentNumbers } = {
+      'vcash': 'vcash',
+      'vodafonecash': 'vcash',
+      'vodafone-cash': 'vcash',
+      'ecash': 'ecash',
+      'etisalatcash': 'ecash',
+      'etisalat-cash': 'ecash',
+      'wecash': 'wecash',
+      'wecash-cash': 'wecash',
+      'instapay': 'instapay',
+      'ocash': 'ocash',
+      'orangecash': 'ocash',
+      'orange-cash': 'ocash'
+    };
+
+    const mappedMethod = methodMap[selectedMethod?.toLowerCase()] || selectedMethod as keyof typeof paymentNumbers;
+    
+    if (mappedMethod && mappedMethod in paymentNumbers) {
+      return paymentNumbers[mappedMethod];
+    }
+    return paymentNumbers.vcash; // Default fallback
+  };
+
+  // Copy payment number to clipboard
+  const copyPaymentNumber = async () => {
+    try {
+      await navigator.clipboard.writeText(getPaymentMethodNumber());
+      toast.success(translations.publicPayment?.copied || "Copied!");
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+
   useEffect(() => {
     const fetchApplications = async () => {
       if (!ref_id) {
@@ -66,7 +104,7 @@ export default function PaymentConfirmation() {
         const mockCheckoutData = {
           application: {
             id: 0,
-            name: "Subscription Payment",
+            name: translations.paymentConfirmation.subscriptionPayment,
             mobile: "",
             email: "",
             logo: null,
@@ -75,7 +113,7 @@ export default function PaymentConfirmation() {
           payments: defaultSubscriptionPaymentOptions.map((option, index) => ({
             id: index + 1,
             payment_option: option,
-            value: `Default ${option} for subscriptions`
+            value: `${translations.paymentConfirmation.defaultPaymentOption} ${option} ${translations.paymentConfirmation.forSubscriptions}`
           })),
           result: {
             amount: Number(amount) || 0,
@@ -109,12 +147,12 @@ export default function PaymentConfirmation() {
           console.log("Checkout data set:", response.data.result);
         } else {
           console.error("Checkout request unsuccessful:", response.data);
-          toast.error(response.data.message || "Failed to fetch checkout data");
+          toast.error(response.data.message || translations.paymentConfirmation.failedToCheckTransaction);
         }
       } catch (err: any) {
         console.error("Error fetching checkout data:", err);
         console.error("Error response:", err.response?.data);
-        toast.error(err.response?.data?.message || "Failed to fetch applications");
+        toast.error(err.response?.data?.message || translations.paymentConfirmation.failedToCheckTransaction);
       } finally {
         setLoading(false);
       }
@@ -135,7 +173,7 @@ export default function PaymentConfirmation() {
 
   const handleSubmit = async (values: { mobile: string; amount: string }, { setSubmitting }: any) => {
     if (!checkoutData) {
-      toast.error("Checkout data not loaded");
+      toast.error(translations.paymentConfirmation.checkoutDataNotLoaded);
       setSubmitting(false);
       return;
     }
@@ -145,7 +183,7 @@ export default function PaymentConfirmation() {
     );
 
     if (!selectedPayment) {
-      toast.error("Please select a payment method");
+      toast.error(translations.paymentConfirmation.selectPaymentMethod);
       setSubmitting(false);
       return;
     }
@@ -175,10 +213,10 @@ export default function PaymentConfirmation() {
       );
       
       console.log("Submit response:", response.data);
-      toast.success("Transaction checked successfully");
+      toast.success(translations.paymentConfirmation.transactionCheckedSuccessfully);
     } catch (err: any) {
       console.error("Submit error:", err);
-      toast.error(err.response?.data?.errorMessage || "Failed to check transaction");
+      toast.error(err.response?.data?.errorMessage || translations.paymentConfirmation.failedToCheckTransaction);
     } finally {
       setSubmitting(false);
     }
@@ -188,19 +226,19 @@ export default function PaymentConfirmation() {
     <div className="bg-neutral-900 rounded-[18px] p-6 shadow-lg w-full text-[#FFFFFF] min-h-[calc(100vh-73px)]">
       <Toaster position="top-right" reverseOrder={false} />
       <h2 className="text-2xl font-bold mb-8 text-center">
-        {translations.subscription.title}
+        {translations.paymentConfirmation.title}
       </h2>
 
       {/* Subscription Details Section */}
       {title && (
         <div className="bg-[#2A2A2A] rounded-lg p-6 mb-6">
           <h3 className="text-xl font-semibold text-[#53B4AB] mb-4">
-            Subscription Details
+            {translations.paymentConfirmation.subscriptionDetails}
           </h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                Plan Name
+                {translations.paymentConfirmation.planName}
               </label>
               <div className="text-lg font-semibold text-white">
                 {title}
@@ -208,16 +246,16 @@ export default function PaymentConfirmation() {
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                {translations.subscription?.modal?.subscriptionAmount || "Amount"}
+                {translations.subscription?.modal?.subscriptionAmount || translations.paymentConfirmation.amount}
               </label>
               <div className="text-lg font-semibold text-[#53B4AB]">
-                {amount} EGP
+                {amount} {translations.paymentConfirmation.currency}
               </div>
             </div>
             {subtitle && (
               <div className="md:col-span-2">
                 <label className="block text-sm text-gray-400 mb-1">
-                  Description
+                  {translations.paymentConfirmation.description}
                 </label>
                 <div className="text-base text-gray-300">
                   {subtitle}
@@ -226,34 +264,34 @@ export default function PaymentConfirmation() {
             )}
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                {translations.subscription?.modal?.subscriptionType || "Subscription Type"}
+                {translations.subscription?.modal?.subscriptionType || translations.paymentConfirmation.subscriptionType}
               </label>
               <div className="text-base text-white capitalize">
-                {subscription_type || "N/A"}
+                {subscription_type || translations.paymentConfirmation.notAvailable}
               </div>
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                {translations.subscription?.table?.applications || "Max Applications"}
+                {translations.subscription?.table?.applications || translations.paymentConfirmation.maxApplications}
               </label>
               <div className="text-base text-white">
-                {max_applications_count || "N/A"}
+                {max_applications_count || translations.paymentConfirmation.notAvailable}
               </div>
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                {translations.subscription?.table?.employees || "Max Employees"}
+                {translations.subscription?.table?.employees || translations.paymentConfirmation.maxEmployees}
               </label>
               <div className="text-base text-white">
-                {max_employees_count || "N/A"}
+                {max_employees_count || translations.paymentConfirmation.notAvailable}
               </div>
             </div>
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                {translations.subscription?.table?.vendors || "Max Vendors"}
+                {translations.subscription?.table?.vendors || translations.paymentConfirmation.maxVendors}
               </label>
               <div className="text-base text-white">
-                {max_vendors_count || "N/A"}
+                {max_vendors_count || translations.paymentConfirmation.notAvailable}
               </div>
             </div>
           </div>
@@ -267,7 +305,7 @@ export default function PaymentConfirmation() {
               <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#53B4AB] mx-auto mb-4"></div>
-                  <p className="text-gray-400">Loading payment methods...</p>
+                  <p className="text-gray-400">{translations.paymentConfirmation.loadingPaymentMethods}</p>
                 </div>
               </div>
             ) : checkoutData ? (
@@ -316,11 +354,11 @@ export default function PaymentConfirmation() {
                   </div>
                 ) : (
                   <div className="my-4 text-sm text-center text-red-400">
-                    <p>No payment options available</p>
+                    <p>{translations.paymentConfirmation.noPaymentOptions}</p>
                     <p className="text-gray-400 mt-2">
                       {name === "subscriptions" 
-                        ? "Please contact support to configure subscription payment methods"
-                        : "Please contact the store owner to configure payment methods"
+                        ? translations.paymentConfirmation.contactSupportSubscription
+                        : translations.paymentConfirmation.contactStoreOwner
                       }
                     </p>
                   </div>
@@ -328,15 +366,15 @@ export default function PaymentConfirmation() {
               </>
             ) : (
               <div className="my-4 text-sm text-center text-[#53B4AB]">
-                <p>No checkout data available</p>
+                <p>{translations.paymentConfirmation.noCheckoutData}</p>
                 <p className="text-gray-400 mt-2">
-                  ref_id: {ref_id || "Not provided"}<br/>
-                  name: {name || "Not provided"}
+                  ref_id: {ref_id || translations.paymentConfirmation.notProvided}<br/>
+                  name: {name || translations.paymentConfirmation.notProvided}
                 </p>
                 <p className="text-red-400 mt-2">
                   {name === "subscriptions" 
-                    ? "Unable to load subscription payment options. Please try again or contact support."
-                    : "Please check if the ref_id is correct or contact the store owner."
+                    ? translations.paymentConfirmation.unableToLoadSubscription
+                    : translations.paymentConfirmation.checkRefId
                   }
                 </p>
               </div>
@@ -345,25 +383,35 @@ export default function PaymentConfirmation() {
         
           <div className="space-y-2">
             <div className="flex justify-between w-full">
-              <p>{translations.vendors.validation.mobile}</p>
-              <span className="text-sm font-semibold bg-[#7E7E7E] bg-opacity-35 p-2 rounded-lg text-[#53B4AB] inline-flex items-center gap-2">
-                01030000000
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="inline-block align-middle"
+              <p>{translations.paymentConfirmation.paymentNumbers.ourNumber}</p>
+              {selectedMethod ? (
+                <span 
+                  className="text-sm font-semibold bg-[#7E7E7E] bg-opacity-35 p-2 rounded-lg text-[#53B4AB] inline-flex items-center gap-2 cursor-pointer hover:bg-opacity-50 transition-all"
+                  onClick={copyPaymentNumber}
+                  title={translations.publicPayment?.copy || "Copy"}
                 >
-                  <path
-                    d="M17 6L17 14C17 16.2091 15.2091 18 13 18H7M17 6C17 3.79086 15.2091 2 13 2L10.6569 2C9.59599 2 8.57857 2.42143 7.82843 3.17157L4.17157 6.82843C3.42143 7.57857 3 8.59599 3 9.65685L3 14C3 16.2091 4.79086 18 7 18M17 6C19.2091 6 21 7.79086 21 10V18C21 20.2091 19.2091 22 17 22H11C8.79086 22 7 20.2091 7 18M9 2L9 4C9 6.20914 7.20914 8 5 8L3 8"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
+                  {getPaymentMethodNumber()}
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="inline-block align-middle"
+                  >
+                    <path
+                      d="M17 6L17 14C17 16.2091 15.2091 18 13 18H7M17 6C17 3.79086 15.2091 2 13 2L10.6569 2C9.59599 2 8.57857 2.42143 7.82843 3.17157L4.17157 6.82843C3.42143 7.57857 3 8.59599 3 9.65685L3 14C3 16.2091 4.79086 18 7 18M17 6C19.2091 6 21 7.79086 21 10V18C21 20.2091 19.2091 22 17 22H11C8.79086 22 7 20.2091 7 18M9 2L9 4C9 6.20914 7.20914 8 5 8L3 8"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              ) : (
+                <span className="text-sm text-gray-400 bg-[#7E7E7E] bg-opacity-20 p-2 rounded-lg">
+                  {translations.paymentConfirmation.paymentNumbers.selectMethodFirst}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -387,7 +435,7 @@ export default function PaymentConfirmation() {
                 <Form>
                   <div className="mb-4">
                     <h3 className="font-semibold mb-1">
-                      {selectedMethod === "instapay" ? "Instapay ID" : translations.auth.mobile}
+                      {selectedMethod === "instapay" ? translations.paymentConfirmation.instapayId : translations.auth.mobile}
                       <span className="text-red-500"> *</span>
                     </h3>
                     <Field
@@ -412,7 +460,7 @@ export default function PaymentConfirmation() {
                       className={`px-4 py-2 rounded-lg w-full bg-[#444444] text-sm h-12 border !border-white/10  mt-2${
                         errors.amount && touched.amount ? "border-red-500 border-2" : ""
                       }`}
-                      placeholder="0 EGP"
+                      placeholder={translations.paymentConfirmation.amountPlaceholder}
                     />
                     {errors.amount && touched.amount && (
                       <div className="text-red-500 text-sm mt-1">{errors.amount}</div>

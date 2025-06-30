@@ -330,7 +330,33 @@
     },
     "action": {
       "markAsCompleted": "تحديد كمكتملة",
-      "completed": "مكتملة"
+      "completed": "مكتملة",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "details": {
+      "title": "تفاصيل المعاملة",
+      "close": "إغلاق",
+      "fields": {
+        "transactionId": "رقم المعاملة",
+        "refId": "الرقم المرجعي",
+        "amount": "المبلغ",
+        "amountExcludeFees": "المبلغ (بدون رسوم)",
+        "platformFees": "رسوم المنصة",
+        "developerFees": "رسوم المطور",
+        "totalFees": "إجمالي الرسوم",
+        "mobile": "رقم الهاتف",
+        "senderName": "اسم المرسل",
+        "transactionDate": "تاريخ المعاملة",
+        "status": "الحالة",
+        "developerWithdrawalStatus": "حالة سحب المطور",
+        "platformWithdrawalStatus": "حالة سحب المنصة",
+        "paymentOption": "خيار الدفع",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث",
+        "userName": "اسم المستخدم",
+        "application": "التطبيق",
+        "applicationEmail": "بريد التطبيق الإلكتروني"
+      }
     },
     "noData": "لا توجد معاملات متاحة.",
     "table": {
@@ -498,17 +524,18 @@
         "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع",
         "selectedPaymentId": "معرف الدفع"
       }
-    },
-    "publicPayment": {
-      "title": "اختر طريقة الدفع",
-      "noCommission": "لا يوجد عمولة على الشحن",
-      "ourNumber": "رقم فودافون كاش الخاص بنا",
-      "instructions": "بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلاله في خانة رقم الهاتف و كتابة المبلغ الذي قمت بتحويله بالجنيه المصري في خانة المبلغ",
-      "waitInstructions": "الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة",
-      "amount": "المبلغ",
-      "amountPlaceholder": "أدخل المبلغ بالجنيه",
-      "phoneNumber": "رقم الهاتف",
-      "instapayUsername": "اسم المستخدم على انستا باي",
+  },
+
+  "publicPayment": {
+    "title": "اختر طريقة الدفع",
+    "noCommission": "لا يوجد عمولة على الشحن",
+    "ourNumber": "رقم فودافون كاش الخاص بنا",
+    "instructions": "بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلاله في خانة رقم الهاتف و كتابة المبلغ الذي قمت بتحويله بالجنيه المصري في خانة المبلغ",
+    "waitInstructions": "الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة",
+    "amount": "المبلغ",
+    "amountPlaceholder": "أدخل المبلغ بالجنيه",
+    "phoneNumber": "رقم الهاتف",
+    "instapayUsername": "اسم المستخدم على انستا باي",
       "phonePlaceholder": "01000000000",
       "instapayPlaceholder": "user@instapay",
       "confirmPayment": "تأكيد الدفع",
@@ -528,6 +555,45 @@
     },
     "action": {
       "check": "تحقق"
+    }
+  },
+  "paymentConfirmation": {
+    "title": "تأكيد الدفع",
+    "subscriptionDetails": "تفاصيل الاشتراك",
+    "planName": "اسم الخطة",
+    "description": "الوصف",
+    "loadingPaymentMethods": "جاري تحميل طرق الدفع...",
+    "noPaymentOptions": "لا توجد خيارات دفع متاحة",
+    "contactSupportSubscription": "يرجى الاتصال بالدعم لتكوين طرق دفع الاشتراك",
+    "contactStoreOwner": "يرجى الاتصال بصاحب المتجر لتكوين طرق الدفع",
+    "noCheckoutData": "لا توجد بيانات دفع متاحة",
+    "unableToLoadSubscription": "غير قادر على تحميل خيارات دفع الاشتراك. يرجى المحاولة مرة أخرى أو الاتصال بالدعم.",
+    "checkRefId": "يرجى التحقق من صحة ref_id أو الاتصال بصاحب المتجر.",
+    "instapayId": "معرف Instapay",
+    "checkoutDataNotLoaded": "لم يتم تحميل بيانات الدفع",
+    "selectPaymentMethod": "يرجى اختيار طريقة دفع",
+    "transactionCheckedSuccessfully": "تم فحص المعاملة بنجاح",
+    "failedToCheckTransaction": "فشل في فحص المعاملة",
+    "notProvided": "غير متوفر",
+    "notAvailable": "غير متاح",
+    "subscriptionType": "نوع الاشتراك",
+    "maxApplications": "الحد الأقصى للتطبيقات",
+    "maxEmployees": "الحد الأقصى للموظفين",
+    "maxVendors": "الحد الأقصى للموردين",
+    "amountPlaceholder": "0 جنيه مصري",
+    "amount": "المبلغ",
+    "currency": "جنيه مصري",
+    "subscriptionPayment": "دفع الاشتراك",
+    "defaultPaymentOption": "افتراضي",
+    "forSubscriptions": "للاشتراكات",
+    "paymentNumbers": {
+      "ourNumber": "رقمنا",
+      "selectMethodFirst": "يرجى اختيار طريقة دفع أولاً",
+      "vcash": "01234567890",
+      "ecash": "01123456789",
+      "wecash": "01098765432", 
+      "instapay": "@ta7wila",
+      "ocash": "01187654321"
     }
   },
   "subscription": {

@@ -474,6 +474,45 @@ export type TranslationKeys = {
       check: string;
     };
   };
+  paymentConfirmation: {
+    title: string;
+    subscriptionDetails: string;
+    planName: string;
+    description: string;
+    loadingPaymentMethods: string;
+    noPaymentOptions: string;
+    contactSupportSubscription: string;
+    contactStoreOwner: string;
+    noCheckoutData: string;
+    unableToLoadSubscription: string;
+    checkRefId: string;
+    instapayId: string;
+    checkoutDataNotLoaded: string;
+    selectPaymentMethod: string;
+    transactionCheckedSuccessfully: string;
+    failedToCheckTransaction: string;
+    notProvided: string;
+    notAvailable: string;
+    subscriptionType: string;
+    maxApplications: string;
+    maxEmployees: string;
+    maxVendors: string;
+    amountPlaceholder: string;
+    amount: string;
+    currency: string;
+    subscriptionPayment: string;
+    defaultPaymentOption: string;
+    forSubscriptions: string;
+    paymentNumbers: {
+      ourNumber: string;
+      selectMethodFirst: string;
+      vcash: string;
+      ecash: string;
+      wecash: string;
+      instapay: string;
+      ocash: string;
+    };
+  };
   subscription: {
     title: string;
     noData: string;
