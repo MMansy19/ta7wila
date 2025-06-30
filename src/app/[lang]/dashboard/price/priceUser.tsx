@@ -2,7 +2,7 @@
 import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Plans from "../plans/page";
@@ -14,10 +14,8 @@ export default function PriceUser() {
   const translations = useTranslation();
   const [currentPlan, setCurrentPlan] = useState<Plan | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [subscribingPlanId, setSubscribingPlanId] = useState<number | null>(
-    null
-  );
   const router = useRouter();
+  const params = useParams();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
@@ -30,7 +28,6 @@ export default function PriceUser() {
 
         if (subscriptionResponse.data.success) {
           setCurrentPlan(subscriptionResponse.data.result);
-          setSubscribingPlanId(subscriptionResponse.data.result.plan_id);
         }
       } catch (error) {
         if (
@@ -51,10 +48,15 @@ export default function PriceUser() {
   }, [apiUrl]);
 
   const handleSubscribe = async () => {
-    console.log("currentPlan:", currentPlan);
     try {
+      const planId = currentPlan?.plan_id;
+      if (!planId) {
+        toast.error("Plan ID not found");
+        return;
+      }
+
       const response = await axios.post(
-        `${apiUrl}/subscriptions/${subscribingPlanId}/subscribe`,
+        `${apiUrl}/subscriptions/${planId}/subscribe`,
         {},
         {
           headers: {
@@ -62,25 +64,41 @@ export default function PriceUser() {
           },
         }
       );
-
+      
       if (response.data.success == true) {
-        console.log(response.data);
         const iframeUrl = response.data.result.redirect_iframe_url;
+        
+        if (!iframeUrl) {
+          toast.error("No payment URL received");
+          return;
+        }
+        
         const url = new URL(iframeUrl);
-        const params = {
-          amount: url.searchParams.get("amount") || "",
-          ref_id: url.searchParams.get("ref_id") || "",
-          name: url.searchParams.get("name") || "",
+        const paymentParams = {
+          // Payment data from URL or response
+          amount: url.searchParams.get("amount") || currentPlan?.amount?.toString() || "0",
+          ref_id: url.searchParams.get("ref_id") || response.data.result?.ref_id || `sub_${planId}_${Date.now()}`,
+          name: url.searchParams.get("name") || "subscriptions",
+          // Plan details from current plan
+          title: currentPlan?.title || `Plan ${planId}`,
+          subtitle: currentPlan?.subtitle || "",
+          subscription_type: currentPlan?.subscription_type || "monthly",
+          max_applications_count: currentPlan?.max_applications_count?.toString() || "0",
+          max_employees_count: currentPlan?.max_employees_count?.toString() || "0",
+          max_vendors_count: currentPlan?.max_vendors_count?.toString() || "0",
+          plan_id: currentPlan?.plan_id?.toString() || planId.toString(),
+          id: currentPlan?.plan_id?.toString() || planId.toString(),
         };
-
-        router.push(
-          `/dashboard/payment-confirmation?${new URLSearchParams(params).toString()}`
-        );
+        
+        const currentLang = params.lang;
+        const redirectUrl = `/${currentLang}/dashboard/payment-confirmation?${new URLSearchParams(paymentParams).toString()}`;
+        
+        router.push(redirectUrl);
+      } else {
+        toast.error("Subscription failed");
       }
     } catch (error: any) {
       toast.error(error.response?.data?.errorMessage || "An error occurred");
-    } finally {
-      setSubscribingPlanId(null);
     }
   };
 
@@ -107,10 +125,11 @@ function SubscriptionDetails({
   handleSubscribe,
 }: {
   currentPlan: Plan;
-  handleSubscribe: (planId: number) => Promise<void>;
+  handleSubscribe: () => Promise<void>;
 }) {
   const translations = useTranslation();
   const formatCurrency = useCurrency();
+  const params = useParams();
 
   return (
     <section className="py-8">
@@ -153,7 +172,9 @@ function SubscriptionDetails({
               </div>{" "}
               {(currentPlan.status === "pending" || currentPlan.status === "pending-renewal") && (
                 <button
-                  onClick={() => handleSubscribe(currentPlan.id)}
+                  onClick={() => {
+                    handleSubscribe();
+                  }}
                   className="w-full mt-6 py-4 bg-[#53B4AB] text-black rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]"
                 >
                   {translations.price.payNow}
@@ -250,7 +271,7 @@ function SubscriptionDetails({
                   </div>
                 </div>
               </div>
-              <Link href={"/dashboard/plans"} className="block mt-12">
+              <Link href={`/${params.lang}/dashboard/plans`} className="block mt-12">
                 <button className="w-full py-3 bg-white text-[#398c84] rounded-xl font-semibold hover:bg-opacity-90 transition-all duration-300 transform hover:scale-[1.02]">
                   {translations.price.change}
                 </button>

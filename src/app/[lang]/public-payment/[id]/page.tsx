@@ -367,6 +367,7 @@ export default function PublicPayment({
 
                             <Formik
                                 initialValues={{
+                                    customer_name: "",
                                     mobile: "",
                                     amount: "",
                                     payment_option: selectedMethod,

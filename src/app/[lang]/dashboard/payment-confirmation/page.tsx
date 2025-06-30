@@ -18,6 +18,14 @@ export default function PaymentConfirmation() {
   const amount = searchParams.get('amount');
   const ref_id = searchParams.get('ref_id');
   const name = searchParams.get('name');
+  const title = searchParams.get('title');
+  const subtitle = searchParams.get('subtitle');
+  const subscription_type = searchParams.get('subscription_type');
+  const max_applications_count = searchParams.get('max_applications_count');
+  const max_employees_count = searchParams.get('max_employees_count');
+  const max_vendors_count = searchParams.get('max_vendors_count');
+  const plan_id = searchParams.get('plan_id');
+  
   const [checkoutData, setCheckoutData] = useState<ApiResponse['result'] | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedMethod, setSelectedMethod] = useState<string>("");
@@ -30,7 +38,60 @@ export default function PaymentConfirmation() {
         setLoading(false);
         return; 
       }
+
+      // For subscription payments, we'll fetch payment options from the subscription API
+      if (name === "subscriptions") {
+        console.log("This is a subscription payment, fetching subscription payment options");
+        try {
+          // Try to fetch subscription payment options
+          const subscriptionResponse = await axios.get(
+            `${apiUrl}/subscriptions/payment-options`,
+            { headers: getAuthHeaders() }
+          );
+          
+          console.log("Subscription payment options response:", subscriptionResponse.data);
+          
+          if (subscriptionResponse.data.success && subscriptionResponse.data.result) {
+            setCheckoutData(subscriptionResponse.data.result);
+            setLoading(false);
+            return;
+          }
+        } catch (subscriptionError) {
+          console.warn("Failed to fetch subscription payment options, using fallback:", subscriptionError);
+        }
+        
+        // Fallback to mock data if API fails
+        console.log("Using fallback payment options for subscription");
+        const defaultSubscriptionPaymentOptions: ('instapay' | 'ecash' | 'wecash')[] = ["ecash", "instapay", "wecash"];
+        const mockCheckoutData = {
+          application: {
+            id: 0,
+            name: "Subscription Payment",
+            mobile: "",
+            email: "",
+            logo: null,
+            payment_options: defaultSubscriptionPaymentOptions
+          },
+          payments: defaultSubscriptionPaymentOptions.map((option, index) => ({
+            id: index + 1,
+            payment_option: option,
+            value: `Default ${option} for subscriptions`
+          })),
+          result: {
+            amount: Number(amount) || 0,
+            ref_id: ref_id || "",
+            status: "not-paid"
+          }
+        };
+        setCheckoutData(mockCheckoutData);
+        setLoading(false);
+        return;
+      }
+
       try {
+        console.log("Fetching checkout data for ref_id:", ref_id);
+        console.log("Using name subdomain:", name);
+        
         const response = await axios.get(        
           `${apiUrl}/checkouts/check-checkout?ref_id=${ref_id}`,
           {  
@@ -40,11 +101,20 @@ export default function PaymentConfirmation() {
             } 
           }
         );
+        
+        console.log("Checkout response:", response.data);
+        
         if (response.data.success) {
           setCheckoutData(response.data.result);
+          console.log("Checkout data set:", response.data.result);
+        } else {
+          console.error("Checkout request unsuccessful:", response.data);
+          toast.error(response.data.message || "Failed to fetch checkout data");
         }
-      } catch (err) {
-        toast.error("Failed to fetch applications");
+      } catch (err: any) {
+        console.error("Error fetching checkout data:", err);
+        console.error("Error response:", err.response?.data);
+        toast.error(err.response?.data?.message || "Failed to fetch applications");
       } finally {
         setLoading(false);
       }
@@ -82,22 +152,32 @@ export default function PaymentConfirmation() {
 
     const submitValues = {
       ref_id: ref_id,
-      name: name,
-      payment_id: selectedPayment.id,
       payment_option: selectedMethod,
       amount: values.amount,
       value: values.mobile,
-      application_id: checkoutData.application.id
+      ...(plan_id && { plan_id: plan_id }),
+      ...(subscription_type && { subscription_type: subscription_type })
     };
 
     try {
+      // Use different endpoint for subscription vs regular checkout
+      const endpoint = name === "subscriptions" 
+        ? `${apiUrl}/subscriptions/check-payment`
+        : `${apiUrl}/transactions/check-subscription`;
+      
+      console.log("Submitting to endpoint:", endpoint);
+      console.log("Submit values:", submitValues);
+      
       const response = await axios.post(
-        `${apiUrl}/transactions/check-subscription`,
+        endpoint,
         submitValues,
         { headers: getAuthHeaders() }
       );
+      
+      console.log("Submit response:", response.data);
       toast.success("Transaction checked successfully");
     } catch (err: any) {
+      console.error("Submit error:", err);
       toast.error(err.response?.data?.errorMessage || "Failed to check transaction");
     } finally {
       setSubmitting(false);
@@ -110,51 +190,157 @@ export default function PaymentConfirmation() {
       <h2 className="text-2xl font-bold mb-8 text-center">
         {translations.subscription.title}
       </h2>
+
+      {/* Subscription Details Section */}
+      {title && (
+        <div className="bg-[#2A2A2A] rounded-lg p-6 mb-6">
+          <h3 className="text-xl font-semibold text-[#53B4AB] mb-4">
+            Subscription Details
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">
+                Plan Name
+              </label>
+              <div className="text-lg font-semibold text-white">
+                {title}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">
+                {translations.subscription?.modal?.subscriptionAmount || "Amount"}
+              </label>
+              <div className="text-lg font-semibold text-[#53B4AB]">
+                {amount} EGP
+              </div>
+            </div>
+            {subtitle && (
+              <div className="md:col-span-2">
+                <label className="block text-sm text-gray-400 mb-1">
+                  Description
+                </label>
+                <div className="text-base text-gray-300">
+                  {subtitle}
+                </div>
+              </div>
+            )}
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">
+                {translations.subscription?.modal?.subscriptionType || "Subscription Type"}
+              </label>
+              <div className="text-base text-white capitalize">
+                {subscription_type || "N/A"}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">
+                {translations.subscription?.table?.applications || "Max Applications"}
+              </label>
+              <div className="text-base text-white">
+                {max_applications_count || "N/A"}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">
+                {translations.subscription?.table?.employees || "Max Employees"}
+              </label>
+              <div className="text-base text-white">
+                {max_employees_count || "N/A"}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm text-gray-400 mb-1">
+                {translations.subscription?.table?.vendors || "Max Vendors"}
+              </label>
+              <div className="text-base text-white">
+                {max_vendors_count || "N/A"}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="grid md:grid-cols-2 gap-6">
         <div className="col-md-6">
           <div className="my-6 min-h-[220px]">
-            {checkoutData ? (
+            {loading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#53B4AB] mx-auto mb-4"></div>
+                  <p className="text-gray-400">Loading payment methods...</p>
+                </div>
+              </div>
+            ) : checkoutData ? (
               <>
                 <h3 className="font-semibold text-center mb-4">
                   {translations.paymentVerification.modal.paymentOption}
                 </h3>
-                <div className="flex flex-wrap justify-center gap-4 py-4">
-                  {checkoutData.application.payment_options.map((paymentOption) => {
-                    const paymentDetail = checkoutData.payments.find(
-                      (p) => p.payment_option === paymentOption
-                    );
-                    
-                    if (!paymentDetail) return null;
+                {checkoutData.application?.payment_options?.length > 0 ? (
+                  <div className="flex flex-wrap justify-center gap-4 py-4">
+                    {checkoutData.application.payment_options.map((paymentOption) => {
+                      const paymentDetail = checkoutData.payments.find(
+                        (p) => p.payment_option === paymentOption
+                      );
+                      
+                      if (!paymentDetail) {
+                        console.warn(`No payment detail found for option: ${paymentOption}`);
+                        return null;
+                      }
 
-                    return (
-                      <div
-                        key={paymentOption}
-                        className={`flex flex-col items-center justify-center p-3 rounded-xl w-24 cursor-pointer transition-colors duration-200 ${
-                          selectedMethod === paymentOption
-                            ? "bg-[#53B4AB] text-black"
-                            : "bg-[#7E7E7E] bg-opacity-35"
-                        }`}
-                        onClick={() => setSelectedMethod(paymentOption)}
-                      >
-                        <Image
-                          src={`/${paymentOption}.svg`}
-                          alt={paymentOption}
-                          width={40}
-                          height={40}
-                          className="mb-2"
-                        />
-                        <span className="text-sm capitalize">{paymentOption}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+                      return (
+                        <div
+                          key={paymentOption}
+                          className={`flex flex-col items-center justify-center p-3 rounded-xl w-24 cursor-pointer transition-colors duration-200 ${
+                            selectedMethod === paymentOption
+                              ? "bg-[#53B4AB] text-black"
+                              : "bg-[#7E7E7E] bg-opacity-35"
+                          }`}
+                          onClick={() => setSelectedMethod(paymentOption)}
+                        >
+                          <Image
+                            src={`/${paymentOption}.svg`}
+                            alt={paymentOption}
+                            width={40}
+                            height={40}
+                            className="mb-2"
+                            onError={(e) => {
+                              console.warn(`Failed to load icon for ${paymentOption}`);
+                              // Set a fallback or handle the error
+                              (e.target as HTMLImageElement).src = '/default-payment.svg';
+                            }}
+                          />
+                          <span className="text-sm capitalize">{paymentOption}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="my-4 text-sm text-center text-red-400">
+                    <p>No payment options available</p>
+                    <p className="text-gray-400 mt-2">
+                      {name === "subscriptions" 
+                        ? "Please contact support to configure subscription payment methods"
+                        : "Please contact the store owner to configure payment methods"
+                      }
+                    </p>
+                  </div>
+                )}
               </>
-            ):(
+            ) : (
               <div className="my-4 text-sm text-center text-[#53B4AB]">
-              <p>{translations.storepayment.noData}</p>
-            </div>
-            )
-            }
+                <p>No checkout data available</p>
+                <p className="text-gray-400 mt-2">
+                  ref_id: {ref_id || "Not provided"}<br/>
+                  name: {name || "Not provided"}
+                </p>
+                <p className="text-red-400 mt-2">
+                  {name === "subscriptions" 
+                    ? "Unable to load subscription payment options. Please try again or contact support."
+                    : "Please check if the ref_id is correct or contact the store owner."
+                  }
+                </p>
+              </div>
+            )}
           </div>
         
           <div className="space-y-2">
