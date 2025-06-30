@@ -1,7 +1,7 @@
 "use client";
 import { useTranslation } from '@/hooks/useTranslation';
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getAuthHeaders from "../Shared/getAuth";
@@ -17,6 +17,7 @@ export default function Plans() {
   );
   const [plans, setPlans] = useState<Plan[]>([]);
   const router = useRouter();
+  const params = useParams();
   const formatCurrency = useCurrency();
 
   useEffect(() => {
@@ -30,9 +31,8 @@ export default function Plans() {
           (a: Plan, b: Plan) => a.id - b.id
         );
         setPlans(sortedPlans);
-        console.log(plansResponse);
       } catch (error) {
-        console.error(" fetching data:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -53,18 +53,37 @@ export default function Plans() {
       );
 
       if (response.data.success == true) {
-        console.log(response.data);
         const iframeUrl = response.data.result.redirect_iframe_url;
+        
+        if (!iframeUrl) {
+          toast.error("No payment URL received");
+          return;
+        }
+        
         const url = new URL(iframeUrl);
-        const params = {
-          amount: url.searchParams.get("amount") || "",
-          ref_id: url.searchParams.get("ref_id") || "",
-          name: url.searchParams.get("name") || "",
+        const selectedPlan = plans.find(plan => plan.id === planId);
+        const paymentParams = {
+          // Payment data from URL or response
+          amount: url.searchParams.get("amount") || selectedPlan?.amount?.toString() || "0",
+          ref_id: url.searchParams.get("ref_id") || response.data.result?.ref_id || `sub_${planId}_${Date.now()}`,
+          name: url.searchParams.get("name") || "subscriptions",
+          // Plan details from selected plan
+          title: selectedPlan?.title || `Plan ${planId}`,
+          subtitle: selectedPlan?.subtitle || "",
+          subscription_type: selectedPlan?.subscription_type || "monthly",
+          max_applications_count: selectedPlan?.max_applications_count?.toString() || "0",
+          max_employees_count: selectedPlan?.max_employees_count?.toString() || "0",
+          max_vendors_count: selectedPlan?.max_vendors_count?.toString() || "0",
+          plan_id: selectedPlan?.id?.toString() || planId.toString(),
+          id: selectedPlan?.id?.toString() || planId.toString(),
         };
-
-        router.push(
-          `/dashboard/payment-confirmation?${new URLSearchParams(params).toString()}`
-        );
+        
+        const currentLang = params.lang;
+        const redirectUrl = `/${currentLang}/dashboard/payment-confirmation?${new URLSearchParams(paymentParams).toString()}`;
+        
+        router.push(redirectUrl);
+      } else {
+        toast.error("Subscription failed");
       }
     } catch (error: any) {
       toast.error(error.response?.data?.errorMessage || "An error occurred");
