@@ -61,8 +61,12 @@ export default function PublicPayment({
                         translations?.paymentVerification?.modal?.transactionDetails?.instapayIdRequired || "Instapay ID is required"
                     )
                     .min(
-                        6,
+                        3,
                         translations?.paymentVerification?.modal?.transactionDetails?.instapayIdTooShort || "Instapay ID is too short"
+                    )
+                    .matches(
+                        /^[a-zA-Z0-9@._-]+$/,
+                        "Invalid InstaPay username format"
                     ),
             otherwise: (schema) =>
                 schema
@@ -100,28 +104,25 @@ export default function PublicPayment({
         }
 
         try {
-            // Generate a unique reference ID
-            const ref_id = `CTRI${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}${String(new Date().getDate()).padStart(2, '0')}${String(Date.now()).slice(-6)}`;
-            
+            console.log("Payment submission data:", {
+                payment_option: values.payment_option,
+                application_id: resolvedParams.id,
+                amount: values.amount,
+                value: values.mobile,
+                payment_id: selectedPaymentId,
+            });
             const response = await axios.post(
-                `${apiUrl}/check-transaction`,
+                `${apiUrl}/transactions/manual-check`,
                 {
-                    value: values.mobile,
-                    amount: values.amount,
-                    application_id: resolvedParams.id,
                     payment_option: values.payment_option,
-                    ref_id: ref_id,
+                    application_id: resolvedParams.id,
+                    amount: values.amount,
+                    value: values.mobile,
                     payment_id: selectedPaymentId,
-                    customer_name: values.customer_name,
                 },
-                {
-                    headers: getAuthHeaders(),
-                }
+                { headers: getAuthHeaders() }
             );
-            if (!response.data.success) {
-                toast.error(response.data.message || "Failed to submit payment");
-                return;
-            }
+      
 
             // Success - transfer completed
             toast.success(translations.publicPayment?.transferSuccess || "تم التحويل بنجاح! سيتم مراجعة طلبك والتأكيد خلال دقائق قليلة");
@@ -378,6 +379,9 @@ export default function PublicPayment({
                             >
                                 {({ isSubmitting }) => (
                                     <Form className="space-y-4 md:space-y-5">
+                                        {/* Hidden field to ensure payment_option is submitted */}
+                                        <Field type="hidden" name="payment_option" value={selectedMethod} />
+                                        
                                         <div className='flex md:flex-row flex-col gap-3 md:gap-4'>
                                             <div className='w-full md:max-w-[180px]'>
                                                 <label className="block text-white font-medium mb-2 text-sm md:text-base">
