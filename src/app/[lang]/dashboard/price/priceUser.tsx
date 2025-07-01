@@ -28,6 +28,7 @@ export default function PriceUser() {
 
         if (subscriptionResponse.data.success) {
           setCurrentPlan(subscriptionResponse.data.result);
+          console.log("Current Plan:", subscriptionResponse.data.result); 
         }
       } catch (error) {
         if (
@@ -164,11 +165,19 @@ function SubscriptionDetails({
                     {translations.price.paymentWarning}
                   </p>
                 </div>
-                <div className="bg-[#2A2A2A] rounded-lg p-4 border-l-4 border-[#F58C7B]">
-                  <p className="text-[#F58C7B] font-medium">
-                    {translations.price.suspensionWarning}
-                  </p>
-                </div>
+                {(currentPlan.status === "pending" || currentPlan.status === "pending-renewal") ? (
+                  <div className="bg-[#2A2A2A] rounded-lg p-4 border-l-4 border-[#F58C7B]">
+                    <p className="text-[#F58C7B] font-medium">
+                      {translations.price.suspensionWarning}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="bg-[#2A2A2A] rounded-lg p-4 border-l-4 border-[#53B4AB]">
+                    <p className="text-[#53B4AB] font-medium">
+                      {translations.price.paymentSuccessMessage || "Your subscription is active and up to date."}
+                    </p>
+                  </div>
+                )}
               </div>{" "}
               {(currentPlan.status === "pending" || currentPlan.status === "pending-renewal") && (
                 <button
