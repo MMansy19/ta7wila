@@ -51,6 +51,7 @@ export default function PublicPayment({
         Array<{ value: string; id: number }>
     >([]);
     const [selectedPaymentId, setSelectedPaymentId] = useState<number | null>(null);
+    const [submitError, setSubmitError] = useState<string>("");
 
     const validationSchema = Yup.object().shape({
         mobile: Yup.string().when("payment_option", {
@@ -93,13 +94,16 @@ export default function PublicPayment({
         values: { mobile: string; amount: string; payment_option: string; customer_name: string },
         { setSubmitting, resetForm }: any
     ) => {
+        // Clear previous errors
+        setSubmitError("");
+        
         if (!selectedPaymentId) {
-            toast.error(translations?.paymentVerification?.modal?.transactionDetails?.pleaseSelectPaymentValue || "Please select a payment method");
+            setSubmitError(translations?.paymentVerification?.modal?.transactionDetails?.pleaseSelectPaymentValue || "Please select a payment method");
             return;
         }
 
         if (!resolvedParams) {
-            toast.error("Invalid request parameters");
+            setSubmitError("Invalid request parameters");
             return;
         }
 
@@ -111,6 +115,7 @@ export default function PublicPayment({
                 value: values.mobile,
                 payment_id: selectedPaymentId,
             });
+            
             const response = await axios.post(
                 `${apiUrl}/transactions/manual-check`,
                 {
@@ -123,15 +128,23 @@ export default function PublicPayment({
                 { headers: getAuthHeaders() }
             );
       
-
-            // Success - transfer completed
-            toast.success(translations.publicPayment?.transferSuccess || "تم التحويل بنجاح! سيتم مراجعة طلبك والتأكيد خلال دقائق قليلة");
-            resetForm();
-            setSelectedMethod("");
-            setSelectedPaymentId(null);
-            setSelectedPaymentValues([]);
+            // Success - redirect to success page with transaction details
+            const referenceId = `TXN${Date.now()}`;
+            const successParams = new URLSearchParams({
+                amount: values.amount,
+                mobile: values.mobile,
+                payment_option: values.payment_option,
+                payment_id: selectedPaymentId.toString(),
+                application_id: resolvedParams.id,
+                timestamp: new Date().toISOString(),
+                reference_id: referenceId
+            });
+            
+            // Redirect to success page with search parameters
+            window.location.href = `/${resolvedParams.lang}/public-payment/success?${successParams.toString()}`;
+            
         } catch (err: any) {
-            let errorMessage = translations?.common?.errorOccurred || "Failed to submit payment";
+            let errorMessage = "Transaction failed. Please try manual check.";
 
             if (err.response) {
                 if (typeof err.response.data === "string") {
@@ -142,16 +155,14 @@ export default function PublicPayment({
                     errorMessage = err.response.data.message;
                 } else if (err.response.data?.result) {
                     errorMessage = Object.values(err.response.data.result).join(", ");
-                } else {
-                    errorMessage = translations?.common?.errorOccurred || "An unknown error occurred.";
                 }
             } else if (err.request) {
-                errorMessage = translations?.common?.noResponse || "No response received from the server.";
+                errorMessage = "No response received. Please try manual check.";
             } else {
-                errorMessage = err.message || translations?.common?.unexpectedError || "An unexpected error occurred.";
+                errorMessage = err.message || "Transaction failed. Please try manual check.";
             }
 
-            toast.error(errorMessage);
+            setSubmitError(errorMessage);
         } finally {
             setSubmitting(false);
         }
@@ -426,6 +437,15 @@ export default function PublicPayment({
                                                 : (translations.publicPayment?.confirmPayment || "تأكيد الدفع")
                                             }
                                         </button>
+                                        
+                                        {/* Error message display */}
+                                        {submitError && (
+                                            <div className="mt-3 p-3 bg-red-50 bg-opacity-10 border border-red-500 rounded-lg">
+                                                <p className="text-red-400 text-sm text-center">
+                                                    {submitError}
+                                                </p>
+                                            </div>
+                                        )}
                                     </Form>
                                 )}
                             </Formik>
