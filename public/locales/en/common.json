@@ -714,6 +714,8 @@
     "publicPaymentLink": "Public Payment Link",
     "sharePaymentLink": "Share this link with customers to allow them to make payments directly",
     "copyPaymentLink": "Copy Payment Link",
+    "whatsappMessage": "Here's the payment link:",
+    "shareViaWhatsApp": "Share via WhatsApp",
     "payments": {
       "title": "Payment Summary",
       "noData": "No payments available",

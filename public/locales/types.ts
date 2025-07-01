@@ -624,6 +624,8 @@ export type TranslationKeys = {
     loading: string;
     error: string;
     title: string;
+    whatsappMessage: string;
+    shareViaWhatsApp: string;
     paymentLinkCopied: string;
     publicPaymentLink: string;
     sharePaymentLink: string;

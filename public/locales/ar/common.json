@@ -714,6 +714,8 @@
     "publicPaymentLink": "رابط الدفع العام",
     "sharePaymentLink": "شارك هذا الرابط مع العملاء للسماح لهم بالدفع مباشرة",
     "copyPaymentLink": "نسخ رابط الدفع",
+    "whatsappMessage": "إليك رابط الدفع:",
+    "shareViaWhatsApp": "مشاركة عبر واتساب",
     "payments": {
       "title": "ملخص الدفع",
       "noData": "لا توجد مدفوعات متاحة",
