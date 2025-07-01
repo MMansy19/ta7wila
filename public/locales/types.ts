@@ -754,6 +754,7 @@ export type TranslationKeys = {
       logs: string;
       details: string;
       manualCheck: string;
+      whatsappConnect: string;
     };
   };
   plans: {
@@ -804,6 +805,7 @@ export type TranslationKeys = {
     perMonth: string;
     paymentWarning: string;
     suspensionWarning: string;
+    paymentSuccessMessage: string;
     payNow: string;
     yourPlan: string;
     applications: string;
@@ -1066,6 +1068,112 @@ export type TranslationKeys = {
     customerNamePlaceholder: string;
     transferSuccess: string;
     transferNotCompleted: string;
+  };
+  whatsapp: {
+    title: string;
+    subtitle: string;
+    sessions: {
+      title: string;
+      subtitle: string;
+      connected: string;
+      connecting: string;
+      disconnected: string;
+      lastActivity: string;
+      sessionId: string;
+      never: string;
+      newSession: string;
+      createFirst: string;
+      noSessions: string;
+      noSessionsDesc: string;
+      connect: string;
+      disconnect: string;
+      continueSetup: string;
+      sendTest: string;
+      delete: string;
+      deleteConfirm: string;
+      sessionNameUpdated: string;
+      sessionDeleted: string;
+      sessionCreated: string;
+      sessionDisconnected: string;
+      connectionSuccess: string;
+    };
+    qrScanner: {
+      title: string;
+      subtitle: string;
+      generating: string;
+      expiresIn: string;
+      howToScan: string;
+      step1: string;
+      step2: string;
+      step3: string;
+      refresh: string;
+      refreshing: string;
+      cancel: string;
+      scanning: string;
+      simulateScan: string;
+    };
+    templates: {
+      title: string;
+      create: string;
+      edit: string;
+      name: string;
+      content: string;
+      variables: string;
+      variablesDetected: string;
+      variablesNone: string;
+      variablesPlaceholder: string;
+      send: string;
+      save: string;
+      cancel: string;
+      delete: string;
+      deleteConfirm: string;
+      created: string;
+      updated: string;
+      deleted: string;
+      fillRequired: string;
+      noConnectedSessions: string;
+    };
+    sendMessage: {
+      title: string;
+      session: string;
+      recipient: string;
+      recipientPlaceholder: string;
+      preview: string;
+      send: string;
+      cancel: string;
+      selectSession: string;
+      enterRecipient: string;
+      fillVariables: string;
+      sent: string;
+    };
+    customMessage: {
+      title: string;
+      session: string;
+      recipient: string;
+      recipientPlaceholder: string;
+      message: string;
+      messagePlaceholder: string;
+      attachments: string;
+      attachmentsDesc: string;
+      attachmentsFormat: string;
+      characters: string;
+      send: string;
+      sending: string;
+      recentMessages: string;
+      noMessages: string;
+      status: {
+        sent: string;
+        pending: string;
+      };
+      errors: {
+        selectSession: string;
+        enterRecipient: string;
+        enterMessage: string;
+        fileSize: string;
+      };
+      noSessions: string;
+      noSessionsDesc: string;
+    };
   };
 };
 
