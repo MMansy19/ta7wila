@@ -11,13 +11,16 @@ import { Params } from "../types";
 export const dynamic = 'force-dynamic';
 
 export default function StoreDetails({ params }: { params: Promise<Params> }) {
-  
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   const [storeDetails, setStoreDetails] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const translations = useTranslation();
   const [resolvedParams, setResolvedParams] = useState<Params | null>(null);
+  const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSendingWhatsApp, setIsSendingWhatsApp] = useState(false);
 
   // Resolve the params Promise
   useEffect(() => {
@@ -48,7 +51,6 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
           }
         );
         setStoreDetails(response.data.result || {});
-        console.log("Store Details:", response.data.result);
         setError(null);
       } catch (err) {
         setError(err as Error);
@@ -73,34 +75,74 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
     
     const { id, lang } = resolvedParams;
     const baseUrl = window.location.origin;
-    
     const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
     
     navigator.clipboard.writeText(paymentLink);
     toast.success(translations.storeDetails.paymentLinkCopied || "Payment link copied to clipboard!");
   };
 
-  const shareViaWhatsApp = () => {
-    if (!resolvedParams || !storeDetails) return;
-    
-    const { id, lang } = resolvedParams;
-    const baseUrl = window.location.origin;
-    const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
-
-    const storePhoneNumber = storeDetails.mobile;
-
-    if (!storePhoneNumber) {
+  const openWhatsAppModal = () => {
+    if (!storeDetails?.mobile) {
       toast.error("Store phone number not available");
       return;
     }
-
-    // Create WhatsApp share link
-    const whatsappLink = `https://wa.me/${storePhoneNumber}?text=${encodeURIComponent(
-      `${translations.storeDetails?.whatsappMessage || "Here's the payment link:"} ${paymentLink}`
-    )}`;
+    setShowWhatsAppModal(true);
     
-    // Open in new tab
-    window.open(whatsappLink, '_blank');
+    // Set default message
+    const { id, lang } = resolvedParams || {};
+    const baseUrl = window.location.origin;
+    const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
+    setMessage(`${translations.storeDetails?.whatsappMessage || "Here's the payment link:"} ${paymentLink}`);
+  };
+
+  const sendWhatsAppMessage = async () => {
+    if (!phoneNumber) {
+      toast.error("Please enter a phone number");
+      return;
+    }
+
+    if (!message.trim()) {
+      toast.error("Please enter a message");
+      return;
+    }
+
+    setIsSendingWhatsApp(true);
+
+    try {
+      // Format phone number (remove any non-digit characters)
+      const formattedNumber = phoneNumber.replace(/\D/g, '');
+      
+      // Create WhatsApp Web URL
+      const whatsappWebUrl = `https://web.whatsapp.com/send?phone=${formattedNumber}&text=${encodeURIComponent(message.trim())}`;
+      
+      // Open WhatsApp Web in a popup window (background)
+      const popup = window.open(
+        whatsappWebUrl,
+        'whatsapp-popup',
+        'width=800,height=600,scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no'
+      );
+      
+      if (popup) {
+        // Minimize the popup by moving it off-screen or to background
+        popup.blur();
+        window.focus();
+        
+        toast.success("WhatsApp Web opened in background! Complete sending the message there.");
+        
+        // Close the modal
+        setShowWhatsAppModal(false);
+        setPhoneNumber("");
+        setMessage("");
+      } else {
+        toast.error("Please allow popups for this site to use WhatsApp Web");
+      }
+
+    } catch (error: any) {
+      console.error("WhatsApp open error:", error);
+      toast.error("Failed to open WhatsApp Web");
+    } finally {
+      setIsSendingWhatsApp(false);
+    }
   };
 
   if (isLoading || !resolvedParams) {
@@ -147,7 +189,7 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
             </button>
             
             <button
-              onClick={shareViaWhatsApp}
+              onClick={openWhatsAppModal}
               className="flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-lg font-semibold transition-colors duration-200"
             >
               <svg
@@ -164,6 +206,73 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
           </div>
         </div>
       </div>
+
+      {/* WhatsApp Modal */}
+      {showWhatsAppModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-[#1E1E1E] rounded-xl p-6 w-full max-w-md">
+            <h3 className="font-semibold text-xl text-white mb-4">
+              Send WhatsApp Message
+            </h3>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-400 text-sm mb-1">
+                  Recipient Phone Number
+                </label>
+                <input
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  placeholder="e.g. 201234567890"
+                  className="w-full px-4 py-2 bg-[#2D2D2D] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#25D366]"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Include country code (e.g., 20 for Egypt)
+                </p>
+              </div>
+              
+              <div>
+                <label className="block text-gray-400 text-sm mb-1">
+                  Message
+                </label>
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={4}
+                  className="w-full px-4 py-2 bg-[#2D2D2D] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#25D366]"
+                />
+              </div>
+              
+              <div className="flex justify-end gap-2 pt-2">
+                <button
+                  onClick={() => setShowWhatsAppModal(false)}
+                  className="px-4 py-2 text-gray-300 hover:text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={sendWhatsAppMessage}
+                  disabled={isSendingWhatsApp}
+                  className="flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#1DA851] disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg font-semibold"
+                >
+                  {isSendingWhatsApp ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Existing Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-5 md:grid-rows-5 gap-4">
