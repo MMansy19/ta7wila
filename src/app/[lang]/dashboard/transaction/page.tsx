@@ -111,10 +111,12 @@ export default function Transaction() {
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
-  const displayedTransactions = filteredTransactions.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const displayedTransactions = filteredTransactions
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
 
   const handlePageChange = (page: number) => setCurrentPage(page);
 
