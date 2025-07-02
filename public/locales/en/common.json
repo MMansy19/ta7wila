@@ -1,0 +1,1270 @@
+{
+  "dir": "ltr",
+  "title": "Ta7wila",
+  "welcome": "Welcome",
+  "navigation": {
+    "app": "App",
+    "features": "Features",
+    "services": "Services",
+    "about": "About",
+    "home": "Home",
+    "tryFree": "Try Free",
+    "dashboard": "Dashboard",
+    "howItWorks": "How It Works"
+  },
+  "hero": {
+    "title": "Managing recurring revenue has become easier and smarter with our integrated platform",
+    "subtitle": "Everything you need to manage your business in one place! An innovative platform that provides you with smart tools to organize subscriptions, track recurring revenue, and achieve sustainable growth with ease and efficiency."
+  },
+  "services": {
+    "title": "Discover our most important services",
+    "instantActivation": {
+      "title": "Instant Activation",
+      "description": "Instant activation ensures immediate platform usage without any delay, simplifying your operations and getting you started with managing your subscriptions efficiently"
+    },
+    "currencyConversion": {
+      "title": "Automatic Currency Conversion",
+      "description": "Automatic currency conversion system allows you to easily accept payments in any currency, providing a smooth payment experience for your customers without any complications"
+    },
+    "support": {
+      "title": "24/7 Technical Support",
+      "description": "Technical support team available around the clock to ensure a smooth experience free from any obstacles. We're here to help you anytime, every day"
+    }
+  },
+  "features": {
+    "title": "Features that make us the first choice for your business",
+    "comprehensiveReport": {
+      "title": "Comprehensive Report",
+      "description": "Detailed comprehensive report giving you a clear view of your revenue and subscription performance",
+      "altText": "Comprehensive Report"
+    },
+    "dataProtection": {
+      "title": "Data Protection",
+      "description": "Advanced security to ensure your financial data is protected to the highest standards",
+      "altText": "Data Protection"
+    },
+    "userInterface": {
+      "title": "User-Friendly Interface",
+      "description": "User-friendly interface perfect for all types of business activities.",
+      "altText": "User-Friendly Interface"
+    },
+    "paymentSupport": {
+      "title": "Payment Methods Support",
+      "description": "Support for all payment methods: bank cards, e-wallets and cash payments.",
+      "altText": "Payment Methods Support"
+    },
+    "mainImageAlt": "Ta7wila Interface"
+  },
+  "devPart": {
+    "title": "Enjoy additional features with Developer Mode",
+    "description": [
+      "Enjoy additional features with Developer Mode on the Ta7wila platform. When Developer Mode is activated, you can take advantage of many advanced features that give you more control and flexibility in using the platform.",
+      "This mode allows you to add accounts for other people with full control over the accounts and monitoring their activities. Additionally, you can easily and transparently track profits and cashback resulting from accounts linked to you.",
+      "Take advantage of Developer Mode to enhance your experience and increase your productivity with the Ta7wila platform!"
+    ],
+    "platformLogoAlt": "Developer Mode Platform Illustration"
+  },
+  "whatispayment": "What is our Payment Gateway",
+  "paymentDescription": "Our gateway is designed to be the optimal solution for accepting payments from your customers with ease and speed. Whether you manage a local or global business, you can connect your platform to us for an integrated experience. We provide you with advanced tools to receive money flexibly, support various payment methods, and manage your financial operations from one place. With a focus on security and efficiency, you'll be able to track payments, analyze revenue, and ensure a smooth experience for your customers without any complications.",
+  "downloadApp": {
+    "title": "Download the app now and enjoy our premium services",
+    "description": "Provides you with an integrated experience to manage payment operations easily and know future financial flows with complete accuracy.",
+    "startNow": "Start Now"
+  },
+  "common": {
+    "createdSuccessfully": "Created successful",
+    "errorOccurred": "Error Occurred",
+    "updatedSuccessfully": "Updated Successfully",
+    "confirmDelete": "confirmDelete",
+    "deletedSuccessfully": "Deleted Successfully",
+    "addNew": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create Rejected Reason",
+    "update": "Update",
+    "close": "Close",
+    "loading": "Loading...",
+    "type": "Type",
+    "value": "Value",
+    "status": "Status",
+    "actions": "Actions",
+    "view": "View",
+    "active": "Active",
+    "inactive": "Inactive",
+    "noData": "No Data",
+    "statusUpdated": "Status Updated",
+    "selectType": "Select Type",
+    "confirmDeleteMessage": "Are you sure you want to delete this?",
+    "noResponse": "No response received from the server",
+    "unexpectedError": "An unexpected error occurred",
+    "copyToClipboard": "Copy to clipboard",
+    "storePayment": "Store Payment",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "verification": {
+    "stepTitles": {
+      "step1": "Identity Verification",
+      "step2": "Document Upload",
+      "step3": " Selfie",
+      "step4": "Confirmation"
+    },
+    "stepDescriptions": {
+      "step1": "Confirm your identity",
+      "step2": "Upload required documents",
+      "step3": "Send a real-time photo",
+      "step4": "Review and submit"
+    },
+    "startVerification": "Start Verification Process",
+    "secureVerification": "Secure Identity Verification",
+    "secureVerificationDesc": "To ensure the security of your transactions, we need to verify your identity. Please prepare a valid government-issued ID document.",
+    "frontSide": "Front Side of ID",
+    "backSide": "Back Side of ID",
+    "fileNote": "JPEG, PNG, or PDF (Max 5MB)",
+    "frontUploaded": "Front Uploaded",
+    "backUploaded": "Back Uploaded",
+    "uploadSuccessful": "Upload Successful",
+    "bothSidesRequired": "Both front and back sides are required",
+    "pleaseUploadBoth": "Please upload both front and back sides of your ID",
+    "liveSelfie": " Selfie Verification",
+    "takePhoto": "Upload Photo",
+    "retakePhoto": "Reupload Photo",
+    "verificationComplete": "Verification Complete!",
+    "verificationSuccess": "Verification Successful!",
+    "confirmationMessage": "Your documents have been successfully submitted. We will review them and notify you via email once the verification is complete.",
+    "finalMessage": "You'll receive a confirmation email with transaction details shortly.",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Confirm and Submit"
+  },
+  "verifications": {
+    "details": "Verification Details",
+    "rejectionDetails": "Rejection Details",
+    "reason": "Reason",
+    "type": "Type",
+    "uploadedPhotos": "Uploaded Photos",
+    "frontPhoto": "Front",
+    "backPhoto": "Back",
+    "selfiePhoto": "Selfie",
+    "approve": "Approve",
+    "reject": "Reject"
+  },
+  "footer": {
+    "platformDesc": "Your platform for easy management of future groups",
+    "innovativeSolutions": "Provides innovative solutions to facilitate access to your services with ease and efficiency",
+    "emailPlaceholder": "Email",
+    "send": "Send",
+    "company": {
+      "title": "Company",
+      "support": "Contact & Support",
+      "successStories": "Success Stories",
+      "privacySettings": "Settings & Privacy"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "premiumSupport": "Premium Support",
+      "services": "Our Services",
+      "downloadApp": "Download App"
+    },
+    "followUs": {
+      "title": "Follow Us"
+    }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "userName": "Username",
+    "mobile": "Mobile",
+    "forgotPassword": "Forgot Password?",
+    "clickHere": "Click Here",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "submitting": "Submitting...",
+    "validation": {
+      "invalidEmail": "Invalid email",
+      "emailRequired": "Email is required",
+      "passwordLength": "Password must be at least 8 characters",
+      "passwordRequired": "Password is required",
+      "nameRequired": "Name is required",
+      "nameMinLength": "Name must be at least 3 characters",
+      "nameInvalid": "Name can only contain letters",
+      "mobileInvalid": "Invalid mobile number",
+      "mobileRequired": "Mobile number is required"
+    },
+    "toast": {
+      "registerSuccess": "Registration successful!",
+      "loginSuccess": "Login successful!",
+      "unexpectedError": "An unexpected error occurred."
+    },
+    "forgetPassword": {
+      "title": "Forgot Password",
+      "subTitle": "Enter your email to send verification code",
+      "email": "Email",
+      "sendOtp": "Send Code",
+      "sending": "Sending...",
+      "otpTitle": "Verification Code",
+      "otpSubTitle": "Enter the verification code you received on your email",
+      "otpPlaceholder": "Enter verification code",
+      "verifyOtp": "Verify Code",
+      "verifying": "Verifying...",
+      "resetTitle": "Reset Password",
+      "resetSubTitle": "Enter your new password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "resetPassword": "Reset",
+      "resetting": "Resetting...",
+      "validation": {
+        "otpRequired": "Required",
+        "otpLength": "Must be 6 digits",
+        "passwordMinLength": "Must be at least 8 characters",
+        "passwordRequired": "Required",
+        "confirmPasswordMatch": "Passwords must match",
+        "confirmPasswordRequired": "Required",
+        "otpInvalid": "Invalid verification code"
+      },
+      "toast": {
+        "otpSent": "Verification code sent to your email",
+        "otpError": "Failed to send verification code",
+        "otpVerified": "Code verified successfully",
+        "resetSuccess": "Password reset successful",
+        "resetError": "Failed to reset password"
+      }
+    }
+  },
+  "sidebar": {
+    "manage": "Manage",
+    "preferences": "Preferences",
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "Rejectedreasons": "Rejected Reasons",
+    "invoices": "Invoices",
+    "checkout": "Checkout",
+    "stores": "Stores",
+    "employees": "Employees",
+    "vendors": "Vendors",
+    "identityVerification": "Verifications Identity",
+    "users": "Users",
+    "subscriptions": "Subscriptions",
+    "paymentsVerifications": "Payment Verifications",
+    "whatsapp": "WhatsApp",
+    "price": "Price",
+    "advancedSettings": "Advanced Settings",
+    "settings": "Settings",
+    "documentation": "Documentation",
+    "logout": "Logout",
+    "downloadApp": "Download App",
+    "logs": "Logs"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "greeting": "Here are your latest statistics",
+    "cards": {
+      "totalAmount": "Total Amount",
+      "pendingAmount": "Pending Amount",
+      "total_platform_fees_amount": "Total Platform Fees Amount",
+      "totalTransactions": "Total Transactions",
+      "activeStores": "Active Stores",
+      "inactiveStores": "Inactive Stores",
+      "activeUsers": "Active Users",
+      "totalUsers": "Total Users",
+      "totalCashback": "Total Cashback",
+      "currency": "EGP",
+      "time": "times",
+      "store": "store",
+      "devMode": {
+        "switch": "Switch to",
+        "mode": "Developer Mode",
+        "view": "to view cashback"
+      }
+    }
+  },
+  "header": {
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "updateProfile": "update Profile",
+    "devMode": {
+      "switchTo": "Switch to Developer Mode",
+      "backTo": "Back to User Mode"
+    },
+    "appStatus": {
+      "title": "App Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "enable": "Enable App",
+      "disable": "Disable App",
+      "activeDesc": "App is running normally",
+      "inactiveDesc": "App is currently stopped"
+    },
+    "whatsappStatus": {
+      "title": "WhatsApp Status",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "connectedDesc": "WhatsApp is connected and ready to send messages",
+      "disconnectedDesc": "WhatsApp is not connected"
+    }
+  },
+  "transactions": {
+    "analysis": {
+      "title": "Transaction Analysis",
+      "stats": {
+        "title": "Statistics",
+        "totalTransactions": "Total Transactions",
+        "totalAmount": "Total Amount",
+        "totalUsers": "Total Users",
+        "totalFees": "Total Fees"
+      },
+      "dateRange": {
+        "title": "Date Range",
+        "from": "From",
+        "to": "To"
+      }
+    },
+    "lastTransactions": "Latest Transactions",
+    "noTransactions": "No transactions",
+    "currency": "EGP",
+    "search": {
+      "placeholder": "Search for a transaction..."
+    },
+    "title": "Transactions",
+    "confirmModal": {
+      "title": "Are you sure?",
+      "message": "Do you want to mark this transaction as completed?",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "status": {
+      "pending": "Pending",
+      "completed": "Completed"
+    },
+    "action": {
+      "markAsCompleted": "Mark as Completed",
+      "completed": "Completed",
+      "viewDetails": "View Details"
+    },
+    "details": {
+      "title": "Transaction Details",
+      "close": "Close",
+      "sections": {
+        "basicInfo": "Basic Information",
+        "financialInfo": "Financial Information",
+        "statusInfo": "Status Information",
+        "userApp": "User & Application",
+        "timestamps": "Timestamps"
+      },
+      "fields": {
+        "transactionId": "Transaction ID",
+        "refId": "Reference ID",
+        "amount": "Amount",
+        "amountExcludeFees": "Amount (Excluding Fees)",
+        "platformFees": "Platform Fees",
+        "developerFees": "Developer Fees",
+        "totalFees": "Total Fees",
+        "mobile": "Mobile Number",
+        "senderName": "Sender Name",
+        "transactionDate": "Transaction Date",
+        "status": "Status",
+        "developerWithdrawalStatus": "Developer Withdrawal Status",
+        "platformWithdrawalStatus": "Platform Withdrawal Status",
+        "paymentOption": "Payment Option",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "userName": "User Name",
+        "application": "Application",
+        "applicationEmail": "Application Email"
+      }
+    },
+    "noData": "No transactions available.",
+    "table": {
+      "id": "#",
+      "store": "Store",
+      "from": "From",
+      "provider": "Payment Type",
+      "amount": "Amount",
+      "state": "State",
+      "userName": "Username",
+      "date": "Date",
+      "action": "Action"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "user": "User",
+    "admin": "Admin",
+    "total": "Total Users",
+    "search": {
+      "placeholder": "Search users..."
+    },
+    "table": {
+      "id": "#",
+      "image": "Image",
+      "name": "Name",
+      "email": "Email",
+      "mobile": "Mobile",
+      "status": "Status",
+      "createdAt": "Created At",
+      "actions": "Actions",
+      "view": "View"
+    },
+    "actions": {
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "noData": "No users found.",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "vendors": {
+    "title": "Vendors",
+    "total": "Total Vendors",
+    "addNew": "Add New Vendor",
+    "modal": {
+      "title": "Add New Vendor",
+      "cancel": "Cancel",
+      "add": "Add",
+      "adding": "Adding..."
+    },
+    "validation": {
+      "email": "Invalid email",
+      "password": "Password must be at least 8 characters",
+      "name": "Name is required",
+      "mobile": "Invalid mobile number"
+    },
+    "table": {
+      "id": "#",
+      "image": "Image",
+      "name": "Name",
+      "email": "Email",
+      "mobile": "Mobile",
+      "status": "Status",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "actions": {
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "noData": "No vendors found."
+  },
+  "employees": {
+    "title": "POS Employees",
+    "total": "Total Employees",
+    "addNew": "Add New Employee",
+    "noData": "No employees found",
+    "table": {
+      "id": "#",
+      "name": "Name",
+      "email": "Email",
+      "mobile": "Mobile",
+      "createdAt": "Created At",
+      "actions": "Actions"
+    },
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "mobile": "Mobile",
+      "password": "Password",
+      "buttons": {
+        "cancel": "Cancel",
+        "add": "Add",
+        "adding": "Adding...",
+        "update": "Update",
+        "updating": "Updating..."
+      }
+    },
+    "errors": {
+      "noUserSelected": "No user selected",
+      "updateFailed": "Update failed"
+    },
+    "toast": {
+      "statusUpdated": "Status updated successfully"
+    }
+  },
+  "paymentVerification": {
+    "title": "Payment Verification",
+    "noData": "No payment verifications available.",
+    "instructions": "Complete your payment using one of the available payment methods",
+    "successMessage": "Payment submitted successfully! Please complete the payment using the provided information.",
+    "submitPayment": "Submit Payment Information",
+    "search": {
+      "placeholder": "Search payment verifications..."
+    },
+    "table": {
+      "id": "#",
+      "userName": "Username",
+      "paymentValue": "Payment Value",
+      "paymentOption": "Payment Option",
+      "date": "Date",
+      "state": "State",
+      "actions": "Actions"
+    },
+    "modal": {
+      "checkTransaction": "Check Transaction",
+      "close": "Close",
+      "application": "Application",
+      "required": "Required",
+      "selectApplication": "Select Application",
+      "noApplications": "No applications",
+      "paymentOption": "Payment Option",
+      "selectPaymentOption": "Select Payment Option",
+      "checkButton": "Check Transaction",
+      "selectPaymentMethodFirst": "Select a payment method first",
+      "fillPaymentInfo": "Please fill in your payment information",
+      "paymentDetails": "Payment Details",
+      "paymentId": "Payment ID",
+      "referenceId": "Reference ID",
+      "status": "Status",
+      "pending": "Pending",
+      "value": "Value",
+      "mobile": "Mobile",
+      "createdDate": "Created Date",
+      "userName": "User Name",
+      "transactionDetails": {
+        "title": "Transaction Details",
+        "value": "Value",
+        "transactionId": "Transaction ID",
+        "senderName": "Sender Name",
+        "totalAmount": "Total Amount",
+        "transactionDate": "Transaction Date",
+        "currentStatus": "Current Status",
+        "verificationStatus": "Verification Request Status",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "updateStatus": "Update Verification Status",
+        "instapayIdRequired": "Instapay ID is required",
+        "instapayIdTooShort": "Instapay ID is too short",
+        "amountRequired": "Amount is required",
+        "invalidAmount": "Amount must be a positive number",
+        "pleaseSelectPaymentValue": "Please select a payment value",
+        "selectedPaymentId": "Selected Payment ID"
+      }
+    },
+    "status": {
+      "verified": "Verified",
+      "pending": "Pending"
+    },
+    "action": {
+      "check": "Check"
+    }
+  },
+  "paymentConfirmation": {
+    "title": "Payment Confirmation",
+    "subscriptionDetails": "Subscription Details",
+    "planName": "Plan Name",
+    "description": "Description",
+    "loadingPaymentMethods": "Loading payment methods...",
+    "noPaymentOptions": "No payment options available",
+    "contactSupportSubscription": "Please contact support to configure subscription payment methods",
+    "contactStoreOwner": "Please contact the store owner to configure payment methods",
+    "noCheckoutData": "No checkout data available",
+    "unableToLoadSubscription": "Unable to load subscription payment options. Please try again or contact support.",
+    "checkRefId": "Please check if the ref_id is correct or contact the store owner.",
+    "instapayId": "Instapay ID",
+    "checkoutDataNotLoaded": "Checkout data not loaded",
+    "selectPaymentMethod": "Please select a payment method",
+    "transactionCheckedSuccessfully": "Transaction checked successfully",
+    "failedToCheckTransaction": "Failed to check transaction",
+    "notProvided": "Not provided",
+    "notAvailable": "N/A",
+    "subscriptionType": "Subscription Type",
+    "maxApplications": "Max Applications",
+    "maxEmployees": "Max Employees",
+    "maxVendors": "Max Vendors",
+    "amountPlaceholder": "0 EGP",
+    "amount": "Amount",
+    "currency": "EGP",
+    "subscriptionPayment": "Subscription Payment",
+    "defaultPaymentOption": "Default",
+    "forSubscriptions": "for subscriptions",
+    "paymentNumbers": {
+      "ourNumber": "Our Number",
+      "selectMethodFirst": "Please select a payment method first",
+      "vcash": "01234567890",
+      "ecash": "01123456789", 
+      "wecash": "01098765432",
+      "instapay": "@ta7wila",
+      "ocash": "01187654321"
+    }
+  },
+  "publicPayment": {
+    "title": "Choose Payment Method",
+    "noCommission": "No commission on charging",
+    "ourNumber": "Our Vodafone Cash Number",
+    "instructions": "After transfer, confirm the transfer by writing the phone number you transferred from in the phone number field and write the amount you transferred in Egyptian pounds in the amount field",
+    "waitInstructions": "Please wait 5 minutes if confirmation fails and try again",
+    "amount": "Amount Transferred",
+    "amountPlaceholder": "Enter amount",
+    "phoneNumber": "Phone Number you transferred from",
+    "instapayUsername": "Instapay Username you transferred from",
+    "phonePlaceholder": "01000000000",
+    "instapayPlaceholder": "user@instapay",
+    "confirmPayment": "Confirm Payment",
+    "submitting": "Submitting...",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "footerNote": "Our reserved number\nCustomer service number",
+    "storeNotFound": "Store not found",
+    "customerName": "Customer Name",
+    "customerNamePlaceholder": "Enter customer name",
+    "transferSuccess": "Transfer completed successfully! Your request will be reviewed and confirmed within a few minutes",
+    "transferNotCompleted": "Transfer not completed yet! Please make sure to complete the transfer first"
+  },
+  "subscription": {
+    "title": "Subscriptions",
+    "noData": "No subscriptions found.",
+    "table": {
+      "title": "Title",
+      "amount": "Amount",
+      "type": "Type",
+      "status": "Status",
+      "applications": "Applications",
+      "employees": "Employees",
+      "vendors": "Vendors",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "actions": "Actions",
+      "view": "View"
+    },
+    "modal": {
+      "title": "Subscription Details",
+      "rejectedreasontype": "Rejected Reasons",
+      "rejectedreasonValue": "Rejected Reason",
+      "close": "Close",
+      "subscriptionAmount": "Subscription Amount",
+      "subscriptionAmountLabel": "Amount",
+      "status": "Status",
+      "paymentDate": "Payment Date",
+      "userInfo": "User Information",
+      "counts": {
+        "applications": "Number of Applications",
+        "vendors": "Number of Vendors",
+        "employees": "Number of Employees"
+      },
+      "subscriptionType": "Subscription Type"
+    }
+  },
+  "storeUpdate": {
+    "title": "Update Store",
+    "logoUpload": {
+      "acceptedFormats": "Accepted formats: JPG, PNG",
+      "updateLogo": "Update Logo",
+      "uploading": "Uploading...",
+      "toast": {
+        "selectLogo": "Please select a logo",
+        "noFile": "No file selected",
+        "success": "Logo updated successfully!",
+        "error": "Failed to update logo"
+      }
+    },
+    "form": {
+      "storeName": {
+        "label": "Store Name *",
+        "placeholder": "Store Name"
+      },
+      "email": {
+        "label": "Email *",
+        "placeholder": "Enter email"
+      },
+      "mobileWallet": {
+        "label": "Mobile Number *",
+        "placeholder": "+201000000000"
+      },
+      "subdomain": {
+        "label": "Subdomain *",
+        "placeholder": "Add subdomain"
+      },
+      "webhook": {
+        "label": "Webhook Check *",
+        "placeholder": "Check webhook"
+      },
+      "buttons": {
+        "saveSettings": "Save Settings",
+        "saving": "Saving...",
+        "updateSubdomain": "Update Subdomain",
+        "updating": "Updating...",
+        "update": "Update",
+        "check": "Check",
+        "checking": "Checking..."
+      }
+    },
+    "validation": {
+      "nameRequired": "Store name is required",
+      "nameMinLength": "Store name must be at least 3 characters",
+      "emailRequired": "Email is required",
+      "invalidEmail": "Invalid email format",
+      "mobileRequired": "Mobile number is required",
+      "invalidPhone": "Invalid phone number. Must start with +20 and contain 10 digits",
+      "subdomainRequired": "Subdomain is required",
+      "invalidSubdomain": "Invalid subdomain format",
+      "webhookRequired": "Webhook URL is required",
+      "invalidWebhook": "Please enter a valid webhook URL",
+      "updateWebhookFirst": "Please update webhook first"
+    },
+    "toast": {
+      "subdomainUpdated": "Subdomain updated successfully!",
+      "subdomainError": "Failed to update subdomain",
+      "settingsUpdated": "Settings updated successfully!",
+      "settingsError": "Failed to update settings",
+      "webhookValid": "Webhook is valid!",
+      "webhookCheckFailed": "Failed to check webhook",
+      "webhookUpdated": "Webhook URL updated successfully!",
+      "webhookUpdateError": "Failed to update webhook URL",
+      "unknownError": "An unknown error occurred"
+    }
+  },
+  "storeDetails": {
+    "loading": "Loading...",
+    "error": "Error loading transactions.",
+    "title": "Store Details",
+    "paymentLinkCopied": "Payment link copied to clipboard!",
+    "publicPaymentLink": "Public Payment Link",
+    "sharePaymentLink": "Share this link with customers to allow them to make payments directly",
+    "copyPaymentLink": "Copy Payment Link",
+    "whatsappMessage": "Here's the payment link:",
+    "shareViaWhatsApp": "Share via WhatsApp",
+    "payments": {
+      "title": "Payment Summary",
+      "noData": "No payments available",
+      "payment": {
+        "status": {
+          "published": "Published",
+          "notPublished": "Not Published"
+        }
+      }
+    },
+    "employees": {
+      "title": "POS Employees",
+      "addNew": "Add New Employee",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "mobile": "Mobile Number",
+        "password": "Password",
+        "buttons": {
+          "cancel": "Cancel",
+          "add": "Add",
+          "adding": "Adding...",
+          "update": "Update",
+          "updating": "Updating..."
+        }
+      },
+      "toast": {
+        "success": "Employee added successfully!",
+        "error": "An error occurred while adding the employee."
+      }
+    },
+    "table": {
+      "id": "#",
+      "from": "From",
+      "provider": "Provider",
+      "amount": "Amount",
+      "state": "State",
+      "userName": "Username",
+      "date": "Date",
+      "status": {
+        "pending": "Pending",
+        "completed": "Completed"
+      }
+    }
+  },
+  "storepayment": {
+    "title": "Store Payment",
+    "addPayment": "Add Payment",
+    "noData": "No payment methods found",
+    "table": {
+      "id": "#",
+      "value": "Value",
+      "public": "Public",
+      "paymentOption": "Payment Option",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "actions": "Actions",
+      "update": "Update"
+    },
+    "modal": {
+      "update": {
+        "title": "Update Payment Method",
+        "choosePayment": "Choose Payment Method",
+        "value": "Value",
+        "refId": "Reference ID",
+        "publicLabel": "Visibility",
+        "yes": "Yes",
+        "no": "No",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "add": {
+        "title": "Add Payment Method",
+        "paymentOption": "Choose Payment Method",
+        "value": "Value",
+        "valuePlaceholder": "01********* || name@instapay",
+        "referenceLabel": "Reference ID",
+        "refId": "Reference ID",
+        "referencePlaceholder": "Enter reference ID",
+        "visibility": "Visibility",
+        "public": "Public",
+        "private": "Private",
+        "cancel": "Cancel",
+        "add": "Add",
+        "adding": "Adding..."
+      }
+    },
+    "toast": {
+      "addSuccess": "Payment method added successfully!",
+      "updateSuccess": "Payment method updated successfully!"
+    },
+    "validation": {
+      "valueRequired": "Value is required",
+      "refIdRequired": "Reference ID is required",
+      "paymentOptionRequired": "Payment option is required"
+    }
+  },
+  "stores": {
+    "title": "Stores",
+    "addStore": "Add New Store +",
+    "table": {
+      "id": "#",
+      "image": "Image",
+      "name": "Name",
+      "email": "Email",
+      "website": "Website",
+      "mobile": "Mobile",
+      "webhook": "Webhook",
+      "status": "Status",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "noData": "No stores found.",
+    "actions": {
+      "title": "Actions",
+      "update": "Update",
+      "payment": "Payment",
+      "logs": "Logs",
+      "details": "Details",
+      "manualCheck": "Manual Transaction Check",
+      "whatsappConnect": "Connect WhatsApp"
+    }
+  },
+  "applications": {
+    "title": "Applications",
+    "noApplications": "No applications found",
+    "website": "Website",
+    "paymentOptions": "Payment Options",
+    "activePaymentMethods": "Active Payment Methods",
+    "public": "Public",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "plans": {
+    "title": "Choose Your Plan",
+    "perMonth": "/month",
+    "getStarted": "Get Started",
+    "processing": "Processing...",
+    "applications": "Applications",
+    "Employees": "Employees",
+    "Vendors": "Vendors"
+  },
+  "transactionModal": {
+    "application": {
+      "label": "Application",
+      "required": "Required",
+      "select": "Select Application",
+      "noApplications": "No applications"
+    },
+    "paymentOption": {
+      "label": "Payment Method",
+      "required": "Required",
+      "select": "Select Payment Method"
+    },
+    "form": {
+      "check": "Check Transaction",
+      "checkButton": "Check Transaction",
+      "close": "Close"
+    },
+    "details": {
+      "title": "Transaction Details",
+      "id": "Transaction ID",
+      "name": "Sender Name",
+      "amount": "Total Amount",
+      "date": "Transaction Date",
+      "status": "Current Status",
+      "verificationStatus": "Verification Request Status",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "updateStatus": "Update Verification Status" 
+    }
+  },
+  "price": {
+    "manageTitle": "Manage Plans",
+    "addNewPlan": "Add New Plan",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "loading": "Loading...",
+    "yourSubscription": "Your Subscription",
+    "subscriptionCosts": "Subscription Costs",
+    "perMonth": "/month",
+    "paymentWarning": "You must pay before the end of the month to complete your plan and benefit from our services. If you fail to pay",
+    "suspensionWarning": "Your account will be suspended until you pay the dues.",
+    "paymentSuccessMessage": "Payment completed successfully! Your plan has been activated.",
+    "payNow": "Pay Now",
+    "yourPlan": "Your Plan",
+    "applications": "Applications",
+    "employees": "Employees",
+    "vendors": "Vendors",
+    "change": "Change",
+    "validation": {
+      "titleRequired": "Title is required",
+      "titleMinLength": "Title must be at least 3 characters",
+      "subtitleRequired": "Subtitle is required",
+      "amountRequired": "Amount is required",
+      "amountMin": "Amount must be greater than 0",
+      "applicationsRequired": "Applications count is required",
+      "applicationsMin": "Applications count must be greater than 0",
+      "employeesRequired": "Employees count is required",
+      "employeesMin": "Employees count must be greater than 0",
+      "vendorsRequired": "Vendors count is required",
+      "vendorsMin": "Vendors count must be greater than 0"
+    },
+    "modal": {
+      "addTitle": "Add New Plan",
+      "editTitle": "Edit Plan",
+      "title": "Title",
+      "titlePlaceholder": "Plan Title",
+      "subtitle": "Subtitle",
+      "subtitlePlaceholder": "Short Description",
+      "amount": "Amount",
+      "amountPlaceholder": "0.00",
+      "applicationsCount": "Applications",
+      "employeesCount": "Employees",
+      "vendorsCount": "Vendors",
+      "createPlan": "Create Plan",
+      "saveChanges": "Save Changes",
+      "deleteTitle": "Delete Plan",
+      "deleteConfirm": "Are you sure you want to delete this plan?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "table": {
+      "id": "#",
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "amount": "Amount",
+      "applications": "Applications",
+      "employees": "Employees",
+      "vendors": "Vendors",
+      "action": "Action",
+      "noPlans": "No plans found"
+    }
+  },
+  "logs": {
+    "clearLogs": "Clear Logs",
+    "clearSuccess": "Logs cleared successfully!",
+    "noDataToClear": "No data to clear",
+    "vendorName": "Vendor Name",
+    "noLogs": "No logs available."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
+  },
+  "table": {
+    "id": "ID"
+  },
+  "invoice": {
+    "title": "Invoice",
+    "billTo": "Bill To",
+    "number": "Invoice Number",
+    "date": "Invoice Date",
+    "period": "Period",
+    "days": "days",
+    "amountWithoutFees": "Amount Without Fees",
+    "lateFees": "Late Fees",
+    "developerFees": "Developer Fees",
+    "totalFees": "Total Fees",
+    "subscriptionAmount": "Subscription Amount",
+    "amountInclFees": "Amount Including Fees",
+    "total": "Total",
+    "deletionDateNote": "Account deletion date in case of non-payment",
+    "specifyingNumber": "Invoice Number",
+    "thankYou": "Thank you for your business!",
+    "errorLoading": "Error loading invoices",
+    "invalidFormat": "Invalid invoice data format",
+    "unexpectedFormat": "Unexpected invoice data format",
+    "totalAmount": "Total Amount",
+    "paidAt": "Paid At",
+    "preview": "Preview",
+    "noInvoices": "No invoices found",
+    "of": "of"
+  },
+  "checkout": {
+    "details": {
+      "storeInfo": "Store Information",
+      "personalInfo": "Personal Information",
+      "labels": {
+        "name": "Name:",
+        "email": "Email:",
+        "mobile": "Mobile:"
+      },
+      "status": {
+        "paid": "Paid",
+        "notPaid": "Not Paid"
+      },
+      "paymentDetails": {
+        "id": "#",
+        "refId": "Reference ID",
+        "itemId": "Item ID",
+        "paidAt": "Paid At",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "amount": "Amount"
+      },
+      "invoice": {
+        "paid": "Invoice has been paid",
+        "specifyNumber": "Specify Invoice Number",
+        "thankYou": "Thank you!",
+        "notPaid": "Invoice has not been paid yet. Direct payment link:",
+        "payNow": "Pay Now"
+      },
+      "contact": "ta7wila@ta7wila.com ∖ www.ta7wila.com"
+    }
+  },
+  "settings": {
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "tokenCopied": "Token copied to clipboard!",
+    "profileUpdated": "Profile updated successfully!",
+    "passwordChanged": "Password changed successfully!",
+    "appToken": "Your App Token",
+    "Token": "App Token"
+  },
+  "errors": {
+    "developerMode": "You aren't developer to do this action, upgrade your account from normal user to developer to be able to do this action then try again",
+    "statusUpdated": "Status updated successfully!"
+  },
+  "userInfo": {
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "connection": {
+      "loading": "Loading...",
+      "enable": "Enable",
+      "disable": "Disable",
+      "enabled": "Enabled",
+      "enabledDesc": "Your connection is active and working properly",
+      "disabled": "Connection Disabled",
+      "disabledDesc": "Your connection is currently disabled"
+    },
+    "accountInfo": {
+      "title": "Account Information",
+      "username": "Username: ",
+      "userType": "User Type: ",
+      "transactionStatus": "Transaction Status: "
+    },
+    "subscriptionInfo": {
+      "title": "Subscription Information",
+      "plan": "Plan",
+      "description": "Description",
+      "amount": "Amount",
+      "type": "Subscription Type",
+      "upgradeNow": "Upgrade Now",
+      "choosePlan": "Choose Your Plan",
+      "status": "Status",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "applicationsCount": "Applications",
+      "employeesCount": "Employees",
+      "vendorsCount": "Vendors",
+      "subscriptionDate": "Subscription Date",
+      "renewalDate": "Renewal Date",
+      "noSubscription": {
+        "title": "No Active Subscription",
+        "description": "User has not subscribed to any plan yet"
+      }
+    },
+    "linkedStores": {
+      "title": "Linked Stores"
+    },
+    "transactions": {
+      "title": "Recent Transactions",
+      "transactionId": "Transaction ID",
+      "refId": "Reference ID",
+      "amount": "Amount",
+      "netAmount": "Net Amount",
+      "fees": "Fees",
+      "status": "Status",
+      "completed": "Completed",
+      "paymentMethod": "Payment Method",
+      "senderName": "Sender Name",
+      "transactionDate": "Date",
+      "notAvailable": "N/A"
+    },
+    "analysis": {
+      "title": "Transaction Analysis",
+      "totalTransactions": "Total Transactions",
+      "totalAmount": "Total Amount",
+      "totalFees": "Total Fees",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "chartTitle": "Transaction Volume Over Time",
+      "noData": "No transactions data available",
+      "amount": "Amount",
+      "count": "Count"
+    }
+  },
+  "whatsapp": {
+    "title": "WhatsApp Settings",
+    "subtitle": "Manage WhatsApp connection and send messages",
+    "connectionStatus": "Connection Status",
+    "qrCode": "QR Code for Connection",
+    "sendLinkViaWhatsApp": "Send Link via WhatsApp",
+    "messageHistory": "Message History",
+    "settings": {
+      "title": "WhatsApp Settings",
+      "description": "Manage WhatsApp connection and message settings",
+      "status": "Status",
+      "qrCodeSection": "WhatsApp Connection",
+      "messageLog": "Sent Messages Log"
+    },
+    "sessions": {
+      "title": "WhatsApp Sessions",
+      "subtitle": "Manage your WhatsApp connections",
+      "connected": "Connected",
+      "connecting": "Connecting",
+      "disconnected": "Disconnected",
+      "lastActivity": "Last Activity",
+      "sessionId": "Session ID",
+      "never": "Never",
+      "newSession": "New Session",
+      "createFirst": "Create First Session",
+      "noSessions": "No WhatsApp Sessions",
+      "noSessionsDesc": "Create your first WhatsApp session to start sending messages and payment links.",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "continueSetup": "Continue Setup",
+      "sendTest": "Send Test Message",
+      "delete": "Delete session",
+      "deleteConfirm": "Are you sure you want to delete this session? This action cannot be undone.",
+      "sessionNameUpdated": "Session name updated!",
+      "sessionDeleted": "Session deleted successfully!",
+      "sessionCreated": "New WhatsApp session created!",
+      "sessionDisconnected": "Session disconnected successfully!",
+      "connectionSuccess": "WhatsApp connected successfully!"
+    },
+    "qrScanner": {
+      "title": "Connect WhatsApp Account",
+      "subtitle": "Scan the QR code with your WhatsApp mobile app to connect your account",
+      "generating": "Generating QR Code...",
+      "expiresIn": "QR Code expires in",
+      "howToScan": "How to scan:",
+      "step1": "Open WhatsApp on your phone",
+      "step2": "Tap Menu or Settings and select Linked Devices",
+      "step3": "Tap \"Link a Device\" and scan this QR code",
+      "refresh": "Refresh QR Code",
+      "refreshing": "Generating...",
+      "cancel": "Cancel",
+      "scanning": "Scanning QR code...",
+      "simulateScan": "Click to Simulate Scan"
+    },
+    "templates": {
+      "title": "Message Templates",
+      "template1": "Hello! Here's the payment link for {storeName}: {paymentLink}",
+      "template2": "You can now pay easily through this link: {paymentLink} - Thank you!",
+      "template3": "Dear customer, please complete your payment through the following link: {paymentLink}",
+      "create": "Create Template",
+      "edit": "Edit Template",
+      "name": "Template Name",
+      "content": "Message Content",
+      "variables": "Variables",
+      "variablesDetected": "Detected variables:",
+      "variablesNone": "None",
+      "variablesPlaceholder": "Enter message content. Use {variable_name} for variables.",
+      "send": "Send Message",
+      "save": "Save Template",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this template?",
+      "created": "Template created successfully!",
+      "updated": "Template updated successfully!",
+      "deleted": "Template deleted successfully!",
+      "fillRequired": "Please fill in all required fields",
+      "noConnectedSessions": "No connected WhatsApp sessions available"
+    },
+    "sendMessage": {
+      "title": "Send WhatsApp Message",
+      "session": "WhatsApp Session",
+      "recipient": "Recipient Number",
+      "recipientPlaceholder": "Phone number (e.g., +201234567890)",
+      "selectTemplate": "Select Message Template",
+      "customMessage": "Custom Message",
+      "preview": "Message Preview",
+      "send": "Send",
+      "cancel": "Cancel",
+      "close": "Close",
+      "selectSession": "Please select a WhatsApp session",
+      "enterRecipient": "Please enter recipient number",
+      "fillVariables": "Please fill in all variables:",
+      "sent": "Message sent successfully",
+      "sending": "Sending...",
+      "messageLog": "Store Message Log",
+      "sentMessages": "Sent Messages",
+      "noMessages": "No messages sent from this store",
+      "messageDetails": "Message Details",
+      "messageTo": "To",
+      "messageContent": "Message Content",
+      "sentAt": "Sent At"
+    },
+    "customMessage": {
+      "title": "Send Custom Message",
+      "session": "WhatsApp Session",
+      "recipient": "Recipient Phone Number",
+      "recipientPlaceholder": "e.g., +201234567890",
+      "message": "Message",
+      "messagePlaceholder": "Type your message here...",
+      "attachments": "Attachments",
+      "attachmentsDesc": "Click to attach files",
+      "attachmentsFormat": "Images, PDF, DOC (Max 10MB)",
+      "characters": "characters",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "recentMessages": "Recent Messages",
+      "noMessages": "No messages sent yet",
+      "status": {
+        "sent": "Sent",
+        "delivered": "Delivered",
+        "read": "Read",
+        "pending": "Pending",
+        "failed": "Failed"
+      },
+      "errors": {
+        "selectSession": "Please select a WhatsApp session",
+        "enterRecipient": "Please enter recipient phone number",
+        "enterMessage": "Please enter a message or attach a file",
+        "fileSize": "File size must be less than 10MB"
+      },
+      "noSessions": "No Connected Sessions",
+      "noSessionsDesc": "Please connect a WhatsApp session first to send custom messages."
+    }
+  }
+}

@@ -1,0 +1,34 @@
+
+> ta7willa@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.24:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1653ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 903ms (139 modules)
+ ○ Compiling /[lang]/dashboard ...
+ ✓ Compiled /[lang]/dashboard in 6.4s (1503 modules)
+ ✓ Compiled in 2.9s (624 modules)
+ GET /ar/dashboard 200 in 9573ms
+ ⚠ The "images.domains" configuration is deprecated. Please use "images.remotePatterns" configuration instead.
+ ○ Compiling /[lang]/dashboard/employees ...
+ ✓ Compiled /[lang]/dashboard/employees in 1095ms (1770 modules)
+ GET /ar/dashboard/employees 200 in 2159ms
+ ○ Compiling /[lang]/dashboard/settings ...
+ ✓ Compiled /[lang]/dashboard/settings in 584ms (1789 modules)
+ GET /ar/dashboard/settings 200 in 1075ms
+ ○ Compiling /api/whatsapp ...
+ ✓ Compiled /api/whatsapp in 750ms (1805 modules)
+ GET /api/whatsapp?action=getMessages 200 in 924ms
+ GET /api/whatsapp?action=getSessions 200 in 923ms
+ GET /api/whatsapp?action=getMessages 200 in 30ms
+ GET /api/whatsapp?action=getSessions 200 in 36ms
+ GET /api/whatsapp?action=generateQR&sessionId=session_1751459784803 200 in 76ms
+ POST /api/whatsapp 200 in 33ms
+ GET /api/whatsapp?action=getMessages 200 in 10ms
+ POST /api/whatsapp 200 in 17ms

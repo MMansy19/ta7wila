@@ -1,0 +1,1258 @@
+{
+  "dir": "rtl",
+  "title": "تحويلة",
+  "welcome": "مرحباً",
+  "navigation": {
+    "app": "التطبيق",
+    "features": "مزايا",
+    "services": "خدمات",
+    "about": "نبذة عنا",
+    "home": "الرئيسية",
+    "tryFree": "تجربة مجانية",
+    "dashboard": "لوحة التحكم",
+    "howItWorks": "كيف يعمل"
+  },
+  "hero": {
+    "title": "إدارة الإيرادات المتكررة أصبحت أسهل وأكثر ذكاءً مع منصتنا المتكاملة",
+    "subtitle": "كل ما تحتاجه لإدارة أعمالك في مكان واحد! منصة مبتكرة توفر لك أدوات ذكية لتنظيم الاشتراكات، تتبع الإيرادات المتكررة، وتحقيق نمو مستدام بسهولة وكفاءة."
+  },
+  "services": {
+    "title": "تعرف علي أهم الخدمات التي نقدمها لك",
+    "instantActivation": {
+      "title": "تفعيل فوري",
+      "description": "تفعيل فوري يضمن بدء استخدام المنصة مباشرة دون أي تأخير، لتبسيط عملياتك والانطلاق في إدارة اشتراكاتك بكفاءة"
+    },
+    "currencyConversion": {
+      "title": "تحويل عملات تلقائي",
+      "description": "نظام تحويل عملات تلقائي يتيح لك قبول المدفوعات بسهولة بأي عملة ، مع توفير تجربة دفع سلسة لعملائك دون أي تعقيدات"
+    },
+    "support": {
+      "title": " دعم فني 24 ساعة",
+      "description": "فريق دعم فني متواجد على مدار الساعة لضمان تجربة سلسة وخالية من أي عقبات. نحن هنا لمساعدتك في أي وقت، وكل يوم"
+    }
+  },
+  "features": {
+    "title": "مزايا تجعلنا الاختيار الأول لعملك",
+    "comprehensiveReport": {
+      "title": "تقرير شامل",
+      "description": "تقرير تفصيلية شاملة تمنحك رؤية واضحة حول إيراداتك وأداء اشتراكاتك",
+      "altText": "تقرير شامل"
+    },
+    "dataProtection": {
+      "title": "حماية البيانات",
+      "description": "أمان متقدم لضمان حماية بياناتك المالية بأعلى المعايير",
+      "altText": "حماية البيانات"
+    },
+    "userInterface": {
+      "title": "واجهة سهلة الاستخدام",
+      "description": "واجهة سهلة الاستخدام مثالية لجميع أنواع الأنشطة التجارية.",
+      "altText": "واجهة سهلة الاستخدام"
+    },
+    "paymentSupport": {
+      "title": "دعم طرق الدفع",
+      "description": "دعم جميع طرق الدفع: البطاقات البنكية، المحافظ الإلكترونية والمدفوعات النقدية.",
+      "altText": "دعم طرق الدفع"
+    },
+    "mainImageAlt": "واجهة تاحويلا"
+  },
+  "devPart": {
+    "title": "استمتع بمزايا إضافيه مع وضع التطوير",
+    "description": [
+      "استمتع بمزايا إضافية مع وضع التطوير على منصة تحويلة عند تفعيل وضع التطوير، يمكنك الاستفادة من العديد من الخصائص المتقدمة التي تمنحك المزيد من التحكم والمرونة في استخدام المنصة.",
+      "يتيح لك هذا الوضع إضافة حسابات لأشخاص آخرين مع إمكانية التحكم الكامل في الحسابات ومتابعة أنشطتها. بالإضافة إلى ذلك، يمكنك تتبع الأرباح والكاش باك الناتج عن الحسابات المرتبطة بك بسهولة وشفافية.",
+      "استفد من وضع التطوير لتحسين تجربتك وزيادة إنتاجيتك مع منصة تحويلة!"
+    ],
+    "platformLogoAlt": "رسم توضيحي لوضع المطور على المنصة"
+  },
+  "whatispayment": "ما هي بوابة الدفع الخاصة بنا",
+  "paymentDescription": "بوابتنا مصممة لتكون الحل الأمثل لقبول المدفوعات من عملائك بكل سهولة وسرعة. سواء كنت تدير نشاطًا تجاريًا محليًا أو عالميًا، يمكنك ربط منصتك بنا لتحصل على تجربة متكاملة. نوفر لك أدوات متطورة لاستلام الأموال بمرونة، دعم مختلف طرق الدفع، وإدارة عملياتك المالية من مكان واحد. مع التركيز على الأمان والكفاءة، ستتمكن من تتبع عمليات الدفع، تحليل الإيرادات، وضمان تجربة سلسة لعملائك دون أي تعقيد.",
+  "downloadApp": {
+    "title": "حمّل التطبيق الآن واستمتع بخدماتنا المميزة",
+    "description": "يوفّر لك تجربة متكاملة لإدارة عمليات الدفع بسهولة ومعرفة التدفقات المالية المستقبلية بكل دقة.",
+    "startNow": "أبدأ الآن"
+  },
+  "common": {
+    "createdSuccessfully": "تم انشاء بنجاح",
+    "errorOccurred": "حدث خطأ",
+    "updatedSuccessfully": "تم التحديث بنجاح",
+    "confirmDelete": "تأكيد الحذف",
+    "deletedSuccessfully": "تم الحذف بنجاح",
+    "addNew": "إضافة جديد",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "create": "انشاء سبب للرفض",
+    "update": "تحديث",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل...",
+    "type": "النوع",
+    "value": "القيمة",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "view": "عرض",
+    "noData": "لا توجد بيانات",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "statusUpdated": "تم تحديث الحالة",
+    "selectType": "اختر النوع",
+    "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "noResponse": "لم يتم استلام استجابة من الخادم",
+    "unexpectedError": "حدث خطأ غير متوقع",
+    "copyToClipboard": "نسخ إلى الحافظة",
+    "storePayment": "دفع المتجر",
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "verification": {
+    "stepTitles": {
+      "step1": "التحقق من الهوية",
+      "step2": "تحميل المستندات",
+      "step3": "سيلفي",
+      "step4": "التأكيد"
+    },
+    "stepDescriptions": {
+      "step1": "تأكيد هويتك",
+      "step2": "تحميل المستندات المطلوبة",
+      "step3": "ارسال صورة فورية",
+      "step4": "مراجعة وإرسال"
+    },
+    "startVerification": "بدء عملية التحقق",
+    "secureVerification": "التحقق الآمن من الهوية",
+    "secureVerificationDesc": "لضمان أمان معاملاتك، نحتاج إلى التحقق من هويتك. يُرجى تجهيز بطاقة هوية حكومية صالحة.",
+    "frontSide": "الوجه الأمامي للهوية",
+    "backSide": "الوجه الخلفي للهوية",
+    "fileNote": "JPEG، PNG، أو PDF (بحد أقصى 5 ميجابايت)",
+    "frontUploaded": "تم تحميل الوجه الأمامي",
+    "backUploaded": "تم تحميل الوجه الخلفي",
+    "uploadSuccessful": "تم التحميل بنجاح",
+    "bothSidesRequired": "مطلوب تحميل كلا الجانبين",
+    "pleaseUploadBoth": "يرجى تحميل الوجهين الأمامي والخلفي للهوية",
+    "liveSelfie": "التحقق من السيلفي المباشر",
+    "takePhoto": "ارسال صورة",
+    "retakePhoto": "إعادة ارسال الصورة",
+    "verificationComplete": "تم التحقق بنجاح!",
+    "verificationSuccess": "تم التحقق بنجاح!",
+    "confirmationMessage": "تم إرسال مستنداتك بنجاح. سنقوم بمراجعتها وإبلاغك عبر البريد الإلكتروني عند اكتمال التحقق.",
+    "finalMessage": "ستتلقى رسالة تأكيد بالبريد الإلكتروني بتفاصيل العملية قريبًا.",
+    "back": "رجوع",
+    "continue": "متابعة",
+    "submit": "تأكيد وإرسال"
+  },
+  "verifications": {
+    "details": "تفاصيل التحقق",
+    "rejectionDetails": "تفاصيل الرفض",
+    "reason": "السبب",
+    "type": "النوع",
+    "uploadedPhotos": "الصور المرفوعة",
+    "frontPhoto": "الأمام",
+    "backPhoto": "الخلف",
+    "selfiePhoto": "صورة شخصية",
+    "approve": "موافقة",
+    "reject": "رفض"
+  },
+  "footer": {
+    "platformDesc": "منصتك لإدارة المجموعات المستقبلية بسهولة",
+    "innovativeSolutions": "يقدم حلولاً مبتكرة لتسهيل الوصول إلى خدماتك بكل سلاسة وكفاءة",
+    "emailPlaceholder": "البريد الإلكتروني",
+    "send": "إرسال",
+    "company": {
+      "title": "الشركة",
+      "support": "تواصل ودعم",
+      "successStories": "قصص النجاح",
+      "privacySettings": "الإعدادات والخصوصية"
+    },
+    "quickLinks": {
+      "title": "روابط سريعة",
+      "premiumSupport": "الدعم المميز",
+      "services": "خدماتنا",
+      "downloadApp": "تحميل التطبيق"
+    },
+    "followUs": {
+      "title": "تابعنا"
+    }
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "name": "الاسم",
+    "userName": "اسم المستخدم",
+    "mobile": "رقم الجوال",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "clickHere": "اضغط هنا",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "submitting": "جاري التنفيذ...",
+    "validation": {
+      "invalidEmail": "البريد الإلكتروني غير صحيح",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "passwordLength": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "nameRequired": "الاسم مطلوب",
+      "nameMinLength": "الاسم يجب أن يكون 3 أحرف على الأقل",
+      "nameInvalid": "يمكن أن يحتوي الاسم على أحرف فقط",
+      "mobileInvalid": "رقم الجوال غير صحيح",
+      "mobileRequired": "رقم الجوال مطلوب"
+    },
+    "toast": {
+      "registerSuccess": "تم التسجيل بنجاح!",
+      "loginSuccess": "تم تسجيل الدخول بنجاح!",
+      "unexpectedError": "حدث خطأ غير متوقع."
+    },
+    "forgetPassword": {
+      "title": "نسيت كلمة المرور",
+      "subTitle": "أدخل بريدك الإلكتروني لإرسال رمز التحقق",
+      "email": "البريد الإلكتروني",
+      "sendOtp": "إرسال الرمز",
+      "sending": "جارٍ الإرسال...",
+      "otpTitle": "رمز التحقق",
+      "otpSubTitle": "أدخل رمز التحقق الذي استلمته على بريدك الإلكتروني",
+      "otpPlaceholder": "أدخل رمز التحقق",
+      "verifyOtp": "تحقق من الرمز",
+      "verifying": "جارٍ التحقق...",
+      "resetTitle": "إعادة تعيين كلمة المرور",
+      "resetSubTitle": "أدخل كلمة المرور الجديدة",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "resetPassword": "إعادة التعيين",
+      "resetting": "جارٍ التعيين...",
+      "validation": {
+        "otpRequired": "مطلوب",
+        "otpLength": "يجب أن يتكون من 6 أرقام",
+        "passwordMinLength": "يجب أن تكون 8 أحرف على الأقل",
+        "passwordRequired": "مطلوب",
+        "confirmPasswordMatch": "يجب أن تتطابق كلمات المرور",
+        "confirmPasswordRequired": "مطلوب",
+        "otpInvalid": "رمز تحقق غير صحيح"
+      },
+      "toast": {
+        "otpSent": "تم إرسال رمز التحقق إلى بريدك",
+        "otpError": "فشل إرسال رمز التحقق",
+        "otpVerified": "تم التحقق من الرمز بنجاح",
+        "resetSuccess": "تم إعادة تعيين كلمة المرور بنجاح",
+        "resetError": "فشل إعادة تعيين كلمة المرور"
+      }
+    }
+  },
+  "sidebar": {
+    "manage": "إدارة",
+    "preferences": "تفضيلات",
+    "dashboard": "لوحة التحكم",
+    "transactions": "المعاملات",
+    "invoices": "الفواتير",
+    "identityVerification": "التحقق من الهوية",
+    "Rejectedreasons": "أسباب الرفض",
+    "checkout": "الدفع",
+    "stores": "المتاجر",
+    "employees": "الموظفين",
+    "vendors": "الموردين",
+    "users": "المستخدمين",
+    "subscriptions": "الاشتراكات",
+    "paymentsVerifications": "التحقق من المدفوعات",
+    "whatsapp": "واتساب",
+    "price": "الأسعار",
+    "advancedSettings": "الإعدادات المتقدمة",
+    "settings": "الإعدادات",
+    "documentation": "الوثائق",
+    "logout": "تسجيل خروج",
+    "downloadApp": "تحميل التطبيق",
+    "logs": "السجلات"
+  },
+  "dashboard": {
+    "welcome": "مرحباً",
+    "greeting": "هنا آخر الإحصائيات الخاصة بك",
+    "cards": {
+      "totalAmount": "المبلغ الإجمالي",
+      "pendingAmount": "المبلغ المعلق",
+      "total_platform_fees_amount": "إجمالي رسوم المنصة",
+      "totalTransactions": "إجمالي المعاملات",
+      "activeStores": "المتاجر النشطة",
+      "inactiveStores": "المتاجر غير النشطة",
+      "totalUsers": "إجمالي المستخدمين",
+      "activeUsers": "المستخدمين النشطين",
+      "totalCashback": "إجمالي الكاش باك",
+      "currency": "ج.م.",
+      "time": "مرة",
+      "store": "متجر",
+      "devMode": {
+        "switch": "قم بالتبديل إلى",
+        "mode": "وضع المطور",
+        "view": "لعرض الكاش باك"
+      }
+    }
+  },
+  "header": {
+    "notifications": "الإشعارات",
+    "noNotifications": "لا توجد إشعارات جديدة",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "updateProfile": "تحديث الملف الشخصي",
+    "devMode": {
+      "switchTo": "التبديل إلى وضع المطور",
+      "backTo": "العودة إلى وضع المستخدم"
+    },
+    "appStatus": {
+      "title": "حالة التطبيق",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "enable": "تشغيل التطبيق",
+      "disable": "إيقاف التطبيق",
+      "activeDesc": "التطبيق يعمل بشكل طبيعي",
+      "inactiveDesc": "التطبيق متوقف حالياً"
+    },
+    "whatsappStatus": {
+      "title": "حالة الواتساب",
+      "connected": "متصل",
+      "disconnected": "غير متصل",
+      "connectedDesc": "الواتساب متصل ويمكن إرسال الرسائل",
+      "disconnectedDesc": "الواتساب غير متصل"
+    }
+  },  "transactions": {
+    "analysis": {
+      "title": "تحليل المعاملات",
+      "stats": {
+        "title": "الإحصائيات",
+        "totalTransactions": "إجمالي المعاملات",
+        "totalAmount": "المبلغ الإجمالي",
+        "totalUsers":"إجمالي المستخدمين",
+        "totalFees": "إجمالي الرسوم"
+      },
+      "dateRange": {
+        "title": "النطاق الزمني",
+        "from": "من",
+        "to": "إلى"
+      }
+    },
+    "lastTransactions": "آخر المعاملات",
+    "noTransactions": "لا توجد معاملات",
+    "currency": "ج.م.",
+    "search": {
+      "placeholder": "ابحث عن معاملة..."
+    },
+    "title": "المعاملات",
+    "confirmModal": {
+      "title": "هل أنت متأكد؟",
+      "message": "هل تريد تحديد هذه المعاملة كمكتملة؟",
+      "confirm": "تأكيد",
+      "cancel": "إلغاء"
+    },
+    "status": {
+      "pending": "قيد الانتظار",
+      "completed": "مكتملة"
+    },
+    "action": {
+      "markAsCompleted": "تحديد كمكتملة",
+      "completed": "مكتملة",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "details": {
+      "title": "تفاصيل المعاملة",
+      "close": "إغلاق",
+      "sections": {
+        "basicInfo": "المعلومات الأساسية",
+        "financialInfo": "المعلومات المالية",
+        "statusInfo": "معلومات الحالة",
+        "userApp": "المستخدم والتطبيق",
+        "timestamps": "الطوابع الزمنية"
+      },
+      "fields": {
+        "transactionId": "رقم المعاملة",
+        "refId": "الرقم المرجعي",
+        "amount": "المبلغ",
+        "amountExcludeFees": "المبلغ (بدون رسوم)",
+        "platformFees": "رسوم المنصة",
+        "developerFees": "رسوم المطور",
+        "totalFees": "إجمالي الرسوم",
+        "mobile": "رقم الهاتف",
+        "senderName": "اسم المرسل",
+        "transactionDate": "تاريخ المعاملة",
+        "status": "الحالة",
+        "developerWithdrawalStatus": "حالة سحب المطور",
+        "platformWithdrawalStatus": "حالة سحب المنصة",
+        "paymentOption": "خيار الدفع",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث",
+        "userName": "اسم المستخدم",
+        "application": "التطبيق",
+        "applicationEmail": "بريد التطبيق الإلكتروني"
+      }
+    },
+    "noData": "لا توجد معاملات متاحة.",
+    "table": {
+      "id": "#",
+      "store": "المتجر",
+      "from": "من",
+      "provider": "نوع الدفع",
+      "amount": "المبلغ",
+      "state": "الحالة",
+      "userName": "اسم المستخدم",
+      "date": "التاريخ",
+      "action": "الإجراء"
+    }
+  },
+  "users": {
+    "title": "المستخدمين",
+    "total": "إجمالي المستخدمين",
+    "user": "المستخدم",
+    "admin": "المسؤول",
+    "search": {
+      "placeholder": "البحث عن المستخدمين..."
+    },
+    "table": {
+      "id": "#",
+      "image": "الصورة",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "mobile": "الجوال",
+      "status": "الحالة",
+      "createdAt": "تاريخ الإنشاء",
+      "actions": "الإجراءات",
+      "view": "عرض"
+    },
+    "actions": {
+      "activate": "تفعيل",
+      "deactivate": "تعطيل"
+    },
+    "noData": "لا يوجد مستخدمين.",
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    }
+  },
+  "vendors": {
+    "title": "الموردين",
+    "total": "إجمالي الموردين",
+    "addNew": "إضافة مورد جديد",
+    "modal": {
+      "title": "إضافة مورد جديد",
+      "cancel": "إلغاء",
+      "add": "إضافة",
+      "adding": "جاري الإضافة..."
+    },
+    "validation": {
+      "email": "البريد الإلكتروني غير صالح",
+      "password": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+      "name": "الاسم مطلوب",
+      "mobile": "رقم الجوال غير صالح"
+    },
+    "table": {
+      "id": "#",
+      "image": "الصورة",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "mobile": "الجوال",
+      "status": "الحالة",
+      "createdAt": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "activate": "تفعيل",
+      "deactivate": "تعطيل"
+    },
+    "noData": "لا يوجد موردين."
+  },
+  "employees": {
+    "title": "الموظفين",
+    "total": "إجمالي الموظفين",
+    "addNew": "إضافة موظف جديد",
+    "noData": "لم يتم العثور على موظفين",
+    "table": {
+      "id": "#",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "mobile": "الجوال",
+      "createdAt": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "form": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "mobile": "الجوال",
+      "password": "كلمة المرور",
+      "buttons": {
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "adding": "جاري الإضافة...",
+        "update": "تحديث",
+        "updating": "جاري التحديث..."
+      }
+    },
+    "errors": {
+      "noUserSelected": "لم يتم اختيار مستخدم",
+      "updateFailed": "فشل التحديث"
+    },
+    "toast": {
+      "statusUpdated": "تم تحديث الحالة بنجاح"
+    }
+  },
+  "paymentVerification": {
+    "title": "التحقق من المدفوعات",
+    "noData": "لا توجد عمليات تحقق من المدفوعات متاحة.",
+    "instructions": "أكمل دفعتك باستخدام إحدى طرق الدفع المتاحة",
+    "successMessage": "تم إرسال معلومات الدفع بنجاح! يرجى إكمال الدفع باستخدام المعلومات المقدمة.",
+    "submitPayment": "إرسال معلومات الدفع",
+    "search": {
+      "placeholder": "البحث عن عمليات التحقق من المدفوعات..."
+    },
+    "table": {
+      "id": "#",
+      "userName": "اسم المستخدم",
+      "paymentValue": "قيمة الدفع",
+      "paymentOption": "طريقة الدفع",
+      "date": "التاريخ",
+      "state": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "modal": {
+      "checkTransaction": "التحقق من المعاملة",
+      "close": "إغلاق",
+      "application": "التطبيق",
+      "required": "مطلوب",
+      "selectApplication": "اختر التطبيق",
+      "noApplications": "لا توجد تطبيقات",
+      "paymentOption": "طريقة الدفع",
+      "selectPaymentOption": "اختر طريقة الدفع",
+      "checkButton": "تحقق من المعاملة",
+      "selectPaymentMethodFirst": "اختر طريقة دفع أولاً",
+      "fillPaymentInfo": "يرجى ملء معلومات الدفع الخاصة بك",
+      "paymentDetails": "تفاصيل الدفع",
+      "paymentId": "رقم الدفع",
+      "referenceId": "الرقم المرجعي",
+      "status": "الحالة",
+      "pending": "قيد الانتظار",
+      "value": "القيمة",
+      "mobile": "الهاتف المحمول",
+      "createdDate": "تاريخ الإنشاء",
+      "userName": "اسم المستخدم",
+      "transactionDetails": {
+        "title": "تفاصيل المعاملة",
+        "value": "الرقم المرجعي",
+        "transactionId": "رقم المعاملة",
+        "senderName": "اسم المرسل",
+        "totalAmount": "المبلغ الإجمالي",
+        "transactionDate": "تاريخ المعاملة",
+        "currentStatus": "الحالة الحالية",
+        "verificationStatus": "حالة طلب التحقق",
+        "approved": "موافق",
+        "rejected": "مرفوض",
+        "updateStatus": "تحديث حالة التحقق",
+        "instapayIdRequired": "معرف Instapay مطلوب",
+        "instapayIdTooShort": "معرف Instapay قصير جدًا",
+        "amountRequired": "المبلغ مطلوب",
+        "invalidAmount": "يجب أن يكون المبلغ رقمًا موجبًا",
+        "pleaseSelectPaymentValue": "الرجاء اختيار قيمة الدفع",
+        "selectedPaymentId": "معرف الدفع"
+      }
+  },
+
+  "publicPayment": {
+    "title": "اختر طريقة الدفع",
+    "noCommission": "لا يوجد عمولة على الشحن",
+    "ourNumber": "رقم فودافون كاش الخاص بنا",
+    "instructions": "بعد التحويل قم بتأكيد التحويل من خلال كتابة رقم الهاتف الذي قم بالتحويل من خلاله في خانة رقم الهاتف و كتابة المبلغ الذي قمت بتحويله بالجنيه المصري في خانة المبلغ",
+    "waitInstructions": "الرجاء الانتظار 5 دقائق في حالة فشل التأكيد و إعادة المحاولة",
+    "amount": "المبلغ الذي قمت بتحويله",
+    "amountPlaceholder": "أدخل المبلغ بالجنيه",
+    "phoneNumber": "رقم الهاتف الذي قمت بالتحويل منه",
+    "instapayUsername": "اسم مستخدم انستا باي الذي قمت بالتحويل منه",
+      "phonePlaceholder": "01000000000",
+      "instapayPlaceholder": "user@instapay",
+      "confirmPayment": "تأكيد الدفع",
+      "submitting": "جاري الإرسال...",
+      "copy": "نسخ",
+      "copied": "تم النسخ!",
+      "footerNote": "رقم محفوظ خاص بنا\nرقم خدمة العملاء",
+      "storeNotFound": "المتجر غير موجود",
+      "customerName": "اسم العميل",
+      "customerNamePlaceholder": "أدخل اسم العميل",
+      "transferSuccess": "تم التحويل بنجاح! سيتم مراجعة طلبك والتأكيد خلال دقائق قليلة",
+      "transferNotCompleted": "لم يتم التحويل بعد! يرجى التأكد من إكمال عملية التحويل أولاً"
+    },
+    "status": {
+      "verified": "تم التحقق",
+      "pending": "قيد الانتظار"
+    },
+    "action": {
+      "check": "تحقق"
+    }
+  },
+  "paymentConfirmation": {
+    "title": "تأكيد الدفع",
+    "subscriptionDetails": "تفاصيل الاشتراك",
+    "planName": "اسم الخطة",
+    "description": "الوصف",
+    "loadingPaymentMethods": "جاري تحميل طرق الدفع...",
+    "noPaymentOptions": "لا توجد خيارات دفع متاحة",
+    "contactSupportSubscription": "يرجى الاتصال بالدعم لتكوين طرق دفع الاشتراك",
+    "contactStoreOwner": "يرجى الاتصال بصاحب المتجر لتكوين طرق الدفع",
+    "noCheckoutData": "لا توجد بيانات دفع متاحة",
+    "unableToLoadSubscription": "غير قادر على تحميل خيارات دفع الاشتراك. يرجى المحاولة مرة أخرى أو الاتصال بالدعم.",
+    "checkRefId": "يرجى التحقق من صحة ref_id أو الاتصال بصاحب المتجر.",
+    "instapayId": "معرف Instapay",
+    "checkoutDataNotLoaded": "لم يتم تحميل بيانات الدفع",
+    "selectPaymentMethod": "يرجى اختيار طريقة دفع",
+    "transactionCheckedSuccessfully": "تم فحص المعاملة بنجاح",
+    "failedToCheckTransaction": "فشل في فحص المعاملة",
+    "notProvided": "غير متوفر",
+    "notAvailable": "غير متاح",
+    "subscriptionType": "نوع الاشتراك",
+    "maxApplications": "الحد الأقصى للتطبيقات",
+    "maxEmployees": "الحد الأقصى للموظفين",
+    "maxVendors": "الحد الأقصى للموردين",
+    "amountPlaceholder": "0 جنيه مصري",
+    "amount": "المبلغ",
+    "currency": "جنيه مصري",
+    "subscriptionPayment": "دفع الاشتراك",
+    "defaultPaymentOption": "افتراضي",
+    "forSubscriptions": "للاشتراكات",
+    "paymentNumbers": {
+      "ourNumber": "رقمنا",
+      "selectMethodFirst": "يرجى اختيار طريقة دفع أولاً",
+      "vcash": "01234567890",
+      "ecash": "01123456789",
+      "wecash": "01098765432", 
+      "instapay": "@ta7wila",
+      "ocash": "01187654321"
+    }
+  },
+  "subscription": {
+    "title": "الاشتراكات",
+    "noData": "لا توجد اشتراكات.",
+    "table": {
+      "title": "العنوان",
+      "amount": "المبلغ",
+      "type": "النوع",
+      "status": "الحالة",
+      "applications": "التطبيقات",
+      "employees": "الموظفين",
+      "vendors": "الموردين",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "actions": "الإجراءات",
+      "view": "عرض"
+    },
+    "modal": {
+      "title": "تفاصيل الاشتراك",
+      "close": "إغلاق",
+      "subscriptionAmount": "قيمة الاشتراك",
+      "subscriptionAmountLabel": "المبلغ",
+      "rejectedreasontype": "أسباب الرفض",
+      "rejectedreasonValue": "سبب الرفض",
+      "status": "الحالة",
+      "paymentDate": "تاريخ الدفع",
+      "userInfo": "معلومات المستخدم",
+      "counts": {
+        "applications": "عدد التطبيقات",
+        "vendors": "عدد الموردين",
+        "employees": "عدد الموظفين"
+      },
+      "subscriptionType": "نوع الاشتراك"
+    }
+  },
+  "storeUpdate": {
+    "title": "تحديث المتجر",
+    "logoUpload": {
+      "acceptedFormats": "الصيغ المقبولة: JPG، PNG",
+      "updateLogo": "تحديث الشعار",
+      "uploading": "جاري الرفع...",
+      "toast": {
+        "selectLogo": "الرجاء اختيار شعار",
+        "noFile": "لم يتم اختيار ملف",
+        "success": "تم تحديث الشعار بنجاح!",
+        "error": "فشل في تحديث الشعار"
+      }
+    },
+    "form": {
+      "storeName": {
+        "label": "اسم المتجر *",
+        "placeholder": "اسم المتجر"
+      },
+      "email": {
+        "label": "البريد الإلكتروني *",
+        "placeholder": "أدخل البريد الإلكتروني"
+      },
+      "mobileWallet": {
+        "label": "رقم الهاتف *",
+        "placeholder": "+201000000000"
+      },
+      "subdomain": {
+        "label": "النطاق الفرعي *",
+        "placeholder": "أضف النطاق الفرعي"
+      },
+      "webhook": {
+        "label": "فحص الويب هوك *",
+        "placeholder": "تحقق من الويب هوك"
+      },
+      "buttons": {
+        "saveSettings": "حفظ الإعدادات",
+        "saving": "جاري الحفظ...",
+        "updateSubdomain": "تحديث النطاق الفرعي",
+        "updating": "جاري التحديث...",
+        "update": "تحديث",
+        "check": "تحقق",
+        "checking": "جاري التحقق..."
+      }
+    },
+    "validation": {
+      "nameRequired": "اسم المتجر مطلوب",
+      "nameMinLength": "يجب أن يكون اسم المتجر 3 أحرف على الأقل",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "invalidEmail": "صيغة البريد الإلكتروني غير صحيحة",
+      "mobileRequired": "رقم الهاتف مطلوب",
+      "invalidPhone": "رقم الهاتف غير صحيح. يجب أن يبدأ بـ +20 ويحتوي على 10 أرقام",
+      "subdomainRequired": "النطاق الفرعي مطلوب",
+      "invalidSubdomain": "صيغة النطاق الفرعي غير صحيحة",
+      "webhookRequired": "رابط الويب هوك مطلوب",
+      "invalidWebhook": "الرجاء إدخال رابط الويب هوك صحيح",
+      "updateWebhookFirst": "الرجاء تحديث الويب هوك أولاً"
+    },
+    "toast": {
+      "subdomainUpdated": "تم تحديث النطاق الفرعي بنجاح!",
+      "subdomainError": "فشل في تحديث النطاق الفرعي",
+      "settingsUpdated": "تم تحديث الإعدادات بنجاح!",
+      "settingsError": "فشل في تحديث الإعدادات",
+      "webhookValid": "الويب هوك صالح!",
+      "webhookCheckFailed": "فشل فحص الويب هوك",
+      "webhookUpdated": "تم تحديث رابط الويب هوك بنجاح!",
+      "webhookUpdateError": "فشل في تحديث رابط الويب هوك",
+      "unknownError": "حدث خطأ غير معروف"
+    }
+  },
+  "storeDetails": {
+    "loading": "جارٍ التحميل...",
+    "error": "خطأ في تحميل المعاملات.",
+    "title": "تفاصيل المتجر",
+    "paymentLinkCopied": "تم نسخ رابط الدفع إلى الحافظة!",
+    "publicPaymentLink": "رابط الدفع العام",
+    "sharePaymentLink": "شارك هذا الرابط مع العملاء للسماح لهم بالدفع مباشرة",
+    "copyPaymentLink": "نسخ رابط الدفع",
+    "whatsappMessage": "إليك رابط الدفع:",
+    "shareViaWhatsApp": "مشاركة عبر واتساب",
+    "payments": {
+      "title": "ملخص الدفع",
+      "noData": "لا توجد مدفوعات متاحة",
+      "payment": {
+        "status": {
+          "published": "منشور",
+          "notPublished": "غير منشور"
+        }
+      }
+    },
+    "employees": {
+      "title": "موظفو نقاط البيع",
+      "addNew": "إضافة موظف جديد",
+      "form": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "mobile": "رقم الجوال",
+        "password": "كلمة المرور",
+        "buttons": {
+          "cancel": "إلغاء",
+          "add": "إضافة",
+          "adding": "جارٍ الإضافة...",
+          "update": "تحديث",
+          "updating": "جاري التحديث..."
+        }
+      },
+      "toast": {
+        "success": "تمت إضافة الموظف بنجاح!",
+        "error": "حدث خطأ أثناء إضافة الموظف."
+      }
+    },
+    "table": {
+      "id": "#",
+      "from": "من",
+      "provider": "المزود",
+      "amount": "المبلغ",
+      "state": "الحالة",
+      "userName": "اسم المستخدم",
+      "date": "التاريخ",
+      "status": {
+        "pending": "قيد الانتظار",
+        "completed": "مكتمل"
+      }
+    }
+  },
+  "storepayment": {
+    "title": "دفع المتجر",
+    "addPayment": "إضافة طريقة دفع",
+    "noData": "لم يتم العثور على طرق دفع",
+    "table": {
+      "id": "#",
+      "value": "القيمة",
+      "public": "عام",
+      "paymentOption": "طريقة الدفع",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "actions": "الإجراءات",
+      "update": "تحديث"
+    },
+    "modal": {
+      "update": {
+        "title": "تحديث طريقة الدفع",
+        "choosePayment": "اختر طريقة الدفع",
+        "value": "القيمة",
+        "refId": "معرف المرجع",
+        "publicLabel": "الرؤية",
+        "yes": "نعم",
+        "no": "لا",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جاري الحفظ..."
+      },
+      "add": {
+        "title": "إضافة طريقة دفع",
+        "paymentOption": "اختر طريقة الدفع",
+        "value": "القيمة",
+        "valuePlaceholder": "01********* || name@instapay",
+        "referenceLabel": "معرف المرجع",
+        "refId": "معرف المرجع",
+        "referencePlaceholder": "أدخل معرف المرجع",
+        "visibility": "الرؤية",
+        "public": "عام",
+        "private": "خاص",
+        "cancel": "إلغاء",
+        "add": "إضافة",
+        "adding": "جاري الإضافة..."
+      }
+    },
+    "toast": {
+      "addSuccess": "تمت إضافة طريقة الدفع بنجاح!",
+      "updateSuccess": "تم تحديث طريقة الدفع بنجاح!"
+    },
+    "validation": {
+      "valueRequired": "القيمة مطلوبة",
+      "refIdRequired": "معرف المرجع مطلوب",
+      "paymentOptionRequired": "طريقة الدفع مطلوبة"
+    }
+  },
+  "stores": {
+    "title": "المتاجر",
+    "addStore": "+ إضافة متجر جديد",
+    "table": {
+      "id": "#",
+      "image": "الصورة",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "website": "الموقع الإلكتروني",
+      "mobile": "الجوال",
+      "webhook": "Webhook",
+      "status": "الحالة",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "noData": "لم يتم العثور على متاجر.",
+    "actions": {
+      "title": "الإجراءات",
+      "update": "تحديث",
+      "payment": "الدفع",
+      "logs": "السجلات",
+      "details": "التفاصيل",
+      "manualCheck": "التحقق اليدوي من المعاملات",
+      "whatsappConnection": "ربط واتساب"
+    }
+  },
+  "applications": {
+    "title": "التطبيقات",
+    "noApplications": "لا توجد تطبيقات",
+    "website": "الموقع الإلكتروني",
+    "paymentOptions": "خيارات الدفع",
+    "activePaymentMethods": "طرق الدفع النشطة",
+    "public": "عام",
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    }
+  },
+  "plans": {
+    "title": "اختر خطتك",
+    "perMonth": "/ شهريًا",
+    "getStarted": "ابدأ الآن",
+    "processing": "جارٍ المعالجة...",
+    "applications": "التطبيقات",
+    "Employees": "الموظفين",
+    "Vendors": "الموردين"
+  },
+  "transactionModal": {
+    "application": {
+      "label": "التطبيق",
+      "required": "مطلوب",
+      "select": "اختر التطبيق",
+      "noApplications": "لا توجد تطبيقات"
+    },
+    "paymentOption": {
+      "label": "طريقة الدفع",
+      "required": "مطلوب",
+      "select": "اختر طريقة الدفع"
+    },
+    "form": {
+      "check": "تحقق من المعاملة",
+      "checkButton": "تحقق من المعاملة",
+      "close": "إغلاق"
+    },
+    "details": {
+      "title": "تفاصيل المعاملة",
+      "id": "#",
+      "name": "اسم المرسل",
+      "amount": "المبلغ الإجمالي",
+      "date": "تاريخ المعاملة",
+      "status": "الحالة الحالية",
+      "verificationStatus": "حالة طلب التحقق",
+      "approved": "موافق",
+      "rejected": "مرفوض",
+      "updateStatus": "تحديث حالة التحقق"
+    }
+  },
+  "price": {
+    "manageTitle": "إدارة الخطط",
+    "addNewPlan": "إضافة خطة جديدة",
+    "loading": "جاري التحميل...",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "pending": "قيد الانتظار",
+    "yourSubscription": "اشتراكك",
+    "subscriptionCosts": "تكاليف الاشتراك",
+    "perMonth": "/شهر",
+    "paymentWarning": "يجب عليك الدفع قبل نهاية الشهر لإكمال خطتك والاستفادة من خدماتنا. في حالة عدم الدفع.",
+    "suspensionWarning": "سيتم تعليق حسابك حتى تقوم بدفع المستحقات.",
+    "paymentSuccessMessage": "تم الدفع بنجاح! شكرًا لاشتراكك في خدماتنا.",
+    "payNow": "ادفع الآن",
+    "yourPlan": "خطتك",
+    "applications": "التطبيقات",
+    "employees": "الموظفين",
+    "vendors": "البائعين",
+    "change": "تغيير",
+    "validation": {
+      "titleRequired": "العنوان مطلوب",
+      "titleMinLength": "يجب أن يكون العنوان 3 أحرف على الأقل",
+      "subtitleRequired": "العنوان الفرعي مطلوب",
+      "amountRequired": "المبلغ مطلوب",
+      "amountMin": "يجب أن يكون المبلغ أكبر من 0",
+      "applicationsRequired": "عدد التطبيقات مطلوب",
+      "applicationsMin": "يجب أن يكون عدد التطبيقات أكبر من 0",
+      "employeesRequired": "عدد الموظفين مطلوب",
+      "employeesMin": "يجب أن يكون عدد الموظفين أكبر من 0",
+      "vendorsRequired": "عدد البائعين مطلوب",
+      "vendorsMin": "يجب أن يكون عدد البائعين أكبر من 0"
+    },
+    "modal": {
+      "addTitle": "إضافة خطة جديدة",
+      "editTitle": "تعديل الخطة",
+      "title": "العنوان",
+      "titlePlaceholder": "عنوان الخطة",
+      "subtitle": "العنوان الفرعي",
+      "subtitlePlaceholder": "وصف قصير",
+      "amount": "المبلغ",
+      "amountPlaceholder": "0.00",
+      "applicationsCount": "التطبيقات",
+      "employeesCount": "الموظفين",
+      "vendorsCount": "الموردين",
+      "createPlan": "إنشاء خطة",
+      "saveChanges": "حفظ التغييرات",
+      "deleteTitle": "حذف الخطة",
+      "deleteConfirm": "هل أنت متأكد من حذف هذه الخطة؟",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
+    "table": {
+      "id": "#",
+      "title": "العنوان",
+      "subtitle": "العنوان الفرعي",
+      "amount": "المبلغ",
+      "applications": "التطبيقات",
+      "employees": "الموظفين",
+      "vendors": "الموردين",
+      "action": "الإجراء",
+      "noPlans": "لا توجد خطط"
+    }
+  },
+  "logs": {
+    "clearLogs": "مسح السجلات",
+    "clearSuccess": "تم مسح السجلات بنجاح!",
+    "noDataToClear": "لا توجد بيانات للمسح",
+    "vendorName": "اسم المورد",
+    "noLogs": "لا توجد سجلات متاحة."
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي",
+    "page": "الصفحة",
+    "of": "من"
+  },
+  "table": {
+    "id": "#"
+  },
+  "invoice": {
+    "title": "فاتورة",
+    "billTo": "فاتورة إلى",
+    "number": "رقم الفاتورة",
+    "date": "تاريخ الفاتورة",
+    "period": "الفترة",
+    "days": "أيام",
+    "amountWithoutFees": "المبلغ بدون رسوم",
+    "lateFees": "رسوم التأخير",
+    "developerFees": "رسوم المطور",
+    "totalFees": "الرسوم الإجمالية",
+    "subscriptionAmount": "مبلغ الاشتراك",
+    "amountInclFees": "المبلغ شامل الرسوم",
+    "total": "الإجمالي",
+    "deletionDateNote": "تاريخ حذف الحساب في حالة عدم الدفع",
+    "specifyingNumber": "فاتورة رقم",
+    "thankYou": "شكراً لتعاملكم معنا!",
+    "errorLoading": "خطأ في تحميل الفواتير",
+    "invalidFormat": "تنسيق بيانات الفاتورة غير صالح",
+    "unexpectedFormat": "تنسيق بيانات الفاتورة غير متوقع",
+    "totalAmount": "المبلغ الإجمالي",
+    "paidAt": "تاريخ الدفع",
+    "preview": "معاينة",
+    "noInvoices": "لم يتم العثور على فواتير",
+    "of": "من"
+  },
+  "checkout": {
+    "details": {
+      "storeInfo": "معلومات المتجر",
+      "personalInfo": "المعلومات الشخصية",
+      "labels": {
+        "name": "الاسم:",
+        "email": "البريد الإلكتروني:",
+        "mobile": "الجوال:"
+      },
+      "status": {
+        "paid": "مدفوع",
+        "notPaid": "غير مدفوع"
+      },
+      "paymentDetails": {
+        "id": "#",
+        "refId": "الرقم المرجعي",
+        "itemId": "معرف العنصر",
+        "paidAt": "تاريخ الدفع",
+        "createdAt": "تاريخ الإنشاء",
+        "updatedAt": "تاريخ التحديث",
+        "amount": "المبلغ"
+      },
+      "invoice": {
+        "paid": "تم دفع الفاتورة",
+        "specifyNumber": "تحديد رقم الفاتورة",
+        "thankYou": "شكراً لك!",
+        "notPaid": "لم يتم دفع الفاتورة بعد. رابط مباشر للدفع:",
+        "payNow": "ادفع الآن"
+      },
+      "contact": "ta7wila@ta7wila.com ∖ www.ta7wila.com"
+    }
+  },
+  "settings": {
+    "enabled": "مفعل",
+    "disabled": "معطل",
+    "tokenCopied": "تم نسخ الرمز إلى الحافظة!",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+    "passwordChanged": "تم تغيير كلمة المرور بنجاح!",
+    "appToken": "رمز التطبيق الخاص بك",
+    "Token": "رمز التطبيق"
+  },
+  "errors": {
+    "developerMode": "أنت لست مطورًا للقيام بهذا الإجراء، قم بترقية حسابك من مستخدم عادي إلى مطور لتتمكن من القيام بهذا الإجراء ثم حاول مرة أخرى",
+    "statusUpdated": "تم تحديث الحالة بنجاح!"
+  },
+  "userInfo": {
+    "status": {
+      "active": "مفعل",
+      "inactive": "غير مفعل"
+    },
+    "connection": {
+      "loading": "جاري التحميل...",
+      "enable": "تفعيل",
+      "disable": "تعطيل",
+      "enabledDesc": "الاتصال نشط ويعمل بشكل صحيح",
+      "disabled": "الاتصال معطل",
+      "enabled": "الاتصال مفعل",
+      "disabledDesc": "الاتصال الخاص  معطل حالياً"
+    },
+    "accountInfo": {
+      "title": "بيانات الحساب",
+      "username": "اسم المستخدم: ",
+      "userType": "نوع المستخدم: ",
+      "transactionStatus": "حالة المعاملات: "
+    },
+    "subscriptionInfo": {
+      "title": "معلومات الاشتراك",
+      "plan": "الخطة",
+      "description": "الوصف",
+      "amount": "المبلغ",
+      "type": "نوع الاشتراك",
+      "status": "الحالة",
+      "monthly": "شهري",
+      "yearly": "سنوي",
+      "upgradeNow": "قم بالترقية الآن",
+      "choosePlan": "اختر خطة",
+      "applicationsCount": "التطبيقات",
+      "employeesCount": "الموظفين",
+      "vendorsCount": "الموردين",
+      "subscriptionDate": "تاريخ الاشتراك",
+      "renewalDate": "تاريخ التجديد",
+      "noSubscription": {
+        "title": "لا يوجد اشتراك نشط",
+        "description": "لم يشترك المستخدم في أي خطة حتى الآن"
+      }
+    },
+    "linkedStores": {
+      "title": "المتاجر المرتبطة"
+    },
+    "transactions": {
+      "title": "المعاملات الأخيرة",
+      "transactionId": "رقم المعاملة",
+      "refId": "الرقم المرجعي",
+      "amount": "المبلغ",
+      "netAmount": "المبلغ الصافي",
+      "fees": "الرسوم",
+      "status": "الحالة",
+      "completed": "مكتملة",
+      "paymentMethod": "طريقة الدفع",
+      "senderName": "اسم المرسل",
+      "transactionDate": "التاريخ",
+      "notAvailable": "غير متاح"
+    }
+  },
+  "whatsapp": {
+    "title": "إعدادات الواتساب",
+    "subtitle": "إدارة اتصال الواتساب وإرسال الرسائل",
+    "connectionStatus": "حالة الاتصال",
+    "qrCode": "رمز QR للاتصال",
+    "sendLinkViaWhatsApp": "إرسال الرابط عبر واتساب",
+    "messageHistory": "سجل الرسائل",
+    "settings": {
+      "title": "إعدادات الواتساب",
+      "description": "إدارة اتصال الواتساب وإعداد الرسائل",
+      "status": "الحالة",
+      "qrCodeSection": "اتصال الواتساب",
+      "messageLog": "سجل الرسائل المرسلة"
+    },
+    "sessions": {
+      "title": "جلسات واتساب",
+      "subtitle": "إدارة اتصالات واتساب الخاصة بك",
+      "connected": "متصل",
+      "connecting": "جاري الاتصال",
+      "disconnected": "غير متصل",
+      "lastActivity": "آخر نشاط",
+      "sessionId": "معرف الجلسة",
+      "never": "أبداً",
+      "newSession": "جلسة جديدة",
+      "createFirst": "إنشاء أول جلسة",
+      "noSessions": "لا توجد جلسات واتساب",
+      "noSessionsDesc": "أنشئ جلسة واتساب الأولى لبدء إرسال الرسائل وروابط الدفع.",
+      "connect": "اتصال",
+      "disconnect": "قطع الاتصال",
+      "continueSetup": "متابعة الإعداد",
+      "sendTest": "إرسال رسالة تجريبية",
+      "delete": "حذف الجلسة",
+      "deleteConfirm": "هل أنت متأكد من حذف هذه الجلسة؟ لا يمكن التراجع عن هذا الإجراء.",
+      "sessionNameUpdated": "تم تحديث اسم الجلسة!",
+      "sessionDeleted": "تم حذف الجلسة بنجاح!",
+      "sessionCreated": "تم إنشاء جلسة واتساب جديدة!",
+      "sessionDisconnected": "تم قطع اتصال الجلسة بنجاح!",
+      "connectionSuccess": "تم ربط واتساب بنجاح!"
+    },
+    "qrScanner": {
+      "title": "ربط حساب واتساب",
+      "subtitle": "امسح رمز QR بتطبيق واتساب على هاتفك المحمول لربط حسابك",
+      "generating": "جاري إنشاء رمز QR...",
+      "expiresIn": "ينتهي رمز QR خلال",
+      "howToScan": "كيفية المسح:",
+      "step1": "افتح واتساب على هاتفك",
+      "step2": "اضغط على القائمة أو الإعدادات واختر الأجهزة المرتبطة",
+      "step3": "اضغط على \"ربط جهاز\" وامسح رمز QR هذا",
+      "refresh": "تحديث رمز QR",
+      "refreshing": "جاري الإنشاء...",
+      "cancel": "إلغاء",
+      "scanning": "جاري مسح رمز QR...",
+      "simulateScan": "اضغط لمحاكاة المسح"
+    },
+    "templates": {
+      "title": "قوالب الرسائل",
+      "template1": "مرحباً! هذا رابط الدفع الخاص بمتجر {storeName}: {paymentLink}",
+      "template2": "يمكنك الآن الدفع بسهولة من خلال هذا الرابط: {paymentLink} - شكراً لك!",
+      "template3": "عزيزي العميل، يرجى استكمال عملية الدفع من خلال الرابط التالي: {paymentLink}",
+      "create": "إنشاء قالب",
+      "edit": "تعديل القالب",
+      "name": "اسم القالب",
+      "content": "محتوى الرسالة",
+      "variables": "المتغيرات",
+      "variablesDetected": "المتغيرات المكتشفة:",
+      "variablesNone": "لا توجد",
+      "variablesPlaceholder": "أدخل محتوى الرسالة. استخدم {اسم_المتغير} للمتغيرات.",
+      "send": "إرسال رسالة",
+      "save": "حفظ القالب",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "deleteConfirm": "هل أنت متأكد من حذف هذا القالب؟",
+      "created": "تم إنشاء القالب بنجاح!",
+      "updated": "تم تحديث القالب بنجاح!",
+      "deleted": "تم حذف القالب بنجاح!",
+      "fillRequired": "يرجى ملء جميع الحقول المطلوبة",
+      "noConnectedSessions": "لا توجد جلسات واتساب متصلة متاحة"
+    },
+    "sendMessage": {
+      "title": "إرسال رسالة واتساب",
+      "session": "جلسة واتساب",
+      "recipient": "رقم المستقبل",
+      "recipientPlaceholder": "رقم الهاتف (مثال: +201234567890)",
+      "selectTemplate": "اختر قالب الرسالة",
+      "customMessage": "رسالة مخصصة",
+      "preview": "معاينة الرسالة",
+      "send": "إرسال",
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "selectSession": "يرجى اختيار جلسة واتساب",
+      "enterRecipient": "يرجى إدخال رقم المستقبل",
+      "fillVariables": "يرجى ملء جميع المتغيرات:",
+      "sent": "تم إرسال الرسالة بنجاح",
+      "sending": "جاري الإرسال...",
+      "messageLog": "سجل رسائل المتجر",
+      "sentMessages": "الرسائل المرسلة",
+      "noMessages": "لا توجد رسائل مرسلة من هذا المتجر",
+      "messageDetails": "تفاصيل الرسالة",
+      "messageTo": "إلى",
+      "messageContent": "محتوى الرسالة",
+      "sentAt": "تاريخ الإرسال"
+    },
+    "customMessage": {
+      "title": "إرسال رسالة مخصصة",
+      "session": "جلسة واتساب",
+      "recipient": "رقم هاتف المستقبل",
+      "recipientPlaceholder": "مثال: +201234567890",
+      "message": "الرسالة",
+      "messagePlaceholder": "اكتب رسالتك هنا...",
+      "attachments": "المرفقات",
+      "attachmentsDesc": "اضغط لإرفاق ملفات",
+      "attachmentsFormat": "صور، PDF، DOC (حد أقصى 10 ميجابايت)",
+      "characters": "حرف",
+      "send": "إرسال رسالة",
+      "sending": "جاري الإرسال...",
+      "recentMessages": "الرسائل الأخيرة",
+      "noMessages": "لم يتم إرسال رسائل بعد",
+      "status": {
+        "sent": "تم الإرسال",
+        "delivered": "تم التسليم",
+        "read": "تم القراءة",
+        "pending": "قيد الإرسال",
+        "failed": "فشل الإرسال"
+      },
+      "errors": {
+        "selectSession": "يرجى اختيار جلسة واتساب",
+        "enterRecipient": "يرجى إدخال رقم هاتف المستقبل",
+        "enterMessage": "يرجى إدخال رسالة أو إرفاق ملف",
+        "fileSize": "يجب أن يكون حجم الملف أقل من 10 ميجابايت"
+      },
+      "noSessions": "لا توجد جلسات متصلة",
+      "noSessionsDesc": "يرجى ربط جلسة واتساب أولاً لإرسال رسائل مخصصة."
+    }
+  }
+}
