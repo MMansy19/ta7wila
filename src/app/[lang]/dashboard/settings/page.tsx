@@ -292,15 +292,23 @@ export default function Settings() {
         method: 'GET',
       });
       
+      if (!response.ok) {
+        console.warn("WhatsApp service not available, using empty messages");
+        setMessages([]);
+        return;
+      }
+      
       const data = await response.json();
       
       if (data.success) {
-        setMessages(data.messages);
+        setMessages(data.messages || []);
       } else {
-        console.error("Failed to load messages:", data.error);
+        console.warn("Failed to load messages:", data.error);
+        setMessages([]);
       }
     } catch (error) {
-      console.error("Error loading messages:", error);
+      console.warn("WhatsApp service not available:", error);
+      setMessages([]);
     }
   };
 
@@ -309,6 +317,11 @@ export default function Settings() {
       const response = await fetch('/api/whatsapp?action=getSessions', {
         method: 'GET',
       });
+      
+      if (!response.ok) {
+        console.warn("WhatsApp service not available for session check");
+        return;
+      }
       
       const data = await response.json();
       
@@ -319,7 +332,7 @@ export default function Settings() {
         }
       }
     } catch (error) {
-      console.error("Error checking session status:", error);
+      console.warn("WhatsApp service not available:", error);
     }
   };
 

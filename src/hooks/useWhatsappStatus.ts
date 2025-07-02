@@ -19,6 +19,17 @@ export const useWhatsappStatus = () => {
       setWhatsappStatus(prev => ({ ...prev, isLoading: true }));
       
       const response = await fetch('/api/whatsapp?action=status');
+      
+      if (!response.ok) {
+        // Service unavailable
+        setWhatsappStatus({
+          isReady: false,
+          status: 'service_unavailable',
+          isLoading: false
+        });
+        return;
+      }
+      
       const data = await response.json();
       
       setWhatsappStatus({
@@ -28,13 +39,12 @@ export const useWhatsappStatus = () => {
         isLoading: false
       });
     } catch (error) {
-      console.error('Failed to check WhatsApp status:', error);
-      setWhatsappStatus(prev => ({ 
-        ...prev, 
+      console.warn('WhatsApp service not available:', error);
+      setWhatsappStatus({
         isReady: false, 
-        status: 'disconnected',
+        status: 'service_unavailable',
         isLoading: false 
-      }));
+      });
     }
   };
 
