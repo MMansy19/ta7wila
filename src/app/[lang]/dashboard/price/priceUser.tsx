@@ -148,7 +148,11 @@ function SubscriptionDetails({
                   {translations.price.subscriptionCosts}
                 </h3>
                 <span className="px-4 py-2 bg-[#53B4AB] bg-opacity-20 text-[#53B4AB] rounded-full text-sm font-semibold">
-                  Active
+                  {currentPlan.status === "active"
+                    ? translations.price.active
+                    : currentPlan.status === "pending"
+                    ? translations.price.pending
+                    : translations.price.inactive}
                 </span>
               </div>
               <div className="flex items-baseline gap-2 mb-6">

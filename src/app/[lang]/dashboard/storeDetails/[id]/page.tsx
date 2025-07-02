@@ -90,7 +90,7 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
     
     // Set default message
     const { id, lang } = resolvedParams || {};
-    const baseUrl = window.location.origin;
+    const baseUrl = window.location.origin; 
     const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
     setMessage(`${translations.storeDetails?.whatsappMessage || "Here's the payment link:"} ${paymentLink}`);
   };

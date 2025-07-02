@@ -797,6 +797,9 @@ export type TranslationKeys = {
     };
   };
   price: {
+    active: string;
+    pending: string;
+    inactive: string;
     manageTitle: string;
     addNewPlan: string;
     loading: string;

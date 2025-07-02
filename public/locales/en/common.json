@@ -899,6 +899,9 @@
   "price": {
     "manageTitle": "Manage Plans",
     "addNewPlan": "Add New Plan",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
     "loading": "Loading...",
     "yourSubscription": "Your Subscription",
     "subscriptionCosts": "Subscription Costs",
