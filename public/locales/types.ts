@@ -294,7 +294,24 @@ export type TranslationKeys = {
     devMode: {
       switchTo: string;
       backTo: string;
-    };  };
+    };
+    appStatus: {
+      title: string;
+      active: string;
+      inactive: string;
+      enable: string;
+      disable: string;
+      activeDesc: string;
+      inactiveDesc: string;
+    };
+    whatsappStatus: {
+      title: string;
+      connected: string;
+      disconnected: string;
+      connectedDesc: string;
+      disconnectedDesc: string;
+    };
+  };
   transactions: {
     analysis: {
       title: string;

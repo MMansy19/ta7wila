@@ -13,8 +13,9 @@ import { Separator } from "@/components/[lang]/ui/separator";
 import { SidebarTrigger } from "@/components/[lang]/ui/sidebar";
 
 import { useTranslation } from '@/hooks/useTranslation';
+import { useWhatsappStatus } from '@/hooks/useWhatsappStatus';
 import { deleteCookie } from "cookies-next";
-import { Bell, Wifi, WifiOff } from "lucide-react";
+import { Bell, Wifi, WifiOff, MessageCircle, MessageCircleOff } from "lucide-react";
 import Link from "next/link";
 import { Locale } from "@/i18n-config";
 import LocaleSwitcher from "../../app/lang-switcher/LangSwitcher";
@@ -25,6 +26,7 @@ import { toast } from "react-hot-toast";
 export default function Header({ lang }: { lang: Locale }) {
   const translations = useTranslation();
   const {profile, setProfile } = useProfile();
+  const { whatsappStatus } = useWhatsappStatus();
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
  
@@ -128,20 +130,117 @@ const handleCheckDeveloperMode = async () => {
           </div>
         )}
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="relative h-8 w-8 rounded-full bg-neutral-900"
-          onClick={handleToggleWiFi}
-        >
-          <div
-            className={`h-4 w-4 ${
-              profile?.is_transactions_enabled ? "text-green-400 animate-pulse" : "text-gray-400"
-            }`}
-          >
-            {profile?.is_transactions_enabled ? <Wifi /> : <WifiOff />}
-          </div>
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative h-8 w-8 rounded-full bg-neutral-900 hover:bg-neutral-800 transition-colors"
+            >
+              <div
+                className={`h-4 w-4 ${
+                  profile?.is_transactions_enabled ? "text-green-400 animate-pulse" : "text-gray-400"
+                }`}
+              >
+                {profile?.is_transactions_enabled ? <Wifi /> : <WifiOff />}
+              </div>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-64 bg-gradient-to-br from-neutral-800/95 to-neutral-900/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl">
+            <DropdownMenuLabel className="text-white/90 font-semibold border-b border-white/10 pb-2">
+              {translations.header.appStatus.title}
+            </DropdownMenuLabel>
+            
+            {/* Status Display */}
+            <div className="p-3 border-b border-white/10">
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-3 rounded-full ${
+                  profile?.is_transactions_enabled 
+                    ? "bg-green-400 animate-pulse shadow-lg shadow-green-400/50" 
+                    : "bg-gray-400"
+                }`} />
+                <div className="flex flex-col">
+                  <span className="text-white font-medium text-sm">
+                    {profile?.is_transactions_enabled 
+                      ? translations.header.appStatus.active 
+                      : translations.header.appStatus.inactive}
+                  </span>
+                                     <span className="text-white/60 text-xs">
+                     {profile?.is_transactions_enabled 
+                       ? translations.header.appStatus.activeDesc 
+                       : translations.header.appStatus.inactiveDesc}
+                   </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Control Button */}
+            <div className="p-3">
+              <button
+                onClick={handleToggleWiFi}
+                className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 ${
+                  profile?.is_transactions_enabled
+                    ? "bg-red-500/20 hover:bg-red-500/30 text-red-400 hover:text-red-300 border border-red-500/30 hover:border-red-500/50"
+                    : "bg-green-500/20 hover:bg-green-500/30 text-green-400 hover:text-green-300 border border-green-500/30 hover:border-green-500/50"
+                } hover:shadow-lg`}
+              >
+                <div className="w-4 h-4">
+                  {profile?.is_transactions_enabled ? <WifiOff /> : <Wifi />}
+                </div>
+                {profile?.is_transactions_enabled 
+                  ? translations.header.appStatus.disable 
+                  : translations.header.appStatus.enable}
+              </button>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* WhatsApp Status */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative h-8 w-8 rounded-full bg-neutral-900 hover:bg-neutral-800 transition-colors"
+            >
+              <div
+                className={`h-4 w-4 ${
+                  whatsappStatus.isReady ? "text-green-400 animate-pulse" : "text-gray-400"
+                }`}
+              >
+                {whatsappStatus.isReady ? <MessageCircle /> : <MessageCircleOff />}
+              </div>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-64 bg-gradient-to-br from-neutral-800/95 to-neutral-900/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl">
+            <DropdownMenuLabel className="text-white/90 font-semibold border-b border-white/10 pb-2">
+              {translations.header.whatsappStatus.title}
+            </DropdownMenuLabel>
+            
+            {/* Status Display */}
+            <div className="p-3">
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-3 rounded-full ${
+                  whatsappStatus.isReady 
+                    ? "bg-green-400 animate-pulse shadow-lg shadow-green-400/50" 
+                    : "bg-gray-400"
+                }`} />
+                <div className="flex flex-col">
+                  <span className="text-white font-medium text-sm">
+                    {whatsappStatus.isReady 
+                      ? translations.header.whatsappStatus.connected 
+                      : translations.header.whatsappStatus.disconnected}
+                  </span>
+                  <span className="text-white/60 text-xs">
+                    {whatsappStatus.isReady 
+                      ? translations.header.whatsappStatus.connectedDesc 
+                      : translations.header.whatsappStatus.disconnectedDesc}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <LocaleSwitcher currentLang={lang} />
         <DropdownMenu>

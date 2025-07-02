@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3009",
-    "lint": "next lint"
+    "lint": "next lint",
+    "whatsapp:real": "node lib/whatsapp-real.js",
+    "whatsapp:simple": "node lib/whatsapp-simple.js",
+    "whatsapp:super": "node lib/whatsapp-super-simple.js",
+    "dev:real": "concurrently \"npm run dev\" \"npm run whatsapp:real\"",
+    "dev:simple": "concurrently \"PORT=3000 npm run dev\" \"npm run whatsapp:simple\"",
+    "whatsapp": "node lib/whatsapp-service.js",
+    "dev:full": "concurrently \"npm run dev\" \"npm run whatsapp\""
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -41,8 +48,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cookies-next": "^4.3.0",
+    "cors": "^2.8.5",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
+    "express": "^5.1.0",
     "flowbite": "^3.1.2",
     "formik": "^2.4.6",
     "framer-motion": "^11.0.5",
@@ -57,6 +66,9 @@
     "negotiator": "^1.0.0",
     "next": "^15.3.0",
     "next-intl": "^3.26.5",
+    "puppeteer": "^24.11.2",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
@@ -75,13 +87,16 @@
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "taos": "^1.0.5",
+    "whatsapp-web.js": "^1.31.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
     "@types/node": "^22.14.1",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.0.3",
+    "concurrently": "^9.2.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.8.3"

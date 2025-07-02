@@ -100,13 +100,18 @@ export function AccountInfo({ user, translations }: AccountInfoProps) {
             <span className="text-neutral-300 font-medium">
               {translations.subscription.table.createdAt}
             </span>
-            <span className="text-neutral-100 text-sm font-mono bg-neutral-700/40 px-3 py-1 rounded-md">
-              {new Date(user.created_at).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
+            <div className="flex flex-col text-right">
+              <span className="font-medium text-white text-sm">
+                {new Date(user.created_at).toLocaleDateString('ar-EG')}
+              </span>
+              <span className="text-xs text-amber-400 font-medium">
+                {new Date(user.created_at).toLocaleTimeString('ar-EG', { 
+                  hour: '2-digit', 
+                  minute: '2-digit',
+                  hour12: true 
+                })}
+              </span>
+            </div>
           </div>
         </li>
 
@@ -121,13 +126,18 @@ export function AccountInfo({ user, translations }: AccountInfoProps) {
             <span className="text-neutral-300 font-medium">
               {translations.subscription.table.updatedAt}
             </span>
-            <span className="text-neutral-100 text-sm font-mono bg-neutral-700/40 px-3 py-1 rounded-md">
-              {new Date(user.updated_at).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
+            <div className="flex flex-col text-right">
+              <span className="font-medium text-white text-sm">
+                {new Date(user.updated_at).toLocaleDateString('ar-EG')}
+              </span>
+              <span className="text-xs text-amber-400 font-medium">
+                {new Date(user.updated_at).toLocaleTimeString('ar-EG', { 
+                  hour: '2-digit', 
+                  minute: '2-digit',
+                  hour12: true 
+                })}
+              </span>
+            </div>
           </div>
         </li>
       </ul>

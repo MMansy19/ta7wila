@@ -97,7 +97,18 @@ export function TransactionsTable({
                       translations.userInfo.transactions.notAvailable}
                   </td>
                   <td className="px-4 py-2">
-                    {new Date(transaction.transaction_date).toLocaleDateString()}
+                    <div className="flex flex-col text-right">
+                      <span className="font-medium text-white text-sm">
+                        {new Date(transaction.transaction_date).toLocaleDateString('ar-EG')}
+                      </span>
+                      <span className="text-xs text-amber-400 font-medium">
+                        {new Date(transaction.transaction_date).toLocaleTimeString('ar-EG', { 
+                          hour: '2-digit', 
+                          minute: '2-digit',
+                          hour12: true 
+                        })}
+                      </span>
+                    </div>
                   </td>
                 </tr>
               ))

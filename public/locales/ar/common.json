@@ -294,6 +294,22 @@
     "devMode": {
       "switchTo": "التبديل إلى وضع المطور",
       "backTo": "العودة إلى وضع المستخدم"
+    },
+    "appStatus": {
+      "title": "حالة التطبيق",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "enable": "تشغيل التطبيق",
+      "disable": "إيقاف التطبيق",
+      "activeDesc": "التطبيق يعمل بشكل طبيعي",
+      "inactiveDesc": "التطبيق متوقف حالياً"
+    },
+    "whatsappStatus": {
+      "title": "حالة الواتساب",
+      "connected": "متصل",
+      "disconnected": "غير متصل",
+      "connectedDesc": "الواتساب متصل ويمكن إرسال الرسائل",
+      "disconnectedDesc": "الواتساب غير متصل"
     }
   },  "transactions": {
     "analysis": {
@@ -1106,8 +1122,19 @@
     }
   },
   "whatsapp": {
-    "title": "تكامل واتساب",
-    "subtitle": "اربط حساب واتساب الخاص بك لإرسال الرسائل وروابط الدفع",
+    "title": "إعدادات الواتساب",
+    "subtitle": "إدارة اتصال الواتساب وإرسال الرسائل",
+    "connectionStatus": "حالة الاتصال",
+    "qrCode": "رمز QR للاتصال",
+    "sendLinkViaWhatsApp": "إرسال الرابط عبر واتساب",
+    "messageHistory": "سجل الرسائل",
+    "settings": {
+      "title": "إعدادات الواتساب",
+      "description": "إدارة اتصال الواتساب وإعداد الرسائل",
+      "status": "الحالة",
+      "qrCodeSection": "اتصال الواتساب",
+      "messageLog": "سجل الرسائل المرسلة"
+    },
     "sessions": {
       "title": "جلسات واتساب",
       "subtitle": "إدارة اتصالات واتساب الخاصة بك",
@@ -1150,6 +1177,9 @@
     },
     "templates": {
       "title": "قوالب الرسائل",
+      "template1": "مرحباً! هذا رابط الدفع الخاص بمتجر {storeName}: {paymentLink}",
+      "template2": "يمكنك الآن الدفع بسهولة من خلال هذا الرابط: {paymentLink} - شكراً لك!",
+      "template3": "عزيزي العميل، يرجى استكمال عملية الدفع من خلال الرابط التالي: {paymentLink}",
       "create": "إنشاء قالب",
       "edit": "تعديل القالب",
       "name": "اسم القالب",
@@ -1170,17 +1200,28 @@
       "noConnectedSessions": "لا توجد جلسات واتساب متصلة متاحة"
     },
     "sendMessage": {
-      "title": "إرسال",
+      "title": "إرسال رسالة واتساب",
       "session": "جلسة واتساب",
-      "recipient": "رقم هاتف المستقبل",
-      "recipientPlaceholder": "مثال: +201234567890",
+      "recipient": "رقم المستقبل",
+      "recipientPlaceholder": "رقم الهاتف (مثال: +201234567890)",
+      "selectTemplate": "اختر قالب الرسالة",
+      "customMessage": "رسالة مخصصة",
       "preview": "معاينة الرسالة",
-      "send": "إرسال رسالة",
+      "send": "إرسال",
       "cancel": "إلغاء",
+      "close": "إغلاق",
       "selectSession": "يرجى اختيار جلسة واتساب",
-      "enterRecipient": "يرجى إدخال رقم هاتف المستقبل",
+      "enterRecipient": "يرجى إدخال رقم المستقبل",
       "fillVariables": "يرجى ملء جميع المتغيرات:",
-      "sent": "تم إرسال الرسالة بنجاح!"
+      "sent": "تم إرسال الرسالة بنجاح",
+      "sending": "جاري الإرسال...",
+      "messageLog": "سجل رسائل المتجر",
+      "sentMessages": "الرسائل المرسلة",
+      "noMessages": "لا توجد رسائل مرسلة من هذا المتجر",
+      "messageDetails": "تفاصيل الرسالة",
+      "messageTo": "إلى",
+      "messageContent": "محتوى الرسالة",
+      "sentAt": "تاريخ الإرسال"
     },
     "customMessage": {
       "title": "إرسال رسالة مخصصة",
@@ -1198,8 +1239,11 @@
       "recentMessages": "الرسائل الأخيرة",
       "noMessages": "لم يتم إرسال رسائل بعد",
       "status": {
-        "sent": "مُرسل",
-        "pending": "في الانتظار"
+        "sent": "تم الإرسال",
+        "delivered": "تم التسليم",
+        "read": "تم القراءة",
+        "pending": "قيد الإرسال",
+        "failed": "فشل الإرسال"
       },
       "errors": {
         "selectSession": "يرجى اختيار جلسة واتساب",

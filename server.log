@@ -1,0 +1,25 @@
+
+> ta7willa@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.24:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 2.9s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 722ms (139 modules)
+ ○ Compiling /[lang] ...
+ ✓ Compiled /[lang] in 5s (1721 modules)
+ ✓ Compiled in 390ms (773 modules)
+ HEAD /ar 200 in 6056ms
+ ⚠ The "images.domains" configuration is deprecated. Please use "images.remotePatterns" configuration instead.
+ ○ Compiling /[lang]/dashboard ...
+ ✓ Compiled /[lang]/dashboard in 3.3s (2271 modules)
+ GET /ar/dashboard 200 in 5406ms
+ ✓ Compiled in 1736ms (2261 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /ar/dashboard 200 in 188ms
+ GET /ar/dashboard 200 in 348ms

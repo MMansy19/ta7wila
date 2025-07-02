@@ -167,7 +167,18 @@ export function SubscriptionInfo({
                   {translations.userInfo.subscriptionInfo.subscriptionDate}
                 </span>
                 <span className="text-neutral-100 text-sm font-mono">
-                  {new Date(subscription.created_at).toLocaleDateString()}
+                                            <div className="flex flex-col text-right">
+                            <span className="font-medium text-white text-sm">
+                              {new Date(subscription.created_at).toLocaleDateString('ar-EG')}
+                            </span>
+                            <span className="text-xs text-amber-400 font-medium">
+                              {new Date(subscription.created_at).toLocaleTimeString('ar-EG', { 
+                                hour: '2-digit', 
+                                minute: '2-digit',
+                                hour12: true 
+                              })}
+                            </span>
+                          </div>
                 </span>
               </div>
               <div className="flex justify-between items-center">
@@ -175,7 +186,18 @@ export function SubscriptionInfo({
                   {translations.userInfo.subscriptionInfo.renewalDate}
                 </span>
                 <span className="text-neutral-100 text-sm font-mono">
-                  {new Date(subscription.updated_at).toLocaleDateString()}
+                                            <div className="flex flex-col text-right">
+                            <span className="font-medium text-white text-sm">
+                              {new Date(subscription.updated_at).toLocaleDateString('ar-EG')}
+                            </span>
+                            <span className="text-xs text-amber-400 font-medium">
+                              {new Date(subscription.updated_at).toLocaleTimeString('ar-EG', { 
+                                hour: '2-digit', 
+                                minute: '2-digit',
+                                hour12: true 
+                              })}
+                            </span>
+                          </div>
                 </span>
               </div>
             </div>

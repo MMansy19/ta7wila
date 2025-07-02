@@ -428,92 +428,138 @@ export default function AdminPlans() {
         )}
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-separate border-spacing-y-2">
-            <thead className="text-white text-center">
-              <tr>
-                <th className="p-2">{translations.price.table.id}</th>
-                <th className="p-2">{translations.price.table.title}</th>
-                <th className="p-2">{translations.price.table.subtitle}</th>
-                <th className="p-2">{translations.price.table.amount}</th>
-                <th className="p-2">{translations.price.table.applications}</th>
-                <th className="p-2">{translations.price.table.employees}</th>
-                <th className="p-2">{translations.price.table.vendors}</th>
-                <th className="p-2">{translations.price.table.action}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {plans.length > 0 ? (
-                plans.map((plan) => (
-                  <tr
-                    key={plan.id}
-                    className="text-start shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.1)]"
-                  >
-                    <td className="p-2">{plan.id}</td>
-                    <td className="p-2 text-[#F58C7B]">{plan.title}</td>
-                    <td className="p-2">{plan.subtitle}</td>
-                    <td className="p-2 font-bold text-[#53B4AB]">
-                      {formatCurrency(plan.amount)}
-                    </td>
-                    <td className="p-2">{plan.applications_count}</td>
-                    <td className="p-2">{plan.employees_count}</td>
-                    <td className="p-2">{plan.vendors_count}</td>
-                    <td className="p-2">
-                      <div className="gap-2 flex">
-                        <button
-                          onClick={() => handleEditPlan(plan)}
-                          className="bg-[#1F1F1F] text-white p-3 mr-2 rounded-lg"
-                        >
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-4 h-4"
+        <div className="bg-neutral-800/50 rounded-xl border border-white/10 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-gradient-to-r from-neutral-800/80 to-neutral-700/80 border-b border-white/10">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.id}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.title}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.subtitle}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.amount}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.applications}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.employees}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.vendors}</th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-white/90 tracking-wide">{translations.price.table.action}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {plans.length > 0 ? (
+                  plans.map((plan, index) => (
+                    <tr
+                      key={plan.id}
+                      className={`group hover:bg-white/5 transition-all duration-200 ${
+                        index % 2 === 0 ? 'bg-neutral-800/20' : 'bg-transparent'
+                      }`}
+                    >
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg flex items-center justify-center">
+                            <span className="text-purple-400 font-bold text-sm">#{plan.id}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg flex items-center justify-center">
+                            <span className="text-orange-400 font-bold text-sm">{plan.title.charAt(0)}</span>
+                          </div>
+                          <div>
+                            <div className="font-medium text-orange-400 group-hover:text-orange-300 transition-colors">
+                              {plan.title}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="font-medium text-white/80 text-sm">
+                          {plan.subtitle}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="font-bold text-emerald-400 text-lg">
+                          {formatCurrency(plan.amount)}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 rounded-lg text-sm font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                          {plan.applications_count}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 rounded-lg text-sm font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                          {plan.employees_count}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 rounded-lg text-sm font-medium bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                          {plan.vendors_count}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex gap-2 items-center justify-center">
+                          <button
+                            onClick={() => handleEditPlan(plan)}
+                            className="inline-flex items-center p-2 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded-lg transition-all duration-200 transform hover:scale-105"
                           >
-                            <path
-                              d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z"
-                              stroke="white"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                        </button>
-                        <button
-                          onClick={() => setDeletingPlan(plan)}
-                          className="bg-[#1F1F1F] text-white p-3 rounded-lg"
-                        >
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-4 h-4"
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => setDeletingPlan(plan)}
+                            className="inline-flex items-center p-2 bg-red-500/20 hover:bg-red-500/40 text-red-300 rounded-lg transition-all duration-200 transform hover:scale-105"
                           >
-                            <path
-                              d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3"
-                              stroke="white"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
+                            <svg
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={8} className="px-6 py-24 text-center">
+                      <div className="flex flex-col items-center justify-center space-y-4">
+                        <div className="w-16 h-16 bg-neutral-700/50 rounded-full flex items-center justify-center">
+                          <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                        </button>
+                        </div>
+                        <div className="text-neutral-400 text-lg font-medium">{translations.price.table.noPlans}</div>
                       </div>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td className="p-4 text-center" colSpan={8}>
-                    {translations.price.table.noPlans}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

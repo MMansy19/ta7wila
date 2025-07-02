@@ -43,8 +43,8 @@ export default function Employees() {
         email: item.email,
         status: item.status,
         application_id: item.employee_applications?.[0]?.id?? '',
-        createdAt: new Date(item.created_at).toLocaleDateString(),
-        updatedAt: new Date(item.updated_at).toLocaleDateString(),
+        createdAt: item.created_at,
+        updatedAt: item.updated_at,
       }));
       setUsers(transformedUsers);
       setTotalPages(response.data.result.totalPages);

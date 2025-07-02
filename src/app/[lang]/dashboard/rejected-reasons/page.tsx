@@ -209,123 +209,164 @@ export default function Rejectedreasons() {
             {translations.common.addNew}
           </button>
         </div>
-        <div className="overflow-x-auto">
-          <table
-            className="table-auto w-full text-left"
-            aria-label="Rejected Reasons Table"
-          >
-            <thead>
-              <tr className="text-white text-start">
-                <th className="p-2">{translations.table.id}</th>
-                <th className="p-2">
-                  {translations.subscription.modal.rejectedreasontype}
-                </th>
-                <th className="p-2">
-                  {translations.subscription.modal.rejectedreasonValue}
-                </th>
-                <th className="p-2">
-                  {translations.subscription.modal.status}
-                </th>
-                <th className="p-2">
-                  {translations.subscription.table.createdAt}
-                </th>
-                <th className="p-2">
-                  {translations.subscription.table.updatedAt}
-                </th>
-                <th className="p-2">
-                  {translations.storepayment.table.actions}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {Rejectedreasons.length > 0 ? (
-                Rejectedreasons.map((rejectedreason) => (
-                  <tr
-                    key={rejectedreason.id}
-                    className="text-start border-b border-neutral-700"
-                  >
-                    <td className="p-2">{rejectedreason.id}</td>
-                    <td className="p-2">
-                      {rejectedreason.rejected_reason_type}
-                    </td>
-                    <td className="p-2">{rejectedreason.value}</td>
-                    <td className="p-2">
-                      <StatusToggle
-                        status={rejectedreason.status}
-                        onClick={() =>
-                          toggleStatus(rejectedreason.id, rejectedreason.status)
-                        }
-                      />
-                    </td>
-                    <td className="p-2">
-                      {new Date(
-                        rejectedreason.created_at || "N/A"
-                      ).toLocaleDateString()}
-                    </td>
-                    <td className="p-2">
-                      {new Date(
-                        rejectedreason.updated_at || "N/A"
-                      ).toLocaleDateString()}
-                    </td>
-                    <td className="p-2">
-                      <div className="flex gap-1 items-center">
-                        {/* Edit Button */}
-                        <button
-                          onClick={() => {
-                            setFormData({
-                              id: rejectedreason.id,
-                              value: rejectedreason.value,
-                              status: rejectedreason.status,
-                              rejected_reason_type:
-                                rejectedreason.rejected_reason_type,
-                            });
-                            setEditingReason(rejectedreason);
-                            setIsModalOpen(true);
-                          }}
-                          className="p-2 text-[#53B4AB] hover:bg-[#53B4AB]/10 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#53B4AB]/50"
-                        >
-                          <svg
-                            className="w-5 h-5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
+        <div className="bg-neutral-800/50 rounded-xl border border-white/10 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table
+              className="w-full"
+              aria-label="Rejected Reasons Table"
+            >
+              <thead>
+                <tr className="bg-gradient-to-r from-neutral-800/80 to-neutral-700/80 border-b border-white/10">
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">{translations.table.id}</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">
+                    {translations.subscription.modal.rejectedreasontype}
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">
+                    {translations.subscription.modal.rejectedreasonValue}
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">
+                    {translations.subscription.modal.status}
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">
+                    {translations.subscription.table.createdAt}
+                  </th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-white/90 tracking-wide">
+                    {translations.subscription.table.updatedAt}
+                  </th>
+                  <th className="px-6 py-4 text-center text-sm font-semibold text-white/90 tracking-wide">
+                    {translations.storepayment.table.actions}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {Rejectedreasons.length > 0 ? (
+                  Rejectedreasons.map((rejectedreason, index) => (
+                    <tr
+                      key={rejectedreason.id}
+                      className={`group hover:bg-white/5 transition-all duration-200 ${
+                        index % 2 === 0 ? 'bg-neutral-800/20' : 'bg-transparent'
+                      }`}
+                    >
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-lg flex items-center justify-center">
+                            <span className="text-indigo-400 font-bold text-sm">#{rejectedreason.id}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 rounded-lg text-sm font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                          {rejectedreason.rejected_reason_type}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="font-medium text-white group-hover:text-blue-300 transition-colors">
+                          {rejectedreason.value}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <StatusToggle
+                          status={rejectedreason.status}
+                          onClick={() =>
+                            toggleStatus(rejectedreason.id, rejectedreason.status)
+                          }
+                        />
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col">
+                          <span className="font-medium text-white text-sm">
+                            {new Date(rejectedreason.created_at || "N/A").toLocaleDateString('ar-EG')}
+                          </span>
+                          <span className="text-xs text-blue-400 font-medium">
+                            {new Date(rejectedreason.created_at || "N/A").toLocaleTimeString('ar-EG', { 
+                              hour: '2-digit', 
+                              minute: '2-digit',
+                              hour12: true 
+                            })}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col">
+                          <span className="font-medium text-white text-sm">
+                            {new Date(rejectedreason.updated_at || "N/A").toLocaleDateString('ar-EG')}
+                          </span>
+                          <span className="text-xs text-green-400 font-medium">
+                            {new Date(rejectedreason.updated_at || "N/A").toLocaleTimeString('ar-EG', { 
+                              hour: '2-digit', 
+                              minute: '2-digit',
+                              hour12: true 
+                            })}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex gap-2 items-center justify-center">
+                          {/* Edit Button */}
+                          <button
+                            onClick={() => {
+                              setFormData({
+                                id: rejectedreason.id,
+                                value: rejectedreason.value,
+                                status: rejectedreason.status,
+                                rejected_reason_type:
+                                  rejectedreason.rejected_reason_type,
+                              });
+                              setEditingReason(rejectedreason);
+                              setIsModalOpen(true);
+                            }}
+                            className="inline-flex items-center p-2 bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 rounded-lg transition-all duration-200 transform hover:scale-105"
                           >
-                            <path d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z" />
-                          </svg>
-                        </button>
+                            <svg
+                              className="w-4 h-4"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            >
+                              <path d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z" />
+                            </svg>
+                          </button>
 
-                        {/* Delete Button */}
-                        <button
-                          onClick={() => handleDelete(rejectedreason.id)}
-                          className="p-2 text-red-500 hover:bg-red-500/10 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/50"
-                        >
-                          <svg
-                            className="w-5 h-5"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                          {/* Delete Button */}
+                          <button
+                            onClick={() => handleDelete(rejectedreason.id)}
+                            className="inline-flex items-center p-2 bg-red-500/20 hover:bg-red-500/40 text-red-300 rounded-lg transition-all duration-200 transform hover:scale-105"
                           >
-                            <path d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3" />
+                            <svg
+                              className="w-4 h-4"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3" />
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-24 text-center">
+                      <div className="flex flex-col items-center justify-center space-y-4">
+                        <div className="w-16 h-16 bg-neutral-700/50 rounded-full flex items-center justify-center">
+                          <svg className="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.268 16.5c-.77.833.192 2.5 1.732 2.5z" />
                           </svg>
-                        </button>
+                        </div>
+                        <div className="text-neutral-400 text-lg font-medium">{translations.storepayment.noData}</div>
                       </div>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={6} className="text-center">
-                    {translations.storepayment.noData}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

@@ -294,6 +294,22 @@
     "devMode": {
       "switchTo": "Switch to Developer Mode",
       "backTo": "Back to User Mode"
+    },
+    "appStatus": {
+      "title": "App Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "enable": "Enable App",
+      "disable": "Disable App",
+      "activeDesc": "App is running normally",
+      "inactiveDesc": "App is currently stopped"
+    },
+    "whatsappStatus": {
+      "title": "WhatsApp Status",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "connectedDesc": "WhatsApp is connected and ready to send messages",
+      "disconnectedDesc": "WhatsApp is not connected"
     }
   },
   "transactions": {
@@ -1118,8 +1134,19 @@
     }
   },
   "whatsapp": {
-    "title": "WhatsApp Integration",
-    "subtitle": "Connect your WhatsApp account to send messages and payment links",
+    "title": "WhatsApp Settings",
+    "subtitle": "Manage WhatsApp connection and send messages",
+    "connectionStatus": "Connection Status",
+    "qrCode": "QR Code for Connection",
+    "sendLinkViaWhatsApp": "Send Link via WhatsApp",
+    "messageHistory": "Message History",
+    "settings": {
+      "title": "WhatsApp Settings",
+      "description": "Manage WhatsApp connection and message settings",
+      "status": "Status",
+      "qrCodeSection": "WhatsApp Connection",
+      "messageLog": "Sent Messages Log"
+    },
     "sessions": {
       "title": "WhatsApp Sessions",
       "subtitle": "Manage your WhatsApp connections",
@@ -1162,6 +1189,9 @@
     },
     "templates": {
       "title": "Message Templates",
+      "template1": "Hello! Here's the payment link for {storeName}: {paymentLink}",
+      "template2": "You can now pay easily through this link: {paymentLink} - Thank you!",
+      "template3": "Dear customer, please complete your payment through the following link: {paymentLink}",
       "create": "Create Template",
       "edit": "Edit Template",
       "name": "Template Name",
@@ -1182,17 +1212,28 @@
       "noConnectedSessions": "No connected WhatsApp sessions available"
     },
     "sendMessage": {
-      "title": "Send",
+      "title": "Send WhatsApp Message",
       "session": "WhatsApp Session",
-      "recipient": "Recipient Phone Number",
-      "recipientPlaceholder": "e.g., +201234567890",
+      "recipient": "Recipient Number",
+      "recipientPlaceholder": "Phone number (e.g., +201234567890)",
+      "selectTemplate": "Select Message Template",
+      "customMessage": "Custom Message",
       "preview": "Message Preview",
-      "send": "Send Message",
+      "send": "Send",
       "cancel": "Cancel",
+      "close": "Close",
       "selectSession": "Please select a WhatsApp session",
-      "enterRecipient": "Please enter recipient phone number",
+      "enterRecipient": "Please enter recipient number",
       "fillVariables": "Please fill in all variables:",
-      "sent": "Message sent successfully!"
+      "sent": "Message sent successfully",
+      "sending": "Sending...",
+      "messageLog": "Store Message Log",
+      "sentMessages": "Sent Messages",
+      "noMessages": "No messages sent from this store",
+      "messageDetails": "Message Details",
+      "messageTo": "To",
+      "messageContent": "Message Content",
+      "sentAt": "Sent At"
     },
     "customMessage": {
       "title": "Send Custom Message",
@@ -1210,8 +1251,11 @@
       "recentMessages": "Recent Messages",
       "noMessages": "No messages sent yet",
       "status": {
-        "sent": "sent",
-        "pending": "pending"
+        "sent": "Sent",
+        "delivered": "Delivered",
+        "read": "Read",
+        "pending": "Pending",
+        "failed": "Failed"
       },
       "errors": {
         "selectSession": "Please select a WhatsApp session",

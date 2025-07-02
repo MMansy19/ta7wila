@@ -4,6 +4,25 @@ import axios from "axios";
 import { useEffect, useState } from 'react';
 import toast from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
+import { formatDateTime } from "@/lib/utils";
+import { 
+  Store, 
+  Phone, 
+  Mail, 
+  Globe, 
+  Calendar, 
+  Clock, 
+  Copy, 
+  MessageCircle, 
+  X, 
+  Send,
+  Users,
+  CreditCard,
+  Activity,
+  BarChart3,
+  TrendingUp,
+  Shield
+} from "lucide-react";
 import Employees from "../employees";
 import Payments from "../payments";
 import Table from "../table";
@@ -20,7 +39,9 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedTemplate, setSelectedTemplate] = useState("");
   const [isSendingWhatsApp, setIsSendingWhatsApp] = useState(false);
+  const [messageHistory, setMessageHistory] = useState<any[]>([]);
 
   // Resolve the params Promise
   useEffect(() => {
@@ -61,6 +82,10 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
 
     fetchData();
     const intervalId = setInterval(fetchData, 60000);
+    
+    // Load WhatsApp messages for this store
+    loadStoreMessages();
+    
     return () => clearInterval(intervalId);
   }, [resolvedParams, apiUrl]);
 
@@ -82,66 +107,144 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
   };
 
   const openWhatsAppModal = () => {
-    if (!storeDetails?.mobile) {
-      toast.error("Store phone number not available");
-      return;
-    }
     setShowWhatsAppModal(true);
-    
-    // Set default message
-    const { id, lang } = resolvedParams || {};
-    const baseUrl = window.location.origin; 
-    const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
-    setMessage(`${translations.storeDetails?.whatsappMessage || "Here's the payment link:"} ${paymentLink}`);
+    setPhoneNumber("");
+    setMessage("");
+    setSelectedTemplate("");
   };
 
   const sendWhatsAppMessage = async () => {
     if (!phoneNumber) {
-      toast.error("Please enter a phone number");
+      toast.error("يرجى إدخال رقم الهاتف");
       return;
     }
 
     if (!message.trim()) {
-      toast.error("Please enter a message");
+      toast.error("يرجى إدخال رسالة");
       return;
     }
 
     setIsSendingWhatsApp(true);
 
     try {
-      // Format phone number (remove any non-digit characters)
-      const formattedNumber = phoneNumber.replace(/\D/g, '');
+      // First, check if there's an active WhatsApp session
+      const sessionsResponse = await fetch('/api/whatsapp?action=getSessions');
+      const sessionsData = await sessionsResponse.json();
       
-      // Create WhatsApp Web URL
-      const whatsappWebUrl = `https://web.whatsapp.com/send?phone=${formattedNumber}&text=${encodeURIComponent(message.trim())}`;
+      let activeSession = null;
+      if (sessionsData.success && sessionsData.sessions.length > 0) {
+        activeSession = sessionsData.sessions.find((s: any) => s.isConnected);
+      }
       
-      // Open WhatsApp Web in a popup window (background)
-      const popup = window.open(
-        whatsappWebUrl,
-        'whatsapp-popup',
-        'width=800,height=600,scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no'
-      );
+      if (!activeSession) {
+        toast.error("لا يوجد اتصال واتساب نشط. يرجى الاتصال بواتساب من صفحة الإعدادات أولاً");
+        setIsSendingWhatsApp(false);
+        return;
+      }
+
+      // Format phone number (remove any non-digit characters except +)
+      const formattedNumber = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber.replace(/\D/g, '')}`;
       
-      if (popup) {
-        // Minimize the popup by moving it off-screen or to background
-        popup.blur();
-        window.focus();
+      // Send message via API
+      const response = await fetch('/api/whatsapp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'sendMessage',
+          sessionId: activeSession.id,
+          recipient: formattedNumber,
+          message: message.trim(),
+          storeId: storeDetails.id
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Add message to local history
+        const newMessage = {
+          id: data.messageId,
+          recipient: formattedNumber,
+          message: message.trim(),
+          status: 'sent' as const,
+          sentAt: new Date().toISOString(),
+          storeId: storeDetails.id
+        };
         
-        toast.success("WhatsApp Web opened in background! Complete sending the message there.");
+        setMessageHistory(prev => [newMessage, ...prev]);
+        
+        toast.success("تم إرسال الرسالة بنجاح!");
+        
+        // Optionally open WhatsApp Web for manual verification
+        if (data.whatsappUrl) {
+          const popup = window.open(
+            data.whatsappUrl,
+            'whatsapp-popup',
+            'width=800,height=600,scrollbars=yes,resizable=yes'
+          );
+          
+          if (popup) {
+            popup.blur();
+            window.focus();
+          }
+        }
         
         // Close the modal
         setShowWhatsAppModal(false);
         setPhoneNumber("");
         setMessage("");
+        setSelectedTemplate("");
       } else {
-        toast.error("Please allow popups for this site to use WhatsApp Web");
+        throw new Error(data.error || 'Failed to send message');
       }
 
     } catch (error: any) {
-      console.error("WhatsApp open error:", error);
-      toast.error("Failed to open WhatsApp Web");
+      console.error("WhatsApp send error:", error);
+      toast.error(`فشل في إرسال الرسالة: ${error.message || 'خطأ غير معروف'}`);
     } finally {
       setIsSendingWhatsApp(false);
+    }
+  };
+
+  // Function to handle template selection
+  const handleTemplateSelect = (templateNumber: number) => {
+    const { id, lang } = resolvedParams || {};
+    const baseUrl = window.location.origin;
+    const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
+    const storeName = storeDetails?.name || "المتجر";
+    
+    let templateMessage = "";
+    switch (templateNumber) {
+      case 1:
+        templateMessage = `مرحباً! هذا رابط الدفع الخاص بمتجر ${storeName}: ${paymentLink}`;
+        break;
+      case 2:
+        templateMessage = `يمكنك الآن الدفع بسهولة من خلال هذا الرابط: ${paymentLink} - شكراً لك!`;
+        break;
+      case 3:
+        templateMessage = `عزيزي العميل، يرجى استكمال عملية الدفع من خلال الرابط التالي: ${paymentLink}`;
+        break;
+    }
+    
+    setMessage(templateMessage);
+    setSelectedTemplate(templateNumber.toString());
+  };
+
+  // Load messages for this specific store
+  const loadStoreMessages = async () => {
+    if (!resolvedParams?.id) return;
+    
+    try {
+      const response = await fetch(`/api/whatsapp?action=getMessages&storeId=${resolvedParams.id}`);
+      const data = await response.json();
+      
+      if (data.success) {
+        setMessageHistory(data.messages);
+      }
+    } catch (error) {
+      console.error("Error loading store messages:", error);
     }
   };
 
@@ -154,140 +257,360 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
   }
 
   return (
-    <div className="space-y-4">
-      {/* Payment Link Section */}
-      <div className="bg-[#1E1E1E] rounded-xl p-6 shadow-md">
-        <div className="flex items-center justify-between lg:flex-row flex-col gap-4">
-          <div>
-            <h3 className="font-semibold text-xl text-white mb-2">
-              {translations.storeDetails.publicPaymentLink || "Public Payment Link"}
-            </h3>
-            <p className="text-gray-400 text-sm">
-              {translations.storeDetails.sharePaymentLink || "Share this link with customers to allow them to make payments directly"}
-            </p>
+    <div className="space-y-6 p-4 lg:p-6 bg-neutral-900 min-h-screen">
+      {/* Store Header Card */}
+      <div className="bg-gradient-to-br from-neutral-800/40 to-neutral-900/60 backdrop-blur-sm rounded-2xl border border-white/10 p-4 lg:p-6">
+        <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6">
+          {/* Store Basic Info */}
+          <div className="flex flex-col sm:flex-row items-start gap-4 flex-1">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#53B4AB]/20 to-[#53B4AB]/10 flex items-center justify-center border border-[#53B4AB]/20">
+              <Store className="w-8 h-8 text-[#53B4AB]" />
+            </div>
+            <div className="flex-1 w-full">
+              <h1 className="text-xl lg:text-2xl font-bold text-white mb-2">{storeDetails.name}</h1>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-white/40 text-sm">ID:</span>
+                <span className="text-white/60 font-medium">{storeDetails.id}</span>
+                <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
+                  storeDetails.status === 'active' 
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                    : 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                }`}>
+                  <div className={`w-1.5 h-1.5 rounded-full ${
+                    storeDetails.status === 'active' ? 'bg-green-400 animate-pulse' : 'bg-orange-400'
+                  }`}></div>
+                  {storeDetails.status === 'active' ? 'نشط' : 'غير نشط'}
+                </div>
+              </div>
+              
+              {/* Contact Information */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#F58C7B]/20 flex items-center justify-center">
+                    <Phone className="w-4 h-4 text-[#F58C7B]" />
+                  </div>
+                  <span className="text-[#F58C7B] font-medium text-sm" style={{ direction: "ltr" }}>
+                    {storeDetails.mobile}
+                  </span>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                    <Mail className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <span className="text-blue-400 font-medium text-sm truncate">{storeDetails.email}</span>
+                </div>
+                
+                {storeDetails.webhook_url && (
+                  <div className="flex items-center gap-3 lg:col-span-2">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                      <Globe className="w-4 h-4 text-purple-400" />
+                    </div>
+                    <span className="text-purple-400 font-medium text-sm truncate">{storeDetails.webhook_url}</span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="flex gap-2">
+          
+          {/* Store Dates */}
+          <div className="flex flex-col gap-3 xl:min-w-[200px]">
+            <div className="flex items-center gap-3 text-sm">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                <Calendar className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white/60 text-xs">تاريخ الإنشاء</span>
+                <div className="flex flex-col text-right">
+                  <span className="text-white font-medium text-sm">{formatDateTime(storeDetails.created_at).date}</span>
+                  <span className="text-emerald-400 font-medium text-xs">{formatDateTime(storeDetails.created_at).time}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 text-sm">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                <Clock className="w-4 h-4 text-amber-400" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white/60 text-xs">آخر تحديث</span>
+                <div className="flex flex-col text-right">
+                  <span className="text-white font-medium text-sm">{formatDateTime(storeDetails.updated_at).date}</span>
+                  <span className="text-amber-400 font-medium text-xs">{formatDateTime(storeDetails.updated_at).time}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <div className="bg-gradient-to-br from-[#53B4AB]/20 to-[#53B4AB]/10 backdrop-blur-sm rounded-xl p-3 lg:p-4 border border-[#53B4AB]/20">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-[#53B4AB]/20 flex items-center justify-center">
+              <CreditCard className="w-4 h-4 lg:w-5 lg:h-5 text-[#53B4AB]" />
+            </div>
+            <div>
+              <p className="text-white/60 text-xs">طرق الدفع</p>
+              <p className="text-white font-semibold text-sm lg:text-lg">{storeDetails.payment_options?.length || 0}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-blue-500/20 to-blue-500/10 backdrop-blur-sm rounded-xl p-3 lg:p-4 border border-blue-500/20">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+              <Users className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
+            </div>
+            <div>
+              <p className="text-white/60 text-xs">الموظفون</p>
+              <p className="text-white font-semibold text-sm lg:text-lg">{storeDetails.application_employees?.length || 0}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-green-500/20 to-green-500/10 backdrop-blur-sm rounded-xl p-3 lg:p-4 border border-green-500/20">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
+              <Activity className="w-4 h-4 lg:w-5 lg:h-5 text-green-400" />
+            </div>
+            <div>
+              <p className="text-white/60 text-xs">المدفوعات</p>
+              <p className="text-white font-semibold text-sm lg:text-lg">{storeDetails.payments?.length || 0}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-purple-500/20 to-purple-500/10 backdrop-blur-sm rounded-xl p-3 lg:p-4 border border-purple-500/20">
+          <div className="flex items-center gap-2 lg:gap-3">
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 lg:w-5 lg:h-5 text-purple-400" />
+            </div>
+            <div>
+              <p className="text-white/60 text-xs">المعاملات</p>
+              <p className="text-white font-semibold text-sm lg:text-lg">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Payment Link Section */}
+      <div className="bg-gradient-to-br from-neutral-800/40 to-neutral-900/60 backdrop-blur-sm rounded-2xl border border-white/10 p-4 lg:p-6">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-6">
+          <div className="flex items-start gap-3 lg:gap-4">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br from-[#53B4AB]/20 to-[#53B4AB]/10 flex items-center justify-center border border-[#53B4AB]/20">
+              <Shield className="w-5 h-5 lg:w-6 lg:h-6 text-[#53B4AB]" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg lg:text-xl text-white mb-2">
+                {translations.storeDetails.publicPaymentLink || "رابط الدفع العام"}
+              </h3>
+              <p className="text-white/60 text-sm">
+                {translations.storeDetails.sharePaymentLink || "شارك هذا الرابط مع العملاء للسماح لهم بإجراء المدفوعات مباشرة"}
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={copyPaymentLink}
-              className="flex items-center gap-2 px-4 py-2 bg-[#53B4AB] hover:bg-[#347871] text-black rounded-lg font-semibold transition-colors duration-200"
+              className="group flex items-center justify-center gap-2 px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-[#53B4AB]/20 to-[#53B4AB]/10 hover:from-[#53B4AB]/30 hover:to-[#53B4AB]/20 text-[#53B4AB] hover:text-white rounded-xl font-medium transition-all duration-200 border border-[#53B4AB]/20 hover:border-[#53B4AB]/40"
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M17 6L17 14C17 16.2091 15.2091 18 13 18H7M17 6C17 3.79086 15.2091 2 13 2L10.6569 2C9.59599 2 8.57857 2.42143 7.82843 3.17157L4.17157 6.82843C3.42143 7.57857 3 8.59599 3 9.65685L3 14C3 16.2091 4.79086 18 7 18M17 6C19.2091 6 21 7.79086 21 10V18C21 20.2091 19.2091 22 17 22H11C8.79086 22 7 20.2091 7 18M9 2L9 4C9 6.20914 7.20914 8 5 8L3 8"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              {translations.storeDetails.copyPaymentLink || "Copy Payment Link"}
+              <Copy className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
+              <span className="text-sm lg:text-base">{translations.storeDetails.copyPaymentLink || "نسخ الرابط"}</span>
             </button>
             
             <button
               onClick={openWhatsAppModal}
-              className="flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-lg font-semibold transition-colors duration-200"
+              className="group flex items-center justify-center gap-2 px-4 lg:px-6 py-2 lg:py-3 bg-gradient-to-r from-[#25D366] to-[#1DA851] hover:from-[#1DA851] hover:to-[#25D366] text-white rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-[#25D366]/25"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-              </svg>
-              {translations.storeDetails?.shareViaWhatsApp || "Share via WhatsApp"}
+              <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
+              <span className="text-sm lg:text-base">{translations.storeDetails?.shareViaWhatsApp || "مشاركة عبر واتساب"}</span>
             </button>
           </div>
         </div>
       </div>
 
+      {/* Two Column Layout: Payments & Employees */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+        {/* Payments Section */}
+        <div className="w-full">
+          <Payments payments={storeDetails.payments || []} />
+        </div>
+        
+        {/* Employees Section */}
+        <div className="w-full">
+          <Employees employees={storeDetails.application_employees || []} params={resolvedParams} />
+        </div>
+      </div>
+
+      {/* Transactions Table - Full Width */}
+      <div className="w-full">
+        <Table params={resolvedParams} />
+      </div>
+
       {/* WhatsApp Modal */}
       {showWhatsAppModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[#1E1E1E] rounded-xl p-6 w-full max-w-md">
-            <h3 className="font-semibold text-xl text-white mb-4">
-              Send WhatsApp Message
-            </h3>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-gray-400 text-sm mb-1">
-                  Recipient Phone Number
-                </label>
-                <input
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  placeholder="e.g. 201234567890"
-                  className="w-full px-4 py-2 bg-[#2D2D2D] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#25D366]"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Include country code (e.g., 20 for Egypt)
-                </p>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+          <div className="bg-gradient-to-br from-neutral-800/90 to-neutral-900/90 backdrop-blur-xl rounded-2xl w-full max-w-sm sm:max-w-md lg:max-w-2xl xl:max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden border border-white/10 shadow-2xl">
+            {/* Header */}
+            <div className="flex items-center justify-between p-3 sm:p-4 lg:p-6 border-b border-white/10">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#25D366]/20 to-[#25D366]/10 flex items-center justify-center border border-[#25D366]/20">
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#25D366]" />
+                </div>
+                <h3 className="font-semibold text-sm sm:text-base lg:text-lg text-white">
+                  إرسال رابط الدفع عبر واتساب
+                </h3>
               </div>
-              
-              <div>
-                <label className="block text-gray-400 text-sm mb-1">
-                  Message
-                </label>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  rows={4}
-                  className="w-full px-4 py-2 bg-[#2D2D2D] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#25D366]"
-                />
+              <button
+                onClick={() => setShowWhatsAppModal(false)}
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+              >
+                <X className="w-3 h-3 sm:w-4 sm:h-4 text-white/60" />
+              </button>
+            </div>
+
+            <div className="flex flex-col lg:flex-row h-[calc(95vh-80px)] sm:h-[calc(90vh-120px)]">
+              {/* Left Side - Message Form */}
+              <div className="w-full lg:w-2/3 p-3 sm:p-4 lg:p-6 lg:border-r border-white/10 overflow-y-auto">
+                <div className="space-y-4 sm:space-y-6">
+                  {/* Phone Number Input */}
+                  <div>
+                    <label className="block text-white/80 text-xs sm:text-sm mb-2 font-medium">
+                      رقم الهاتف
+                    </label>
+                    <input
+                      type="tel"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      placeholder="مثال: 201234567890"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-neutral-700/50 backdrop-blur-sm text-white rounded-xl border border-white/10 focus:border-[#25D366]/50 focus:outline-none focus:ring-2 focus:ring-[#25D366]/20 transition-all text-sm"
+                    />
+                    <p className="text-xs text-white/50 mt-1">
+                      يجب تضمين كود الدولة (مثال: 20 لمصر)
+                    </p>
+                  </div>
+                  
+                  {/* Message Templates */}
+                  <div>
+                    <label className="block text-white/80 text-xs sm:text-sm mb-2 sm:mb-3 font-medium">
+                      قوالب الرسائل
+                    </label>
+                    <div className="space-y-2 sm:space-y-3">
+                      <button
+                        onClick={() => handleTemplateSelect(1)}
+                        className={`w-full p-3 sm:p-4 text-right rounded-xl border transition-all ${
+                          selectedTemplate === '1' 
+                            ? 'bg-[#25D366]/20 border-[#25D366]/50 text-[#25D366]' 
+                            : 'bg-neutral-700/30 border-white/10 text-white/80 hover:bg-neutral-700/50'
+                        }`}
+                      >
+                        <p className="text-xs sm:text-sm font-medium mb-1">القالب الأول</p>
+                        <p className="text-xs opacity-80">مرحباً! هذا رابط الدفع الخاص بمتجر...</p>
+                      </button>
+                      
+                      <button
+                        onClick={() => handleTemplateSelect(2)}
+                        className={`w-full p-3 sm:p-4 text-right rounded-xl border transition-all ${
+                          selectedTemplate === '2' 
+                            ? 'bg-[#25D366]/20 border-[#25D366]/50 text-[#25D366]' 
+                            : 'bg-neutral-700/30 border-white/10 text-white/80 hover:bg-neutral-700/50'
+                        }`}
+                      >
+                        <p className="text-xs sm:text-sm font-medium mb-1">القالب الثاني</p>
+                        <p className="text-xs opacity-80">يمكنك الآن الدفع بسهولة من خلال هذا الرابط...</p>
+                      </button>
+                      
+                      <button
+                        onClick={() => handleTemplateSelect(3)}
+                        className={`w-full p-3 sm:p-4 text-right rounded-xl border transition-all ${
+                          selectedTemplate === '3' 
+                            ? 'bg-[#25D366]/20 border-[#25D366]/50 text-[#25D366]' 
+                            : 'bg-neutral-700/30 border-white/10 text-white/80 hover:bg-neutral-700/50'
+                        }`}
+                      >
+                        <p className="text-xs sm:text-sm font-medium mb-1">القالب الثالث</p>
+                        <p className="text-xs opacity-80">عزيزي العميل، يرجى استكمال عملية الدفع...</p>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Custom Message */}
+                  <div>
+                    <label className="block text-white/80 text-xs sm:text-sm mb-2 font-medium">
+                      رسالة مخصصة
+                    </label>
+                    <textarea
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      rows={4}
+                      placeholder="اكتب رسالتك هنا أو اختر قالب من الأعلى..."
+                      className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-neutral-700/50 backdrop-blur-sm text-white rounded-xl border border-white/10 focus:border-[#25D366]/50 focus:outline-none focus:ring-2 focus:ring-[#25D366]/20 transition-all resize-none text-sm"
+                    />
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex justify-end gap-2 sm:gap-3 pt-2 sm:pt-4">
+                    <button
+                      onClick={() => setShowWhatsAppModal(false)}
+                      className="px-4 py-2 sm:px-6 sm:py-3 text-white/60 hover:text-white transition-colors rounded-xl hover:bg-white/5 text-sm"
+                    >
+                      إلغاء
+                    </button>
+                    <button
+                      onClick={sendWhatsAppMessage}
+                      disabled={isSendingWhatsApp}
+                      className="flex items-center gap-2 px-6 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-[#25D366] to-[#1DA851] hover:from-[#1DA851] hover:to-[#25D366] disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white rounded-xl font-medium transition-all duration-200 text-sm"
+                    >
+                      {isSendingWhatsApp ? (
+                        <>
+                          <div className="animate-spin h-3 w-3 sm:h-4 sm:w-4 border-2 border-white/30 border-t-white rounded-full" />
+                          جاري الإرسال...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+                          إرسال الرسالة
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
               </div>
-              
-              <div className="flex justify-end gap-2 pt-2">
-                <button
-                  onClick={() => setShowWhatsAppModal(false)}
-                  className="px-4 py-2 text-gray-300 hover:text-white"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={sendWhatsAppMessage}
-                  disabled={isSendingWhatsApp}
-                  className="flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#1DA851] disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg font-semibold"
-                >
-                  {isSendingWhatsApp ? (
-                    <>
-                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      Sending...
-                    </>
+
+              {/* Right Side - Message History */}
+              <div className="w-full lg:w-1/3 p-3 sm:p-4 lg:p-6 overflow-y-auto border-t lg:border-t-0 border-white/10">
+                <h4 className="text-white font-medium text-xs sm:text-sm mb-3 sm:mb-4 flex items-center gap-2">
+                  <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-[#53B4AB]" />
+                  سجل رسائل المتجر
+                </h4>
+                
+                <div className="space-y-2 sm:space-y-3">
+                  {messageHistory.length > 0 ? (
+                    messageHistory.map((msg) => (
+                      <div key={msg.id} className="bg-neutral-700/30 rounded-lg p-2 sm:p-3">
+                        <div className="flex items-center justify-between mb-1 sm:mb-2">
+                          <span className="text-[#25D366] text-xs sm:text-sm font-medium truncate">{msg.recipient}</span>
+                          <span className="text-green-400 text-xs">تم الإرسال</span>
+                        </div>
+                        <p className="text-white/80 text-xs mb-1 sm:mb-2 line-clamp-2">{msg.message}</p>
+                        <p className="text-white/50 text-xs">{new Date(msg.sentAt).toLocaleString()}</p>
+                      </div>
+                    ))
                   ) : (
-                    "Send Message"
+                    <div className="text-center py-6 sm:py-8">
+                      <MessageCircle className="w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 text-white/30" />
+                      <p className="text-white/50 text-xs sm:text-sm">لا توجد رسائل مرسلة من هذا المتجر</p>
+                    </div>
                   )}
-                </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* Existing Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-5 md:grid-rows-5 gap-4">
-        <div className="md:col-span-2 md:row-span-1">
-          <Payments payments={storeDetails.payments || []} />
-        </div>
-        
-        <div className="md:col-span-2 md:row-span-1 md:col-start-1 md:row-start-2">
-          <Employees employees={storeDetails.application_employees || []} params={resolvedParams} />
-        </div>
-        
-        <div className="md:col-span-3 md:row-span-5 md:col-start-3 md:row-start-1">
-          <Table params={resolvedParams} />
-        </div>
-      </div>
     </div>
   );
 }

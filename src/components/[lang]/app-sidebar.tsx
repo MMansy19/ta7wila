@@ -679,30 +679,32 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="secondary"
-                className=" justify-start gap-4 bg-[#0FDBC8] bg-opacity-20 text-[#53B4AB] p-2 rounded-xl w-full "
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+              <Link href="/dashboard/download-app">
+                <Button
+                  variant="secondary"
+                  className=" justify-start gap-4 bg-[#0FDBC8] bg-opacity-20 text-[#53B4AB] p-2 rounded-xl w-full "
                 >
-                  <path
-                    d="M16.2426 6.75736C15.1568 5.67157 13.6568 5 12 5C10.3431 5 8.84311 5.67157 7.75732 6.75736M9.87864 8.87868C10.4215 8.33579 11.1715 8 12 8C12.8284 8 13.5784 8.33579 14.1213 8.87868M9 22H15C17.2091 22 19 20.2091 19 18V6C19 3.79086 17.2091 2 15 2H9C6.79086 2 5 3.79086 5 6V18C5 20.2091 6.79086 22 9 22ZM16 15C16 17.2091 14.2091 19 12 19C9.79086 19 8 17.2091 8 15C8 12.7909 9.79086 11 12 11C14.2091 11 16 12.7909 16 15Z"
-                    stroke="#53B4AB"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="12" cy="15" r="1" fill="#53B4AB" />
-                </svg>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16.2426 6.75736C15.1568 5.67157 13.6568 5 12 5C10.3431 5 8.84311 5.67157 7.75732 6.75736M9.87864 8.87868C10.4215 8.33579 11.1715 8 12 8C12.8284 8 13.5784 8.33579 14.1213 8.87868M9 22H15C17.2091 22 19 20.2091 19 18V6C19 3.79086 17.2091 2 15 2H9C6.79086 2 5 3.79086 5 6V18C5 20.2091 6.79086 22 9 22ZM16 15C16 17.2091 14.2091 19 12 19C9.79086 19 8 17.2091 8 15C8 12.7909 9.79086 11 12 11C14.2091 11 16 12.7909 16 15Z"
+                      stroke="#53B4AB"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="12" cy="15" r="1" fill="#53B4AB" />
+                  </svg>
 
-                <span className={isCollapsed ? "sr-only" : ""}>
-                  {translations.sidebar.downloadApp}
-                </span>
-              </Button>
+                  <span className={isCollapsed ? "sr-only" : ""}>
+                    {translations.sidebar.downloadApp}
+                  </span>
+                </Button>
+              </Link>
             </TooltipTrigger>
             {isCollapsed && (
               <TooltipContent side="right">

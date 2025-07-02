@@ -1,0 +1,12 @@
+🌐 خدمة الواتساب تعمل على http://localhost:3001
+📋 APIs متاحة:
+   - GET  http://localhost:3001/whatsapp/status
+   - GET  http://localhost:3001/whatsapp/qr
+   - POST http://localhost:3001/whatsapp/send
+   - POST http://localhost:3001/whatsapp/connect
+   - POST http://localhost:3001/whatsapp/disconnect
+
+🔄 بدء الاتصال التلقائي بالواتساب...
+🚀 بدء تشغيل خدمة الواتساب...
+
+🛑 إنهاء الخدمة...
