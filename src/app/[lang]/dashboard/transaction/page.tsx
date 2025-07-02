@@ -54,7 +54,7 @@ export default function Transaction() {
       response.data.result.data
     ) {
       console.log("Transactions fetched successfully:", response.data.result.data);
-      return response.data.result.data.reverse().map((item: any) => ({
+      return response.data.result.data.map((item: any) => ({
         id: item.id,
         store: item.transaction_id || "-",
         from: item.mobile || "-",
@@ -108,11 +108,9 @@ export default function Transaction() {
         t.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         t.amount.toString().includes(searchQuery)
     );
-
   const itemsPerPage = 10;
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
   const displayedTransactions = filteredTransactions
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
