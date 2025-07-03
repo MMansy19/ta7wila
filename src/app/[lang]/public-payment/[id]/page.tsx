@@ -119,6 +119,8 @@ export default function PublicPayment({
             });
             
             const response = await axios.post(
+                // for new public endpoint
+                // `${apiUrl2}/public/check-transaction`,
                 `${apiUrl}/transactions/manual-check`,
                 {
                     payment_option: values.payment_option,
@@ -188,12 +190,13 @@ export default function PublicPayment({
                 });
 
                 if (response?.data.success && response?.data.result) {
-                    const storeData = response.data.result;
-                    setStoreInfo(storeData);
-                    console.log("Store Data:", storeData);
-                    if (storeData.payment_options) {
+                    const { application, payments } = response.data.result;
+                    setStoreInfo(application);
+                    console.log("Store Data:", { application, payments });
+                    
+                    if (application?.payment_options) {
                         const formattedOptions: PaymentOption[] =
-                            storeData.payment_options.map((optionKey: string) => {
+                            application.payment_options.map((optionKey: string) => {
                                 const staticOption = defaultPaymentOptions.find(
                                     (o) => o.key === optionKey
                                 );
@@ -206,7 +209,13 @@ export default function PublicPayment({
                                 };
                             });
                         setPaymentOptions(formattedOptions);
-                        setPayments(storeData.payments || []);
+                        
+                        // Add index as id since the API doesn't provide ids for payments
+                        const paymentsWithIds = payments?.map((payment: any, index: number) => ({
+                            ...payment,
+                            id: index + 1
+                        })) || [];
+                        setPayments(paymentsWithIds);
                     }
                 } else {
                     toast.error(translations?.common?.errorOccurred || "Failed to fetch store information");

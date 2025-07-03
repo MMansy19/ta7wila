@@ -120,7 +120,8 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
     
     const { id, lang } = resolvedParams;
     const baseUrl = window.location.origin;
-    const paymentLink = `${baseUrl}/${lang}/public-payment/${storeDetails.subdomain}`;
+    const storeName = storeDetails.name ? encodeURIComponent(storeDetails.name) : '';
+    const paymentLink = `${baseUrl}/${lang}/public-payment/${storeDetails.subdomain}?store=${storeName}`;
     
     navigator.clipboard.writeText(paymentLink);
     toast.success(translations.storeDetails.paymentLinkCopied || "Payment link copied to clipboard!");
@@ -232,8 +233,9 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
   const handleTemplateSelect = (templateNumber: number) => {
     const { id, lang } = resolvedParams || {};
     const baseUrl = window.location.origin;
-    const paymentLink = `${baseUrl}/${lang}/public-payment/${storeDetails?.subdomain}`;
     const storeName = storeDetails?.name || "المتجر";
+    const encodedStoreName = storeDetails?.name ? encodeURIComponent(storeDetails.name) : '';
+    const paymentLink = `${baseUrl}/${lang}/public-payment/${storeDetails?.subdomain}?store=${encodedStoreName}`;
     
     let templateMessage = "";
     switch (templateNumber) {
