@@ -89,6 +89,8 @@ export default function PublicPayment({
     });
 
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const apiUrl2 = "https://api.ta7wila.com";
+
 
     const handleSubmitPayment = async (
         values: { mobile: string; amount: string; payment_option: string; customer_name: string },
@@ -179,9 +181,9 @@ export default function PublicPayment({
     useEffect(() => {
         const fetchStoreData = async () => {
             if (!resolvedParams) return;
-            
+            console.log("Fetching store data for ID:", `${apiUrl2}/${resolvedParams.id}`);
             try {
-                const response = await axios.get(`${apiUrl}/applications/${resolvedParams.id}`, {
+                const response = await axios.get(`${apiUrl2}/${resolvedParams.id}`, {
                     headers: getAuthHeaders(),
                 });
 

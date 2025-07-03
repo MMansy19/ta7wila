@@ -1,10 +1,12 @@
 "use client";
 import { useTranslation } from '@/hooks/useTranslation';
+import { isAuthenticated } from '@/lib/auth';
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import toast from "react-hot-toast";
 import getAuthHeaders from "../../Shared/getAuth";
 import { formatDateTime } from "@/lib/utils";
+import { useRouter } from 'next/navigation';
 import { 
   Store, 
   Phone, 
@@ -31,6 +33,7 @@ export const dynamic = 'force-dynamic';
 
 export default function StoreDetails({ params }: { params: Promise<Params> }) {
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const router = useRouter();
   const [storeDetails, setStoreDetails] = useState<any>(null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +45,15 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [isSendingWhatsApp, setIsSendingWhatsApp] = useState(false);
   const [messageHistory, setMessageHistory] = useState<any[]>([]);
+
+  // Check authentication on component mount
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      toast.error("يرجى تسجيل الدخول للوصول لهذه الصفحة");
+      router.push('/login');
+      return;
+    }
+  }, [router]);
 
   // Resolve the params Promise
   useEffect(() => {
@@ -63,17 +75,25 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
     const fetchData = async () => {
       const { id } = resolvedParams;
       try {
+        const authHeaders = getAuthHeaders();
+        console.log('Auth headers:', authHeaders); // Debug log
+        
         const response = await axios.get(
           `${apiUrl}/applications/${id}`,
           {
-            headers: {
-              ...getAuthHeaders(),
-            },
+            headers: authHeaders,
           }
         );
         setStoreDetails(response.data.result || {});
         setError(null);
-      } catch (err) {
+      } catch (err: any) {
+        console.error('API Error:', err);
+        if (err.response?.status === 401) {
+          toast.error("انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.");
+          router.push(`/${resolvedParams.lang}/login`);
+        } else {
+          toast.error("خطأ في جلب بيانات المتجر");
+        }
         setError(err as Error);
       } finally {
         setIsLoading(false);
@@ -100,7 +120,7 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
     
     const { id, lang } = resolvedParams;
     const baseUrl = window.location.origin;
-    const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
+    const paymentLink = `${baseUrl}/${lang}/public-payment/${storeDetails.subdomain}`;
     
     navigator.clipboard.writeText(paymentLink);
     toast.success(translations.storeDetails.paymentLinkCopied || "Payment link copied to clipboard!");
@@ -212,7 +232,7 @@ export default function StoreDetails({ params }: { params: Promise<Params> }) {
   const handleTemplateSelect = (templateNumber: number) => {
     const { id, lang } = resolvedParams || {};
     const baseUrl = window.location.origin;
-    const paymentLink = `${baseUrl}/${lang}/public-payment/${id}`;
+    const paymentLink = `${baseUrl}/${lang}/public-payment/${storeDetails?.subdomain}`;
     const storeName = storeDetails?.name || "المتجر";
     
     let templateMessage = "";
