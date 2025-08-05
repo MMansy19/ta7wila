@@ -119,12 +119,10 @@ export default function PublicPayment({
             });
             
             const response = await axios.post(
-                // for new public endpoint
-                // `${apiUrl2}/public/check-transaction`,
-                `${apiUrl}/transactions/manual-check`,
+                `${apiUrl2}/public/check-transaction`,
                 {
                     payment_option: values.payment_option,
-                    application_id: resolvedParams.id,
+                    application_id: storeInfo.id,
                     amount: values.amount,
                     value: values.mobile,
                     payment_id: selectedPaymentId,
@@ -139,7 +137,7 @@ export default function PublicPayment({
                 mobile: values.mobile,
                 payment_option: values.payment_option,
                 payment_id: selectedPaymentId.toString(),
-                application_id: resolvedParams.id,
+                application_id: storeInfo?.id,
                 timestamp: new Date().toISOString(),
                 reference_id: referenceId
             });
@@ -207,13 +205,15 @@ export default function PublicPayment({
                                     img: staticOption?.img || "",
                                     name: staticOption?.name || optionKey,
                                 };
-                            });
+                        
+                            }).filter((option: any) => payments?.some((payment: any) => payment.payment_option == option?.value));
+                        
                         setPaymentOptions(formattedOptions);
                         
                         // Add index as id since the API doesn't provide ids for payments
                         const paymentsWithIds = payments?.map((payment: any, index: number) => ({
                             ...payment,
-                            id: index + 1
+                            
                         })) || [];
                         setPayments(paymentsWithIds);
                     }

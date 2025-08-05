@@ -7,6 +7,8 @@ import toast, { Toaster } from "react-hot-toast";
 import * as Yup from "yup";
 import { MessageSquare, Wifi, WifiOff, Clock, Eye, Phone, Calendar } from "lucide-react";
 import getAuthHeaders from "../Shared/getAuth";
+import WhatsAppShareModal from "./WhatsAppShareModal";
+import { usePathname } from "next/navigation";
 export const dynamic = 'force-dynamic';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -47,6 +49,12 @@ export default function Settings() {
   const [token, setToken] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const pathname = usePathname();
+  
+  // Get the full URL for sharing
+  const shareUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}${pathname}`
+    : '';
   
   // WhatsApp states
   const [whatsappSession, setWhatsappSession] = useState<WhatsAppSession | null>(null);
@@ -78,138 +86,94 @@ export default function Settings() {
   };
 
   // WhatsApp functions
-  const startConnectionCheck = () => {
-    let connectionAttempts = 0;
-    const maxConnectionAttempts = 90; // 90 seconds to complete connection
-    
-    const connectionInterval = setInterval(async () => {
-      connectionAttempts++;
-      try {
-        const statusResponse = await fetch('/api/whatsapp?action=status');
-        const statusData = await statusResponse.json();
-        
-        console.log(`Connection check ${connectionAttempts}:`, statusData);
-        
-        if (statusData.status === 'ready') {
-          // Connection successful!
-          setWhatsappSession({
-            id: 'ta7wila-simple',
-            isConnected: true,
-            lastActivity: new Date().toISOString(),
-            session: statusData.session
-          });
-          setShowQR(false);
-          setQrCode("");
-          clearInterval(connectionInterval);
-          
-          // Multiple success notifications
-          toast.success("🎉 تم الاتصال بالواتساب بنجاح!");
-          setTimeout(() => {
-            toast.success("📱 الواتساب جاهز للاستخدام الآن");
-          }, 2000);
-          
-        } else if (statusData.status === 'auth_failed') {
-          clearInterval(connectionInterval);
-          setShowQR(false);
-          setQrCode("");
-          toast.error("❌ فشل في المصادقة - يرجى المحاولة مرة أخرى");
-          
-        } else if (connectionAttempts >= maxConnectionAttempts) {
-          clearInterval(connectionInterval);
-          setShowQR(false);
-          setQrCode("");
-          toast.error("⏰ انتهت مهلة انتظار الاتصال - يرجى المحاولة مرة أخرى");
-        }
-        
-      } catch (error) {
-        console.error("Error checking connection:", error);
-        if (connectionAttempts >= maxConnectionAttempts) {
-          clearInterval(connectionInterval);
-          setShowQR(false);
-          setQrCode("");
-          toast.error("خطأ في التحقق من حالة الاتصال");
-        }
+  const checkConnection = async () => {
+    try {
+      const statusResponse = await fetch('/api/whatsapp/status');
+      const statusData = await statusResponse.json();
+      
+      console.log('Connection status:', statusData);
+      
+      if (statusData.connected) {
+        setWhatsappSession({
+          id: 'ta7wila-enhanced',
+          isConnected: true,
+          lastActivity: new Date().toISOString(),
+          session: statusData.session
+        });
+        setShowQR(false);
+        setQrCode("");
+        toast.success("🎉 تم الاتصال بالواتساب بنجاح!");
+        return true;
+      } else if (statusData.status === 'disconnected' || statusData.status === 'auth_failed') {
+        // Auto-restart on disconnection
+        await connectWhatsApp();
       }
-    }, 1000); // Check every second
+      return false;
+    } catch (error) {
+      console.error("Error checking connection:", error);
+      toast.error("خطأ في التحقق من حالة الاتصال");
+      return false;
+    }
   };
 
   const generateQRCode = async () => {
     try {
       console.log('🚀 Starting QR generation...');
       
-      // FORCE show QR section immediately
+      // First check if already connected
+      const isConnected = await checkConnection();
+      if (isConnected) return;
+      
+      // Show QR section
       setShowQR(true);
       setQrCode("");
       
-      console.log('📱 showQR FORCED to true, qrCode cleared');
-      
       toast.success("جاري الحصول على أحدث رمز QR...");
       
-      // Function to get FRESH QR code
-      const getFreshQR = async () => {
-        const timestamp = Date.now();
-        console.log(`📡 Fetching FRESH QR code at ${new Date().toLocaleTimeString()}...`);
-        
-        const qrResponse = await fetch(`/api/whatsapp?action=qr&t=${timestamp}`);
-        const qrData = await qrResponse.json();
-        
-        console.log('📊 Fresh QR API Response:', {
-          hasQR: !!qrData.qr,
-          length: qrData.qr?.length || 0,
-          timestamp: new Date().toLocaleTimeString()
-        });
-        
-        return qrData;
-      };
+      // Get QR code
+      const timestamp = Date.now();
+      const qrResponse = await fetch(`/api/whatsapp/qr?t=${timestamp}`);
+      const qrData = await qrResponse.json();
       
-      // Get initial QR code
-      let qrData = await getFreshQR();
-      
-      if (qrData.qr) {
-        console.log('✅ QR Code received, setting state...');
-        console.log('🔍 QR Code length:', qrData.qr.length);
+      if (qrData.success && qrData.qr) {
+        console.log('✅ QR Code received');
         
-        // FORCE set QR code
+        // Use the raw QR code directly from the service
         setQrCode(qrData.qr);
         
-        // Set session
         setWhatsappSession({
-          id: 'ta7wila-simple',
+          id: 'ta7wila-enhanced',
           isConnected: false,
           lastActivity: new Date().toISOString()
         });
         
         toast.success("✅ تم الحصول على رمز QR جديد - امسحه من هاتفك الآن");
         
-        // Auto-refresh QR code every 10 seconds to ensure it's always fresh
-        const qrRefreshInterval = setInterval(async () => {
-          try {
-            console.log('🔄 Auto-refreshing QR code...');
-            const freshQrData = await getFreshQR();
-            
-            if (freshQrData.qr && freshQrData.qr !== qrCode) {
-              console.log('🆕 New QR code detected, updating...');
-              setQrCode(freshQrData.qr);
-              toast.success("تم تحديث رمز QR تلقائياً");
-            }
-          } catch (error) {
-            console.error('❌ QR refresh error:', error);
+        // Start periodic connection checks
+        const checkInterval = setInterval(async () => {
+          const connected = await checkConnection();
+          if (connected) {
+            clearInterval(checkInterval);
           }
-        }, 10000); // Every 10 seconds
+        }, 2000);
         
-        // Store interval reference to clear it later
-        (window as any).qrRefreshInterval = qrRefreshInterval;
+        // Store interval reference for cleanup
+        (window as any).connectionCheckInterval = checkInterval;
         
-        console.log('🔄 Starting connection check...');
-        startConnectionCheck();
-        return; // Exit early since we got the QR
+        // Auto-refresh QR after 45 seconds if not connected
+        setTimeout(async () => {
+          const stillConnecting = !await checkConnection();
+          if (stillConnecting) {
+            console.log('⏰ QR code expired, generating new one...');
+            await generateQRCode();
+          }
+        }, 45000);
+        
       } else {
         console.log('❌ No QR code in response');
         toast.error("فشل في الحصول على رمز QR - يرجى المحاولة مرة أخرى");
         setShowQR(false);
-        return;
       }
-
     } catch (error) {
       console.error("QR Generation Error:", error);
       toast.error("فشل في إنشاء رمز QR");
@@ -219,32 +183,25 @@ export default function Settings() {
 
   const connectWhatsApp = async () => {
     try {
-      if (!whatsappSession?.id) {
-        toast.error("لا يوجد session نشط");
-        return;
-      }
+      // First check if already connected
+      const isConnected = await checkConnection();
+      if (isConnected) return;
 
-      const response = await fetch('/api/whatsapp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'connect',
-          sessionId: whatsappSession.id
-        }),
+      // If not connected, try to restart the service
+      const restartResponse = await fetch('/api/whatsapp/restart', {
+        method: 'POST'
       });
       
-      const data = await response.json();
+      const restartData = await restartResponse.json();
       
-      if (data.success) {
-        setWhatsappSession(data.session);
-        setShowQR(false);
-        setQrCode("");
-        toast.success(translations.whatsapp.sessions.connectionSuccess);
-        loadMessages(); // Reload messages after connection
+      if (restartData.success) {
+        toast.success("🔄 جاري إعادة تشغيل خدمة الواتساب...");
+        // Wait a moment for the service to restart
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Generate new QR code after restart
+        await generateQRCode();
       } else {
-        throw new Error(data.error || 'Failed to connect');
+        throw new Error(restartData.error || 'Failed to restart service');
       }
     } catch (error) {
       console.error("Connection Error:", error);
@@ -254,31 +211,34 @@ export default function Settings() {
 
   const disconnectWhatsApp = async () => {
     try {
-      if (!whatsappSession?.id) {
-        toast.error("لا يوجد session للقطع");
-        return;
+      // Clear any existing intervals
+      if ((window as any).connectionCheckInterval) {
+        clearInterval((window as any).connectionCheckInterval);
+        (window as any).connectionCheckInterval = null;
       }
 
-      const response = await fetch('/api/whatsapp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'disconnect',
-          sessionId: whatsappSession.id
-        }),
-      });
+      // Reset the WhatsApp service
+      const resetResponse = await fetch('/api/whatsapp/reset');
+      const resetData = await resetResponse.json();
       
-      const data = await response.json();
-      
-      if (data.success) {
+      if (resetData.success) {
         setWhatsappSession(null);
         setQrCode("");
         setShowQR(false);
-        toast.success(translations.whatsapp.sessions.sessionDisconnected);
+        toast.success("تم قطع الاتصال بنجاح");
+        
+        // Restart the service after reset
+        const restartResponse = await fetch('/api/whatsapp/restart', {
+          method: 'POST'
+        });
+        
+        if (restartResponse.ok) {
+          toast.success("تم إعادة تشغيل الخدمة");
+          // Generate new QR code after restart
+          await generateQRCode();
+        }
       } else {
-        throw new Error(data.error || 'Failed to disconnect');
+        throw new Error(resetData.error || 'Failed to reset service');
       }
     } catch (error) {
       console.error("Disconnect Error:", error);
@@ -314,25 +274,22 @@ export default function Settings() {
 
   const checkSessionStatus = async () => {
     try {
-      const response = await fetch('/api/whatsapp?action=getSessions', {
-        method: 'GET',
-      });
-      
-      if (!response.ok) {
-        console.warn("WhatsApp service not available for session check");
-        return;
-      }
-      
-      const data = await response.json();
-      
-      if (data.success && data.sessions.length > 0) {
-        const activeSession = data.sessions.find((s: any) => s.isConnected);
-        if (activeSession) {
-          setWhatsappSession(activeSession);
-        }
+      const isConnected = await checkConnection();
+      if (!isConnected && whatsappSession?.isConnected) {
+        // If we think we're connected but server says we're not,
+        // update local state and try to reconnect
+        setWhatsappSession(null);
+        toast.error("انقطع الاتصال بالواتساب");
+        await connectWhatsApp();
       }
     } catch (error) {
       console.warn("WhatsApp service not available:", error);
+      // If we can't reach the service, try to restart it
+      try {
+        await fetch('/api/whatsapp/restart', { method: 'POST' });
+      } catch (e) {
+        console.error("Failed to restart WhatsApp service:", e);
+      }
     }
   };
 
@@ -378,9 +335,17 @@ export default function Settings() {
 
     fetchUserProfile();
     fetchToken();
-    loadMessages();
     checkSessionStatus();
-  }, [translations.errors?.developerMode]);
+
+    // Cleanup function
+    return () => {
+      // Clear any existing intervals
+      if ((window as any).connectionCheckInterval) {
+        clearInterval((window as any).connectionCheckInterval);
+        (window as any).connectionCheckInterval = null;
+      }
+    };
+  }, []);
 
   const handleSubmit = async (
     values: User,
@@ -814,14 +779,17 @@ export default function Settings() {
 
       {/* WhatsApp Settings Section */}
       <div className="backdrop-blur-sm bg-slate-800/40 border border-slate-700/50 rounded-2xl p-8 shadow-2xl hover:shadow-green-500/10 transition-all duration-300">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="p-3 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl border border-green-500/30">
-            <MessageSquare className="w-6 h-6 text-green-400" />
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl border border-green-500/30">
+              <MessageSquare className="w-6 h-6 text-green-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white">{translations.whatsapp.title}</h2>
+              <p className="text-slate-400">{translations.whatsapp.subtitle}</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-white">{translations.whatsapp.title}</h2>
-            <p className="text-slate-400">{translations.whatsapp.subtitle}</p>
-          </div>
+          <WhatsAppShareModal link={shareUrl} />
         </div>
         
         {/* Connection Status */}
@@ -878,7 +846,7 @@ export default function Settings() {
               onClick={async () => {
                 try {
                   const timestamp = Date.now();
-                  const res = await fetch(`/api/whatsapp?action=qr&t=${timestamp}`);
+                  const res = await fetch(`/api/whatsapp/qr?t=${timestamp}`);
                   const data = await res.json();
                   if (data.qr) {
                     setQrCode(data.qr);
@@ -900,13 +868,13 @@ export default function Settings() {
             <button
               onClick={() => {
                 // Clear the auto-refresh interval
-                if ((window as any).qrRefreshInterval) {
-                  clearInterval((window as any).qrRefreshInterval);
-                  (window as any).qrRefreshInterval = null;
+                if ((window as any).connectionCheckInterval) {
+                  clearInterval((window as any).connectionCheckInterval);
+                  (window as any).connectionCheckInterval = null;
                   toast.success('⏹️ تم إيقاف التحديث التلقائي');
-                                 } else {
-                   toast.success('⚠️ التحديث التلقائي غير نشط');
-                 }
+                } else {
+                  toast.success('⚠️ التحديث التلقائي غير نشط');
+                }
               }}
               className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm"
             >
@@ -932,7 +900,7 @@ export default function Settings() {
               <strong>QR Code:</strong> {qrCode ? `✅ متوفر (${Math.round(qrCode.length/1000)}KB)` : '❌ غير متوفر'}
             </div>
             <div className="bg-gray-700 p-3 rounded">
-              <strong>التحديث التلقائي:</strong> {(window as any)?.qrRefreshInterval ? '🔄 نشط' : '⏹️ متوقف'}
+              <strong>التحديث التلقائي:</strong> {(window as any)?.connectionCheckInterval ? '🔄 نشط' : '⏹️ متوقف'}
             </div>
             <div className="bg-gray-700 p-3 rounded">
               <strong>آخر تحديث:</strong> {new Date().toLocaleTimeString()}
@@ -940,52 +908,19 @@ export default function Settings() {
           </div>
         </div>
 
-        {/* QR Code Section */}
-        {(() => {
-          console.log('🎯 UI Render - showQR:', showQR, 'qrCode length:', qrCode?.length || 0);
-          return null;
-        })()}
+        {/* WhatsApp QR Code Section */}
         {showQR && (
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-4">رمز QR للاتصال</h3>
-            <div className="bg-[#444444] rounded-lg p-6 text-center">
-              {qrCode ? (
-                <div className="space-y-4">
-                  <div className="bg-white p-6 rounded-lg inline-block shadow-lg">
-                    <img 
-                      src={qrCode} 
-                      alt="WhatsApp QR Code" 
-                      className="w-64 h-64 mx-auto"
-                      onLoad={() => console.log('🖼️ QR Image loaded successfully')}
-                      onError={() => console.log('❌ QR Image failed to load')}
-                    />
-                  </div>
-                  <div className="bg-green-500/20 text-green-400 p-3 rounded-lg mb-2">
-                    ✅ رمز QR جاهز للمسح - يتم التحديث كل 10 ثوانٍ تلقائياً
-                  </div>
-                  <div className="bg-blue-500/20 text-blue-400 p-2 rounded text-sm mb-3">
-                    📅 آخر تحديث: {new Date().toLocaleString('ar-EG')}
-                  </div>
-                  <p className="text-white/70">{translations.whatsapp.qrScanner.subtitle}</p>
-                  <div className="text-sm text-white/60 space-y-1">
-                    <p>{translations.whatsapp.qrScanner.step1}</p>
-                    <p>{translations.whatsapp.qrScanner.step2}</p>
-                    <p>{translations.whatsapp.qrScanner.step3}</p>
-                  </div>
-                  <button
-                    onClick={connectWhatsApp}
-                    className="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm transition-colors"
-                  >
-                    {translations.whatsapp.qrScanner.simulateScan}
-                  </button>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#53B4AB] mx-auto"></div>
-                  <p className="text-white/70">{translations.whatsapp.qrScanner.generating}</p>
-                </div>
-              )}
-            </div>
+          <div className="mt-4 p-4 bg-black rounded-lg">
+            <h3 className="text-xl font-semibold mb-4 text-white text-center">امسح رمز QR للاتصال</h3>
+            {qrCode ? (
+              <pre className="text-white text-center whitespace-pre font-mono" style={{ lineHeight: '1' }}>
+                {qrCode}
+              </pre>
+            ) : (
+              <div className="text-center text-white">
+                <p>جاري تحميل رمز QR...</p>
+              </div>
+            )}
           </div>
         )}
 
@@ -993,7 +928,7 @@ export default function Settings() {
         <div>
           <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Eye className="w-5 h-5 text-[#53B4AB]" />
-                         سجل الرسائل المرسلة
+            سجل الرسائل المرسلة
           </h3>
           
           <div className="bg-[#444444] rounded-lg">
@@ -1007,16 +942,16 @@ export default function Settings() {
                         <span className="font-medium">{message.recipient}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                                                 <span className={`px-2 py-1 rounded-full text-xs ${
-                           message.status === 'delivered' ? 'bg-green-500/20 text-green-400' :
-                           message.status === 'read' ? 'bg-blue-500/20 text-blue-400' :
-                           message.status === 'sent' ? 'bg-yellow-500/20 text-yellow-400' :
-                           'bg-red-500/20 text-red-400'
-                         }`}>
-                           {message.status === 'delivered' ? 'تم التسليم' :
-                            message.status === 'read' ? 'تم القراءة' :
-                            message.status === 'sent' ? 'تم الإرسال' : 'فشل الإرسال'}
-                         </span>
+                        <span className={`px-2 py-1 rounded-full text-xs ${
+                          message.status === 'delivered' ? 'bg-green-500/20 text-green-400' :
+                          message.status === 'read' ? 'bg-blue-500/20 text-blue-400' :
+                          message.status === 'sent' ? 'bg-yellow-500/20 text-yellow-400' :
+                          'bg-red-500/20 text-red-400'
+                        }`}>
+                          {message.status === 'delivered' ? 'تم التسليم' :
+                           message.status === 'read' ? 'تم القراءة' :
+                           message.status === 'sent' ? 'تم الإرسال' : 'فشل الإرسال'}
+                        </span>
                       </div>
                     </div>
                     <p className="text-white/80 text-sm mb-2 line-clamp-2">{message.message}</p>
@@ -1030,7 +965,7 @@ export default function Settings() {
             ) : (
               <div className="p-8 text-center text-white/60">
                 <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                                 <p>لا توجد رسائل مرسلة</p>
+                <p>لا توجد رسائل مرسلة</p>
               </div>
             )}
           </div>

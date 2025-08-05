@@ -32,7 +32,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="shortcut icon" href="/Frame 1984078121.png" />
+        <link rel="shortcut icon" href="/Group (1).png" />
       </head>
       <body>
         <NextIntlClientProvider locale={lang} messages={messages}>
