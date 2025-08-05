@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start -p 3009",
-    "start:whatsapp": "node lib/whatsapp-super-simple.js",
-    "start:production": "concurrently \"npm run start\" \"npm run start:whatsapp\"",
+    "dev": "node init && next dev",
+    "build": "node init && next build",
+    "start": "node init && next start -p 3009",
+    "start:whatsapp": "node init && node lib/whatsapp-super-simple.js",
+    "start:production": "node init && concurrently \"npm run start\" \"npm run start:whatsapp\"",
     "lint": "next lint",
     "whatsapp:real": "node lib/whatsapp-real.js",
     "whatsapp:simple": "node lib/whatsapp-simple.js",
@@ -17,10 +17,10 @@
     "whatsapp:diagnose": "bash whatsapp-diagnostic.sh",
     "whatsapp:test-chrome": "node test-chrome-puppeteer.js",
     "whatsapp:vps-fix": "bash vps-whatsapp-fix.sh",
-    "dev:real": "concurrently \"npm run dev\" \"npm run whatsapp:real\"",
-    "dev:simple": "concurrently \"PORT=3000 npm run dev\" \"npm run whatsapp:simple\"",
+    "dev:real": "node init && concurrently \"npm run dev\" \"npm run whatsapp:real\"",
+    "dev:simple": "node init && concurrently \"PORT=3000 npm run dev\" \"npm run whatsapp:simple\"",
     "whatsapp": "node lib/whatsapp-service.js",
-    "dev:full": "concurrently \"npm run dev\" \"npm run whatsapp\""
+    "dev:full": "node init && concurrently \"npm run dev\" \"npm run whatsapp\""
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
